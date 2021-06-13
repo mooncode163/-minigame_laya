@@ -4,8 +4,7 @@ export enum ScrollModel {
     Horizontal,//0
     Vertical,//1 
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(ScrollModel);
+ 
 
 
 export enum ScrollDirection {
@@ -15,24 +14,21 @@ export enum ScrollDirection {
     Left,//1 
     Rigth,//1 
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(ScrollDirection);
+ 
 
 
 export enum Direction {
     LEFT_TO_RIGHT__TOP_TO_BOTTOM,//0
     TOP_TO_BOTTOM__LEFT_TO_RIGHT,//1  
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(Direction);
+ 
 
 
 export enum ViewType {
     Scroll,//0
     Flip,//1  
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(ViewType);
+ 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer

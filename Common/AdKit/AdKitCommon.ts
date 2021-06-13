@@ -17,8 +17,7 @@ enum AdType {
     INSERT,
     VIDEO,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(AdType);
+ 
 
 
 enum AdStatus {
@@ -27,8 +26,7 @@ enum AdStatus {
     START,
     CLOSE,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(AdStatus); 
+ 
 export class AdKitCommon  {
 
     public static AdType = AdType;

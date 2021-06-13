@@ -1,3 +1,9 @@
+import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import Debug from "../../Debug";
+import { UIViewPop } from "../PopUp/UIViewPop";
+import UIButton from "../UIButton/UIButton";
+import UIImage from "../UIImage/UIImage";
+import UIText from "../UIText/UIText";
 
  
 export class UIViewAlert extends UIViewPop {

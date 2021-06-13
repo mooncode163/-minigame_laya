@@ -9,20 +9,20 @@ export class LayOutBase extends Component {
     target2: Node = null; 
 
 
-    @property
+   
     enableLayout = true;
-    @property
+   
     enableHide = true; //是否包含Hide true 包含 false  不包含
 
     // 选择横屏配置参数
-    @property
+   
     enableLandscape = false;
-    @property
+   
     enableOffsetAdBanner = false; 
 
-    @property
+   
     isOnlyForPortrait = false;
-    @property
+   
     isOnlyForLandscape = false;
 
     @type(Vec2)
@@ -33,7 +33,7 @@ export class LayOutBase extends Component {
     directionVertical = Direction.TOP_TO_BOTTOM;
     directionHorizontal = Direction.LEFT_TO_RIGHT;
 
-    // @property({
+    //({
     //     type: Align,
     //     // displayOrder: 3,
     // })

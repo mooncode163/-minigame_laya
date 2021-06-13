@@ -155,7 +155,7 @@ export default class UIButton extends UIView {
     // dummy = '';
 
     // [2]
-    // @property
+    //
     // serializableDummy = 0;
 
 

@@ -8,11 +8,7 @@ export enum GameStatus {
     Prop,
 
 }
-
-
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(GameStatus);
-
+ 
  
 export class GameData  {
  

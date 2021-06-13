@@ -1,3 +1,4 @@
+import UIView from "../ViewController/UIView";
 
  
 export class UIViewCell extends UIView {

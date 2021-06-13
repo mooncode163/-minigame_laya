@@ -1,3 +1,6 @@
+import UIView from "../ViewController/UIView";
+import { TableView } from "./TableView";
+
  
 export class UITableView extends UIView {
     @type(TableView)

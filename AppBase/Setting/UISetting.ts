@@ -17,9 +17,7 @@ export enum SettingType {
     NOAD,
     RESTORE_IAP,
     LAST,
-}
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(SettingType);
+} 
 
  
 export class UISetting extends UIView { 

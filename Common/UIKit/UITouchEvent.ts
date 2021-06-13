@@ -12,7 +12,7 @@ export class UITouchEvent extends Component {
     callBackTouch = null;
     isTouchDown = false;
 
-    @property
+   
     enableLongPress = false;
 
     onLoad() {

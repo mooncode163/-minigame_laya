@@ -34,7 +34,7 @@ export class LayOutRelation extends LayOutBase {
     // dummy = '';
 
     // [2]
-    // @property
+    //
     // serializableDummy = 0;
     onLoad() {
         super.onLoad();

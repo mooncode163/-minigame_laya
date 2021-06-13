@@ -30,19 +30,18 @@ enum TestEum {
     RIGHT,
     UP,
     DOWN,
-}
-Enum(TestEum); 
+} 
 export class LayOutSize extends LayOutBase {
   public static Enum = Enum(layerList);
-    @property
+   
     ratio = 1.0;
-    @property
+   
     ratioW = 1.0;
-    @property
+   
     ratioH = 1.0;
-    @property
+   
     widthH = 1.0;//宽
-    @property
+   
     heightH = 1.0;//高  
  
       // 必须设置两个@type 才能在editor里修改
@@ -70,7 +69,7 @@ export class LayOutSize extends LayOutBase {
     }
 
     private _height = 1.0;
-    @property
+   
     //get 的用法
     get height(): number {
         return this._height;
@@ -110,7 +109,7 @@ export class LayOutSize extends LayOutBase {
     // protected _transition = TestEum.LEFT;
 
     // @type(TestEum) 
-    // // @property({type:TestEum})
+    // //({type:TestEum})
     // get transition () {
     //     return this._transition;
     // }
@@ -125,7 +124,7 @@ export class LayOutSize extends LayOutBase {
     // dummy = '';
 
     // [2]
-    // @property
+    //
     // serializableDummy = 0;
 
     onLoad() {

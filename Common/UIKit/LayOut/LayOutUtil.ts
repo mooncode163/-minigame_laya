@@ -21,38 +21,34 @@ export enum Align {
     Vertical,
     SAME_POSTION,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(Align);
-
+ 
 export enum RelationType {
     NONE,// 
     PARENT,//相对父窗口 
     TARGET,//相对目标 
     ALL,
 }
-Enum(RelationType);
+ 
  
 
 export enum ScaleType {
     MIN,
     MAX 
 }
-Enum(ScaleType);
+ 
 
 
 export enum DispLayVertical {
     TOP_TO_BOTTOM = 0,
     BOTTOM_TO_TOP,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(DispLayVertical);
+ 
 
 export enum DispLayHorizontal {
     LEFT_TO_RIGHT = 0,
     RIGHT_TO_LEFT,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(DispLayHorizontal);
+ 
 
 
 
@@ -65,8 +61,7 @@ export enum Direction {
     RIGHT_TO_LEFT,
 
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(Direction);
+ 
 
 export enum SizeType {
     MATCH_CONTENT = 0,//按内容设置
@@ -85,8 +80,7 @@ export enum SizeType {
     // 和widht height同步 canvas大小
     MATCH_VALUE_Canvas,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(SizeType);
+ 
 
 
 export enum SideType {
@@ -95,8 +89,7 @@ export enum SideType {
     UP,
     DOWN,
 }
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(SideType);
+ 
 
  
 export class LayOutUtil {

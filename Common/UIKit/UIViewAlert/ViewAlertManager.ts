@@ -1,3 +1,8 @@
+import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import { PrefabCache } from "../../Cache/PrefabCache";
+import { ConfigPrefab } from "../../Config/ConfigPrefab";
+import { PopUpManager } from "../PopUp/PopUpManager";
+import { UIViewAlert } from "./UIViewAlert";
 
  
 export class ViewAlertManager  {

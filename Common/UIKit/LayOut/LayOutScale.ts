@@ -6,7 +6,7 @@ import { ScaleType } from "./LayOutUtil";
  
 export class LayOutScale extends LayOutBase {
 
-    @property
+   
     ratio = 1.0;
 
     @type(ScaleType)

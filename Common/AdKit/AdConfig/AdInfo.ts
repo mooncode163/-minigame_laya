@@ -8,7 +8,7 @@ export enum AdType {
     VIDEO,
     INSERT_VIDEO,
 }
-Enum(AdType); 
+ 
 export class AdInfo  {
     // public static AdType = AdType;
     source = '';

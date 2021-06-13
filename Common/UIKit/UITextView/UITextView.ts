@@ -1,3 +1,5 @@
+import UIView from "../ViewController/UIView";
+
  
 export class UITextView extends UIView {
     static _main: UITextView;

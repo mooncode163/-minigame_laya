@@ -1,3 +1,6 @@
+import { NaviViewController } from "../NaviBar/NaviViewController";
+import UIView from "./UIView";
+
  
  
 export class UIViewController   {
@@ -5,7 +8,7 @@ export class UIViewController   {
     // dummy = '';
 
     // [2]
-    // @property
+    //
     // serializableDummy = 0;
 
     index: number;

@@ -6,7 +6,7 @@ export class LayOutGrid extends LayOutBase {
     // dummy = '';
 
     // [2]
-    // @property
+    //
     // serializableDummy = 0;
   
 

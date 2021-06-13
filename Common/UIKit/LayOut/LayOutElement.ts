@@ -1,6 +1,6 @@
  
 export class LayOutElement extends Component {
-    @property
+   
     ignoreLayout= false;
     
     start () {
