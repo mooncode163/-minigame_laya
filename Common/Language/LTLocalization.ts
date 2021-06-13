@@ -1,3 +1,6 @@
+import Debug from "../Debug";
+import { Dictionary } from "../Dictionary";
+import { CSVParser } from "../FileParse/CSV/CSVParser";
 
  
 export class LTLocalization  {

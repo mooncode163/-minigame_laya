@@ -1,3 +1,12 @@
+import { Language } from "../../../../Common/Language/Language";
+import { UIViewPop } from "../../../../Common/UIKit/PopUp/UIViewPop";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import UIText from "../../../../Common/UIKit/UIText/UIText";
+import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
+import { GameData, GameStatus } from "../../Data/GameData";
+import { GameLevelParse } from "../../Data/GameLevelParse";
+import { UIGameMerge } from "./UIGameMerge";
+
  
 export class UIPopProp extends UIViewPop {
     @type(UIText)

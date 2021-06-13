@@ -1,3 +1,7 @@
+import { Common } from "../Common";
+import { ColorConfigInternal } from "./ColorConfigInternal";
+import { ConfigBase } from "./ConfigBase";
+
  
 export class ColorConfig extends ConfigBase {
     colorApp: ColorConfigInternal = null;

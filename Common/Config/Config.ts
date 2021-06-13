@@ -1,3 +1,12 @@
+import { Common } from "../Common";
+import Debug from "../Debug";
+import { Device } from "../Device";
+import { JsonUtil } from "../File/JsonUtil";
+import { Platform } from "../Platform";
+import { Source } from "../Source";
+import { ConfigBase } from "./ConfigBase";
+import { ConfigInternal } from "./ConfigInternal";
+
  
 export class Config extends ConfigBase {
     configApp: ConfigInternal = null;

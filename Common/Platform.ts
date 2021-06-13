@@ -2,24 +2,30 @@
 export class Platform  {
 
     public static get isAndroid(): boolean {
-        return (sys.platform == sys.OS_ANDROID) ? true : false;
+        return Laya.Browser.onAndroid ;
     }
     public static get isiOS(): boolean {
-        return (sys.platform == sys.OS_IOS) ? true : false;
+        return Laya.Browser.onIOS ;
     }
 
     public static get isWin(): boolean {
-        return (sys.platform == sys.OS_WINDOWS) ? true : false;
+        return Laya.Browser.onPC ;
     }
     public static get isWeiXin(): boolean {
-        return (sys.platform == sys.WECHAT_GAME) ? true : false;
+        return Laya.Browser.onMiniGame ;
     }
+
+    public static get isQQ(): boolean {
+        return Laya.Browser.onQQMiniGame ;
+    }
+
+    
     public static get isFacebook(): boolean {
-        return (sys.platform == sys.FB_PLAYABLE_ADS) ? true : false;
+        return Laya.Browser.onIOS ;
     }
 
     public static get isByte(): boolean {
-        return (sys.platform == sys.BYTEDANCE_MINI_GAME) ? true : false;
+        return Laya.Browser.onTTMiniGame ;
     }
 
     public static get isCloudRes(): boolean {

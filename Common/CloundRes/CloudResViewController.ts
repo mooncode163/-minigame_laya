@@ -1,3 +1,7 @@
+import { PrefabCache } from "../Cache/PrefabCache";
+import Debug from "../Debug";
+import { PopViewController } from "../UIKit/ViewController/PopViewController";
+import { UICloudRes } from "./UICloudRes";
 
  
 export class CloudResViewController extends PopViewController {

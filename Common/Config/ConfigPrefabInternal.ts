@@ -1,3 +1,6 @@
+import { JsonUtil } from "../File/JsonUtil";
+import { ConfigInternalBase } from "./ConfigInternalBase";
+
  
 export class ConfigPrefabInternal extends ConfigInternalBase { 
     ContainsKey(key:string)

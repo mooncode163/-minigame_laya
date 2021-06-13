@@ -1,3 +1,4 @@
+import UIView from "../../Common/UIKit/ViewController/UIView";
 
  
 export class GameBase extends UIView {

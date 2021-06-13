@@ -1,3 +1,6 @@
+import Debug from "../Debug";
+import { ConfigInternalBase } from "./ConfigInternalBase";
+
  
 export class ColorConfigInternal extends ConfigInternalBase {
 

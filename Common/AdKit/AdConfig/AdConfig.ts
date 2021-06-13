@@ -1,3 +1,8 @@
+import { Common } from "../../Common";
+import { ConfigBase } from "../../Config/ConfigBase";
+import { Device } from "../../Device";
+import { Platform } from "../../Platform";
+import { AdConfigInternal } from "./AdConfigInternal";
 
  
 export class AdConfig extends ConfigBase {

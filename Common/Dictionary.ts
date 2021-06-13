@@ -1,3 +1,4 @@
+import Debug from "./Debug";
 
  
 export class Dictionary  {
@@ -22,7 +23,7 @@ export class Dictionary  {
         for (var key in this.datastore) {
             str += key + " -> " + this.datastore[key] + ";  "
         }
-        Debug.Log(str);
+        // Debug.Log(str);
     }
 
     Count () {

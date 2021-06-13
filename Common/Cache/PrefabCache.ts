@@ -1,3 +1,5 @@
+import { ConfigPrefab } from "../Config/ConfigPrefab";
+import { ResManager } from "../Res/ResManager";
 
  
 export class PrefabCache  {

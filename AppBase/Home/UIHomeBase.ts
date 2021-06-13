@@ -1,3 +1,11 @@
+import { UIHomeCenterBar } from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
+import { UIHomeSideBar } from "../../Apps/Merge/UI/Home/UIHomeSideBar";
+import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import UIImage from "../../Common/UIKit/UIImage/UIImage";
+import UIText from "../../Common/UIKit/UIText/UIText";
+import UIView from "../../Common/UIKit/ViewController/UIView";
+import { UIHomeAppCenter } from "./UIHomeAppCenter";
+
  
 export class UIHomeBase extends UIView {
     @type(UIText)

@@ -1,3 +1,11 @@
+import { GameManager } from "../../../../../AppBase/Game/GameManager";
+import { LevelData } from "../../../../../AppBase/Game/LevelData";
+import { UIViewPop } from "../../../../../Common/UIKit/PopUp/UIViewPop";
+import UIButton from "../../../../../Common/UIKit/UIButton/UIButton";
+import UIImage from "../../../../../Common/UIKit/UIImage/UIImage";
+import UIText from "../../../../../Common/UIKit/UIText/UIText";
+import { GameLevelParse } from "../../../Data/GameLevelParse";
+
  
 export class UIGameWin extends UIViewPop {
  

@@ -1,3 +1,13 @@
+import { Common } from "../../../Common/Common";
+import { CommonRes } from "../../../Common/CommonRes";
+import Debug from "../../../Common/Debug";
+import { ItemInfo } from "../../../Common/ItemInfo";
+import { Language } from "../../../Common/Language/Language";
+import UIImage from "../../../Common/UIKit/UIImage/UIImage";
+import { UICellItemBase } from "../../../Common/UIKit/UITableView/UICellItemBase";
+import UIText from "../../../Common/UIKit/UIText/UIText";
+import AppSceneBase from "../../Common/AppSceneBase";
+import { UILanguage } from "./UILanguage";
 
  
 export class UILanguageCellItem extends UICellItemBase {

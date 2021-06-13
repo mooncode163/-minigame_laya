@@ -19,11 +19,14 @@ export class Device {
         }
         return false;
     }
-    get screenSize() {
-        var frameSize = view.getFrameSize()
-        Debug.Log("screen frameSize width=" + frameSize.width + ",height=" + frameSize.height);
-        var ratio = view.getDevicePixelRatio();
-        var screenSize = new Size(frameSize.width * ratio, frameSize.height * ratio);
+
+    // https://www.jianshu.com/p/b083f8d3948b
+    get screenSize():Laya.Size { 
+        var w = Laya.Browser.width;
+        var h = Laya.Browser.height;
+        Debug.Log("screen frameSize width=" + w + ",height=" + h);
+        // var ratio = view.getDevicePixelRatio();
+        var screenSize = new Laya.Size(w, h);
         // let screenSize = director.getWinSizeInPixels(); 
         Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height);
         return screenSize;

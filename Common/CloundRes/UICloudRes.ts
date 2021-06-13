@@ -1,3 +1,16 @@
+import { Common } from "../Common";
+import { CommonRes } from "../CommonRes";
+import Debug from "../Debug";
+import UIImage from "../UIKit/UIImage/UIImage";
+import { UIProgress } from "../UIKit/UIProgress/UIProgress";
+import UIText from "../UIKit/UIText/UIText";
+import { PopViewController } from "../UIKit/ViewController/PopViewController";
+import UIView from "../UIKit/ViewController/UIView";
+import { CloudRes } from "./CloudRes";
+import { ConfigCloudRes } from "./ConfigCloudRes";
+import { ImageResCloudRes } from "./ImageResCloudRes";
+import { LanguageCloudRes } from "./LanguageCloudRes";
+
  
 export class UICloudRes extends UIView {
     @type(UIImage)

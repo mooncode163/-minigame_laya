@@ -1,3 +1,8 @@
+import { AdConfig } from "../../../AdKit/AdConfig/AdConfig";
+import { AdType } from "../../../AdKit/AdConfig/AdInfo";
+import { AdBannerPlatformWrapper } from "../../../AdKit/Banner/AdBannerPlatformWrapper";
+import Debug from "../../../Debug";
+import { Source } from "../../../Source";
 
  
 export class AdBannerWeiXin extends AdBannerPlatformWrapper {

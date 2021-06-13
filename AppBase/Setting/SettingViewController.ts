@@ -1,3 +1,8 @@
+import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import Debug from "../../Common/Debug";
+import { UIViewController } from "../../Common/UIKit/ViewController/UIViewController";
+import { UISetting } from "./UISetting";
+
  
 export class SettingViewController extends UIViewController {
 

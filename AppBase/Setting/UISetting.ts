@@ -1,3 +1,12 @@
+import { Common } from "../../Common/Common";
+import { ItemInfo } from "../../Common/ItemInfo";
+import { Language } from "../../Common/Language/Language";
+import { Platform } from "../../Common/Platform";
+import UIImage from "../../Common/UIKit/UIImage/UIImage";
+import { UITableView } from "../../Common/UIKit/UITableView/UITableView";
+import UIText from "../../Common/UIKit/UIText/UIText";
+import UIView from "../../Common/UIKit/ViewController/UIView";
+
  
 export enum SettingType {
     COMMENT =0,//0

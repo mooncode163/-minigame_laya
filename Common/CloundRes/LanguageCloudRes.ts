@@ -1,3 +1,6 @@
+import { Common } from "../Common";
+import { ConfigBase } from "../Config/ConfigBase";
+import { LanguageInternal } from "../Language/LanguageInternal";
 
  
 export class LanguageCloudRes extends ConfigBase { 

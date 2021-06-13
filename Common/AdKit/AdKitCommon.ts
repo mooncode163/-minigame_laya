@@ -2,6 +2,15 @@
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
+
+import AppSceneBase from "../../AppBase/Common/AppSceneBase";
+import { Common } from "../Common";
+import Debug from "../Debug";
+import { Source } from "../Source";
+import { AdBanner } from "./Banner/AdBanner";
+import { AdInsert } from "./Insert/AdInsert";
+import { AdVideo } from "./Video/AdVideo";
+
   
 enum AdType {
     BANNER = 0,

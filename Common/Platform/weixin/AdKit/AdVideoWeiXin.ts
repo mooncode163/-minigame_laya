@@ -1,3 +1,8 @@
+import { AdConfig } from "../../../AdKit/AdConfig/AdConfig";
+import { AdType } from "../../../AdKit/AdConfig/AdInfo";
+import { AdVideoPlatformWrapper } from "../../../AdKit/Video/AdVideoPlatformWrapper";
+import Debug from "../../../Debug";
+import { Source } from "../../../Source";
 
  
 export class AdVideoWeiXin extends AdVideoPlatformWrapper {

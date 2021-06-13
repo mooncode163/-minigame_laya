@@ -1,3 +1,7 @@
+import { Platform } from "../Platform";
+import { ResManager } from "../Res/ResManager";
+import { CloudRes } from "./CloudRes";
+import { ConfigCloudRes } from "./ConfigCloudRes";
 
  
 export class CloudResVersion {

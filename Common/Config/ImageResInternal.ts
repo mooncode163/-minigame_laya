@@ -1,3 +1,6 @@
+import Debug from "../Debug";
+import { JsonUtil } from "../File/JsonUtil";
+import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
 export class ImageResInternal extends ConfigInternalBase {

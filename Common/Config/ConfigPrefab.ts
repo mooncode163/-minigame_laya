@@ -1,4 +1,8 @@
- 
+import { Common } from "../Common";
+import { ConfigBase } from "./ConfigBase";
+import { ConfigPrefabInternal } from "./ConfigPrefabInternal";
+
+
 export class ConfigPrefab extends ConfigBase {
     configPrefabApp: ConfigPrefabInternal = null;
     configPrefabAppCommon: ConfigPrefabInternal = null;

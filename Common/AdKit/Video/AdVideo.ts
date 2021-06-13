@@ -1,3 +1,7 @@
+import { Platform } from "../../Platform";
+import { AdVideoMooSnow } from "../../Platform/moosnow/AdKit/AdVideoMooSnow";
+import { AdVideoPlatformWrapper } from "./AdVideoPlatformWrapper";
+
  
 export class AdVideo  {
     public static ADVIDEO_TYPE_INSERT = 0;//插屏视频

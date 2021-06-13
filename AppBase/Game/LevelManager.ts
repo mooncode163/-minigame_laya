@@ -1,3 +1,7 @@
+import { GameLevelParse } from "../../Apps/Merge/Data/GameLevelParse";
+import Debug from "../../Common/Debug";
+import { GameViewController } from "./GameViewController";
+import { LevelData } from "./LevelData";
 
  
 export class LevelManager  {

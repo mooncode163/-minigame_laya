@@ -1,3 +1,6 @@
+import { Common } from "../Common";
+import { ConfigBase } from "../Config/ConfigBase";
+import { ConfigCloudResInternal } from "./ConfigCloudResInternal";
 
  
 export class ConfigCloudRes extends ConfigBase {

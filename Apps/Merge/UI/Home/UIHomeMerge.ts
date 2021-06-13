@@ -1,3 +1,15 @@
+import { GameViewController } from "../../../../AppBase/Game/GameViewController";
+import { UIHomeBase } from "../../../../AppBase/Home/UIHomeBase";
+import { AdConfig } from "../../../../Common/AdKit/AdConfig/AdConfig";
+import { AdType } from "../../../../Common/AdKit/AdConfig/AdInfo";
+import { AdKitCommon } from "../../../../Common/AdKit/AdKitCommon";
+import Debug from "../../../../Common/Debug";
+import { Device } from "../../../../Common/Device";
+import { Language } from "../../../../Common/Language/Language";
+import { Source } from "../../../../Common/Source";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import { GameLevelParse } from "../../Data/GameLevelParse";
+
  
 export class UIHomeMerge extends UIHomeBase {
     @type(UIImage)

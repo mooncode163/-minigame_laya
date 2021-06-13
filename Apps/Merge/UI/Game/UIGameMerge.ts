@@ -1,3 +1,16 @@
+import { LevelData } from "../../../../AppBase/Game/LevelData";
+import { UIGameBase } from "../../../../AppBase/Game/UIGameBase";
+import { PrefabCache } from "../../../../Common/Cache/PrefabCache";
+import { ConfigPrefab } from "../../../../Common/Config/ConfigPrefab";
+import Debug from "../../../../Common/Debug";
+import { Language } from "../../../../Common/Language/Language";
+import { PopUpManager } from "../../../../Common/UIKit/PopUp/PopUpManager";
+import UIText from "../../../../Common/UIKit/UIText/UIText";
+import { GameData } from "../../Data/GameData";
+import { GameMerge } from "./GameMerge";
+import { UIPopProp } from "./UIPopProp";
+import { UIToolBar } from "./UIToolBar";
+
  
 export class UIGameMerge extends UIGameBase {
 

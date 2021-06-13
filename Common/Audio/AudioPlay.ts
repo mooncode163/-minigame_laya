@@ -1,3 +1,7 @@
+import { ConfigAudio } from "../Config/ConfigAudio";
+import Debug from "../Debug";
+import { ResManager } from "../Res/ResManager";
+
  
 export class AudioPlay extends Component {  
     @type(AudioSource)

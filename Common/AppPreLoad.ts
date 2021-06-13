@@ -1,3 +1,11 @@
+import { AdConfig } from "./AdKit/AdConfig/AdConfig";
+import { ColorConfig } from "./Config/ColorConfig";
+import { ConfigAudio } from "./Config/ConfigAudio";
+import { ConfigBase } from "./Config/ConfigBase";
+import { ConfigPrefab } from "./Config/ConfigPrefab";
+import { ImageRes } from "./Config/ImageRes";
+import { Language } from "./Language/Language";
+
  
 export class AppPreLoad  {
     countLoad = 0; 

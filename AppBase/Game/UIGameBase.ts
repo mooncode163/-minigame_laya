@@ -1,3 +1,23 @@
+import { AppRes } from "../../Apps/Main/AppRes";
+import { AdKitCommon } from "../../Common/AdKit/AdKitCommon";
+import { MusicBgPlay } from "../../Common/Audio/MusicBgPlay";
+import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import { Common } from "../../Common/Common";
+import { CommonRes } from "../../Common/CommonRes";
+import Debug from "../../Common/Debug";
+import { ItemInfo } from "../../Common/ItemInfo";
+import { Language } from "../../Common/Language/Language";
+import { Share } from "../../Common/Share/Share";
+import { FrendBoard } from "../../Common/SNS/FrendBoard";
+import UIButton from "../../Common/UIKit/UIButton/UIButton";
+import UIImage from "../../Common/UIKit/UIImage/UIImage";
+import UIText from "../../Common/UIKit/UIText/UIText";
+import { ViewAlertManager } from "../../Common/UIKit/UIViewAlert/ViewAlertManager";
+import UIView from "../../Common/UIKit/ViewController/UIView";
+import { GameManager } from "./GameManager";
+import { LevelData } from "./LevelData";
+import { LevelManager } from "./LevelManager";
+
  
 export class UIGameBase extends UIView {
     static GAME_AD_INSERT_SHOW_STEP = 2;

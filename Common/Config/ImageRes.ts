@@ -1,3 +1,8 @@
+import { CloudRes } from "../CloundRes/CloudRes";
+import { Common } from "../Common";
+import { Platform } from "../Platform";
+import { ConfigBase } from "./ConfigBase";
+import { ImageResInternal } from "./ImageResInternal";
 
  
 export class ImageRes extends ConfigBase {

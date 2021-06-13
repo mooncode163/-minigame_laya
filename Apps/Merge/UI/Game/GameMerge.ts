@@ -1,3 +1,14 @@
+import AppSceneBase from "../../../../AppBase/Common/AppSceneBase";
+import { GameBase } from "../../../../AppBase/Game/GameBase";
+import { PrefabCache } from "../../../../Common/Cache/PrefabCache";
+import { Common } from "../../../../Common/Common";
+import Debug from "../../../../Common/Debug";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
+import { GameData, GameStatus } from "../../Data/GameData";
+import { GameLevelParse } from "../../Data/GameLevelParse";
+import { UIGameMerge } from "./UIGameMerge";
+import { UIMergeItem } from "./UIMergeItem";
 
  
 export class GameMerge extends GameBase {

@@ -1,3 +1,8 @@
+import { AdKitCommon } from "../../Common/AdKit/AdKitCommon";
+import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import Debug from "../../Common/Debug";
+import { UIViewController } from "../../Common/UIKit/ViewController/UIViewController";
+import { UIGameBase } from "./UIGameBase";
 
  
 export class GameViewController extends UIViewController {

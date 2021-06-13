@@ -1,3 +1,9 @@
+import Debug from "../../../../Common/Debug";
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import { GameData } from "../../Data/GameData";
+import { UIGameMerge } from "./UIGameMerge";
+import { UIMergeItem } from "./UIMergeItem";
+
  
 export class UIDeadLine extends UIView {
     t = 0;

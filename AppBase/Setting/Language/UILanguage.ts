@@ -1,3 +1,9 @@
+import { ItemInfo } from "../../../Common/ItemInfo";
+import UIImage from "../../../Common/UIKit/UIImage/UIImage";
+import { UITableView } from "../../../Common/UIKit/UITableView/UITableView";
+import UIText from "../../../Common/UIKit/UIText/UIText";
+import UIView from "../../../Common/UIKit/ViewController/UIView";
+
  
 export class UILanguage extends UIView { 
     oneCellNum = 1;

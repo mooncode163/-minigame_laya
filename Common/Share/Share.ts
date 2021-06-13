@@ -1,3 +1,7 @@
+import { Platform } from "../Platform";
+import { SharePlatformWrapper } from "./SharePlatformWrapper";
+import { ShareWeiXin } from "./ShareWeiXin";
+
  
 export class Share  {
 

@@ -1,3 +1,12 @@
+import { LevelData } from "../../../AppBase/Game/LevelData";
+import { LevelParseBase } from "../../../AppBase/Game/LevelParseBase";
+import { CloudRes } from "../../../Common/CloundRes/CloudRes";
+import { Common } from "../../../Common/Common";
+import Debug from "../../../Common/Debug";
+import { FileUtil } from "../../../Common/File/FileUtil";
+import { ItemInfo } from "../../../Common/ItemInfo";
+import { ResManager } from "../../../Common/Res/ResManager";
+import { GameData } from "./GameData";
 
  
 export class GameLevelParse extends LevelParseBase {

@@ -1,3 +1,4 @@
+import { FileSystemPlatformWrapper } from "../../../File/FileSystemPlatformWrapper";
 
  
 export class FileSystemWeixin extends FileSystemPlatformWrapper {

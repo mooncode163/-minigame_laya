@@ -1,3 +1,7 @@
+import Debug from "../Debug";
+import { Device } from "../Device";
+import { JsonUtil } from "../File/JsonUtil";
+import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
 export class ConfigInternal extends ConfigInternalBase {

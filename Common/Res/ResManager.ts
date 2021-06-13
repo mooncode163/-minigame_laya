@@ -1,3 +1,6 @@
+import Debug from "../Debug";
+import { FileUtil } from "../File/FileUtil";
+
  
 export class ResManager  {
     /*

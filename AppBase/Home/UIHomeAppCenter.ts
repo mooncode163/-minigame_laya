@@ -1,3 +1,5 @@
+import UIText from "../../Common/UIKit/UIText/UIText";
+import UIView from "../../Common/UIKit/ViewController/UIView";
 
  
 export class UIHomeAppCenter extends UIView {

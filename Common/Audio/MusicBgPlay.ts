@@ -1,3 +1,4 @@
+import { AudioPlay } from "./AudioPlay";
 
  
 export class MusicBgPlay extends AudioPlay {  

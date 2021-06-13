@@ -1,3 +1,8 @@
+import { ConfigBase } from "../Config/ConfigBase";
+import Debug from "../Debug";
+import { ConfigCloudRes } from "./ConfigCloudRes";
+import { ImageResCloudRes } from "./ImageResCloudRes";
+import { LanguageCloudRes } from "./LanguageCloudRes";
 
  
 export class CloudResPreLoad  {

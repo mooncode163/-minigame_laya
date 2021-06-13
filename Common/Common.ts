@@ -1,6 +1,9 @@
+import Debug from "./Debug";
+import { Device } from "./Device";
+import { Platform } from "./Platform";
 
- 
-export class Common  {
+
+export class Common {
     public static GAME_DATA_DIR = "GameData";//streamingAssetsPath下的游戏配置等数据
     public static GAME_DATA_DIR_COMMON = "GameData/common";
     public static GAME_RES_DIR = "GameRes";//streamingAssetsPath 下的游戏图片等资源
@@ -11,11 +14,17 @@ export class Common  {
     public static THUMB_SUFFIX = "_thumb";
     public static TOUCH_MOVE_STEP_MIN = 3.0;//6.0f
 
-    
+
     // return second
-    static   GetCurrentTime() { 
-        return director.getCurrentTime();
+    static GetCurrentTime() {
+        return this.GetCurrentTimeMs() / 1000;
     }
+
+    static GetCurrentTimeMs() {
+        //获取Laya引擎运行的时间(毫秒)
+        return Laya.systemTimer.currTimer;
+    }
+
     static get noad() {
         var key = "APP_NO_AD";
         var ret = Common.GetBoolOfKey(key, false);
@@ -55,7 +64,7 @@ export class Common  {
     static ScreenToCanvasHeigt(canvasSize, h) {
         let screenSize = Device.main.screenSize;
         var ret = h * canvasSize.height / screenSize.height;
-        Debug.Log("ScreenToCanvasHeigt canvasSize.height="+canvasSize.height+ " screenSize.height="+screenSize.height);
+        Debug.Log("ScreenToCanvasHeigt canvasSize.height=" + canvasSize.height + " screenSize.height=" + screenSize.height);
         return ret;
     }
 
@@ -104,7 +113,7 @@ export class Common  {
 
     //字符串显示大小
     static GetTextSize(text: string, fontsize: number) {
-        var node = new Node("GetTextSize");
+        var node = new Laya.Node();
         var labelTmp = node.addComponent(Label);
         labelTmp.fontSize = fontsize;
         labelTmp.string = text;
@@ -146,86 +155,38 @@ export class Common  {
         return true;
     }
     static SetBoolOfKey(key: string, value: boolean) {
-        if (Platform.isWeiXin) {
-            wx.setStorageSync(key, value);
-            Debug.Log("SetBoolOfKey wx key=" + key + " value=" + value);
-        } else {
-            sys.localStorage.setItem(key, value.toString());
-        }
+        Laya.LocalStorage.setItem(key, value.toString());
+
     }
 
     static GetBoolOfKey(key: string, default_value: boolean) {
-        if (Platform.isWeiXin) {
-            var v = wx.getStorageSync(key);
-            Debug.Log("GetBoolOfKey wx key=" + key + " value=" + v + " type=" + typeof v);
-            if (!Common.isKeyExistWeiXin(v)) {
-                Debug.Log("GetBoolOfKey key is null:" + key);
-                return default_value;
-            }
-            return v;
+        var v = Laya.LocalStorage.getItem(key);
+        if (Common.BlankString(v)) {
+            //Debug.Log("key is null:" + key);
+            return default_value;
         }
-        else {
-            var v = sys.localStorage.getItem(key);
-            //微信小程序key不存在的时候返回""而非null
-            if (Common.BlankString(v)) {
-                Debug.Log("GetBoolOfKey key is null:" + key);
-                return default_value;
-            }
-            Debug.Log("GetBoolOfKey key is :" + key + " v=" + v + " typeof=" + typeof v);
-            // if (cc.Common.main().isWeiXin) {
-            //     return v;
-            // }
-            //cc.sys.localStorage.setItem 保存 bool变量的时候有一些平台实际保存的是"true"和“false"字符串
-            var type = typeof v;
-            if ("boolean" == type) {
-                //微信小程序
-                return v;
-            }
-
-            if ("string" == type) {
-                if (v == "true") {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-            return v;
+        if (v == "true") {
+            return true;
+        } else {
+            return false;
         }
+
 
     }
     static GetItemOfKey(key: string, default_value: any) {
-        var v = "";
-        if (Platform.isWeiXin) {
-            v = wx.getStorageSync(key);
-            if (!Common.isKeyExistWeiXin(v)) {
-                //Debug.Log("key is null:" + key);
-                return default_value;
-            }
-            Debug.Log("GetItemOfKey wx key=" + key + " value=" + v);
-        } else {
-            v = sys.localStorage.getItem(key);
-            if (Common.BlankString(v)) {
-                //Debug.Log("key is null:" + key);
-                return default_value;
-            }
+        var v = Laya.LocalStorage.getItem(key);
+        if (Common.BlankString(v)) {
+            //Debug.Log("key is null:" + key);
+            return default_value;
         }
-
         return v;
     }
     static SetItemOfKey(key: string, value: any) {
-        if (Platform.isWeiXin) {
-            wx.setStorageSync(key, value);
-            Debug.Log("SetItemOfKey wx key=" + key + " value=" + value);
-            var v = wx.getStorageSync(key);
-            Debug.Log("SetItemOfKey wx key now =" + key + " v=" + v);
-        } else {
-            sys.localStorage.setItem(key, value);
-        }
+        Laya.LocalStorage.setItem(key, value);
     }
 
     static GetIntOfKey(key: string, default_value: number) {
-        var v = sys.localStorage.getItem(key);
+        var v = Laya.LocalStorage.getItem(key);
         //微信小程序key不存在的时候返回""而非null
         if (Common.BlankString(v)) {
             Debug.Log("key is null:" + key);
@@ -236,8 +197,7 @@ export class Common  {
         return v_int;
     }
 
-    static GetAppVersion()
-    {
+    static GetAppVersion() {
         return "1.0.0";
     }
 }

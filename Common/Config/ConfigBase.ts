@@ -1,3 +1,5 @@
+import { ConfigInternalBase } from "./ConfigInternalBase";
+
  
 export class ConfigBase  {
     countLoad = 0;

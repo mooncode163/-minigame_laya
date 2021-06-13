@@ -1,3 +1,6 @@
+import { LevelData } from "../../../AppBase/Game/LevelData";
+import { Common } from "../../../Common/Common";
+
  
 export enum GameStatus {
     //区分大小写

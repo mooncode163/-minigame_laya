@@ -1,3 +1,8 @@
+import { ConfigInternalBase } from "../Config/ConfigInternalBase";
+import { FileUtil } from "../File/FileUtil";
+import { JsonUtil } from "../File/JsonUtil";
+import { ResManager } from "../Res/ResManager";
+import { LTLocalization } from "./LTLocalization";
 
  
 export class LanguageInternal extends ConfigInternalBase {

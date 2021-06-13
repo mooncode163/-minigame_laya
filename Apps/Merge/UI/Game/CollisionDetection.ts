@@ -1,3 +1,10 @@
+import { AudioPlay } from "../../../../Common/Audio/AudioPlay";
+import { Common } from "../../../../Common/Common";
+import Debug from "../../../../Common/Debug";
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import { GameData } from "../../Data/GameData";
+import { GameMerge } from "./GameMerge";
+import { UIGameMerge } from "./UIGameMerge";
 
  
 export class CollisionDetection extends UIView {

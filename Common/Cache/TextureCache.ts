@@ -1,3 +1,7 @@
+import Debug from "../Debug";
+import { Dictionary } from "../Dictionary";
+import { ResManager } from "../Res/ResManager";
+
  
 export class TextureCache  {
     dicItem: any;

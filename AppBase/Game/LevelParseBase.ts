@@ -1,3 +1,11 @@
+import { CloudRes } from "../../Common/CloundRes/CloudRes";
+import { Common } from "../../Common/Common";
+import Debug from "../../Common/Debug";
+import { JsonUtil } from "../../Common/File/JsonUtil";
+import { ItemInfo } from "../../Common/ItemInfo";
+import { ResManager } from "../../Common/Res/ResManager";
+import { LevelData } from "./LevelData";
+
  
 export class LevelParseBase  {
     public static PLACE_ITEM_TYPE_NONE = "none";

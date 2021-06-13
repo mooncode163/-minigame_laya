@@ -1,3 +1,6 @@
+import { Common } from "../Common";
+import { FileSystem } from "../File/FileSystem";
+import { Platform } from "../Platform";
 
  
 export class CloudRes  {

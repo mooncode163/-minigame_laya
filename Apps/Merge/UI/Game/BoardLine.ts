@@ -1,3 +1,6 @@
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import { GameData } from "../../Data/GameData";
+
  
 export class BoardLine extends UIView {
     

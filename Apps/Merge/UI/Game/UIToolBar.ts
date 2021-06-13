@@ -1,3 +1,14 @@
+import { AdKitCommon } from "../../../../Common/AdKit/AdKitCommon";
+import { ConfigPrefab } from "../../../../Common/Config/ConfigPrefab";
+import Debug from "../../../../Common/Debug";
+import { LayOutUtil } from "../../../../Common/UIKit/LayOut/LayOutUtil";
+import { LayOutVertical } from "../../../../Common/UIKit/LayOut/LayOutVertical";
+import { PopUpManager } from "../../../../Common/UIKit/PopUp/PopUpManager";
+import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import { GameData, GameStatus } from "../../Data/GameData";
+import { GameMerge } from "./GameMerge";
 
  
 export class UIToolBar extends UIView {

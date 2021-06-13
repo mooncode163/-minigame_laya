@@ -1,3 +1,8 @@
+import { CloudRes } from "../CloundRes/CloudRes";
+import { Common } from "../Common";
+import { Platform } from "../Platform";
+import { ConfigAudioInternal } from "./ConfigAudioInternal";
+import { ConfigBase } from "./ConfigBase";
 
  
 export class ConfigAudio extends ConfigBase {

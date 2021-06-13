@@ -1,3 +1,11 @@
+import Debug from "../../../../Common/Debug";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import { GameData, GameStatus } from "../../Data/GameData";
+import { GameMerge } from "./GameMerge";
+import { UIGameMerge } from "./UIGameMerge";
+
  
 export class UIMergeItem extends UIView {
     @type(UIImage)
