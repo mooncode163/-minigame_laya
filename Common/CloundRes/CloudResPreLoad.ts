@@ -1,15 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc'; 
-import { ConfigBase } from '../Config/ConfigBase';
-import { Debug } from '../Debug';
-import { ConfigCloudRes } from './ConfigCloudRes';
-import { ImageResCloudRes } from './ImageResCloudRes';
-import { LanguageCloudRes } from './LanguageCloudRes';
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('CloudResPreLoad')
+ 
 export class CloudResPreLoad  {
     countLoad = 0; 
 

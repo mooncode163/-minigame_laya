@@ -1,21 +1,4 @@
-
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject, AudioSource, AudioClip } from 'cc';
-import { Common } from '../Common';
-import { ResManager } from '../Res/ResManager';
-import { DEBUG } from 'cc/env';
-import { Debug } from '../Debug';
-import { Platform } from '../Platform';
-import { ImageRes } from '../Config/ImageRes';
-import { CloudRes } from '../CloundRes/CloudRes';
-import { ConfigAudio } from '../Config/ConfigAudio';
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('AudioPlay')
+ 
 export class AudioPlay extends Component {  
     @type(AudioSource)
     audioSource: AudioSource = null;

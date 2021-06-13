@@ -1,15 +1,4 @@
-
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject, Enum } from 'cc';
-import { AppSceneBase } from '../../AppBase/Common/AppSceneBase';
-import { Common } from '../Common';
-import { Debug } from '../Debug';
-import { Source } from '../Source';
-import { AdBanner } from './Banner/AdBanner';
-import { AdInsert } from './Insert/AdInsert';
-import { AdVideo } from './Video/AdVideo';
-
-const { ccclass, property, type, string } = _decorator;
-
+ 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
@@ -30,9 +19,7 @@ enum AdStatus {
     CLOSE,
 }
 //必须Enum设置才能在编辑器里设置enum的值
-Enum(AdStatus);
-
-@ccclass('AdKitCommon')
+Enum(AdStatus); 
 export class AdKitCommon  {
 
     public static AdType = AdType;

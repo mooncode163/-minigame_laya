@@ -1,14 +1,4 @@
-
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject } from 'cc';
  
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('AdBannerPlatformWrapper')
 export class AdBannerPlatformWrapper  {
  
   

@@ -1,11 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('AppRes')
+ 
 export class AppRes  {
 
     public static KEY_GAME_LOCK: string = "KEY_GAME_LOCK";  

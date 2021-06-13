@@ -1,16 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { Common } from '../../Common';
-import { ConfigBase } from '../../Config/ConfigBase';
-import { Device } from '../../Device';
-import { Platform } from '../../Platform';
-import { AdConfigInternal } from './AdConfigInternal';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('AdConfig')
+ 
 export class AdConfig extends ConfigBase {
 
     adConfigApp: AdConfigInternal = null;

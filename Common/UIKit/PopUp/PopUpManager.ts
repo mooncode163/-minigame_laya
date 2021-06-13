@@ -1,21 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject, instantiate, Color, UITransform } from 'cc';
-import { AudioPlay } from '../../Audio/AudioPlay';
-import { Common } from '../../Common';
-import { CommonRes } from '../../CommonRes';
-import { UIViewPop } from './UIViewPop';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { Debug } from '../../Debug';
-import { PrefabCache } from '../../Cache/PrefabCache';
-import { UIView } from '../ViewController/UIView';
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('PopUpManager')
+ 
 export class PopUpManager  {
 
     static ANIMATE_DURATION = 0.8;

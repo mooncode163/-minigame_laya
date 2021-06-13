@@ -1,11 +1,5 @@
 
-import { _decorator, CCObject,Node } from 'cc';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ItemInfo')
+ 
 export class ItemInfo  {
     source = '';
     id = '';

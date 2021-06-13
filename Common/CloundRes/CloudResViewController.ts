@@ -1,14 +1,5 @@
 
-import { _decorator, Component, Node, Prefab, instantiate } from 'cc';
-import { UIView } from '../../Common/UIKit/ViewController/UIView';
-import { PrefabCache } from '../Cache/PrefabCache';
-import { Debug } from '../Debug';
-import { PopViewController } from '../UIKit/ViewController/PopViewController';
-import { UICloudRes } from './UICloudRes';
-import { ImageRes } from '../Config/ImageRes';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('CloudResViewController')
+ 
 export class CloudResViewController extends PopViewController {
     uiPrefab: Prefab;
     ui: UICloudRes;

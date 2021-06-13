@@ -1,14 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab, Texture2D, SpriteFrame } from 'cc';
-import { Debug } from '../Debug';
-import { Dictionary } from '../Dictionary';
-import { ResManager } from '../Res/ResManager';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('TextureCache')
+ 
 export class TextureCache  {
     dicItem: any;
     static _main: TextureCache;

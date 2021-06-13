@@ -1,10 +1,4 @@
-
-import { _decorator, CCObject, Node, Enum } from 'cc';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
+ 
 export enum AdType {
     SPLASH= 0,
     BANNER,
@@ -14,9 +8,7 @@ export enum AdType {
     VIDEO,
     INSERT_VIDEO,
 }
-Enum(AdType);
-
-@ccclass('AdInfo')
+Enum(AdType); 
 export class AdInfo  {
     // public static AdType = AdType;
     source = '';

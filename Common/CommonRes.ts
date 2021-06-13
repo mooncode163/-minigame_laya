@@ -1,11 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('CommonRes')
+ 
 export class CommonRes  {
     public static STR_KEY_NOT_FIRST_RUN: string = "STR_KEY_NOT_FIRST_RUN"; 
     public static KEY_BACKGROUND_MUSIC: string = "KEY_BACKGROUND_MUSIC"; 

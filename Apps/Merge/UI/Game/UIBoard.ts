@@ -1,9 +1,4 @@
-
-import { _decorator, Component, Node, Prefab } from 'cc'; 
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIBoard')
+ 
 export class UIBoard extends UIView {
     
     onLoad () {

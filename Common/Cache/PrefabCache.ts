@@ -1,12 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { ResManager } from '../Res/ResManager';
-import { ConfigPrefab } from '../Config/ConfigPrefab';
-
-const { ccclass, property } = _decorator;
-
-
-@ccclass('PrefabCache')
+ 
 export class PrefabCache  {
 
     static _main: PrefabCache;

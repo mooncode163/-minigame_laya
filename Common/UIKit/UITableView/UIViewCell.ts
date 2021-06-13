@@ -1,15 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Color } from 'cc';
-import { Common } from '../../Common';
-import { Debug } from '../../Debug';
-import { UIView } from '../ViewController/UIView';
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
  
-@ccclass('UIViewCell')
 export class UIViewCell extends UIView {
 
     tableView: any;

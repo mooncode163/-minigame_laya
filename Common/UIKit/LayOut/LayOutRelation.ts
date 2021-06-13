@@ -1,33 +1,5 @@
-
-import { _decorator, Component, Node, UITransform, Vec2 } from 'cc';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { AdKitCommon } from '../../AdKit/AdKitCommon';
-import { Debug } from '../../Debug';
-import { LayOutBase } from './LayOutBase';
-import { Align, LayOutUtil, RelationType } from './LayOutUtil';
-const { ccclass, property, type } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-// const Align = LayOutUtil.Align;
-// const RelationType = LayOutUtil.RelationType;
-
-
-
-
-// enum CustomerState {
-//     NONE,
-//     GREETING,
-//     GOODBYE,
-// }
-
-// enum EventName {
-//     GREETING = 'greeting',
-//     GOODBYE = 'goodbye', 
-// }
-@ccclass('LayOutRelation')
+ 
+ 
 export class LayOutRelation extends LayOutBase {
 
     @type(RelationType)

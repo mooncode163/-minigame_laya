@@ -1,14 +1,4 @@
-
-import { _decorator, Component, Node } from 'cc';  
-import { Config } from '../../../../Common/Config/Config';
-import { Debug } from '../../../../Common/Debug';
-import { Share } from '../../../../Common/Share/Share';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { SettingViewController } from '../../../../AppBase/Setting/SettingViewController';
-const { ccclass, property,type } = _decorator;
  
-
-@ccclass('UIHomeSideBar')
 export class UIHomeSideBar extends UIView {
     onLoad() {
         super.onLoad(); 

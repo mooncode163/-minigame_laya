@@ -1,10 +1,5 @@
 
-import { _decorator, CCObject } from 'cc';
-import { Common } from '../Common';
-const { ccclass, property, integer, float, boolean, string, type } = _decorator;
-
-
-@ccclass('JsonUtil')
+ 
 export class JsonUtil  {
 
     //JsonData data, string key,   _defaultf 

@@ -1,17 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, director, RigidBody, UITransform, RigidBody2D, ERigidBody2DType, EventTouch, tween, Vec3 } from 'cc';
-import { Debug } from '../../../../Common/Debug';
-import { UISprite } from '../../../../Common/UIKit/UIImage/UISprite';
-import { UITouchEvent } from '../../../../Common/UIKit/UITouchEvent';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData, GameStatus } from '../../Data/GameData';
-import { GameMerge } from './GameMerge';
-import { UIGameMerge } from './UIGameMerge';
-import { UIImage } from '../../../../Common/UIKit/UIImage/UIImage';
-import { PropType } from './UIPopProp';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIMergeItem')
+ 
 export class UIMergeItem extends UIView {
     @type(UIImage)
     imageItem: UIImage | null = null;

@@ -1,17 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';
-import { AdKitCommon } from '../../AdKit/AdKitCommon';
-import { Debug } from '../../Debug';
-import { LayOutBase } from './LayOutBase';
-import { Align, LayOutUtil } from './LayOutUtil';
-const { ccclass, property } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-// const Align = LayOutUtil.Align;
-
-@ccclass('LayOutBetween')
+ 
 export class LayOutBetween extends LayOutBase {
     onLoad() {
         super.onLoad();

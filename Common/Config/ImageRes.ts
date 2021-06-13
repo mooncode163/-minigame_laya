@@ -1,17 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab, Vec4 } from 'cc';
-import { Common } from '../Common';
-import { ImageResInternal } from './ImageResInternal';
-import { ConfigBase } from './ConfigBase';
-import { Platform } from '../Platform';
-import { CloudRes } from '../CloundRes/CloudRes';
-import { Debug } from '../Debug';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ImageRes')
+ 
 export class ImageRes extends ConfigBase {
     imageResApp: ImageResInternal = null;
     imageResAppCommon: ImageResInternal = null;

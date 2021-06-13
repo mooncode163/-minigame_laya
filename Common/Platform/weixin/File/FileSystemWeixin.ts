@@ -1,9 +1,5 @@
 
-import { _decorator, Component, Node, Prefab } from 'cc';
-import { FileSystemPlatformWrapper } from '../../../File/FileSystemPlatformWrapper';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('FileSystemWeixin')
+ 
 export class FileSystemWeixin extends FileSystemPlatformWrapper {
     static _main: FileSystemWeixin;
     //静态方法

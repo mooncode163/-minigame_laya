@@ -1,12 +1,5 @@
  
-import { _decorator, Component, Node, Enum, View, Size, director, size, view, math, UITransform, Button, Vec2, Label } from 'cc';
-const { ccclass, property, integer, float, boolean, string,type } = _decorator;
-
-import { Debug } from '../../Debug';
-import { LayOutBase } from './LayOutBase';
-import { LayOutUtil, SideType, SizeType } from './LayOutUtil';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { AdKitCommon } from '../../AdKit/AdKitCommon';
+ 
 // import { serializable } from 'cc.decorator';
 
 // TypeScript自动引入脚本插件
@@ -33,9 +26,7 @@ enum TestEum {
     UP,
     DOWN,
 }
-Enum(TestEum);
-
-@ccclass('LayOutSize')
+Enum(TestEum); 
 export class LayOutSize extends LayOutBase {
   public static Enum = Enum(layerList);
     @property

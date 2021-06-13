@@ -1,10 +1,4 @@
-
-import { _decorator, CCObject } from 'cc';
-import { Common } from '../Common';
-const { ccclass, property, integer, float, boolean, string, type } = _decorator;
-
-
-@ccclass('FileUtil')
+ 
 export class FileUtil  {
 
     //除去文件后缀  并去除.

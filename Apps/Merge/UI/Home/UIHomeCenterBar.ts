@@ -1,10 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';  
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-const { ccclass, property,type } = _decorator;
  
-
-@ccclass('UIHomeCenterBar')
 export class UIHomeCenterBar extends UIView {
    
  

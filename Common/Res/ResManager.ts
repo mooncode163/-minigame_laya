@@ -1,15 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Texture2D, assetManager, AudioClip } from 'cc';
-import { Debug } from '../Debug';
-import { FileUtil } from '../File/FileUtil';
-import { LoadTexture } from '../File/LoadTexture';
-
-const { ccclass, property } = _decorator;
-
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ResManager')
+ 
 export class ResManager  {
     /*
       {

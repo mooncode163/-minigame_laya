@@ -1,26 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, instantiate, UITransform } from 'cc';
-import { UIGameBase } from '../../../../AppBase/Game/UIGameBase';
-import { AudioPlay } from '../../../../Common/Audio/AudioPlay';
-import { ConfigPrefab } from '../../../../Common/Config/ConfigPrefab';
-import { Debug } from '../../../../Common/Debug';
-import { Language } from '../../../../Common/Language/Language';
-import { PopUpManager } from '../../../../Common/UIKit/PopUp/PopUpManager';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData } from '../../Data/GameData';
-import { GameLevelParse } from '../../Data/GameLevelParse';
-import { GameMerge } from './GameMerge';
-import { UIText } from '../../../../Common/UIKit/UIText/UIText';
-import { LevelManager } from '../../../../AppBase/Game/LevelManager';
-import { LevelData } from '../../../../AppBase/Game/LevelData';
-import { UIToolBar } from './UIToolBar';
-import { UIPopProp, PropType } from './UIPopProp';
-import { PrefabCache } from '../../../../Common/Cache/PrefabCache';
-const { ccclass, property, type } = _decorator;
-
-
-
-@ccclass('UIGameMerge')
+ 
 export class UIGameMerge extends UIGameBase {
 
     @type(UIText)

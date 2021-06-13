@@ -1,8 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, CCObject } from 'cc';  
-const { ccclass, property, type } = _decorator;
-
-@ccclass('FileSystemPlatformWrapper')
+ 
 export class FileSystemPlatformWrapper  { 
     public static FILE_ROOT_DIR = "moonma";
 

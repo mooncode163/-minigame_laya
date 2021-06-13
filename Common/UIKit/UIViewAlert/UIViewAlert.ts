@@ -1,20 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject } from 'cc';
-import { UIButton } from '../UIButton/UIButton';
-import { UIImage } from '../UIImage/UIImage';
-import { UIText } from '../UIText/UIText';
-import { UIView } from '../ViewController/UIView';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { Debug } from '../../Debug';
-import { UIViewPop } from '../PopUp/UIViewPop';
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('UIViewAlert')
+ 
 export class UIViewAlert extends UIViewPop {
     imageBg: UIImage;
     textTitle: UIText;

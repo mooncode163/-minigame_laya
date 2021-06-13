@@ -1,12 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, UITransform, Enum } from 'cc';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { AdKitCommon } from '../../AdKit/AdKitCommon';
-import { UIView } from '../ViewController/UIView';
-import { LayOutElement } from './LayOutElement';
-import { Debug } from '../../Debug';
-import { UIViewUtil } from '../ViewController/UIViewUtil';
-const { ccclass, property } = _decorator;
+ 
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
@@ -105,8 +98,7 @@ export enum SideType {
 //必须Enum设置才能在编辑器里设置enum的值
 Enum(SideType);
 
-
-@ccclass('LayOutUtil')
+ 
 export class LayOutUtil {
 
     // public static Align = Align;

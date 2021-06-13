@@ -1,19 +1,4 @@
-
-import { _decorator, Component, Node, UITransform, Vec2 } from 'cc';
-import { Debug } from '../../Debug';
-import { LayOutBase } from './LayOutBase';
-import { LayOutElement } from './LayOutElement';
-import { Align, Direction, LayOutUtil } from './LayOutUtil';
-import { UIView } from '../ViewController/UIView';
-import { UIViewUtil } from '../ViewController/UIViewUtil';
-const { ccclass, property } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-// const Direction = LayOutUtil.Direction;
-// const Align = LayOutUtil.Align;
-@ccclass('HorizontalOrVerticalLayoutBase')
+ 
 export class HorizontalOrVerticalLayoutBase extends LayOutBase {
 
  

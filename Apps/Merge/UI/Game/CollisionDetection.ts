@@ -1,15 +1,5 @@
 
-import { _decorator, Component, Node, Prefab, Collider2D, Contact2DType, IPhysics2DContact, CircleCollider2D, PhysicsSystem2D } from 'cc';
-import { AudioPlay } from '../../../../Common/Audio/AudioPlay';
-import { Common } from '../../../../Common/Common';
-import { Debug } from '../../../../Common/Debug';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData } from '../../Data/GameData';
-import { GameMerge } from './GameMerge';
-import { UIGameMerge } from './UIGameMerge';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('CollisionDetection')
+ 
 export class CollisionDetection extends UIView {
 
     isItDetected = true;//定义是否进行碰撞检测后逻辑判断

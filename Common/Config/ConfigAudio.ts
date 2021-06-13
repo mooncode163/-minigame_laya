@@ -1,17 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { CloudRes } from '../CloundRes/CloudRes';
-import { Common } from '../Common';
-import { Debug } from '../Debug';
-import { Platform } from '../Platform';
-import { ConfigAudioInternal } from './ConfigAudioInternal';
-import { ConfigBase } from './ConfigBase';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ConfigAudio')
+ 
 export class ConfigAudio extends ConfigBase {
     configAudioApp: ConfigAudioInternal = null;
     configAudioCloudRes: ConfigAudioInternal = null;

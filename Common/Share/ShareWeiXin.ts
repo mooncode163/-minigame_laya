@@ -1,13 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Texture2D } from 'cc';
-import { Debug } from '../Debug';
-
-const { ccclass, property } = _decorator;
-
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ShareWeiXin')
+ 
 export class ShareWeiXin  {
      //微信小程序 菜单 “转发”按钮
      SetWeiXinMPShareMenu (title:string, pic:string) {

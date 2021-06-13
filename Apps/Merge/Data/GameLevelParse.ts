@@ -1,19 +1,5 @@
 
-import { _decorator, Component, Node, Prefab, CCObject } from 'cc';
-// import { LevelManager } from '../../../AppBase/Game/LevelManager';
-import { Common } from '../../../Common/Common';
-import { Debug } from '../../../Common/Debug';
-import { ItemInfo } from '../../../Common/ItemInfo';
-import { GameData } from './GameData';
-import { LevelParseBase } from '../../../AppBase/Game/LevelParseBase';
-import { FileUtil } from '../../../Common/File/FileUtil';
-import { CloudRes } from '../../../Common/CloundRes/CloudRes';
-import { ResManager } from '../../../Common/Res/ResManager';
-import { LevelData } from '../../../AppBase/Game/LevelData';
-const { ccclass, property, type } = _decorator;
-
-
-@ccclass('GameLevelParse')
+ 
 export class GameLevelParse extends LevelParseBase {
     countLoad = 0;
     loadMax= 0;

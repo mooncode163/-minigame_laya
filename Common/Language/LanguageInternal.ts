@@ -1,17 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab, sys } from 'cc';
-import { FileUtil } from '../File/FileUtil';
-import { JsonUtil } from '../File/JsonUtil';
-import { ResManager } from '../Res/ResManager'; 
-import { ConfigInternal } from '../Config/ConfigInternal';
-import { ConfigInternalBase } from '../Config/ConfigInternalBase';
-import { LTLocalization } from './LTLocalization';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('LanguageInternal')
+ 
 export class LanguageInternal extends ConfigInternalBase {
     rootJson: any = null;
     fileJson = "";

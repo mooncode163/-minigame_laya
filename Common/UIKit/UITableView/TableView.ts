@@ -1,12 +1,4 @@
-
-import { _decorator, ScrollView, Prefab, Enum, EventHandler, instantiate, NodePool, Size, EventTouch, Vec2, Rect, UITransform, Node, Vec3 } from 'cc';
-import { Debug } from '../../Debug';
-import { UIView } from '../ViewController/UIView';
-import { UIViewUtil } from '../ViewController/UIViewUtil';
-
-const { ccclass, property, type, string } = _decorator;
-
-
+ 
 // 微信小程序 const Align = LayOutUtil.Align; 会异常 所以用export enum的方式
 export enum ScrollModel {
     Horizontal,//0
@@ -91,7 +83,7 @@ function getChildByCellIndex(parent, index) {
     return null;
 }
 
-@ccclass('TableView')
+ 
 export class TableView extends ScrollView {
     _cellPoolCache: any[] = [];
 

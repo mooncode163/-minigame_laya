@@ -1,15 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Texture2D } from 'cc';
-import { Platform } from '../Platform';
-import { SharePlatformWrapper } from './SharePlatformWrapper';
-import { ShareWeiXin } from './ShareWeiXin';
-
-const { ccclass, property } = _decorator;
-
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('Share')
+ 
 export class Share  {
 
     platform: SharePlatformWrapper = null;

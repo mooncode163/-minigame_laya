@@ -1,12 +1,4 @@
-
-import { Component, _decorator } from 'cc'; 
-import { GameManager } from '../../../../../AppBase/Game/GameManager';
-import { LevelData } from '../../../../../AppBase/Game/LevelData';
-import { UIViewPop } from '../../../../../Common/UIKit/PopUp/UIViewPop';
-import { UIText } from '../../../../../Common/UIKit/UIText/UIText';  
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIGameFail')
+ 
 export class UIGameFail extends UIViewPop {
 
     @type(UIText)

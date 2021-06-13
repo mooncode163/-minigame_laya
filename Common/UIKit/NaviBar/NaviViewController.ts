@@ -1,17 +1,4 @@
-
-import { _decorator, Component, Node, Sprite, Label, Prefab, instantiate, UITransform } from 'cc';
-import { Debug } from '../../Debug';
-import { UIViewController } from '../ViewController/UIViewController';
-import { UINaviBar } from './UINaviBar';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { UIView } from '../ViewController/UIView';
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('NaviViewController')
+ 
 export class NaviViewController extends UIViewController {
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
     objContent: Node | null = null;

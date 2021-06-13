@@ -1,18 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject, Prefab, instantiate } from 'cc';
-import { PrefabCache } from '../../Cache/PrefabCache';
-import { UIViewAlert } from './UIViewAlert';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-import { PopUpManager } from '../PopUp/PopUpManager';
-import { ConfigPrefab } from '../../Config/ConfigPrefab';
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('ViewAlertManager')
+ 
 export class ViewAlertManager  {
     uiPrefab: Prefab = null;
     ui: UIViewAlert = null;

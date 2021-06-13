@@ -1,15 +1,5 @@
 
-import { _decorator, Component, Node, Prefab } from 'cc';
-import { UIView } from '../../Common/UIKit/ViewController/UIView';
-import { Debug } from '../Debug';
-import { Platform } from '../Platform';
-import { CloudRes } from './CloudRes';
-import { ResManager } from '../Res/ResManager';
-import { Config } from '../Config/Config';
-import { ConfigCloudRes } from './ConfigCloudRes';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('CloudResVersion')
+ 
 export class CloudResVersion {
 
     versionNet:"1.0.0"; 

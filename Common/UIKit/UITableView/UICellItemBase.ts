@@ -1,18 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Color } from 'cc';
-import { Common } from '../../Common';
-import { Debug } from '../../Debug';
-import { UIView } from '../ViewController/UIView'; 
-import { UIViewCell } from './UIViewCell';
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-
-// label Overflow 需要设置为RESIZE_HEIGHT 才能设置UIText 的显示大小
-@ccclass('UICellItemBase')
+ 
 export class UICellItemBase extends UIViewCell {
     index= 0;
     onClickCallBack= null;

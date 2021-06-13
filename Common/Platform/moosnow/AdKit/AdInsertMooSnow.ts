@@ -1,19 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject } from 'cc';
-import { AdConfig } from '../../../AdKit/AdConfig/AdConfig';
-import { AdType } from '../../../AdKit/AdConfig/AdInfo';
-import { AdInsertPlatformWrapper } from '../../../AdKit/Insert/AdInsertPlatformWrapper';
-import { Debug } from '../../../Debug';
-import { Source } from '../../../Source';
  
- 
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer 
-@ccclass('AdInsertMooSnow')
 export class AdInsertMooSnow extends AdInsertPlatformWrapper {
 
     interstitialAd = null;

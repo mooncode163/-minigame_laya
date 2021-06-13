@@ -1,20 +1,5 @@
 
-import { _decorator, Component, Node, instantiate } from 'cc';
-import { Common } from '../../../Common/Common';
-import { CommonRes } from '../../../Common/CommonRes';
-import { Debug } from '../../../Common/Debug';
-import { ItemInfo } from '../../../Common/ItemInfo';
-import { Language } from '../../../Common/Language/Language';
-import { UIButton } from '../../../Common/UIKit/UIButton/UIButton';
-import { UIImage } from '../../../Common/UIKit/UIImage/UIImage';
-import { UICellItemBase } from '../../../Common/UIKit/UITableView/UICellItemBase';
-import { UIText } from '../../../Common/UIKit/UIText/UIText';
-import { AppSceneBase } from '../../Common/AppSceneBase';
-import { UILanguage } from './UILanguage';
-const { ccclass, property, type } = _decorator;
-
-
-@ccclass('UILanguageCellItem')
+ 
 export class UILanguageCellItem extends UICellItemBase {
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];

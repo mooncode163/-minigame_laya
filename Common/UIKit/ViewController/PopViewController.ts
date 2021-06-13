@@ -1,12 +1,5 @@
 
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-
-import { UIViewController } from "./UIViewController";
-import { AppScene } from '../../../AppBase/AppScene';
-import { AppSceneBase } from '../../../AppBase/Common/AppSceneBase';
-
-@ccclass('PopViewController')
+ 
 export class PopViewController extends UIViewController {
     // iDelegate: IPopViewControllerDelegate,
         // _closeCallback: null,

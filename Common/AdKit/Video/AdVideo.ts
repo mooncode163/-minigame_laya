@@ -1,18 +1,4 @@
-
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject } from 'cc';
-import { Platform } from '../../Platform';
-import { AdVideoWeiXin } from '../../Platform/weixin/AdKit/AdVideoWeiXin';
-import { AdVideoPlatformWrapper } from './AdVideoPlatformWrapper';
-import { AdVideoMooSnow } from '../../Platform/moosnow/AdKit/AdVideoMooSnow';
  
-
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('AdVideo')
 export class AdVideo  {
     public static ADVIDEO_TYPE_INSERT = 0;//插屏视频
     public static ADVIDEO_TYPE_REWARD = 1;//激励视频

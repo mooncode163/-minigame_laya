@@ -1,22 +1,5 @@
 
-import { _decorator, Component, Node, Prefab, Layout } from 'cc';
-import { UIButton } from '../../../../Common/UIKit/UIButton/UIButton';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData, GameStatus } from '../../Data/GameData';
-import { LayOutUtil } from '../../../../Common/UIKit/LayOut/LayOutUtil';
-import { GameMerge } from './GameMerge';
-import { PropType } from './UIPopProp';
-import { UIGameMerge } from './UIGameMerge';
-import { PopUpManager } from '../../../../Common/UIKit/PopUp/PopUpManager';
-import { ConfigPrefab } from '../../../../Common/Config/ConfigPrefab';
-import { AdKitCommon } from '../../../../Common/AdKit/AdKitCommon';
-import { UIImage } from '../../../../Common/UIKit/UIImage/UIImage';
-import { Debug } from '../../../../Common/Debug';
-import { LayOutBase } from '../../../../Common/UIKit/LayOut/LayOutBase';
-import { LayOutVertical } from '../../../../Common/UIKit/LayOut/LayOutVertical';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIToolBar')
+ 
 export class UIToolBar extends UIView {
     @type(UIImage)
     imageBg: UIImage | null = null;

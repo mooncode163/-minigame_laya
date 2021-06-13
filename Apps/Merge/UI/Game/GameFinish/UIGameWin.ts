@@ -1,19 +1,4 @@
-
-import { _decorator, Component, Node, Prefab } from 'cc';  
-import { UIViewPop } from '../../../../../Common/UIKit/PopUp/UIViewPop';
-import { UIText } from '../../../../../Common/UIKit/UIText/UIText';
-import { UIView } from '../../../../../Common/UIKit/ViewController/UIView';
-import { UIImage } from '../../../../../Common/UIKit/UIImage/UIImage';
-import { UIButton } from '../../../../../Common/UIKit/UIButton/UIButton';
-import { GameLevelParse } from '../../../Data/GameLevelParse';
-import { LevelManager } from '../../../../../AppBase/Game/LevelManager';
-import { LevelData } from '../../../../../AppBase/Game/LevelData';
-import { GameManager } from '../../../../../AppBase/Game/GameManager';
-import { AppScene } from '../../../../../AppBase/AppScene';
-import { AppSceneBase } from '../../../../../AppBase/Common/AppSceneBase';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIGameWin')
+ 
 export class UIGameWin extends UIViewPop {
  
     @type(UIText)

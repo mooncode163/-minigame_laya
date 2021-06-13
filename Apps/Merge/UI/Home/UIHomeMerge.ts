@@ -1,29 +1,4 @@
-
-import { _decorator, Component, Node, Texture2D, SpriteFrame, Sprite, resources, assetManager } from 'cc';
-const { ccclass, property, integer, float, boolean, string, type } = _decorator;
-
-import { UIHomeBase } from '../../../../AppBase/Home/UIHomeBase';
-import { TextureCache } from '../../../../Common/Cache/TextureCache';
-import { Config } from '../../../../Common/Config/Config';
-import { UIImage } from '../../../../Common/UIKit/UIImage/UIImage';
-import { Debug } from '../../../../Common/Debug';
-import { Luna } from './Luna';
-import { TestCallAndThis } from './TestCallAndThis';
-import { DEBUG } from 'cc/env';
-import { GameViewController } from '../../../../AppBase/Game/GameViewController';
-import { GameLevelParse } from '../../Data/GameLevelParse';
-import { Language } from '../../../../Common/Language/Language';
-import { Device } from '../../../../Common/Device';
-import { AdKitCommon } from '../../../../Common/AdKit/AdKitCommon';
-import { AdConfig } from '../../../../Common/AdKit/AdConfig/AdConfig';
-import { Source } from '../../../../Common/Source';
-import { AdType } from '../../../../Common/AdKit/AdConfig/AdInfo';
-import { ImageRes } from '../../../../Common/Config/ImageRes';
-import { AudioPlay } from '../../../../Common/Audio/AudioPlay';
-import { Common } from '../../../../Common/Common';
-
-
-@ccclass('UIHomeMerge')
+ 
 export class UIHomeMerge extends UIHomeBase {
     @type(UIImage)
     imageLogo: UIImage = null;

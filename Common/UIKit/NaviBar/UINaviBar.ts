@@ -1,16 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, Label } from 'cc';
-import { UIView } from '../ViewController/UIView';
-import { UIImage } from '../UIImage/UIImage';
-import { UIText } from '../UIText/UIText';
-import { UIButton } from '../UIButton/UIButton';
-const { ccclass, property, type, string } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-@ccclass('UINaviBar')
+ 
 export class UINaviBar extends UIView {
     imageBg: UIImage | null = null;
     textTitle: UIText | null = null;

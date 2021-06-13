@@ -1,14 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { Common } from '../Common';
-import { ConfigPrefabInternal } from './ConfigPrefabInternal';
-import { ConfigBase } from './ConfigBase';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ConfigPrefab')
+ 
 export class ConfigPrefab extends ConfigBase {
     configPrefabApp: ConfigPrefabInternal = null;
     configPrefabAppCommon: ConfigPrefabInternal = null;

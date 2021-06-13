@@ -1,13 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, Collider2D, Contact2DType, IPhysics2DContact, director } from 'cc';
-import { Debug } from '../../../../Common/Debug';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData } from '../../Data/GameData';
-import { UIGameMerge } from './UIGameMerge';
-import { UIMergeItem } from './UIMergeItem';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UIDeadLine')
+ 
 export class UIDeadLine extends UIView {
     t = 0;
     isGameFail = false;

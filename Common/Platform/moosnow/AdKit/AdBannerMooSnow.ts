@@ -1,18 +1,6 @@
 
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, CCObject } from 'cc';
-import { AdConfig } from '../../../AdKit/AdConfig/AdConfig';
-import { AdType } from '../../../AdKit/AdConfig/AdInfo';
-import { AdBannerPlatformWrapper } from '../../../AdKit/Banner/AdBannerPlatformWrapper';
-import { Debug } from '../../../Debug';
-import { Source } from '../../../Source';
-const { ccclass, property, type, string } = _decorator;
-
-// https://www.kancloud.cn/fucunibn/mo_snow_sdk/1771622
-// TypeScript自动引入脚本插件
-// https=//blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer 
-@ccclass('AdBannerMooSnow')
+ 
 export class AdBannerMooSnow extends AdBannerPlatformWrapper {
     bannerAd = null;
     width = 0;

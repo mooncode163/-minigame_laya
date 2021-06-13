@@ -1,12 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Texture2D } from 'cc';
-
-const { ccclass, property } = _decorator;
-
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('SharePlatformWrapper')
+ 
 export class SharePlatformWrapper  {
  
     //微信小程序 菜单 “转发”按钮

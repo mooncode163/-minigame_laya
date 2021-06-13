@@ -1,18 +1,4 @@
-
-import { _decorator, CCObject, sys } from 'cc';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-
-/*
-// 小程序添加域名白名单:
-https://vkceyugu.cdn.bspapp.com
-https://api.liteplay.com.cn
-*/
-
-@ccclass('Platform')
+ 
 export class Platform  {
 
     public static get isAndroid(): boolean {

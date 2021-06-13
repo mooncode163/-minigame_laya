@@ -1,16 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Texture2D } from 'cc';
  
-import { ConfigBase } from '../Config/ConfigBase';
-import { Common } from '../Common';
-import { LanguageInternal } from '../Language/LanguageInternal';
-
-const { ccclass, property } = _decorator;
-
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('LanguageCloudRes')
 export class LanguageCloudRes extends ConfigBase { 
     languageCommon: LanguageInternal = null; 
 

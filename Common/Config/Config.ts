@@ -1,19 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { Common } from '../Common';
-import { Device } from '../Device';
-import { Platform } from '../Platform';
-import { Source } from '../Source';
-import { ConfigInternal } from './ConfigInternal';
-import { ConfigBase } from './ConfigBase';
-import { Debug } from '../Debug';
-import { JsonUtil } from '../File/JsonUtil';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('Config')
+ 
 export class Config extends ConfigBase {
     configApp: ConfigInternal = null;
     configCommon: ConfigInternal = null;

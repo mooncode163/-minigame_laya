@@ -1,14 +1,5 @@
 
-import { _decorator, Component, Node, Sprite, CCObject, resources, Prefab, Vec4, Texture2D, SpriteFrame } from 'cc';
-import { TextureCache } from '../Cache/TextureCache';
-import { Debug } from '../Debug';
-
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('TextureUtil')
+ 
 export class TextureUtil  {
     // static UpdateImageTexture(image: Sprite, filepath: string, isUpdateSize: boolean) {
     //     this.UpdateImageTexture(image, filepath, isUpdateSize, Vec4.ZERO);

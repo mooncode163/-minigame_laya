@@ -1,15 +1,4 @@
-
-import { _decorator, Component, Node, director, instantiate, Prefab, resources, SpriteFrame } from 'cc';
  
-import { NaviViewController } from '../../Common/UIKit/NaviBar/NaviViewController';
- 
-import { HomeViewController } from '../../AppBase/Home/HomeViewController';
- 
-// import { debug } from 'cocos_core_platform_debug';
-const { ccclass, property } = _decorator;
-
-
-@ccclass('MainViewController')
 export class MainViewController extends NaviViewController {
     static _main: MainViewController;
     //静态方法

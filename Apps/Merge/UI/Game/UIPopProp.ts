@@ -1,28 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, Enum, EventTouch, Vec3 } from 'cc';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { UIViewPop } from '../../../../Common/UIKit/PopUp/UIViewPop';
-import { UIText } from '../../../../Common/UIKit/UIText/UIText';
-import { UIImage } from '../../../../Common/UIKit/UIImage/UIImage';
-import { GameLevelParse } from '../../Data/GameLevelParse';
-import { UITouchEvent } from '../../../../Common/UIKit/UITouchEvent';
-import { UIGameMerge } from './UIGameMerge';
-import { Language } from '../../../../Common/Language/Language';
-import { GameData, GameStatus } from '../../Data/GameData';
-const { ccclass, property, type } = _decorator;
-
-
-
-export enum PropType {
-    Hammer,// 
-    Magic,
-    Bomb,
-
-}
-Enum(PropType);
-
-
-@ccclass('UIPopProp')
+ 
 export class UIPopProp extends UIViewPop {
     @type(UIText)
     textTitle: UIText | null = null;

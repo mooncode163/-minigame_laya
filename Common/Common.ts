@@ -1,14 +1,5 @@
 
-import { _decorator, Component, Node, CCObject, resources, Prefab, Label, UITransform, director, sys } from 'cc';
-import { Debug } from './Debug';
-import { Platform } from './Platform';
-import { Device } from './Device';
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('Common')
+ 
 export class Common  {
     public static GAME_DATA_DIR = "GameData";//streamingAssetsPath下的游戏配置等数据
     public static GAME_DATA_DIR_COMMON = "GameData/common";

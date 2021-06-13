@@ -1,10 +1,4 @@
-
-import { _decorator, Component, Node, Prefab } from 'cc';  
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData } from '../../Data/GameData';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('BoardLine')
+ 
 export class BoardLine extends UIView {
     
     onLoad () {

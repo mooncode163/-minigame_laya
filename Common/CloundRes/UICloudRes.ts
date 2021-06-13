@@ -1,25 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { UIView } from '../UIKit/ViewController/UIView';
-import { CloudRes } from './CloudRes';
-import { UIImage } from '../UIKit/UIImage/UIImage';
-import { UIText } from '../UIKit/UIText/UIText';
-import { UIProgress } from '../UIKit/UIProgress/UIProgress';
-import { Language } from '../Language/Language';
-import { Common } from '../Common';
-import { CommonRes } from '../CommonRes';
-import { Debug } from '../Debug';
-import { Config } from '../Config/Config';
-import { PopViewController } from '../UIKit/ViewController/PopViewController';
-import { ConfigCloudRes } from './ConfigCloudRes';
-import { LanguageCloudRes } from './LanguageCloudRes';
-import { ImageResCloudRes } from './ImageResCloudRes';
-
-const { ccclass, property, type } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('UICloudRes')
+ 
 export class UICloudRes extends UIView {
     @type(UIImage)
     imageBg: UIImage | null = null;

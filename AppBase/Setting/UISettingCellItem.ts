@@ -1,21 +1,4 @@
-
-import { _decorator, Component, Node, instantiate } from 'cc';
-import { UIImage } from '../../Common/UIKit/UIImage/UIImage';
-import { UIView } from '../../Common/UIKit/ViewController/UIView';
-import { UIText } from '../../Common/UIKit/UIText/UIText';
-import { Debug } from '../../Common/Debug';
-import { UICellItemBase } from '../../Common/UIKit/UITableView/UICellItemBase';
-import { UIButton } from '../../Common/UIKit/UIButton/UIButton';
-import { SettingType, UISetting } from './UISetting';
-import { Common } from '../../Common/Common';
-import { CommonRes } from '../../Common/CommonRes';
-import { MusicBgPlay } from '../../Common/Audio/MusicBgPlay';
-import { ItemInfo } from '../../Common/ItemInfo';
-import { LanguageViewController } from './Language/LanguageViewController';
-const { ccclass, property, type } = _decorator;
-
-
-@ccclass('UISettingCellItem')
+ 
 export class UISettingCellItem extends UICellItemBase { 
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];

@@ -1,21 +1,5 @@
 
-import { _decorator, Component, Node, Prefab, CCObject, director, instantiate, UITransform, EventTouch, PhysicsSystem2D, EPhysics2DDrawFlags, Vec3 } from 'cc';
-import { GameBase } from '../../../../AppBase/Game/GameBase';
-import { PrefabCache } from '../../../../Common/Cache/PrefabCache';
-import { Common } from '../../../../Common/Common';
-import { Debug } from '../../../../Common/Debug';
-import { UITouchEvent } from '../../../../Common/UIKit/UITouchEvent';
-import { UIView } from '../../../../Common/UIKit/ViewController/UIView';
-import { GameData, GameStatus } from '../../Data/GameData';
-import { GameLevelParse } from '../../Data/GameLevelParse';
-import { UIMergeItem } from './UIMergeItem';
-import { AppSceneBase } from '../../../../AppBase/Common/AppSceneBase';
-import { UIImage } from '../../../../Common/UIKit/UIImage/UIImage';
-import { UIGameMerge } from './UIGameMerge';
-import { AudioPlay } from '../../../../Common/Audio/AudioPlay';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('GameMerge')
+ 
 export class GameMerge extends GameBase {
     @type(Node)
     nodeDeadline: Node | null = null;

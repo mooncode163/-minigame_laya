@@ -1,26 +1,4 @@
-
-import { _decorator, Component, Node, instantiate, Layout, sys, Enum } from 'cc';
-import { ItemInfo } from '../../../Common/ItemInfo';
-import { UIImage } from '../../../Common/UIKit/UIImage/UIImage';
-import { UITableView } from '../../../Common/UIKit/UITableView/UITableView';
-import { UIText } from '../../../Common/UIKit/UIText/UIText';
-import { UIView } from '../../../Common/UIKit/ViewController/UIView';
  
-const { ccclass, property, type } = _decorator;
-export enum SettingType {
-    COMMENT =0,//0
-    VERSION,//1
-    LANGUAGE,//2
-    BACKGROUND_MUSIC,//3
-    BTN_SOUND,
-    NOAD,
-    RESTORE_IAP,
-    LAST,
-}
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(SettingType);
-
-@ccclass('UILanguage')
 export class UILanguage extends UIView { 
     oneCellNum = 1;
     heightCell = 160;

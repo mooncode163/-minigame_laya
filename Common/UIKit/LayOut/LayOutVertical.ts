@@ -1,15 +1,4 @@
-
-import { _decorator, Component, Node } from 'cc';
-import { HorizontalOrVerticalLayoutBase } from './HorizontalOrVerticalLayoutBase';
-import { LayOutBase } from './LayOutBase';
-import { LayOutUtil } from './LayOutUtil';
-const { ccclass, property } = _decorator;
-
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
  
-@ccclass('LayOutVertical')
 export class LayOutVertical extends HorizontalOrVerticalLayoutBase {
     onLoad() {
         super.onLoad(); 

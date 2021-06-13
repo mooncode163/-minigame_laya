@@ -1,9 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, SystemEventType, EventTouch, UITransform, Vec3, director } from 'cc';
-import { Common } from '../Common';
-const { ccclass, property, type } = _decorator;
-
-@ccclass('UITouchEvent')
+ 
 export class UITouchEvent extends Component {
     public static TOUCH_DOWN = 0;
     public static TOUCH_MOVE = 1;

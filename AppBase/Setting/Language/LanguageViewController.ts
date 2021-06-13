@@ -1,14 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, instantiate, math } from 'cc'; 
-import { PrefabCache } from '../../../Common/Cache/PrefabCache';
-import { Debug } from '../../../Common/Debug';
-import { UIViewController } from '../../../Common/UIKit/ViewController/UIViewController';
-import { UILanguage } from './UILanguage';
  
-const { ccclass, property } = _decorator;
-
-
-@ccclass('LanguageViewController')
 export class LanguageViewController extends UIViewController {
 
     uiPrefab: Prefab;

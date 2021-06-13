@@ -1,12 +1,4 @@
-
-import { _decorator, Component, Node, Prefab, CCObject, Enum } from 'cc';
-import { LevelData } from '../../../AppBase/Game/LevelData';
-import { LevelManager } from '../../../AppBase/Game/LevelManager';
-import { Common } from '../../../Common/Common';
-import { Debug } from '../../../Common/Debug';
-const { ccclass, property, type } = _decorator;
-
-
+ 
 export enum GameStatus {
     //区分大小写
     Play = 0,
@@ -18,7 +10,7 @@ export enum GameStatus {
 //必须Enum设置才能在编辑器里设置enum的值
 Enum(GameStatus);
 
-@ccclass('GameData')
+ 
 export class GameData  {
  
     public static NameDeadLine: string = "DeadLine";

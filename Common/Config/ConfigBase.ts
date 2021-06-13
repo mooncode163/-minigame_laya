@@ -1,13 +1,4 @@
-
-import { _decorator, Component, Node, CCObject, resources, Prefab } from 'cc';
-import { ConfigInternalBase } from './ConfigInternalBase';
  
-
-const { ccclass, property } = _decorator;
-// 动态加载资源文档
-// https://docs.cocos.com/creator/3.0/manual/en/asset/dynamic-load-resources.html
-
-@ccclass('ConfigBase')
 export class ConfigBase  {
     countLoad = 0;
     listItem: ConfigInternalBase[] = [];
