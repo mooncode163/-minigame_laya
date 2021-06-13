@@ -1,31 +1,5 @@
 
-import { _decorator, Component, Node, director, instantiate, Prefab, resources, SpriteFrame, sys } from 'cc';
-import { TextureCache } from '../../Common/Cache/TextureCache';
-import { UIViewController } from '../../Common/UIKit/ViewController/UIViewController';
-import { NaviViewController } from '../../Common/UIKit/NaviBar/NaviViewController';
-import { PrefabCache } from '../../Common/Cache/PrefabCache';
-import { Language } from '../../Common/Language/Language';
-import { Debug } from '../../Common/Debug';
-import { HomeViewController } from '../../AppBase/Home/HomeViewController';
-import { LevelManager } from '../../AppBase/Game/LevelManager';
-import { Platform } from '../../Common/Platform';
-import { Common } from '../../Common/Common';
  
-import { CloudResVersion } from '../../Common/CloundRes/CloudResVersion';
-import { Config } from '../../Common/Config/Config';
-import { CloudResViewController } from '../../Common/CloundRes/CloudResViewController';
-import { ImageRes } from '../../Common/Config/ImageRes';
-import { MainViewController } from '../../Apps/Main/MainViewController';
-import { AppScene } from '../AppScene';
-import { AppSceneBase } from './AppSceneBase';
-import { CommonRes } from '../../Common/CommonRes';
-import { ConfigAudio } from '../../Common/Config/ConfigAudio';
-import { AppPreLoad } from '../../Common/AppPreLoad';
-import { MusicBgPlay } from '../../Common/Audio/MusicBgPlay';
-const { ccclass, property } = _decorator;
-
-
-@ccclass('InitViewController')
 export class InitViewController extends NaviViewController {
     static _main: InitViewController;
     //静态方法

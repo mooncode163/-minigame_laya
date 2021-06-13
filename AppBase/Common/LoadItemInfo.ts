@@ -1,8 +1,6 @@
 
-import { _decorator, Component, Node, Canvas, Size, CCObject } from 'cc'; 
-const { ccclass, property, integer, float, boolean, string, type } = _decorator; 
-@ccclass('LoadItemInfo')
-export class LoadItemInfo extends CCObject {
+ 
+export class LoadItemInfo  {
      
 }
 
