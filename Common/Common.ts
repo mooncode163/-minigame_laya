@@ -1,9 +1,7 @@
 import Debug from "./Debug";
-import { Device } from "./Device";
-import { Platform } from "./Platform";
+import { Device } from "./Device"; 
 
-
-export class Common {
+export default class Common {
     public static GAME_DATA_DIR = "GameData";//streamingAssetsPath下的游戏配置等数据
     public static GAME_DATA_DIR_COMMON = "GameData/common";
     public static GAME_RES_DIR = "GameRes";//streamingAssetsPath 下的游戏图片等资源
@@ -113,32 +111,32 @@ export class Common {
 
     //字符串显示大小
     static GetTextSize(text: string, fontsize: number) {
-        var node = new Laya.Node();
-        var labelTmp = node.addComponent(Label);
-        labelTmp.fontSize = fontsize;
-        labelTmp.string = text;
-        //labelTmp.overflow = cc.Label.Overflow.NONE; 
-        director.getScene().addChild(node);
+        // var node = new Laya.Node();
+        // var labelTmp = node.addComponent(Label);
+        // labelTmp.fontSize = fontsize;
+        // labelTmp.string = text;
+        // //labelTmp.overflow = cc.Label.Overflow.NONE; 
+        // director.getScene().addChild(node);
 
-        node.active = false;
+        // node.active = false;
 
-        var size = labelTmp.node.getComponent(UITransform)?.contentSize;
+        // var size = labelTmp.node.getComponent(UITransform)?.contentSize;
 
-        //Debug.Log("labelTmp size= " + size + " bd=" + labelTmp.node.getBoundingBox());
+        // //Debug.Log("labelTmp size= " + size + " bd=" + labelTmp.node.getBoundingBox());
 
 
 
-        //labelTmp.string = "A我";
-        // labelTmp.overflow = cc.Label.Overflow.RESIZE_HEIGHT;
+        // //labelTmp.string = "A我";
+        // // labelTmp.overflow = cc.Label.Overflow.RESIZE_HEIGHT;
 
-        //active 从false变成true 会重新刷新
-        node.active = true;
-        size = labelTmp.node.getComponent(UITransform)?.contentSize;
-        //Debug.Log("labelTmp2 size= " + size + " bd=" + labelTmp.node.getBoundingBox());
+        // //active 从false变成true 会重新刷新
+        // node.active = true;
+        // size = labelTmp.node.getComponent(UITransform)?.contentSize;
+        // //Debug.Log("labelTmp2 size= " + size + " bd=" + labelTmp.node.getBoundingBox());
 
-        node.removeFromParent();
-        //Common.GetTextHeight(text, fontsize);
-        return size;
+        // node.removeFromParent();
+        // //Common.GetTextHeight(text, fontsize);
+        // return size;
     }
 
     //判断微信getStorage key是否存在
@@ -201,14 +199,4 @@ export class Common {
         return "1.0.0";
     }
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

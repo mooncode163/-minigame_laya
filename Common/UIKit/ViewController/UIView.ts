@@ -19,11 +19,17 @@ strict设置false状态
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import { Common } from "../../Common";
+import { ColorConfig } from "../../Config/ColorConfig";
+import { ImageRes } from "../../Config/ImageRes";
+import Debug from "../../Debug";
+import { Language } from "../../Language/Language";
+import { LayOutBase } from "../LayOut/LayOutBase";
 import { UIViewController } from "./UIViewController";
 import { UIViewUtil } from './UIViewUtil';
  
  
-export default class UIView  {
+export default class UIView extends Laya.Script{
     
     keyText: string = "";
     
@@ -43,7 +49,7 @@ export default class UIView  {
     tag: string;
     title: string;
 
-    mainCam: Camera | null = null;
+    mainCam: Laya.Camera | null = null;
     frame: Rect | null = null;
     // objTag: CCObject | null = null;  
 

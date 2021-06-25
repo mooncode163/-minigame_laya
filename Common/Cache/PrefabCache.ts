@@ -25,7 +25,7 @@ export class PrefabCache  {
     */
     Load(obj: any) {
 
-        ResManager.Load(
+        ResManager.LoadPrefab(
             {
                 filepath: obj.filepath,
                 success: (p: any, data: any) => {
@@ -55,7 +55,7 @@ export class PrefabCache  {
     */
     LoadByKey(obj: any) {
         var filepath = ConfigPrefab.main.GetPrefab(obj.key);
-        ResManager.Load(
+        ResManager.LoadPrefab(
             {
                 filepath: filepath,
                 success: (p: any, data: any) => {

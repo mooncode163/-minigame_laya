@@ -1,8 +1,7 @@
-import Debug from "../Debug";
-import { FileUtil } from "../File/FileUtil";
-
- 
-export class ResManager  {
+import Debug from "../Debug"; 
+// 资源加载
+// https://ldc2.layabox.com/doc/?nav=zh-js-4-3-1
+export default class ResManager {
     /*
       {
         filepath:"", 
@@ -14,24 +13,13 @@ export class ResManager  {
         },
       }
       */
-    public static Load(obj: any) {
-        var key = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath);
-        resources.load(key, (err: any, data: any) => {
-            if (data == null) {
-                // Bundle resources doesn't contain 1 
-                console.log("ResManager Load err:" + err.message || err + " filepath=" + obj.filepath);
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
-                console.log("ResManager Load is not null");
-                if (obj.success != null) {
-                    obj.success(this, data);
-                }
+    public static Load(obj: any) { 
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+            if (obj.success != null) {
+                obj.success(this, data);
             }
 
-        });
-
+        }));
     }
 
 
@@ -46,26 +34,67 @@ export class ResManager  {
        },
      }
      */
-    public static LoadText(obj: any) {
-        var key = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath);
-        resources.load(key, (err: any, data: any) => {
-            if (data == null) {
-                // Bundle resources doesn't contain 1
-                console.log("ResManager Load err:" + err.message || err + " filepath=" + obj.filepath);
-
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
-                var type = typeof data;
-                console.log("ResManager Load is not null type=" + type);
-                if (obj.success != null) {
-                    obj.success(this, data.text);
-                }
+    public static LoadText(obj: any) {  
+        // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+            var str: string = Laya.loader.getRes(obj.filepath);
+            if (obj.success != null) {
+                obj.success(this, str);
             }
 
-        });
+        }));
+    }
 
+
+  
+    public static LoadJson(obj: any) {  
+        // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+            var json: JSON = Laya.loader.getRes(obj.filepath);
+            //  console.log(json["name"]);
+            if (obj.success != null) {
+                obj.success(this, json);
+            }
+
+        }));
+    }
+
+  /*
+      {
+          filepath:"", 
+          success: function (p,tex:Texture2D) {
+          },
+          fail: function (p) {
+          },
+          progress: function (p) {
+          } ,
+        
+      }
+      */
+    public static LoadPrefab(obj: any) {
+        // texture spriteFrame
+        console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath);
+        // var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath) + "/texture";
+        var pic = obj.filepath;
+        // "res/threeDimen/texture/earth.png"
+        //加载纹理
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (pref:Laya.Prefab): void {
+            //使用纹理
+            // var earth1 = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createSphere(5, 32, 32))) as Laya.MeshSprite3D;
+            // earth1.transform.translate(new Laya.Vector3(17, 20, 0));
+
+            // var earthMat = new Laya.BlinnPhongMaterial();
+            // earthMat.albedoTexture = tex;
+            // earthMat.albedoIntensity = 1;
+            // earth1.meshRenderer.material = earthMat;
+ 
+            if (obj.success != null) {
+                obj.success(this, pref);
+            }
+
+        }));
+
+        
     }
 
     /*
@@ -85,30 +114,28 @@ export class ResManager  {
     public static LoadTexture(obj: any) {
         // texture spriteFrame
         console.log("ResManager LoadTexture obj.filepath=" + obj.filepath);
-        var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath) + "/texture";
+        // var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath) + "/texture";
+        var pic = obj.filepath;
+        // "res/threeDimen/texture/earth.png"
+        //加载纹理
+        Laya.Texture2D.load(pic, Laya.Handler.create(null, function (tex): void {
+            //使用纹理
+            // var earth1 = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createSphere(5, 32, 32))) as Laya.MeshSprite3D;
+            // earth1.transform.translate(new Laya.Vector3(17, 20, 0));
 
-        // if (pic.indexOf("wxfile") >= 0) {
-        //     console.log("ResManager wxfile ");
-        //     if (obj.fail != null) {
-        //         obj.fail(this);
-        //         return;
-        //     }
-        // }
-        resources.load(pic, Texture2D, (err: any, texture: Texture2D) => {
-            if (texture == null) {
-                // Bundle resources doesn't contain 1 
-                console.log("ResManager texture err:" + err.message || err + " filepath=" + obj.filepath);
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
-                console.log("ResManager texture is not null");
-                if (obj.success != null) {
-                    obj.success(this, texture);
-                }
+            // var earthMat = new Laya.BlinnPhongMaterial();
+            // earthMat.albedoTexture = tex;
+            // earthMat.albedoIntensity = 1;
+            // earth1.meshRenderer.material = earthMat;
+
+            console.log("ResManager texture is not null");
+            if (obj.success != null) {
+                obj.success(this, tex);
             }
 
-        });
+        }));
+
+        
     }
 
     /*
@@ -139,9 +166,9 @@ export class ResManager  {
                         // ...
                     });
                     */
-                        const texture = new Texture2D();
-                        texture.image = tex;
-                        obj.success(this, texture);
+                        // const texture = new Texture2D();
+                        // texture.image = tex;
+                        // obj.success(this, texture);
                     }
                 },
                 fail: () => {
@@ -169,33 +196,30 @@ export class ResManager  {
     public static LoadUrl(obj: any) {
         Debug.Log("ResManager LoadUrl obj.url=" + obj.url);
 
-        // return;
-        // var pic = "/Users/moon/sourcecode/cocos/product/minigame/minigameCreator/assets/resources/App/UI/Bg/GameBg.png" 
-        //    pic = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1942783278,2082140028&fm=26&gp=0.jpg";
-        // var p = this;
-        assetManager.loadRemote(obj.url, function (err: any, data: any) {
-            if (data == null) {
-                console.log("ResManager LoadUrl is null err=", err);
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-                if (obj.finish != null) {
-                    obj.finish(this);
-                }
+      
+        // assetManager.loadRemote(obj.url, function (err: any, data: any) {
+        //     if (data == null) {
+        //         console.log("ResManager LoadUrl is null err=", err);
+        //         if (obj.fail != null) {
+        //             obj.fail(this);
+        //         }
+        //         if (obj.finish != null) {
+        //             obj.finish(this);
+        //         }
 
-            } else {
-                console.log("ResManager LoadUrl is not null");
-                if (obj.success != null) {
-                    obj.success(this, data);
-                }
-                if (obj.finish != null) {
-                    obj.finish(this);
-                }
-                // const spriteFrame = new SpriteFrame();
-                // spriteFrame.texture = texture;
-                // p.nodeBg.getComponent(Sprite).spriteFrame = spriteFrame;
-            }
-        });
+        //     } else {
+        //         console.log("ResManager LoadUrl is not null");
+        //         if (obj.success != null) {
+        //             obj.success(this, data);
+        //         }
+        //         if (obj.finish != null) {
+        //             obj.finish(this);
+        //         }
+        //         // const spriteFrame = new SpriteFrame();
+        //         // spriteFrame.texture = texture;
+        //         // p.nodeBg.getComponent(Sprite).spriteFrame = spriteFrame;
+        //     }
+        // });
     }
 
 
@@ -213,23 +237,23 @@ export class ResManager  {
 
     public static LoadAudio(obj: any) {
         // texture spriteFrame
-        console.log("ResManager LoadAudio obj.filepath=" + obj.filepath);
-        var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath);
-        resources.load(pic, AudioClip, (err: any, clip: AudioClip) => {
-            if (clip == null) {
-                // Bundle resources doesn't contain 1
-                console.log("ResManager LoadAudio err:" + err.message || err);
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
-                console.log("ResManager LoadAudio is not null");
-                if (obj.success != null) {
-                    obj.success(this, clip);
-                }
-            }
+        // console.log("ResManager LoadAudio obj.filepath=" + obj.filepath);
+        // var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath);
+        // resources.load(pic, AudioClip, (err: any, clip: AudioClip) => {
+        //     if (clip == null) {
+        //         // Bundle resources doesn't contain 1
+        //         console.log("ResManager LoadAudio err:" + err.message || err);
+        //         if (obj.fail != null) {
+        //             obj.fail(this);
+        //         }
+        //     } else {
+        //         console.log("ResManager LoadAudio is not null");
+        //         if (obj.success != null) {
+        //             obj.success(this, clip);
+        //         }
+        //     }
 
-        });
+        // });
 
         /*
          assetManager.loadRemote('http://example.com/background.mp3', {
@@ -250,20 +274,20 @@ export class ResManager  {
          }
          */
     public static LoadUrlAudio(obj: any) {
-        assetManager.loadRemote(obj.url, function (err: any, clip: AudioClip) {
-            if (clip == null) {
-                console.log("ResManager LoadUrlAudio is null err=", err);
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
-                console.log("ResManager LoadUrlAudio is not null");
-                if (obj.success != null) {
-                    obj.success(this, clip);
-                }
+        // assetManager.loadRemote(obj.url, function (err: any, clip: AudioClip) {
+        //     if (clip == null) {
+        //         console.log("ResManager LoadUrlAudio is null err=", err);
+        //         if (obj.fail != null) {
+        //             obj.fail(this);
+        //         }
+        //     } else {
+        //         console.log("ResManager LoadUrlAudio is not null");
+        //         if (obj.success != null) {
+        //             obj.success(this, clip);
+        //         }
 
-            }
-        });
+        //     }
+        // });
 
 
         /*
@@ -277,14 +301,3 @@ export class ResManager  {
 
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

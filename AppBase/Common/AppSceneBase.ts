@@ -1,12 +1,14 @@
- 
+
 import { ui } from '../../../ui/layaMaxUI';
+import Debug from '../../Common/Debug';
 import { UIViewController } from '../../Common/UIKit/ViewController/UIViewController';
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
 // https://blog.csdn.net/iamlujingtao/article/details/110573421
 
- 
+
+
 export default class AppSceneBase extends ui.test.TestSceneUI {
     static _main: AppSceneBase;
     //静态方法
@@ -16,10 +18,10 @@ export default class AppSceneBase extends ui.test.TestSceneUI {
         }
         return this._main;
     }
-
+ 
     constructor() {
         super();
-		
+        Debug.Log("AppSceneBase constructor");
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;
 
@@ -37,12 +39,25 @@ export default class AppSceneBase extends ui.test.TestSceneUI {
         var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
         box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
         var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-		Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function(tex:Laya.Texture2D) {
-				material.albedoTexture = tex;
-		}));
+        Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
+            material.albedoTexture = tex;
+        }));
         box.meshRenderer.material = material;
     }
- 
+
+
+
+    onAwake() {
+        super.onAwake();
+        Debug.Log("AppSceneBase onAwake");
+    }
+
+    onStart() {
+        // super.onStart();
+    }
+
+  
+
 }
- 
+
 

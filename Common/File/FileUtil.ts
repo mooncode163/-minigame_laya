@@ -1,7 +1,8 @@
-import { Common } from "../Common";
+import Common from "../Common";
 
  
-export class FileUtil  {
+ 
+export default class FileUtil  {
 
     //除去文件后缀  并去除.
     static GetFileBeforeExtWithOutDot(filepath: string) {

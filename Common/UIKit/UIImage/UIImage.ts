@@ -3,13 +3,21 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import { TextureCache } from "../../Cache/TextureCache";
+import { Common } from "../../Common";
+import { ImageRes } from "../../Config/ImageRes";
+import Debug from "../../Debug";
+import { Device } from "../../Device";
+import { FileUtil } from "../../File/FileUtil";
+import { TextureUtil } from "../../Image/TextureUtil";
+import { Platform } from "../../Platform";
 import UIView from "../ViewController/UIView";
 
  
 export default class UIImage extends UIView {
 
  
-    image: Sprite | null = null;
+    image: Laya.Image | null = null;
     isCache: boolean = true;
 
    
@@ -66,8 +74,9 @@ export default class UIImage extends UIView {
         }
     }
 
-    UpdateImageTexture(tex: Texture2D) {
-        TextureUtil.UpdateImageTexture(this.image, tex, true, Vec4.ZERO);
+    UpdateImageTexture(tex: Laya.Texture2D) {
+        
+        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
         // RectTransform rctan = this.GetComponent<RectTransform>();
         // rctan.sizeDelta = new Vector2(tex.width, tex.height);
         if(this.isSizeFitTexture)
@@ -87,12 +96,12 @@ export default class UIImage extends UIView {
             return;
         }
         var isBoard = ImageRes.main.IsHasBoard(strKey);
-        var board = Vec4.ZERO;
+        var board = Laya.Vector4.ZERO;
         // if (isBoard) 
         {
             board = ImageRes.main.GetImageBoard(strKey);
         }
-        if (board != Vec4.ZERO) {
+        if (board != Laya.Vector4.ZERO) {
             //  image.imagety
         }
         // RectTransform rctranOrigin = this.GetComponent<RectTransform>();
@@ -107,7 +116,7 @@ export default class UIImage extends UIView {
             {
                 filepath: pic,
                 isCloud: isCloud,
-                success: (p: any, tex: Texture2D) => {
+                success: (p: any, tex: Laya.Texture2D) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, true, board);
                     if(this.isSizeFitTexture)
                     {

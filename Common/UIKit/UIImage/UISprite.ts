@@ -3,11 +3,11 @@ import { _decorator, Component, Node, Sprite, Texture2D, Vec4 } from 'cc';
 import { Common } from '../../Common';
 import { ImageRes } from '../../Config/ImageRes';
 import { Device } from '../../Device';
-import { FileUtil } from '../../File/FileUtil';
-import { UIView } from '../ViewController/UIView';
+import { FileUtil } from '../../File/FileUtil'; 
 import { TextureUtil } from '../../Image/TextureUtil';
 import { TextureCache } from '../../Cache/TextureCache';
-import { UIImage } from './UIImage';
+import UIImage from './UIImage';
+ 
 const { ccclass, property, type } = _decorator;
 
 // TypeScript自动引入脚本插件
