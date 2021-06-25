@@ -2,7 +2,7 @@ import { JsonUtil } from "../File/JsonUtil";
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ConfigPrefabInternal extends ConfigInternalBase { 
+export default class ConfigPrefabInternal extends ConfigInternalBase { 
     ContainsKey(key:string)
     { 
         return JsonUtil.ContainsKey(this.rootJson, key);

@@ -1,6 +1,6 @@
 
  
-export class UIHomeCenterBar extends UIView {
+export default class UIHomeCenterBar extends UIView {
    
  
  

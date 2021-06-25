@@ -5,7 +5,7 @@ import Debug from "../../../Debug";
 import { Source } from "../../../Source";
 
  
-export class AdInsertWeiXin extends AdInsertPlatformWrapper {
+export default class AdInsertWeiXin extends AdInsertPlatformWrapper {
 
     interstitialAd = null;
     InitAd(source) { 

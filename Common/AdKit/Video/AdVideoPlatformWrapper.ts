@@ -1,5 +1,5 @@
  
-export class AdVideoPlatformWrapper  {
+export default class AdVideoPlatformWrapper  {
 
    
     SetObjectInfo(objName, objMethod) {

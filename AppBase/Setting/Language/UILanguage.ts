@@ -5,7 +5,7 @@ import UIText from "../../../Common/UIKit/UIText/UIText";
 import UIView from "../../../Common/UIKit/ViewController/UIView";
 
  
-export class UILanguage extends UIView { 
+export default class UILanguage extends UIView { 
     oneCellNum = 1;
     heightCell = 160;
     listItem: ItemInfo[] = [];

@@ -2,7 +2,7 @@ import { Device } from "../../Device";
 import { Align, Direction } from "./LayOutUtil";
 
  
-export class LayOutBase extends Component {
+export default class LayOutBase extends Component {
     @type(Node)
     target: Node = null;
     @type(Node)

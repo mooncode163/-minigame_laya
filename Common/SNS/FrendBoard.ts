@@ -1,5 +1,5 @@
  
-export class FrendBoard  {
+export default class FrendBoard  {
     static _main: FrendBoard;
     //静态方法
     static get main() {

@@ -12,7 +12,7 @@ import { ImageResCloudRes } from "./ImageResCloudRes";
 import { LanguageCloudRes } from "./LanguageCloudRes";
 
  
-export class UICloudRes extends UIView {
+export default class UICloudRes extends UIView {
     @type(UIImage)
     imageBg: UIImage | null = null;
     @type(UIText)

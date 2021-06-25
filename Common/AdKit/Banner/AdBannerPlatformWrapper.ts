@@ -1,5 +1,5 @@
  
-export class AdBannerPlatformWrapper  {
+export default class AdBannerPlatformWrapper  {
  
   
         /*

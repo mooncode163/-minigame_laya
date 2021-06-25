@@ -5,7 +5,7 @@ import { ImageResCloudRes } from "./ImageResCloudRes";
 import { LanguageCloudRes } from "./LanguageCloudRes";
 
  
-export class CloudResPreLoad  {
+export default class CloudResPreLoad  {
     countLoad = 0; 
 
     listItem: ConfigBase[] = [];

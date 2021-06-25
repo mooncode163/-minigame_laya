@@ -1,5 +1,5 @@
  
-export class UISegmentItem  {
+export default class UISegmentItem  {
     static _main: UISegmentItem;
     //静态方法
     static get main() {

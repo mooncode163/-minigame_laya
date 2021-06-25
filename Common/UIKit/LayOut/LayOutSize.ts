@@ -31,7 +31,7 @@ enum TestEum {
     UP,
     DOWN,
 } 
-export class LayOutSize extends LayOutBase {
+export default class LayOutSize extends LayOutBase {
   public static Enum = Enum(layerList);
    
     ratio = 1.0;

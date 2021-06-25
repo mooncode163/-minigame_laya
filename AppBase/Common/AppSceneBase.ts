@@ -1,7 +1,6 @@
 
-import { ui } from '../../../ui/layaMaxUI';
-import Debug from '../../Common/Debug';
-import { UIViewController } from '../../Common/UIKit/ViewController/UIViewController';
+ 
+import Debug from '../../Common/Debug'; 
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -21,6 +20,7 @@ export default class AppSceneBase extends Laya.Script {
 
     constructor() {
         super();
+        AppSceneBase._main = this;
         Debug.Log("AppSceneBase constructor");
 
     }

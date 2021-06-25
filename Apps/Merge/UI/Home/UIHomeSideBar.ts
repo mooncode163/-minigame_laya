@@ -3,7 +3,7 @@ import { Share } from "../../../../Common/Share/Share";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 
  
-export class UIHomeSideBar extends UIView {
+export default class UIHomeSideBar extends UIView {
     onLoad() {
         super.onLoad(); 
         // this.LayOut();

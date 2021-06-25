@@ -1,7 +1,7 @@
 import UIView from "../../Common/UIKit/ViewController/UIView";
 
  
-export class GameBase extends UIView {
+export default class GameBase extends UIView {
     gameStatus = 0;
     objGameFinish = null;
 

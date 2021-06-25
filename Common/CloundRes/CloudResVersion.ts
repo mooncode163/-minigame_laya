@@ -4,7 +4,7 @@ import { CloudRes } from "./CloudRes";
 import { ConfigCloudRes } from "./ConfigCloudRes";
 
  
-export class CloudResVersion {
+export default class CloudResVersion {
 
     versionNet:"1.0.0"; 
     static _main: CloudResVersion;

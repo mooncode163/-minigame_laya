@@ -1,7 +1,7 @@
 import { FileSystemPlatformWrapper } from "../../../File/FileSystemPlatformWrapper";
 
  
-export class FileSystemWeixin extends FileSystemPlatformWrapper {
+export default class FileSystemWeixin extends FileSystemPlatformWrapper {
     static _main: FileSystemWeixin;
     //静态方法
     static get main() {

@@ -1,5 +1,5 @@
  
-export class LoadTexture  {
+export default class LoadTexture  {
      
 }
 

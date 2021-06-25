@@ -1,5 +1,5 @@
  
-export class NaviViewController extends UIViewController {
+export default class NaviViewController extends UIViewController {
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
     objContent: Node | null = null;
 

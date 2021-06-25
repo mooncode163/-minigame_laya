@@ -8,7 +8,7 @@ import { GameLevelParse } from "../../Data/GameLevelParse";
 import { UIGameMerge } from "./UIGameMerge";
 
  
-export class UIPopProp extends UIViewPop {
+export default class UIPopProp extends UIViewPop {
     @type(UIText)
     textTitle: UIText | null = null;
     @type(UIText)

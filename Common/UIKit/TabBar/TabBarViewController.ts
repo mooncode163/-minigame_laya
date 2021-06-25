@@ -1,6 +1,6 @@
 
  
-export class TabBarViewController  {
+export default class TabBarViewController  {
     static _main: TabBarViewController;
     //静态方法
     static get main() {

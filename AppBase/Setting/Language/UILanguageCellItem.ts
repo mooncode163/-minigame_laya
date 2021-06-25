@@ -10,7 +10,7 @@ import AppSceneBase from "../../Common/AppSceneBase";
 import { UILanguage } from "./UILanguage";
 
  
-export class UILanguageCellItem extends UICellItemBase {
+export default class UILanguageCellItem extends UICellItemBase {
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];
 

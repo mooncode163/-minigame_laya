@@ -3,7 +3,7 @@ import { FileSystem } from "../File/FileSystem";
 import { Platform } from "../Platform";
 
  
-export class CloudRes  {
+export default class CloudRes  {
 
     source ="";
     tmp_filepath = "";

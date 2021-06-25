@@ -1,5 +1,5 @@
  
-export class ShareWeiXin  {
+export default class ShareWeiXin  {
      //微信小程序 菜单 “转发”按钮
      SetWeiXinMPShareMenu (title:string, pic:string) {
         wx.onShareAppMessage(() => ({

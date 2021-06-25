@@ -3,7 +3,7 @@ import { AdVideoMooSnow } from "../../Platform/moosnow/AdKit/AdVideoMooSnow";
 import { AdVideoPlatformWrapper } from "./AdVideoPlatformWrapper";
 
  
-export class AdVideo  {
+export default class AdVideo  {
     public static ADVIDEO_TYPE_INSERT = 0;//插屏视频
     public static ADVIDEO_TYPE_REWARD = 1;//激励视频
  

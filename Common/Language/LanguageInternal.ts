@@ -5,7 +5,7 @@ import { ResManager } from "../Res/ResManager";
 import { LTLocalization } from "./LTLocalization";
 
  
-export class LanguageInternal extends ConfigInternalBase {
+export default class LanguageInternal extends ConfigInternalBase {
     rootJson: any = null;
     fileJson = "";
     ltLocalization: LTLocalization = null; 

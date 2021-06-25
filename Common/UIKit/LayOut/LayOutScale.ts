@@ -4,7 +4,7 @@ import { LayOutBase } from "./LayOutBase";
 import { ScaleType } from "./LayOutUtil";
 
  
-export class LayOutScale extends LayOutBase {
+export default class LayOutScale extends LayOutBase {
 
    
     ratio = 1.0;

@@ -1,7 +1,7 @@
 import { AudioPlay } from "./AudioPlay";
 
  
-export class MusicBgPlay extends AudioPlay {  
+export default class MusicBgPlay extends AudioPlay {  
     static _main: MusicBgPlay;
     //静态方法
     static get main() {

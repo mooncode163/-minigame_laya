@@ -1,7 +1,7 @@
 import { Common } from "../Common";
 
  
-export class JsonUtil  {
+export default class JsonUtil  {
 
     //JsonData data, string key,   _defaultf 
     static GetItem(data: any, key: string, _default: string) {

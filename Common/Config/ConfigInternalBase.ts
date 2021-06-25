@@ -4,7 +4,7 @@ import { JsonUtil } from "../File/JsonUtil";
 import { ResManager } from "../Res/ResManager";
 
  
-export class ConfigInternalBase  {
+export default class ConfigInternalBase  {
     rootJson: any = null;
     fileJson = "";
     isCloud:boolean = false;

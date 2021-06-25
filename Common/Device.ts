@@ -1,7 +1,7 @@
 import Debug from "./Debug";
 
 
-export class Device {
+export default class Device {
     static _main: Device;
     //静态方法
     static get main() {

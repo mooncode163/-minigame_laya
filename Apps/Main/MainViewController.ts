@@ -2,7 +2,7 @@ import { HomeViewController } from "../../AppBase/Home/HomeViewController";
 import { NaviViewController } from "../../Common/UIKit/NaviBar/NaviViewController";
 
  
-export class MainViewController extends NaviViewController {
+export default class MainViewController extends NaviViewController {
     static _main: MainViewController;
     //静态方法
     static get main() { 

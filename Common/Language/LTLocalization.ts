@@ -3,7 +3,7 @@ import { Dictionary } from "../Dictionary";
 import { CSVParser } from "../FileParse/CSV/CSVParser";
 
  
-export class LTLocalization  {
+export default class LTLocalization  {
     public static ENGLISH = "EN";
     public static CHINESE = "CN";
     public static JAPANESE = "JP";

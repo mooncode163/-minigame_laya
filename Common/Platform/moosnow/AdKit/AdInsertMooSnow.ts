@@ -1,6 +1,6 @@
 
  
-export class AdInsertMooSnow extends AdInsertPlatformWrapper {
+export default class AdInsertMooSnow extends AdInsertPlatformWrapper {
 
     interstitialAd = null;
     InitAd(source) { 

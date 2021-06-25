@@ -3,7 +3,7 @@
      *author     : NaiKing
      *description: 
      */
-    export class TestCallAndThis {
+    export default class TestCallAndThis {
         /**
          * 不推荐的回调写法
          * 外部调用必须【必须】【必须】在回调参数方法后面添加.bind(this),

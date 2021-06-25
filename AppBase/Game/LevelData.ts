@@ -2,7 +2,7 @@ import { Common } from "../../Common/Common";
 import { ItemInfo } from "../../Common/ItemInfo";
 
  
-export class LevelData {
+export default class LevelData {
 
     placeLevel = 0;
     objGuanka=null;

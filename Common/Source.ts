@@ -1,5 +1,5 @@
  
-export class Source  {
+export default class Source  {
 
     public static WEIXIN: string = "weixin";
 

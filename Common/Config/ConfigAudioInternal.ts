@@ -2,7 +2,7 @@ import { JsonUtil } from "../File/JsonUtil";
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ConfigAudioInternal extends ConfigInternalBase {
+export default class ConfigAudioInternal extends ConfigInternalBase {
     ContainsKey(key:string)
     { 
         return JsonUtil.ContainsKey(this.rootJson, key);

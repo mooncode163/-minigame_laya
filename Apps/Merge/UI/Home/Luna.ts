@@ -1,6 +1,6 @@
 import { TestCallAndThis } from "./TestCallAndThis";
 
-export class Luna { 　　　//注意观察，this异常的时候的isLoading的值是undefind
+export default class Luna { 　　　//注意观察，this异常的时候的isLoading的值是undefind
     private isLoading: boolean = false;
     private getResult(rst: number): void {
         console.log("get rusult:" + rst + this.isLoading);

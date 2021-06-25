@@ -1,6 +1,6 @@
 
  
-export class CSVParser  {
+export default class CSVParser  {
     public KEY_WORD_YINHAO = "\"";//英文输入法下的引号
     public KEY_WORD_YINHAO2 = "”";//中文输入法下的引号
     public KEY_WORD_SPLIT = ",";

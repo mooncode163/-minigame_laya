@@ -2,7 +2,7 @@ import Debug from "../Debug";
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ColorConfigInternal extends ConfigInternalBase {
+export default class ColorConfigInternal extends ConfigInternalBase {
 
     // "0, 0, 0, 255",
     RGBString2ColorA(strrgba: string) {

@@ -1,6 +1,6 @@
 
  
-export class UITabBarItem  {
+export default class UITabBarItem  {
     static _main: UITabBarItem;
     //静态方法
     static get main() {

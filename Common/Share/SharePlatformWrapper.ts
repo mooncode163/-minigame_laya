@@ -1,5 +1,5 @@
  
-export class SharePlatformWrapper  {
+export default class SharePlatformWrapper  {
  
     //微信小程序 菜单 “转发”按钮
     SetWeiXinMPShareMenu (title:string, pic:string) {

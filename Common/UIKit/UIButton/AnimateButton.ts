@@ -1,5 +1,5 @@
  
-export class AnimateButton extends Button {
+export default class AnimateButton extends Button {
     // @type([EventHandler])
     // clickAnimateEvents: EventHandler[] = []; 
     @type([EventHandler])

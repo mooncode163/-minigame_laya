@@ -4,7 +4,7 @@ import { UIViewController } from "../../Common/UIKit/ViewController/UIViewContro
 import { UISetting } from "./UISetting";
 
  
-export class SettingViewController extends UIViewController {
+export default class SettingViewController extends UIViewController {
 
     uiPrefab: Prefab;
     ui: UISetting;

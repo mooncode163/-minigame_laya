@@ -1,6 +1,6 @@
 
  
-export class UICellItemBase extends UIViewCell {
+export default class UICellItemBase extends UIViewCell {
     index= 0;
     onClickCallBack= null;
     target:UIView=null;

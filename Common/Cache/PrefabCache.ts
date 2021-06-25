@@ -2,7 +2,7 @@ import { ConfigPrefab } from "../Config/ConfigPrefab";
 import { ResManager } from "../Res/ResManager";
 
  
-export class PrefabCache  {
+export default class PrefabCache  {
 
     static _main: PrefabCache;
     //静态方法

@@ -1,7 +1,7 @@
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ConfigBase  {
+export default class ConfigBase  {
     countLoad = 0;
     listItem: ConfigInternalBase[] = [];
     rootJson: any = null;

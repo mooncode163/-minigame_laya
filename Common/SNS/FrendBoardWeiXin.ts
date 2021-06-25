@@ -1,6 +1,6 @@
 
  
-export class FrendBoardWeiXin  {
+export default class FrendBoardWeiXin  {
  
     //https://www.jianshu.com/p/abf753ded43b
     //https://segmentfault.com/a/1190000015034592?utm_source=tag-newest

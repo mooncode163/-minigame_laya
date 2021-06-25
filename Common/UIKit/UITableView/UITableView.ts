@@ -2,7 +2,7 @@ import UIView from "../ViewController/UIView";
 import { TableView } from "./TableView";
 
  
-export class UITableView extends UIView {
+export default class UITableView extends UIView {
     @type(TableView)
     tableView: TableView | null = null;
  

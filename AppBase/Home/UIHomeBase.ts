@@ -7,7 +7,7 @@ import UIView from "../../Common/UIKit/ViewController/UIView";
 import { UIHomeAppCenter } from "./UIHomeAppCenter";
 
  
-export class UIHomeBase extends UIView {
+export default class UIHomeBase extends UIView {
     @type(UIText)
     textTitle: UIText = null;
 

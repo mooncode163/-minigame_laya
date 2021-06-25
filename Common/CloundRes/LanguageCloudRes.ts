@@ -3,7 +3,7 @@ import { ConfigBase } from "../Config/ConfigBase";
 import { LanguageInternal } from "../Language/LanguageInternal";
 
  
-export class LanguageCloudRes extends ConfigBase { 
+export default class LanguageCloudRes extends ConfigBase { 
     languageCommon: LanguageInternal = null; 
 
  

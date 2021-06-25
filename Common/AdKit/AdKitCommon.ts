@@ -27,7 +27,7 @@ enum AdStatus {
     CLOSE,
 }
  
-export class AdKitCommon  {
+export default class AdKitCommon  {
 
     public static AdType = AdType;
     public static AdStatus = AdStatus; 

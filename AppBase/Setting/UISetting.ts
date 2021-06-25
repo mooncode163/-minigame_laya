@@ -20,7 +20,7 @@ export enum SettingType {
 } 
 
  
-export class UISetting extends UIView { 
+export default class UISetting extends UIView { 
     oneCellNum = 1;
     heightCell = 160;
     listItem: ItemInfo[] = [];

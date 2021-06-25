@@ -5,7 +5,7 @@ import { Platform } from "../../Platform";
 import { AdConfigInternal } from "./AdConfigInternal";
 
  
-export class AdConfig extends ConfigBase {
+export default class AdConfig extends ConfigBase {
 
     adConfigApp: AdConfigInternal = null;
 

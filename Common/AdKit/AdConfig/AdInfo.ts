@@ -9,7 +9,7 @@ export enum AdType {
     INSERT_VIDEO,
 }
  
-export class AdInfo  {
+export default class AdInfo  {
     // public static AdType = AdType;
     source = '';
     appid = '';

@@ -1,6 +1,6 @@
 
  
-export class TextureUtil  {
+export default class TextureUtil  {
     // static UpdateImageTexture(image: Sprite, filepath: string, isUpdateSize: boolean) {
     //     this.UpdateImageTexture(image, filepath, isUpdateSize, Vec4.ZERO);
     // }

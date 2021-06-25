@@ -1,5 +1,5 @@
  
-export class UITabBar  {
+export default class UITabBar  {
     static _main: UITabBar;
     //静态方法
     static get main() {

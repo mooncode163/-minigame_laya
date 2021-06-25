@@ -3,7 +3,7 @@ import { SharePlatformWrapper } from "./SharePlatformWrapper";
 import { ShareWeiXin } from "./ShareWeiXin";
 
  
-export class Share  {
+export default class Share  {
 
     platform: SharePlatformWrapper = null;
 

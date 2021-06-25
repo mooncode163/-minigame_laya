@@ -3,7 +3,7 @@ import UIView from "./UIView";
 
  
  
-export class UIViewController   {
+export default class UIViewController   {
     // [1]
     // dummy = '';
 

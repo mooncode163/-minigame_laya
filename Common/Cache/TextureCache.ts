@@ -3,7 +3,7 @@ import { Dictionary } from "../Dictionary";
 import { ResManager } from "../Res/ResManager";
 
  
-export class TextureCache  {
+export default class TextureCache  {
     dicItem: any;
     static _main: TextureCache;
     //静态方法

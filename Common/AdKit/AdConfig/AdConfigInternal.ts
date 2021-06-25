@@ -1,6 +1,6 @@
 
  
-export class AdConfigInternal extends AdConfigInternal {
+export default class AdConfigInternal extends AdConfigInternal {
 
     public static COUNTRY_CN: string = "cn";
     public static COUNTRY_OTHER: string = "other";

@@ -7,7 +7,7 @@ import { GameMerge } from "./GameMerge";
 import { UIGameMerge } from "./UIGameMerge";
 
  
-export class CollisionDetection extends UIView {
+export default class CollisionDetection extends UIView {
 
     isItDetected = true;//定义是否进行碰撞检测后逻辑判断
     playFallingSound = false;//定义是否播放过下落声音 

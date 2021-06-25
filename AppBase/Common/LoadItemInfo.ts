@@ -1,6 +1,6 @@
 
  
-export class LoadItemInfo  {
+export default class LoadItemInfo  {
      
 }
 

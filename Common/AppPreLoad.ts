@@ -7,7 +7,7 @@ import { ImageRes } from "./Config/ImageRes";
 import { Language } from "./Language/Language";
 
  
-export class AppPreLoad  {
+export default class AppPreLoad  {
     countLoad = 0; 
 
     listItem: ConfigBase[] = [];

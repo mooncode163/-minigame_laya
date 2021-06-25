@@ -1,5 +1,5 @@
  
-export class FrendBoardPlatformWrapper  {
+export default class FrendBoardPlatformWrapper  {
   
  
     SaveData (score) {

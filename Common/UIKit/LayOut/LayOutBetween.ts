@@ -3,7 +3,7 @@ import { LayOutBase } from "./LayOutBase";
 import { Align, LayOutUtil } from "./LayOutUtil";
 
  
-export class LayOutBetween extends LayOutBase {
+export default class LayOutBetween extends LayOutBase {
     onLoad() {
         super.onLoad();
         this.LayOut();

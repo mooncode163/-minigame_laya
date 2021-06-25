@@ -1,6 +1,6 @@
 
  
-export class UIPopUpBgPannel extends UIView {  
+export default class UIPopUpBgPannel extends UIView {  
     onLoad () {
         super.onLoad();
         this.LayOut();

@@ -1,6 +1,6 @@
 
  
-export class UINaviBar extends UIView {
+export default class UINaviBar extends UIView {
     imageBg: UIImage | null = null;
     textTitle: UIText | null = null;
     btnBack: UIButton | null = null;

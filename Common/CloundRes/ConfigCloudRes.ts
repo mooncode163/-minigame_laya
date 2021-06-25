@@ -3,7 +3,7 @@ import { ConfigBase } from "../Config/ConfigBase";
 import { ConfigCloudResInternal } from "./ConfigCloudResInternal";
 
  
-export class ConfigCloudRes extends ConfigBase {
+export default class ConfigCloudRes extends ConfigBase {
 
     configCloudResCommon: ConfigCloudResInternal = null;
 

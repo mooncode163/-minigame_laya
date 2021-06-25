@@ -5,7 +5,7 @@ import { RelationType, Align } from "./LayOutUtil";
 
  
  
-export class LayOutRelation extends LayOutBase {
+export default class LayOutRelation extends LayOutBase {
 
     @type(RelationType)
     private _type = RelationType.PARENT;

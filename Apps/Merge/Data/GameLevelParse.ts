@@ -9,7 +9,7 @@ import { ResManager } from "../../../Common/Res/ResManager";
 import { GameData } from "./GameData";
 
  
-export class GameLevelParse extends LevelParseBase {
+export default class GameLevelParse extends LevelParseBase {
     countLoad = 0;
     loadMax= 0;
 

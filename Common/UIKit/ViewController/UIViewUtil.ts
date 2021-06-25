@@ -20,7 +20,7 @@ strict设置false状态
 
 import { UIViewController } from "./UIViewController";
  
-export class UIViewUtil {
+export default class UIViewUtil {
 
     static GetNodeBoundingBox(node: Node) {
         return node.getComponent(UITransform)?.getBoundingBox();

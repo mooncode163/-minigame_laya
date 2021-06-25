@@ -1,6 +1,6 @@
 
  
-export class TabBarItemInfo  {
+export default class TabBarItemInfo  {
     static _main: TabBarItemInfo;
     //静态方法
     static get main() {

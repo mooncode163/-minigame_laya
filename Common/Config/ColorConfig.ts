@@ -3,7 +3,7 @@ import { ColorConfigInternal } from "./ColorConfigInternal";
 import { ConfigBase } from "./ConfigBase";
 
  
-export class ColorConfig extends ConfigBase {
+export default class ColorConfig extends ConfigBase {
     colorApp: ColorConfigInternal = null;
 
     static _main: ColorConfig;

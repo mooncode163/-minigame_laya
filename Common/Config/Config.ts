@@ -8,7 +8,7 @@ import { ConfigBase } from "./ConfigBase";
 import { ConfigInternal } from "./ConfigInternal";
 
  
-export class Config extends ConfigBase {
+export default class Config extends ConfigBase {
     configApp: ConfigInternal = null;
     configCommon: ConfigInternal = null;
     get appKeyName() {

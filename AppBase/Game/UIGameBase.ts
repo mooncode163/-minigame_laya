@@ -19,7 +19,7 @@ import { LevelData } from "./LevelData";
 import { LevelManager } from "./LevelManager";
 
  
-export class UIGameBase extends UIView {
+export default class UIGameBase extends UIView {
     static GAME_AD_INSERT_SHOW_STEP = 2;
     gamePrefab: Prefab | null = null;
 

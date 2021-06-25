@@ -10,7 +10,7 @@ export enum GameStatus {
 }
  
  
-export class GameData  {
+export default class GameData  {
  
     public static NameDeadLine: string = "DeadLine";
     public static NameBoardLine: string = "BoardLine";

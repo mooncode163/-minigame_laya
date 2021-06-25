@@ -3,7 +3,7 @@ import { FileSystemWeixin } from "../Platform/weixin/File/FileSystemWeixin";
 import { FileSystemPlatformWrapper } from "./FileSystemPlatformWrapper";
 
  
-export class FileSystem  { 
+export default class FileSystem  { 
 
     platform:FileSystemPlatformWrapper;
     static _main: FileSystem;

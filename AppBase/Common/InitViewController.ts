@@ -1,19 +1,20 @@
-import { MainViewController } from "../../Apps/Main/MainViewController";
-import { AppPreLoad } from "../../Common/AppPreLoad";
-import { MusicBgPlay } from "../../Common/Audio/MusicBgPlay";
-import { CloudResVersion } from "../../Common/CloundRes/CloudResVersion";
-import { CloudResViewController } from "../../Common/CloundRes/CloudResViewController";
-import { Common } from "../../Common/Common";
-import { CommonRes } from "../../Common/CommonRes";
+import MainViewController from "../../Apps/Main/MainViewController";
+import AppPreLoad from "../../Common/AppPreLoad";
+import MusicBgPlay from "../../Common/Audio/MusicBgPlay";
+import CloudResVersion from "../../Common/CloundRes/CloudResVersion";
+import CloudResViewController from "../../Common/CloundRes/CloudResViewController";
+import Common from "../../Common/Common";
+import CommonRes from "../../Common/CommonRes";
 import Debug from "../../Common/Debug";
-import { Language } from "../../Common/Language/Language";
-import { Platform } from "../../Common/Platform";
-import { NaviViewController } from "../../Common/UIKit/NaviBar/NaviViewController";
-import { LevelManager } from "../Game/LevelManager";
+import Language from "../../Common/Language/Language";
+import Platform from "../../Common/Platform";
+import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
+import LevelManager from "../Game/LevelManager";
 import AppSceneBase from "./AppSceneBase";
 
  
-export class InitViewController extends NaviViewController {
+ 
+export default class InitViewController extends NaviViewController {
     static _main: InitViewController;
     //静态方法
     static get main() {

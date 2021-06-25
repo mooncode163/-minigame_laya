@@ -5,7 +5,7 @@ import { LayOutElement } from "./LayOutElement";
 import { Direction, Align } from "./LayOutUtil";
 
  
-export class HorizontalOrVerticalLayoutBase extends LayOutBase {
+export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
 
  
         //是否控制大小

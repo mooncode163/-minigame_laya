@@ -1,5 +1,5 @@
  
-export class Platform  {
+export default class Platform  {
 
     public static get isAndroid(): boolean {
         return Laya.Browser.onAndroid ;

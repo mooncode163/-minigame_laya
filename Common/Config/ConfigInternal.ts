@@ -4,7 +4,7 @@ import { JsonUtil } from "../File/JsonUtil";
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ConfigInternal extends ConfigInternalBase {
+export default class ConfigInternal extends ConfigInternalBase {
     GetAppIdOfStore(store: string) {
         Debug.Log("GetAppIdOfStore store=" + store);
         var appid = this.rootJson.APPID;

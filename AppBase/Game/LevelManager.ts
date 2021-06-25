@@ -4,7 +4,7 @@ import { GameViewController } from "./GameViewController";
 import { LevelData } from "./LevelData";
 
  
-export class LevelManager  {
+export default class LevelManager  {
 
     placeLevel = 0;
     objGuanka=null;

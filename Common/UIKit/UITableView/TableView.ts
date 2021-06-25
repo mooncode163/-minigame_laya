@@ -80,7 +80,7 @@ function getChildByCellIndex(parent, index) {
 }
 
  
-export class TableView extends ScrollView {
+export default class TableView extends ScrollView {
     _cellPoolCache: any[] = [];
 
     _cellSize: Size = new Size(0, 0);

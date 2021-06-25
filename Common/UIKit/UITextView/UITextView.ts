@@ -1,7 +1,7 @@
 import UIView from "../ViewController/UIView";
 
  
-export class UITextView extends UIView {
+export default class UITextView extends UIView {
     static _main: UITextView;
     //静态方法
     static get main() {

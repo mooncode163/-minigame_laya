@@ -5,7 +5,7 @@ import Debug from "../../../Debug";
 import { Source } from "../../../Source";
 
  
-export class AdBannerWeiXin extends AdBannerPlatformWrapper {
+export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
     bannerAd = null;
     width = 0;
     height = 0;

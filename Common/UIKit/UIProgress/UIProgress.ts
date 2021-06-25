@@ -2,7 +2,7 @@ import UIImage from "../UIImage/UIImage";
 import UIView from "../ViewController/UIView";
 
  
-export class UIProgress extends UIView {
+export default class UIProgress extends UIView {
     @type(UIImage)
     imageBg: UIImage | null = null;
     @type(UIImage)

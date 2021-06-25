@@ -1,6 +1,6 @@
 
  
-export class FrendBoardViewController  {
+export default class FrendBoardViewController  {
     static _main: FrendBoardViewController;
     //静态方法
     static get main() {

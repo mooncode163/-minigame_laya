@@ -1,5 +1,5 @@
  
-export class UITouchEvent extends Component {
+export default class UITouchEvent extends Component {
     public static TOUCH_DOWN = 0;
     public static TOUCH_MOVE = 1;
     public static TOUCH_UP = 2;

@@ -5,7 +5,7 @@ import Debug from "../../../Debug";
 import { Source } from "../../../Source";
 
  
-export class AdVideoWeiXin extends AdVideoPlatformWrapper {
+export default class AdVideoWeiXin extends AdVideoPlatformWrapper {
     videoAd = null;
 
     SetObjectInfo(objName, objMethod) {

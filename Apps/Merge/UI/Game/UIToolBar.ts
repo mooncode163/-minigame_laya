@@ -11,7 +11,7 @@ import { GameData, GameStatus } from "../../Data/GameData";
 import { GameMerge } from "./GameMerge";
 
  
-export class UIToolBar extends UIView {
+export default class UIToolBar extends UIView {
     @type(UIImage)
     imageBg: UIImage | null = null;
 

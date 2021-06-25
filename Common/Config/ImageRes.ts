@@ -5,7 +5,7 @@ import { ConfigBase } from "./ConfigBase";
 import { ImageResInternal } from "./ImageResInternal";
 
  
-export class ImageRes extends ConfigBase {
+export default class ImageRes extends ConfigBase {
     imageResApp: ImageResInternal = null;
     imageResAppCommon: ImageResInternal = null;
     imageResCommon: ImageResInternal = null;

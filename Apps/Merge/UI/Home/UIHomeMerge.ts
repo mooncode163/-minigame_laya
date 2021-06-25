@@ -11,7 +11,7 @@ import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import { GameLevelParse } from "../../Data/GameLevelParse";
 
  
-export class UIHomeMerge extends UIHomeBase {
+export default class UIHomeMerge extends UIHomeBase {
     @type(UIImage)
     imageLogo: UIImage = null;
 

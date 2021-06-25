@@ -8,7 +8,7 @@ import { UIViewController } from "../../Common/UIKit/ViewController/UIViewContro
 import { UIHomeBase } from "./UIHomeBase";
 
  
-export class HomeViewController extends UIViewController {
+export default class HomeViewController extends UIViewController {
 
     uiPrefab: Prefab;
     ui: UIHomeBase;

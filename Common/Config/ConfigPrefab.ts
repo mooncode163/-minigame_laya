@@ -3,7 +3,7 @@ import { ConfigBase } from "./ConfigBase";
 import { ConfigPrefabInternal } from "./ConfigPrefabInternal";
 
 
-export class ConfigPrefab extends ConfigBase {
+export default class ConfigPrefab extends ConfigBase {
     configPrefabApp: ConfigPrefabInternal = null;
     configPrefabAppCommon: ConfigPrefabInternal = null;
     configPrefabCommon: ConfigPrefabInternal = null;

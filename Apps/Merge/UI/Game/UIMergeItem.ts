@@ -7,7 +7,7 @@ import { GameMerge } from "./GameMerge";
 import { UIGameMerge } from "./UIGameMerge";
 
  
-export class UIMergeItem extends UIView {
+export default class UIMergeItem extends UIView {
     @type(UIImage)
     imageItem: UIImage | null = null;
     isNew = false;

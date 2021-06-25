@@ -1,5 +1,5 @@
  
-export class AudioCache  {
+export default class AudioCache  {
     
     static _main: AudioCache;
     //静态方法

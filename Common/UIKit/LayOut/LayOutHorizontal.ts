@@ -3,7 +3,7 @@ import { HorizontalOrVerticalLayoutBase } from "./HorizontalOrVerticalLayoutBase
 import { LayOutUtil } from "./LayOutUtil";
 
  
-export class LayOutHorizontal extends HorizontalOrVerticalLayoutBase {
+export default class LayOutHorizontal extends HorizontalOrVerticalLayoutBase {
     onLoad() {
         super.onLoad(); 
         // this.LayOut();

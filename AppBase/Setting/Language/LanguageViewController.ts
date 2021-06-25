@@ -4,7 +4,7 @@ import { UIViewController } from "../../../Common/UIKit/ViewController/UIViewCon
 import { UILanguage } from "./UILanguage";
 
  
-export class LanguageViewController extends UIViewController {
+export default class LanguageViewController extends UIViewController {
 
     uiPrefab: Prefab;
     ui: UILanguage;

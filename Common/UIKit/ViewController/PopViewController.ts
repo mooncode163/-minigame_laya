@@ -2,7 +2,7 @@ import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
 import { UIViewController } from "./UIViewController";
 
  
-export class PopViewController extends UIViewController {
+export default class PopViewController extends UIViewController {
     // iDelegate: IPopViewControllerDelegate,
         // _closeCallback: null,
         objCallback=null;

@@ -1,5 +1,5 @@
  
-export class AdVideoMooSnow extends AdVideoPlatformWrapper {
+export default class AdVideoMooSnow extends AdVideoPlatformWrapper {
     videoAd = null;
 
     SetObjectInfo(objName, objMethod) {

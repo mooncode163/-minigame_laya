@@ -11,7 +11,7 @@ import { LanguageViewController } from "./Language/LanguageViewController";
 import { SettingType } from "./UISetting";
 
  
-export class UISettingCellItem extends UICellItemBase { 
+export default class UISettingCellItem extends UICellItemBase { 
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];
 

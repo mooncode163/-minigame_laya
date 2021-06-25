@@ -1,7 +1,7 @@
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 
  
-export class UIBoard extends UIView {
+export default class UIBoard extends UIView {
     
     onLoad () {
         super.onLoad();

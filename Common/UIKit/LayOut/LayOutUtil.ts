@@ -92,7 +92,7 @@ export enum SideType {
  
 
  
-export class LayOutUtil {
+export default class LayOutUtil {
 
     // public static Align = Align;
     // public static DispLayVertical = DispLayVertical;

@@ -4,7 +4,7 @@ import { UIViewPop } from "../../../../../Common/UIKit/PopUp/UIViewPop";
 import UIText from "../../../../../Common/UIKit/UIText/UIText";
 
  
-export class UIGameFail extends UIViewPop {
+export default class UIGameFail extends UIViewPop {
 
     @type(UIText)
     textTitle: UIText | null = null; 

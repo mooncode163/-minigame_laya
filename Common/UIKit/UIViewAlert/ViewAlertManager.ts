@@ -5,7 +5,7 @@ import { PopUpManager } from "../PopUp/PopUpManager";
 import { UIViewAlert } from "./UIViewAlert";
 
  
-export class ViewAlertManager  {
+export default class ViewAlertManager  {
     uiPrefab: Prefab = null;
     ui: UIViewAlert = null;
     keyName: string = "";

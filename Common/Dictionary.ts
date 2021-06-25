@@ -1,7 +1,7 @@
 import Debug from "./Debug";
 
  
-export class Dictionary  {
+export default class Dictionary  {
     datastore: any[] = []; 
     Init () {
      

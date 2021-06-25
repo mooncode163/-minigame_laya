@@ -12,7 +12,7 @@ import { UIPopProp } from "./UIPopProp";
 import { UIToolBar } from "./UIToolBar";
 
  
-export class UIGameMerge extends UIGameBase {
+export default class UIGameMerge extends UIGameBase {
 
     @type(UIText)
     titleScore: UIText | null = null; 

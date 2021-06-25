@@ -1,6 +1,6 @@
 
  
-export class FrendBoardFacebook  {
+export default class FrendBoardFacebook  {
     SaveData (score) {
  
     } 

@@ -1,7 +1,7 @@
 
 
  
-export class AdBannerMooSnow extends AdBannerPlatformWrapper {
+export default class AdBannerMooSnow extends AdBannerPlatformWrapper {
     bannerAd = null;
     width = 0;
     height = 0;

@@ -3,7 +3,7 @@ import { ConfigBase } from "../Config/ConfigBase";
 import { ImageResInternal } from "../Config/ImageResInternal";
 
  
-export class ImageResCloudRes extends ConfigBase { 
+export default class ImageResCloudRes extends ConfigBase { 
     imageResCommon: ImageResInternal = null; 
 
 

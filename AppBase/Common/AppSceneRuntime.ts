@@ -1,7 +1,6 @@
 
 import { ui } from '../../../ui/layaMaxUI';
-import Debug from '../../Common/Debug';
-import { UIViewController } from '../../Common/UIKit/ViewController/UIViewController';
+import Debug from '../../Common/Debug'; 
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -9,8 +8,8 @@ import { UIViewController } from '../../Common/UIKit/ViewController/UIViewContro
 
 
 
-export default class AppSceneBase extends ui.test.TestSceneUI {
-    static _main: AppSceneBase;
+export default class AppSceneRuntime extends ui.test.TestSceneUI {
+    static _main: AppSceneRuntime;
     //静态方法
     static get main() {
         if (this._main == null) {
@@ -21,7 +20,8 @@ export default class AppSceneBase extends ui.test.TestSceneUI {
  
     constructor() {
         super();
-        Debug.Log("AppSceneBase constructor");
+        AppSceneRuntime._main = this;
+        Debug.Log("AppSceneRuntime constructor");
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;
 

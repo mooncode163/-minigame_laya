@@ -11,7 +11,7 @@ import { UIGameMerge } from "./UIGameMerge";
 import { UIMergeItem } from "./UIMergeItem";
 
  
-export class GameMerge extends GameBase {
+export default class GameMerge extends GameBase {
     @type(Node)
     nodeDeadline: Node | null = null;
     @type(UIImage)

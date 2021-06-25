@@ -3,7 +3,7 @@ import { AdBannerMooSnow } from "../../Platform/moosnow/AdKit/AdBannerMooSnow";
 import { AdBannerPlatformWrapper } from "./AdBannerPlatformWrapper";
 
  
-export class AdBanner  {
+export default class AdBanner  {
 
     platform: AdBannerPlatformWrapper = null;
 

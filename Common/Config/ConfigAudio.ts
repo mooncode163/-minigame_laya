@@ -5,7 +5,7 @@ import { ConfigAudioInternal } from "./ConfigAudioInternal";
 import { ConfigBase } from "./ConfigBase";
 
  
-export class ConfigAudio extends ConfigBase {
+export default class ConfigAudio extends ConfigBase {
     configAudioApp: ConfigAudioInternal = null;
     configAudioCloudRes: ConfigAudioInternal = null;
     static _main: ConfigAudio;

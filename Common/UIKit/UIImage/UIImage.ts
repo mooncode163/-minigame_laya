@@ -3,16 +3,16 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
-import { TextureCache } from "../../Cache/TextureCache";
-import { Common } from "../../Common";
-import { ImageRes } from "../../Config/ImageRes";
+import TextureCache from "../../Cache/TextureCache";
+import Common from "../../Common";
+import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
-import { Device } from "../../Device";
-import { FileUtil } from "../../File/FileUtil";
-import { TextureUtil } from "../../Image/TextureUtil";
-import { Platform } from "../../Platform";
+import Device from "../../Device";
+import FileUtil from "../../File/FileUtil";
+import TextureUtil from "../../Image/TextureUtil";
+import Platform from "../../Platform";
 import UIView from "../ViewController/UIView";
-
+ 
  
 export default class UIImage extends UIView {
 

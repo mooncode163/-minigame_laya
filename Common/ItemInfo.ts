@@ -1,6 +1,6 @@
 
  
-export class ItemInfo  {
+export default class ItemInfo  {
     source = '';
     id = '';
     type = '';

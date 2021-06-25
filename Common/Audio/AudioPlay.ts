@@ -3,7 +3,7 @@ import Debug from "../Debug";
 import { ResManager } from "../Res/ResManager";
 
  
-export class AudioPlay extends Component {  
+export default class AudioPlay extends Component {  
     @type(AudioSource)
     audioSource: AudioSource = null;
     static _main: AudioPlay;

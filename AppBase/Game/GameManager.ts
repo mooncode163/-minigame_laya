@@ -1,6 +1,6 @@
 
  
-export class GameManager  {
+export default class GameManager  {
     static gameMode = 0;
     uiPrefab:Prefab=null; 
 

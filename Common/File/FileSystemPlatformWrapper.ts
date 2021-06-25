@@ -1,5 +1,5 @@
  
-export class FileSystemPlatformWrapper  { 
+export default class FileSystemPlatformWrapper  { 
     public static FILE_ROOT_DIR = "moonma";
 
     static _main: FileSystemPlatformWrapper;

@@ -5,7 +5,7 @@ import { UIViewController } from "../../Common/UIKit/ViewController/UIViewContro
 import { UIGameBase } from "./UIGameBase";
 
  
-export class GameViewController extends UIViewController {
+export default class GameViewController extends UIViewController {
 
     uiPrefab: Prefab = null;
     ui: UIGameBase = null;

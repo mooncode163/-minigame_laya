@@ -1,7 +1,7 @@
 import UIView from "../ViewController/UIView";
 
  
-export class UIViewCell extends UIView {
+export default class UIViewCell extends UIView {
 
     tableView: any;
     _isCellInit_: boolean = false;

@@ -1,6 +1,6 @@
 
  
-export class ConfigCloudResInternal extends ConfigInternalBase {
+export default class ConfigCloudResInternal extends ConfigInternalBase {
    
     GetCloudResUrl () { 
         var key = "url";

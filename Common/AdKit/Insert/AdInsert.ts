@@ -3,7 +3,7 @@ import { AdInsertMooSnow } from "../../Platform/moosnow/AdKit/AdInsertMooSnow";
 import { AdInsertPlatformWrapper } from "./AdInsertPlatformWrapper";
 
  
-export class AdInsert  {
+export default class AdInsert  {
 
     platform: AdInsertPlatformWrapper = null;
 

@@ -1,7 +1,7 @@
 import { LayOutBase } from "./LayOutBase";
 
  
-export class LayOutGrid extends LayOutBase {
+export default class LayOutGrid extends LayOutBase {
     // [1]
     // dummy = '';
 

@@ -1,6 +1,6 @@
 
  
-export class CommonRes  {
+export default class CommonRes  {
     public static STR_KEY_NOT_FIRST_RUN: string = "STR_KEY_NOT_FIRST_RUN"; 
     public static KEY_BACKGROUND_MUSIC: string = "KEY_BACKGROUND_MUSIC"; 
     public static KEY_BTN_SOUND: string = "KEY_BTN_SOUND";

@@ -7,7 +7,7 @@ import UIText from "../../../../../Common/UIKit/UIText/UIText";
 import { GameLevelParse } from "../../../Data/GameLevelParse";
 
  
-export class UIGameWin extends UIViewPop {
+export default class UIGameWin extends UIViewPop {
  
     @type(UIText)
     textTitle: UIText | null = null; 

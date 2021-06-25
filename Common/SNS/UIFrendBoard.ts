@@ -1,5 +1,5 @@
  
-export class UIFrendBoard  {
+export default class UIFrendBoard  {
     static _main: UIFrendBoard;
     //静态方法
     static get main() {

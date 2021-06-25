@@ -1,5 +1,5 @@
  
-export class LayOutElement extends Component {
+export default class LayOutElement extends Component {
    
     ignoreLayout= false;
     

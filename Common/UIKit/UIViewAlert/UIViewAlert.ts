@@ -6,7 +6,7 @@ import UIImage from "../UIImage/UIImage";
 import UIText from "../UIText/UIText";
 
  
-export class UIViewAlert extends UIViewPop {
+export default class UIViewAlert extends UIViewPop {
     imageBg: UIImage;
     textTitle: UIText;
     textMsg: UIText;

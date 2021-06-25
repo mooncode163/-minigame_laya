@@ -3,7 +3,7 @@ import { JsonUtil } from "../File/JsonUtil";
 import { ConfigInternalBase } from "./ConfigInternalBase";
 
  
-export class ImageResInternal extends ConfigInternalBase {
+export default class ImageResInternal extends ConfigInternalBase {
     public KEY_BOARD: string = "board";
     public KEY_PATH: string = "path";
     rootJson: any = null; 

@@ -1,5 +1,5 @@
  
-export class AdInsertPlatformWrapper  {
+export default class AdInsertPlatformWrapper  {
 
 
     InitAd(source) {

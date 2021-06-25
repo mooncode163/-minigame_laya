@@ -5,7 +5,7 @@ import { UIGameMerge } from "./UIGameMerge";
 import { UIMergeItem } from "./UIMergeItem";
 
  
-export class UIDeadLine extends UIView {
+export default class UIDeadLine extends UIView {
     t = 0;
     isGameFail = false;
 

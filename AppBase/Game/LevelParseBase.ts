@@ -7,7 +7,7 @@ import { ResManager } from "../../Common/Res/ResManager";
 import { LevelData } from "./LevelData";
 
  
-export class LevelParseBase  {
+export default class LevelParseBase  {
     public static PLACE_ITEM_TYPE_NONE = "none";
     public static PLACE_ITEM_TYPE_VIDEO = "video";
     public static PLACE_ITEM_TYPE_LOCK = "lock";

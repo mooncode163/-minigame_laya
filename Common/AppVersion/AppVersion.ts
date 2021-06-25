@@ -1,5 +1,5 @@
  
-export class AppVersion  {
+export default class AppVersion  {
     static _main: AppVersion;
     //静态方法
     static get main() {

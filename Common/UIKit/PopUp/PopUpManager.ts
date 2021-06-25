@@ -1,6 +1,6 @@
 
  
-export class PopUpManager  {
+export default class PopUpManager  {
 
     static ANIMATE_DURATION = 0.8;
     listItem: UIViewPop[] = [];

@@ -1,6 +1,6 @@
 
  
-export class UIViewPop extends UIView {  
+export default class UIViewPop extends UIView {  
     onLoad () {
         super.onLoad();
         this.LayOut();
