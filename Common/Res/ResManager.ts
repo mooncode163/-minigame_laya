@@ -71,26 +71,16 @@ export default class ResManager {
         
       }
       */
-    public static LoadPrefab(obj: any) {
-        // texture spriteFrame
-        console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath);
-        // var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath) + "/texture";
-        var pic = obj.filepath;
-        // "res/threeDimen/texture/earth.png"
-        //加载纹理
+    public static LoadPrefab(obj: any) { 
+        console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath); 
+        var pic = obj.filepath; 
         Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (pref:Laya.Prefab): void {
-            //使用纹理
-            // var earth1 = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createSphere(5, 32, 32))) as Laya.MeshSprite3D;
-            // earth1.transform.translate(new Laya.Vector3(17, 20, 0));
-
-            // var earthMat = new Laya.BlinnPhongMaterial();
-            // earthMat.albedoTexture = tex;
-            // earthMat.albedoIntensity = 1;
-            // earth1.meshRenderer.material = earthMat;
- 
             if (obj.success != null) {
                 obj.success(this, pref);
             }
+
+            // 实例华并加载到舞台
+            // this.owner.parent.addChild(data.create());
 
         }));
 
