@@ -1,22 +1,10 @@
-import { LayOutBase } from "./LayOutBase";
+import LayOutBase from "./LayOutBase";
 
  
-export default class LayOutGrid extends LayOutBase {
-    // [1]
-    // dummy = '';
+ 
+export default class LayOutGrid extends LayOutBase { 
 
-    // [2]
-    //
-    // serializableDummy = 0;
   
-
-    start () {
-        // [3]
-    }
-
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
 }
 
 /**

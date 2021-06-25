@@ -1,6 +1,8 @@
-import { Common } from "../Common";
-import { ColorConfigInternal } from "./ColorConfigInternal";
-import { ConfigBase } from "./ConfigBase";
+import Common from "../Common";
+import ColorConfigInternal from "./ColorConfigInternal";
+import ConfigBase from "./ConfigBase";
+
+ 
 
  
 export default class ColorConfig extends ConfigBase {

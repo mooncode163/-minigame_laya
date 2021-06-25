@@ -25,8 +25,8 @@ export default class UISettingCellItem extends UICellItemBase {
 
     info: ItemInfo;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
     }
 
     init(index, data, reload, group) {

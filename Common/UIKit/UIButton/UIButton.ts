@@ -91,14 +91,14 @@ export default class UIButton extends UIView {
 
 
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.type = this._type;
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
     }
 
 

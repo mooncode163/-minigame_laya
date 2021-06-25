@@ -1,5 +1,5 @@
-import Debug from "../Debug";
-import { ConfigInternalBase } from "./ConfigInternalBase";
+import Debug from "../Debug"; 
+import ConfigInternalBase from "./ConfigInternalBase";
 
  
 export default class ColorConfigInternal extends ConfigInternalBase {
@@ -28,7 +28,7 @@ export default class ColorConfigInternal extends ConfigInternalBase {
             index++;
         }
 
-        var color = new Color(r, g, b, a);
+        var color = new Laya.Color(r, g, b, a);
         return color;
     }
 

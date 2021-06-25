@@ -30,7 +30,7 @@ export default class UIGameWin extends UIViewPop {
     listItem:UIImage[]=[];
   
     onLoad () {
-        super.onLoad();
+        super.onAwake();
  
         this.listItem.push(this.imageItem0);
         this.listItem.push(this.imageItem1);
@@ -54,7 +54,7 @@ export default class UIGameWin extends UIViewPop {
         this.LayOut();
     }
     start () {
-        super.start();
+        super.onStart();
         this.LayOut();
     }
      

@@ -1,6 +1,7 @@
 import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
-import { Common } from "../../Common";
-import { LayOutBase } from "./LayOutBase";
+import Common from "../../Common";
+import LayOutBase from "./LayOutBase";
+ 
 import { ScaleType } from "./LayOutUtil";
 
  
@@ -8,10 +9,9 @@ export default class LayOutScale extends LayOutBase {
 
    
     ratio = 1.0;
-
-    @type(ScaleType)
+ 
     private _type = ScaleType.MIN;
-    @type(ScaleType)
+   
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -24,14 +24,14 @@ export default class LayOutScale extends LayOutBase {
     }
 
 
-    onLoad() {
-        super.onLoad(); 
+    onAwake() {
+        super.onAwake(); 
         this.type = this._type;
         this.LayOut();
     }
 
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
 
@@ -48,12 +48,12 @@ export default class LayOutScale extends LayOutBase {
         switch (this.type) {
             case ScaleType.MIN:
                 {
-                    this.ScaleNode(this.node, false);
+                   // this.ScaleNode(this.node, false);
                 }
                 break;
             case ScaleType.MAX:
                 {
-                    this.ScaleNode(this.node, true);
+                   // this.ScaleNode(this.node, true);
                 }
                 break;
 
@@ -61,8 +61,8 @@ export default class LayOutScale extends LayOutBase {
     }
 
     ScaleNode(node: any, isMaxFit: boolean) {
-        var x, y, w, h;
-        // var rectParent = this.node.parent.getBoundingBox(); 
+        var x, y, w, h; 
+        /*
         var size = this.node.getComponent(UITransform).contentSize;
         var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
 
@@ -96,20 +96,8 @@ export default class LayOutScale extends LayOutBase {
         scale = scale * this.ratio; 
         node.scale.x = scale;
         node.scale.y = scale;
+        */
     }
-
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+ 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

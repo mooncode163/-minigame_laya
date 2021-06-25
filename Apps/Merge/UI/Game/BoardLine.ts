@@ -5,11 +5,11 @@ import { GameData } from "../../Data/GameData";
 export default class BoardLine extends UIView {
     
     onLoad () {
-        super.onLoad();
+        super.onAwake();
         this.id = GameData.NameBoardLine;
     }
     start () {
-        super.start();
+        super.onStart();
     }
     
  

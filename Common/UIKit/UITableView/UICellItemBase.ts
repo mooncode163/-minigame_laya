@@ -5,14 +5,14 @@ export default class UICellItemBase extends UIViewCell {
     onClickCallBack= null;
     target:UIView=null;
     
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
      
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
     }
     LayOut() {
         super.LayOut();

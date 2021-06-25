@@ -5,6 +5,8 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import LayOutElement from "./LayOutElement";
+
 
 // 微信小程序 const Align = LayOutUtil.Align; 会异常 所以用export enum的方式
 export enum Align {
@@ -93,17 +95,7 @@ export enum SideType {
 
  
 export default class LayOutUtil {
-
-    // public static Align = Align;
-    // public static DispLayVertical = DispLayVertical;
-    // public static DispLayHorizontal = DispLayHorizontal;
-    // public static Direction = Direction;
-    // public static SizeType = SizeType;
-    // public static SideType = SideType;
-    // public static RelationType = RelationType;
-    // public static ScaleType = ScaleType;
-    
-
+ 
 
     static _main: LayOutUtil;
     //静态方法
@@ -124,13 +116,14 @@ export default class LayOutUtil {
             nodeleft = node2;
             noderight = node1;
         }
-        // var rctran = nodeleft.getComponent(cc.RectTransform);
+       /*
         var rctran = nodeleft.getComponent(UITransform).contentSize;
         var v1 = nodeleft.getPosition().x + rctran.width / 2;
         // rctran = noderight.getComponent(cc.RectTransform);
         rctran = noderight.getComponent(UITransform).contentSize;
         var v2 = noderight.getPosition().x - rctran.width / 2;
         return (v1 + v2) / 2;
+        */
     }
     //两个node之间的中心位置y
     GetBetweenCenterY(node1, node2) {
@@ -142,6 +135,7 @@ export default class LayOutUtil {
             nodeDown = node2;
             nodeUp = node1;
         }
+        /*
         // var rctran = nodeDown.getComponent(cc.RectTransform);
         var rctran = nodeDown.getComponent(UITransform).contentSize;
         var v1 = nodeDown.getPosition().y + rctran.height / 2;
@@ -149,11 +143,13 @@ export default class LayOutUtil {
         rctran = nodeUp.getComponent(UITransform).contentSize;
         var v2 = nodeUp.getPosition().y - rctran.height / 2;
         return (v1 + v2) / 2;
+        */
     }
 
     //node和屏幕边界之间的中心位置x或者y
     GetBetweenScreenCenter(node:Node, align:Align,enableAdBanner:boolean=false) {
         var v1 = 0, v2 = 0;
+        /*
         var sizeCanvas = AppSceneBase.main.sizeCanvas;
      
         var rctran = node.getComponent(UITransform).contentSize;
@@ -195,6 +191,7 @@ export default class LayOutUtil {
         }
 
         return (v1 + v2) / 2;
+        */
     }
 
 
@@ -212,6 +209,7 @@ export default class LayOutUtil {
             objDown = node2;
             objUp = node1;
         }
+        /*
         var pos = objDown.getPosition();
         var size =UIViewUtil.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
         var y1 = pos.y + size.height / 2;
@@ -232,12 +230,15 @@ export default class LayOutUtil {
         }
 
         return ret;
+        */
+
     }
 
 
     //边界和对象之间的宽度或者高度 type SizeType
     GetBetweenSideAndTargetSize(node, type) {
         var v1 = 0, v2 = 0;
+        /*
         var size =UIViewUtil.GetNodeBoundingBox(node);// node.getBoundingBox();
         var pos = node.getPosition();
         // var sizeParent = node.parent.getBoundingBox();
@@ -282,6 +283,8 @@ export default class LayOutUtil {
         ret = Math.abs(v1 - v2);
 
         return ret;
+        */
+       
     }
 
     GetChildCount(node, includeHide = true) {
@@ -321,14 +324,4 @@ export default class LayOutUtil {
 
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

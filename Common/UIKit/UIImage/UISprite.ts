@@ -17,14 +17,14 @@ const { ccclass, property, type } = _decorator;
 export default class UISprite extends UIImage {
  
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
          
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
     }
  
 

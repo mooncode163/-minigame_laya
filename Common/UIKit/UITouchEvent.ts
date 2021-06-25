@@ -15,7 +15,7 @@ export default class UITouchEvent extends Component {
    
     enableLongPress = false;
 
-    onLoad() {
+    onAwake() {
         this.Init();
     }
 

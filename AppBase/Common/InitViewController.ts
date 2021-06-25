@@ -6,7 +6,8 @@ import CloudResViewController from "../../Common/CloundRes/CloudResViewControlle
 import Common from "../../Common/Common";
 import CommonRes from "../../Common/CommonRes";
 import Debug from "../../Common/Debug";
-import Language from "../../Common/Language/Language";
+import Language from "../../Common/Language/Language"; 
+import { SysLanguage } from "../../Common/Language/LanguageUtil";
 import Platform from "../../Common/Platform";
 import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
 import LevelManager from "../Game/LevelManager";
@@ -110,7 +111,7 @@ export default class InitViewController extends NaviViewController {
         else
         {
 
-            var lan = Common.GetItemOfKey(CommonRes.KEY_LANGUAGE,sys.LANGUAGE_CHINESE); 
+            var lan = Common.GetItemOfKey(CommonRes.KEY_LANGUAGE,SysLanguage.CN); 
             Language.main.SetLanguage(lan);
 
         }

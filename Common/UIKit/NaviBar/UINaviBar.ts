@@ -4,14 +4,14 @@ export default class UINaviBar extends UIView {
     imageBg: UIImage | null = null;
     textTitle: UIText | null = null;
     btnBack: UIButton | null = null;
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
        // this.btnBack.node.active = false;
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
 
     }
 

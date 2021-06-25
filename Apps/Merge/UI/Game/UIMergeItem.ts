@@ -15,8 +15,8 @@ export default class UIMergeItem extends UIView {
     t = 0;
     hasGoDownDeadLine = false;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.t = 0;
         // this.node.zIndex = 100;
         // var manager = director.getCollisionManager();
@@ -26,8 +26,8 @@ export default class UIMergeItem extends UIView {
         var ev = this.node.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
     }
 
     update() {
@@ -131,7 +131,7 @@ export default class UIMergeItem extends UIView {
                                 .call(() => {
                                     GameMerge.main.DeleteItem(this);
                                 })
-                                .start()
+                                .onStart()
                         }
 
                         if (UIGameMerge.main.typeProp == PropType.Bomb) {
@@ -141,7 +141,7 @@ export default class UIMergeItem extends UIView {
                                 .call(() => {
                                     GameMerge.main.DeleteAllItemsOfId(this.id);
                                 })
-                                .start() 
+                                .onStart() 
 
                         }
                     }

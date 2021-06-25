@@ -1,5 +1,6 @@
-import { FileSystemPlatformWrapper } from "../../../File/FileSystemPlatformWrapper";
+import FileSystemPlatformWrapper from "../../../File/FileSystemPlatformWrapper";
 
+ 
  
 export default class FileSystemWeixin extends FileSystemPlatformWrapper {
     static _main: FileSystemWeixin;
@@ -12,27 +13,17 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
     }
 
     GetRootDirPath() {
-        var ret = `${wx.env.USER_DATA_PATH}/` + FileSystemPlatformWrapper.FILE_ROOT_DIR;
-        // var systemManager = wx.getFileSystemManager();
-        // systemManager.mkdir({
-        //     dirPath: ret,
-        //     complete: res => {
-        //         console.log("GetRootDirPath mkdir", res)
-        //     }
-        // })
-
-        return ret;
-        // return `${wx.env.USER_DATA_PATH}`;
+        // var ret = `${wx.env.USER_DATA_PATH}/` + FileSystemPlatformWrapper.FILE_ROOT_DIR;
+        // return ret;  
         return "";
     }
 
     DownloadFile(obj: any) {
-
+/*
         const fs = wx.getFileSystemManager()
         var dir = this.GetRootDirPath();
 
-        const downloadTask = wx.downloadFile({
-            //url: "https://6d6f-moonma-dbb297-1258816908.tcb.qcloud.la/ShapeColor/CloudRes.zip?sign=e78a71df50918d8ee0e181886b20c12f&t=1555465442",
+        const downloadTask = wx.downloadFile({ 
             url: obj.url,
             success(res) {
                 var filePath = res.tempFilePath;
@@ -58,10 +49,12 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
         })
 
         // downloadTask.abort() // 取消下载任务
+        */
 
     }
 
     UnzipFile(obj: any) {
+        /*
         const fs = wx.getFileSystemManager();
         var dir = this.GetRootDirPath();
         fs.unzip({
@@ -82,9 +75,11 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         });
+        */
     }
 
     ReadFile(obj: any) {
+        /*
         const fs = wx.getFileSystemManager()
         var dir = this.GetRootDirPath();
         fs.readFile({
@@ -101,8 +96,10 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
+        */
     }
     WriteFile(obj: any) {
+        /*
         const fs = wx.getFileSystemManager()
         fs.writeFile({
             filePath: obj.filePath,
@@ -118,9 +115,11 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
+         */
     }
 
     DeleteFile(filepath: string) {
+        /*
         const fs = wx.getFileSystemManager()
         fs.removeSavedFile({
             filePath: filepath,
@@ -132,17 +131,8 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
+        */
     }
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

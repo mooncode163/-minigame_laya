@@ -1,6 +1,4 @@
-import { Common } from "../Common";
-
- 
+import Common from "../Common"; 
 export default class JsonUtil  {
 
     //JsonData data, string key,   _defaultf 

@@ -16,8 +16,8 @@ export default class UIViewAlert extends UIViewPop {
 
     //callback(UIViewAlert alert, bool isYes);
     callback = null;
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
 
         this.LayOut();
     }

@@ -33,13 +33,13 @@ export default class UIGameBase extends UIView {
     textTitle: UIText | null = null;
 
     listProLoad: ItemInfo[] = [];
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.LayOut();
         this.LoadGamePrefab();
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
 

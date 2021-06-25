@@ -2,11 +2,11 @@
  
 export default class UIPopUpBgPannel extends UIView {  
     onLoad () {
-        super.onLoad();
+        super.onAwake();
         this.LayOut();
     }
     start () {
-        super.start();
+        super.onStart();
         this.LayOut(); 
     } 
   

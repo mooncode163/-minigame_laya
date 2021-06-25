@@ -1,7 +1,7 @@
-import Debug from "../Debug";
-import { Dictionary } from "../Dictionary";
-import { CSVParser } from "../FileParse/CSV/CSVParser";
-
+import Debug from "../Debug"; 
+import Dictionary from "../Dictionary";
+import CSVParser from "../FileParse/CSV/CSVParser";
+import { SysLanguage } from "./LanguageUtil";
  
 export default class LTLocalization  {
     public static ENGLISH = "EN";
@@ -22,7 +22,7 @@ export default class LTLocalization  {
     
     dicData:Dictionary = null;
 
-    language = sys.LANGUAGE_CHINESE;
+    language = SysLanguage.CN;
 
 
     csvParser: CSVParser = null;
@@ -30,14 +30,14 @@ export default class LTLocalization  {
 
     GetLanguageKeyName(lan: string) {
         var ret = LTLocalization.CHINESE;
-
+ 
         switch (lan) {
-            case sys.LANGUAGE_CHINESE:
+            case SysLanguage.CN:
                 {
                     ret = LTLocalization.CHINESE;
                 }
                 break;
-            case sys.LANGUAGE_ENGLISH:
+            case SysLanguage.EN:
                 {
                     ret = LTLocalization.ENGLISH;
                 }
@@ -110,14 +110,4 @@ export default class LTLocalization  {
 
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

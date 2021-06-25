@@ -1,4 +1,4 @@
-
+ 
 import { ui } from '../../../ui/layaMaxUI';
 import Debug from '../../Common/Debug'; 
 
@@ -52,8 +52,8 @@ export default class AppSceneRuntime extends ui.test.TestSceneUI {
         Debug.Log("AppSceneBase onAwake");
     }
 
-    onStart() {
-        // super.onStart();
+    ononStart() {
+        // super.ononStart();
     }
 
   

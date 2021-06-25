@@ -1,7 +1,8 @@
 import Debug from "../../Debug";
-import { UIViewUtil } from "../ViewController/UIViewUtil";
-import { LayOutBase } from "./LayOutBase";
-import { LayOutElement } from "./LayOutElement";
+import UIViewUtil from "../ViewController/UIViewUtil";
+import LayOutBase from "./LayOutBase";
+import LayOutElement from "./LayOutElement";
+ 
 import { Direction, Align } from "./LayOutUtil";
 
  
@@ -32,7 +33,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         }  
         super.LayOut();
 
-
+/*
         for (var i = 0; i < this.node.children.length; i++) {
             var child = this.node.children[i];
             if (child == null) {
@@ -52,10 +53,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 }
             }
 
-            // if (objtmp.transform.parent != this.gameObject.transform) {
-            //     //只找第一层子物体
-            //     continue;
-            // }
+           
 
             //  LayoutElement
             //floor 小于等于 x，且与 x 最接近的整数。
@@ -79,13 +77,14 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
 
         }
 
+*/
 
     }
 
     // r 行 ; c 列  返回中心位置 Vector2
     GetItemPostion (nodeItem:Node, r:Number, c:Number) {
         var x, y, w, h; 
-
+/*
         var rctran = UIViewUtil.GetNodeBoundingBox(this.node); 
         w = rctran.width;
         h = rctran.height;
@@ -150,29 +149,17 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         }
         y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
         return new Vec2(x, y);
-
+*/
     }
 
-    onLoad() {
-        super.onLoad(); 
-        // this.LayOut();
+    onAwake() {
+        super.onAwake();  
     }
-    start() {
-        
-        // [3] super.LayOut();
-        super.start();
+    onStart() {
+         
+        super.onStart();
         this.LayOut();
     }
  
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting=https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass=https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks=https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

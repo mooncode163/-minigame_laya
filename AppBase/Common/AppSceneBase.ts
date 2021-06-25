@@ -32,7 +32,7 @@ export default class AppSceneBase extends Laya.Script {
         Debug.Log("AppSceneBase onAwake");
     }
 
-    onStart() {
+    ononStart() {
         //   super();
         Debug.Log("AppSceneBase onStart");
     }

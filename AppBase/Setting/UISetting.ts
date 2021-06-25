@@ -36,8 +36,8 @@ export default class UISetting extends UIView {
 
 
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
 
         this.UpdateItem();
 

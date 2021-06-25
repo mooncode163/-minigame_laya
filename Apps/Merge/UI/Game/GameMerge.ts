@@ -37,8 +37,8 @@ export default class GameMerge extends GameBase {
     static get main() {
         return this._main;
     }
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         GameMerge._main = this;
         this.time = 0;
         this.LoadPrefab();
@@ -52,8 +52,8 @@ export default class GameMerge extends GameBase {
         // AudioPlay.main.PlayFile(AUDIO_Merge);
 
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
     LayOut() {

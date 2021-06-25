@@ -1,5 +1,6 @@
 import Debug from "./Debug";
-import { Device } from "./Device"; 
+import Device from "./Device";
+ 
 
 export default class Common {
     public static GAME_DATA_DIR = "GameData";//streamingAssetsPath下的游戏配置等数据

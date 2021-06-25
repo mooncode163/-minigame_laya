@@ -1,5 +1,7 @@
-import { JsonUtil } from "../File/JsonUtil";
-import { ConfigInternalBase } from "./ConfigInternalBase";
+import JsonUtil from "../File/JsonUtil";
+import ConfigInternalBase from "./ConfigInternalBase";
+
+ 
 
  
 export default class ConfigAudioInternal extends ConfigInternalBase {

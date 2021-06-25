@@ -6,14 +6,14 @@ export default class UIViewCell extends UIView {
     tableView: any;
     _isCellInit_: boolean = false;
     _longClicked_: boolean = false;
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
 
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
     }
     LayOut() {
         super.LayOut();

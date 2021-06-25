@@ -1,27 +1,28 @@
 import Debug from "../../Debug";
-import { LayOutBase } from "./LayOutBase";
-import { Align, LayOutUtil } from "./LayOutUtil";
+import LayOutBase from "./LayOutBase";
+import LayOutUtil, { Align } from "./LayOutUtil";
 
- 
+
 export default class LayOutBetween extends LayOutBase {
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.LayOut();
 
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
     LayOut() {
-        /// this.col = this.GetChildCount(); 
         if (!this.Enable()) {
             return;
         }
         super.LayOut();
+
+        /*
         var x, y, w, h;
         Debug.Log("LayOutBetween LayOut");
-        var pt = this.node.getPosition();
+        var pt = this.owner.getPosition();
         x = pt.x;
         y = pt.y;
         if (this.target == null) {
@@ -51,17 +52,8 @@ export default class LayOutBetween extends LayOutBase {
         }
         Debug.Log("LayOutBetween x=" + x + " y=" + y + " align=" + this.align);
         this.node.setPosition(x, y);
-
+*/
     }
+
 }
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

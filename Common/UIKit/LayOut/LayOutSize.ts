@@ -32,7 +32,7 @@ enum TestEum {
     DOWN,
 } 
 export default class LayOutSize extends LayOutBase {
-  public static Enum = Enum(layerList);
+ 
    
     ratio = 1.0;
    
@@ -45,9 +45,9 @@ export default class LayOutSize extends LayOutBase {
     heightH = 1.0;//高  
  
       // 必须设置两个@type 才能在editor里修改
-    @type(SideType) 
+    // @type(SideType) 
     _sideType = SideType.LEFT;
-    @type(SideType) 
+    // @type(SideType) 
     get sideType() {
         return this._sideType;
     }
@@ -81,9 +81,9 @@ export default class LayOutSize extends LayOutBase {
     } 
 
      // 必须设置两个@type 才能在editor里修改
-    @type(SizeType) 
+    // @type(SizeType) 
     private _typeX = SizeType.MATCH_PARENT;
-    @type(SizeType) 
+    // @type(SizeType) 
     get typeX() {
         return this._typeX;
     }
@@ -94,9 +94,9 @@ export default class LayOutSize extends LayOutBase {
     
 
      // 必须设置两个@type 才能在editor里修改
-    @type(SizeType) 
+    // @type(SizeType) 
     private _typeY = SizeType.MATCH_PARENT;
-    @type(SizeType) 
+    // @type(SizeType) 
     get typeY() {
         return this._typeY;
     }
@@ -104,37 +104,16 @@ export default class LayOutSize extends LayOutBase {
         this._typeY = value;
         this.LayOut();
     }
+ 
 
-    // @serializable
-    // protected _transition = TestEum.LEFT;
-
-    // @type(TestEum) 
-    // //({type:TestEum})
-    // get transition () {
-    //     return this._transition;
-    // }
-
-    // set transition (value: TestEum) {
-    //     if (this._transition === value) {
-    //         return;
-    //     }
-    //     this._transition = value; 
-    // }
-    // [1]
-    // dummy = '';
-
-    // [2]
-    //
-    // serializableDummy = 0;
-
-    onLoad() {
-        super.onLoad(); 
+    onAwake() {
+        super.onAwake(); 
         // this.LayOut();
     }
-    start() {
+    onStart() {
         
         // [3] super.LayOut();
-        super.start();
+        super.onStart();
         this.LayOut();
     }
     LayOut () { 
@@ -153,6 +132,7 @@ export default class LayOutSize extends LayOutBase {
 
     UpdateSizeX() {
         var x, y, w, h;
+        /*
         var size = this.node.getComponent(UITransform).contentSize;
         var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
         w = size.width;
@@ -236,11 +216,14 @@ export default class LayOutSize extends LayOutBase {
         }
         Debug.Log("UpdateSizeX w=" + w + " h=" + h);
         this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+
+        */
     }
 
 
     UpdateSizeY() {
         var x, y, w, h;
+        /*
         var size = this.node.getComponent(UITransform).contentSize;
         var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
         w = size.width;
@@ -326,6 +309,7 @@ export default class LayOutSize extends LayOutBase {
         } 
         Debug.Log("UpdateSizeY w=" + w + " h=" + h);
         this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+        */
     }
     UpdateSize() {
         this.UpdateSizeX();
@@ -333,14 +317,4 @@ export default class LayOutSize extends LayOutBase {
     }
 }
 
- 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+  

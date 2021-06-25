@@ -1,12 +1,11 @@
-import { Device } from "../../Device";
-import { Align, Direction } from "./LayOutUtil";
-
+import Device from "../../Device";
+import { Align, Direction } from "./LayOutUtil"; 
  
-export default class LayOutBase extends Component {
-    @type(Node)
-    target: Node = null;
-    @type(Node)
-    target2: Node = null; 
+export default class LayOutBase extends Laya.Script {
+    // @type(Node)
+    target:Laya.Node = null;
+    // @type(Node)
+    target2: Laya.Node = null; 
 
 
    
@@ -25,9 +24,9 @@ export default class LayOutBase extends Component {
    
     isOnlyForLandscape = false;
 
-    @type(Vec2)
-    space = new Vec2(0,0);
-    @type(Align)
+    
+    space = new Laya.Vector2(0,0);
+  
     align = Align.LEFT;
 
     directionVertical = Direction.TOP_TO_BOTTOM;
@@ -40,48 +39,47 @@ export default class LayOutBase extends Component {
     // public ali: Align = null!;
 
     // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
-    @type(Vec2)
-    private _offsetMin = new Vec2(0, 0); 
-    @type(Vec2)
+    // @type(Vec2)
+    private _offsetMin = new Laya.Vector2(0, 0); 
+    // @type(Vec2)
     //get 的用法
-    get offsetMin(): Vec2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
+    get offsetMin(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._offsetMin;
     }
     // set 的用法
-    set offsetMin(value: Vec2) {
+    set offsetMin(value: Laya.Vector2) {
         this._offsetMin = value;
     }
-
-    // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
-    @type(Vec2)
-    private _offsetMax = new Vec2(0, 0); 
-    @type(Vec2)
+ 
+    // @type(Vec2)
+    private _offsetMax = new Laya.Vector2(0, 0); 
+    // @type(Vec2)
     //get 的用法
-    get offsetMax(): Vec2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
+    get offsetMax(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._offsetMax;
     }
     // set 的用法
-    set offsetMax(value: Vec2) {
+    set offsetMax(value: Laya.Vector2) {
         this._offsetMax = value;
     }
 
     // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
-    @type(Vec2)
-    private _offset = new Vec2(0, 0);
-    @type(Vec2)
+    // @type(Vec2)
+    private _offset = new Laya.Vector2(0, 0);
+    // @type(Vec2)
     //get 的用法
-    get offset(): Vec2 {
+    get offset(): Laya.Vector2 {
         return this._offset;
     }
     // set 的用法
-    set offset(value: Vec2) {
+    set offset(value: Laya.Vector2) {
         this._offset = value;
     }
 
-    onLoad() {
+    onAwake() {
         this.LayOut();
     }
-    start() {
+    onStart() {
         // [3]
         this.LayOut();
     }
@@ -114,19 +112,6 @@ export default class LayOutBase extends Component {
         }
         return ret;
     }
-
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+ 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

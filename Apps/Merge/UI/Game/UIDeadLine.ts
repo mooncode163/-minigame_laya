@@ -9,8 +9,8 @@ export default class UIDeadLine extends UIView {
     t = 0;
     isGameFail = false;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.node.name = GameData.NameDeadLine;
         this.t = 0;
         this.isGameFail = false;
@@ -25,8 +25,8 @@ export default class UIDeadLine extends UIView {
         }
 
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
     }
  
     // 只在两个碰撞体开始接触时被调用一次

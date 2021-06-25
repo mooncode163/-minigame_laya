@@ -1,17 +1,16 @@
-import Debug from "../../Debug";
-import { HorizontalOrVerticalLayoutBase } from "./HorizontalOrVerticalLayoutBase";
-import { LayOutUtil } from "./LayOutUtil";
-
+import Debug from "../../Debug"; 
+import HorizontalOrVerticalLayoutBase from "./HorizontalOrVerticalLayoutBase";
+import LayOutUtil from "./LayOutUtil";
  
 export default class LayOutHorizontal extends HorizontalOrVerticalLayoutBase {
-    onLoad() {
-        super.onLoad(); 
+    onAwake() {
+        super.onAwake(); 
         // this.LayOut();
     }
-    start() {
+    onStart() {
         
         // [3] super.LayOut();
-        super.start();
+        super.onStart();
         this.LayOut();
     }
     LayOut () { 
@@ -21,7 +20,7 @@ export default class LayOutHorizontal extends HorizontalOrVerticalLayoutBase {
         }
         super.LayOut();
         this.row = 1;
-        this.col = LayOutUtil.main.GetChildCount(this.node, this.enableHide);
+        // this.col = LayOutUtil.main.GetChildCount(this.node, this.enableHide);
         Debug.Log("LayOutHorizontal LayOut");
         super.LayOut();
 

@@ -2,11 +2,11 @@
  
 export default class UIViewPop extends UIView {  
     onLoad () {
-        super.onLoad();
+        super.onAwake();
         this.LayOut();
     }
     start () {
-        super.start();
+        super.onStart();
         this.LayOut();
         this.node.active = false;
         this.scheduleOnce(this.ShowInitAnimate, 0.1); 
@@ -42,7 +42,7 @@ export default class UIViewPop extends UIView {
             .call(() => {
                 this.OnAnimateFinish();
             })
-            .start() 
+            .onStart() 
     }
 
     Close() {

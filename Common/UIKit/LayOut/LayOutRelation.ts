@@ -1,15 +1,16 @@
-import { AdKitCommon } from "../../AdKit/AdKitCommon";
-import Debug from "../../Debug";
-import { LayOutBase } from "./LayOutBase";
+ 
+import AdKitCommon from "../../AdKit/AdKitCommon";
+import Debug from "../../Debug"; 
+import LayOutBase from "./LayOutBase";
 import { RelationType, Align } from "./LayOutUtil";
 
  
  
 export default class LayOutRelation extends LayOutBase {
 
-    @type(RelationType)
+    // @type(RelationType)
     private _type = RelationType.PARENT;
-    @type(RelationType)
+    // @type(RelationType)
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -36,13 +37,13 @@ export default class LayOutRelation extends LayOutBase {
     // [2]
     //
     // serializableDummy = 0;
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.LayOut();
     }
 
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
     LayOut() {
@@ -51,6 +52,7 @@ export default class LayOutRelation extends LayOutBase {
         }
         super.LayOut();
         var x, y, w, h;
+        /*
         var pt = this.node.getPosition();
         x = pt.x;
         y = pt.y;
@@ -141,7 +143,7 @@ export default class LayOutRelation extends LayOutBase {
             y += AdKitCommon.main.heightCanvasAdBanner;
         }
         this.node.setPosition(x, y);
-
+*/
     }
     // update (deltaTime: number) {
     //     // [4]

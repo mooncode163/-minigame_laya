@@ -14,19 +14,21 @@ strict设置false状态
 
     */
 
+import Common from "../../Common";
+import ColorConfig from "../../Config/ColorConfig";
+import ImageRes from "../../Config/ImageRes";
+import Debug from "../../Debug";
+import Language from "../../Language/Language";
+import LayOutBase from "../LayOut/LayOutBase";
+import UIViewController from "./UIViewController";
+import UIViewUtil from "./UIViewUtil";
+
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
-import { Common } from "../../Common";
-import { ColorConfig } from "../../Config/ColorConfig";
-import { ImageRes } from "../../Config/ImageRes";
-import Debug from "../../Debug";
-import { Language } from "../../Language/Language";
-import { LayOutBase } from "../LayOut/LayOutBase";
-import { UIViewController } from "./UIViewController";
-import { UIViewUtil } from './UIViewUtil';
+ 
  
  
 export default class UIView extends Laya.Script{
@@ -45,12 +47,12 @@ export default class UIView extends Laya.Script{
     
     keyImageH2: string = "";
     index: number;
-    id: string;
+    keyId: string;
     tag: string;
     title: string;
 
     mainCam: Laya.Camera | null = null;
-    frame: Rect | null = null;
+    // frame: Rect | null = null;
     // objTag: CCObject | null = null;  
 
     // [1]
@@ -70,7 +72,7 @@ export default class UIView extends Laya.Script{
             var i = 0;
             while (i < max) {
                 i++;
-                var par = this.node.parent;
+                var par = this.owner.parent;
                 // Debug.Log("UIHomeCenterBar controller ");
                 if (par == null) {
                     Debug.Log("UIView controller par is null");
@@ -102,34 +104,29 @@ export default class UIView extends Laya.Script{
 
 
     static SetNodeContentSize(node, w, h) {
-        node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+        // node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
     }
 
-    onLoad() {
+    onAwake() {
     }
 
-    start() {
+    onStart() {
         // [3]
     }
 
     //UIViewController
     SetController(con: UIViewController) {
         this.controller = con;
-        this.node.parent = con.objController;
+        // this.owner.parent = con.objController;
         con.view = this;
 
         con.ViewDidAppear();
-
-        // this.node.setContentSize(Common.appSceneMain.sizeCanvas); 
-        // this.node.setPosition(0, 0, 0);
+ 
 
     }
 
-    SetViewParent(node) {
-        // this.transform.parent = obj.transform;
-        // this.transform.localScale = new Vector3(1f, 1f, 1f);
-        // this.transform.localPosition = new Vector3(0f, 0f, 0f);
-        this.node.parent = node;
+    SetViewParent(node) { 
+        // this.owner.parent = node;
     }
 
     LayOut() {
@@ -153,7 +150,7 @@ export default class UIView extends Laya.Script{
 
     LayOutInternal() {
         //self 
-        this.LayOutNode(this.node);
+        this.LayOutNode(this.owner);
         //child
         this.LayOutInternalChild();
     }
@@ -161,11 +158,11 @@ export default class UIView extends Laya.Script{
 
     LayOutInternalChild() {
         //child
-        var children = this.node.children;
-        for (var i = 0; i < children.length; i++) {
-            var child = children[i];
-            this.LayOutNode(child);
-        }
+        // var children = this.owner.children;
+        // for (var i = 0; i < children.length; i++) {
+        //     var child = children[i];
+        //     this.LayOutNode(child);
+        // }
     }
 
     LayOutDidFinish() {
@@ -181,36 +178,36 @@ export default class UIView extends Laya.Script{
     }
 
     SetContentSize(w, h) {
-        this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
-        this.LayOutInternalChild();
+        // this.owner?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+        // this.LayOutInternalChild();
     }
     GetContentSize() {
-        return this.node?.getComponent(UITransform)?.contentSize;
+        // return this.owner?.getComponent(UITransform)?.contentSize;
     }
 
     GetBoundingBox() {
-        return UIViewUtil.GetNodeBoundingBox(this.node);
+        // return UIViewUtil.GetNodeBoundingBox(this.owner);
     }
 
     // UIView parent
     SetParent(parent: UIView) {
-        this.node.parent = parent.node;
+        // this.owner.parent = parent.owner;
         this.LayOut();
     }
 
     GetParent() {
-        return this.node.parent.getComponent(UIView);
+        return this.owner.parent.getComponent(UIView);
     }
     SetActive(active: boolean) {
-        this.node.active = active;
+        this.owner.active = active;
     }
 
     OnUIDidFinish() {
 
     }
     //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
-    GetKeyColor(def: Color) {
-        var ret = Color.BLACK;
+    GetKeyColor(def:Laya.Color) {
+        var ret = Laya.Color.BLACK;
         if (def) {
             ret = def;
         }
@@ -249,21 +246,21 @@ export default class UIView extends Laya.Script{
 
     UpdateLanguage() {
 
-        var list = this.node.getComponentsInChildren(UIView);
-        list.forEach((ui) => {
-            if (ui != null) {
-                var node = ui.node;
-                if (this.node != node) {
-                    ui.UpdateLanguage();
-                }
-            }
+        // var list = this.owner.getComponentsInChildren(UIView);
+        // list.forEach((ui) => {
+        //     if (ui != null) {
+        //         var node = ui.node;
+        //         if (this.owner != node) {
+        //             ui.UpdateLanguage();
+        //         }
+        //     }
 
-        });
+        // });
     }
 
 
     AddChild(child) {
-        child.node.setParent(this.node);
+        child.node.setParent(this.owner);
         this.LayOut();
     }
 }

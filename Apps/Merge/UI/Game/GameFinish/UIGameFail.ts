@@ -13,13 +13,13 @@ export default class UIGameFail extends UIViewPop {
     textMsg: UIText | null = null; 
   
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.LayOut();
  
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
 
 

@@ -1,4 +1,5 @@
 import { ItemInfo } from "../../../Common/ItemInfo";
+import { SysLanguage } from "../../../Common/Language/LanguageUtil";
 import UIImage from "../../../Common/UIKit/UIImage/UIImage";
 import { UITableView } from "../../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../../Common/UIKit/UIText/UIText";
@@ -28,8 +29,8 @@ export default class UILanguage extends UIView {
         return this._main;
     }
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         UILanguage._main = this;
         this.UpdateItem();
 
@@ -40,13 +41,13 @@ export default class UILanguage extends UIView {
         {
             var info = new ItemInfo();
             info.title = "中文";
-            info.id = sys.LANGUAGE_CHINESE;
+            info.id = SysLanguage.CN;
             this.listItem.push(info);
         }
         {
             var info = new ItemInfo();
             info.title = "English";
-            info.id = sys.LANGUAGE_ENGLISH;
+            info.id = SysLanguage.EN;
             this.listItem.push(info);
         }
         this.InitList();

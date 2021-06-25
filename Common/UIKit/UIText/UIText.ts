@@ -55,8 +55,8 @@ export default class UIText extends UIView {
         this.LayOut();
 
     }
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         Debug.Log("UIText this.keyColor =" + this.keyColor);
 
         if (!Common.BlankString(this.keyColor)) {
@@ -71,9 +71,9 @@ export default class UIText extends UIView {
         }
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
     }
     LayOut() {
         super.LayOut();

@@ -1,6 +1,6 @@
-import Debug from "../Debug";
-import { JsonUtil } from "../File/JsonUtil";
-import { ConfigInternalBase } from "./ConfigInternalBase";
+import Debug from "../Debug"; 
+import JsonUtil from "../File/JsonUtil";
+import ConfigInternalBase from "./ConfigInternalBase";
 
  
 export default class ImageResInternal extends ConfigInternalBase {
@@ -18,7 +18,7 @@ export default class ImageResInternal extends ConfigInternalBase {
         y = Number(rgb[1]);
         z = Number(rgb[2]);
         w = Number(rgb[3]);
-        return new Vec4(x, y, z, w);
+        return new Laya.Vector4(x, y, z, w);
     }
     GetBoardKey(key: string) {
         return key + "_BOARD";
@@ -71,14 +71,4 @@ export default class ImageResInternal extends ConfigInternalBase {
     }
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

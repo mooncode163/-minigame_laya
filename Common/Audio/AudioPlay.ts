@@ -16,8 +16,8 @@ export default class AudioPlay extends Component {
         return this._main;
     }
 
-    onLoad() {
-        // super.onLoad();
+    onAwake() {
+        // super.onAwake();
         AudioPlay._main = this;
         this.audioSource = this.node.addComponent(AudioSource);
         Debug.Log("  LoadAudio onLoad");
@@ -25,8 +25,8 @@ export default class AudioPlay extends Component {
         // AudioPlay.main.PlayFile(AUDIO_Merge);
 
     }
-    start() {
-        // super.start();
+    onStart() {
+        // super.onStart();
     }
     PlayAudioClip(clip: AudioClip) {
         // var ret = Common.GetBoolOfKey(this.KEY_ENABLE_PLAYSOUND, false);

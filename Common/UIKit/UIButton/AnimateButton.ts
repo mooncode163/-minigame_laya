@@ -7,8 +7,8 @@ export default class AnimateButton extends Button {
     // @displayOrder(20)
     // @tooltip('按钮点击事件的列表。先将数量改为1或更多，就可以为每个点击事件设置接受者和处理方法')
     public clickAnimateEvents: EventHandler[] = [];
-    // onLoad() {
-    //     // super.onLoad();
+    // onAwake() {
+    //     // super.onAwake();
     //     // if (this.clickEvents.length) {
     //     //     var ev = this.clickEvents[0];
     //     //     ev.target = this.node;
@@ -17,8 +17,8 @@ export default class AnimateButton extends Button {
     //     // }
     // }
 
-    // start() { 
-    //     // super.start();
+    // onStart() { 
+    //     // super.onStart();
     // }
     OnClickItem(event: Event, customEventData: string) {
         // The event here is a Touch object, and you can get the send node of the event by event.target
@@ -50,7 +50,7 @@ export default class AnimateButton extends Button {
                 console.log('AnimateButton scale animate finish');
                 this.DoClickItem(event, customEventData);
             })
-            .start()
+            .onStart()
         var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
         if (ret) {
             //play sound click

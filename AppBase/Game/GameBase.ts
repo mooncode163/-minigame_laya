@@ -5,12 +5,12 @@ export default class GameBase extends UIView {
     gameStatus = 0;
     objGameFinish = null;
 
-    onLoad() {
-        super.onLoad(); 
+    onAwake() {
+        super.onAwake(); 
         this.LayOut();
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
     UpdateLevel (level:number) { 

@@ -1,9 +1,11 @@
-import { ConfigInternalBase } from "../Config/ConfigInternalBase";
-import { FileUtil } from "../File/FileUtil";
-import { JsonUtil } from "../File/JsonUtil";
-import { ResManager } from "../Res/ResManager";
-import { LTLocalization } from "./LTLocalization";
+import ConfigInternalBase from "../Config/ConfigInternalBase";
+import FileUtil from "../File/FileUtil";
+import JsonUtil from "../File/JsonUtil";
+import ResManager from "../Res/ResManager";
+import { SysLanguage } from "./LanguageUtil";
+import LTLocalization from "./LTLocalization";
 
+ 
  
 export default class LanguageInternal extends ConfigInternalBase {
     rootJson: any = null;
@@ -11,10 +13,10 @@ export default class LanguageInternal extends ConfigInternalBase {
     ltLocalization: LTLocalization = null; 
     //get 的用法
     get defaultLanId(): string {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
-        var ret = sys.LANGUAGE_CHINESE;
-        if (sys.platform == sys.MOBILE_BROWSER) {
-            ret = sys.LANGUAGE_ENGLISH;
-        }
+        var ret = SysLanguage.CN;
+        // if (sys.platform == sys.MOBILE_BROWSER) {
+        //     ret = sys.LANGUAGE_ENGLISH;
+        // }
         return ret;
     } 
  
@@ -71,14 +73,4 @@ export default class LanguageInternal extends ConfigInternalBase {
         return this.ltLocalization.IsContainsKey(key);
     }
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

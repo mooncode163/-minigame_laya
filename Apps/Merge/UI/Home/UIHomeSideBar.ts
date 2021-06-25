@@ -4,12 +4,12 @@ import UIView from "../../../../Common/UIKit/ViewController/UIView";
 
  
 export default class UIHomeSideBar extends UIView {
-    onLoad() {
-        super.onLoad(); 
+    onAwake() {
+        super.onAwake(); 
         // this.LayOut();
     }
-    start() { 
-        super.start();
+    onStart() { 
+        super.onStart();
         this.LayOut();
     }
     LayOut () { 

@@ -1,9 +1,10 @@
-import { CloudRes } from "../CloundRes/CloudRes";
-import { Common } from "../Common";
-import { Platform } from "../Platform";
-import { ConfigBase } from "./ConfigBase";
-import { ImageResInternal } from "./ImageResInternal";
+import CloudRes from "../CloundRes/CloudRes";
+import Common from "../Common";
+import Platform from "../Platform";
+import ConfigBase from "./ConfigBase";
+import ImageResInternal from "./ImageResInternal";
 
+ 
  
 export default class ImageRes extends ConfigBase {
     imageResApp: ImageResInternal = null;
@@ -345,7 +346,7 @@ export default class ImageRes extends ConfigBase {
 
 
     GetImageBoard(key: string) {
-        var ret = Vec4.ZERO;
+        var ret =Laya.Vector4.ZERO;
 
         if (Common.BlankString(key)) {
             return ret;
@@ -363,32 +364,7 @@ export default class ImageRes extends ConfigBase {
                 return;
             }
         });
-
-        // ScoreBg
-        // ret = this.imageResCloudRes.GetImageBoard("ScoreBg");
-        // Debug.Log("ScoreBg ret="+ret+ " key="+key);
-        // if (this.imageResApp.IsHasKey(key)) {
-        //     ret = this.imageResApp.GetImageBoard(key);
-        // }
-        // else {
-
-        //     if (this.imageResAppCommon != null) {
-        //         if (this.imageResAppCommon.IsHasKey(key)) {
-        //             ret = this.imageResAppCommon.GetImageBoard(key);
-        //         }
-
-        //     }
-
-        // }
-
-
-        // if (ret == Vec4.ZERO) {
-        //     if (this.imageResCommon != null) {
-        //         if (this.imageResCommon.IsHasKey(key)) {
-        //             ret = this.imageResCommon.GetImageBoard(key);
-        //         }
-        //     }
-        // }
+ 
 
         return ret;
     }

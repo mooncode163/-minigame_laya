@@ -1,4 +1,4 @@
- 
+
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
@@ -12,22 +12,28 @@ import FileUtil from "../../File/FileUtil";
 import TextureUtil from "../../Image/TextureUtil";
 import Platform from "../../Platform";
 import UIView from "../ViewController/UIView";
- 
- 
+
+
 export default class UIImage extends UIView {
 
- 
-    image: Laya.Image | null = null;
+
+    public image: Laya.Image;
     isCache: boolean = true;
 
-   
+
     isSizeFitTexture: boolean = false;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        Debug.Log("UIImage onAwake");
+        super.onAwake();
         var keyPic = this.keyImage;
 
-       
+        if(this.image==null){
+            Debug.Log("UIImage image==null");
+        }else{
+            Debug.Log("UIImage image!=null");
+        }
+
         if (Device.main.isLandscape) {
             if (!Common.BlankString(this.keyImageH)) {
                 keyPic = this.keyImageH;
@@ -53,9 +59,9 @@ export default class UIImage extends UIView {
         this.LayOut();
     }
 
-    start() {
+    onStart() {
         // [3]
-        super.start();
+        super.onStart();
         this.LayOut();
     }
 
@@ -67,7 +73,7 @@ export default class UIImage extends UIView {
         if (!Common.BlankString(key)) {
             pic = ImageRes.main.GetImage(key);
         }
-        Debug.Log("UIImage UpdateImageByKey pic="+pic+" key="+key);
+        Debug.Log("UIImage UpdateImageByKey pic=" + pic + " key=" + key);
 
         if (!Common.BlankString(pic)) {
             this.UpdateImage(pic, key);
@@ -75,19 +81,16 @@ export default class UIImage extends UIView {
     }
 
     UpdateImageTexture(tex: Laya.Texture2D) {
-        
-        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
-        // RectTransform rctan = this.GetComponent<RectTransform>();
-        // rctan.sizeDelta = new Vector2(tex.width, tex.height);
-        if(this.isSizeFitTexture)
-        {
-            this.SetContentSize(tex.width,tex.height);
+
+        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO); 
+        if (this.isSizeFitTexture) {
+            this.SetContentSize(tex.width, tex.height);
             this.LayOut();
         }
     }
-  
+
     // 绝对路径
-    UpdateImage(pic: string, key: string="") {
+    UpdateImage(pic: string, key: string = "") {
         var strKey = key;
         if (Common.BlankString(key)) {
             strKey = this.keyImage;
@@ -118,12 +121,11 @@ export default class UIImage extends UIView {
                 isCloud: isCloud,
                 success: (p: any, tex: Laya.Texture2D) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, true, board);
-                    if(this.isSizeFitTexture)
-                    {
-                        this.SetContentSize(tex.width,tex.height);
+                    if (this.isSizeFitTexture) {
+                        this.SetContentSize(tex.width, tex.height);
                         this.LayOut();
                     }
-                    
+
                 },
                 fail: (p: any) => {
 

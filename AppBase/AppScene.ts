@@ -41,11 +41,10 @@ export default class AppScene extends AppSceneBase// ui.test.TestSceneUI
         //             },
         //         }); 
 
-        var strDir = "Resources";
-        var fileName = "Image.prefab";
+        var filepath = "Resources/Common/UIKit/UIImage/UIImage.prefab"; 
         ResManager.LoadPrefab(
             {
-                filepath: strDir + "/" + fileName,
+                filepath: filepath,
                 success: (p: any, data: any) => { 
                     console.log("load prefab:", data);
                     this.owner.parent.addChild(data.create());
@@ -57,8 +56,8 @@ export default class AppScene extends AppSceneBase// ui.test.TestSceneUI
 
     }
 
-    onStart() {
-        super.onStart();
+    ononStart() {
+        super.ononStart();
         Debug.Log("AppScene onStart");
     }
 }

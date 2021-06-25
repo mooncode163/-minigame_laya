@@ -23,8 +23,8 @@ export default class UICloudRes extends UIView {
     uiProgress: UIProgress | null = null;
 
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         // this.textTitle.text ="dddd";
         this.textTitle.text = LanguageCloudRes.main.GetString("STR_CLOUDRES_TITLE");
         {

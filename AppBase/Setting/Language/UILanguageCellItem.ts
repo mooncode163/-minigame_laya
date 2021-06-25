@@ -22,8 +22,8 @@ export default class UILanguageCellItem extends UICellItemBase {
 
     info: ItemInfo;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
     }
 
     init(index, data, reload, group) {

@@ -1,8 +1,7 @@
-import Debug from "../Debug";
-import { FileUtil } from "../File/FileUtil";
-import { JsonUtil } from "../File/JsonUtil";
-import { ResManager } from "../Res/ResManager";
-
+import Debug from "../Debug"; 
+import FileUtil from "../File/FileUtil";
+import JsonUtil from "../File/JsonUtil";
+import ResManager from "../Res/ResManager";
  
 export default class ConfigInternalBase  {
     rootJson: any = null;

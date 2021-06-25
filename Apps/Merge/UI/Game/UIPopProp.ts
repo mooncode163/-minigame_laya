@@ -43,8 +43,8 @@ export default class UIPopProp extends UIViewPop {
     type: PropType;
     indexSelect = 0;
     idChangeTo = "";
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         // return;
         this.listItem.push(this.imageItem0);
         this.listItem.push(this.imageItem1);
@@ -66,8 +66,8 @@ export default class UIPopProp extends UIViewPop {
         }
         this.LayOut();
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
 

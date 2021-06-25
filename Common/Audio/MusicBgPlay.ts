@@ -12,13 +12,13 @@ export default class MusicBgPlay extends AudioPlay {
         return this._main;
     }
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         MusicBgPlay._main = this; 
 
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
     } 
    
     PlayBgMusic() { 

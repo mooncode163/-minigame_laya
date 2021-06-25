@@ -215,7 +215,7 @@ export default class PopUpManager  {
             .call(() => {
                 ui.DoClose();
             })
-            .start()
+            .onStart()
 
     }
 

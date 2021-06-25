@@ -37,7 +37,7 @@ export default class UIGameMerge extends UIGameBase {
     }
  
     onLoad () {
-        super.onLoad();
+        super.onAwake();
         UIGameMerge._main = this;
         this.LayOut();
         // this.LoadLanguageGame(); 
@@ -45,7 +45,7 @@ export default class UIGameMerge extends UIGameBase {
         
     }
     start () {
-        super.start();
+        super.onStart();
         this.LayOut();
  
         // this.ShowGameWinAlert();

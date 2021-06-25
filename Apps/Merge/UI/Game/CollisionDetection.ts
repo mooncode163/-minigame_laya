@@ -16,9 +16,9 @@ export default class CollisionDetection extends UIView {
     otherCollider:Collider2D;
     keyNext="";
 
-    onLoad() {
+    onAwake() {
         this.isItDetected = true;
-        super.onLoad();
+        super.onAwake();
 
         // 还需要body勾选回调接口
         let collider = this.getComponent(Collider2D);
@@ -38,8 +38,8 @@ export default class CollisionDetection extends UIView {
         // }
 
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
     }
     update() {
        

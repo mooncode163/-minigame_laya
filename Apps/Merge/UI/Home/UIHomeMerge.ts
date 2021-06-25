@@ -15,8 +15,8 @@ export default class UIHomeMerge extends UIHomeBase {
     @type(UIImage)
     imageLogo: UIImage = null;
 
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
 
         var info = GameLevelParse.main.GetLastItemInfo();
         var pic = GameLevelParse.main.GetImagePath(info.id);
@@ -53,8 +53,8 @@ export default class UIHomeMerge extends UIHomeBase {
 
 
 
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
         this.LayOut();
     }
 

@@ -10,8 +10,8 @@ export default class UIProgress extends UIView {
 
     progress= 0;
  
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
         this.LayOut();
     }
     LayOutDidFinish () {

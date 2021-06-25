@@ -17,11 +17,11 @@ export default class UIToolBar extends UIView {
 
     @type(UIButton)
     btnImageSelect: UIButton | null = null;
-    onLoad() {
-        super.onLoad();
+    onAwake() {
+        super.onAwake();
     }
-    start() {
-        super.start();
+    onStart() {
+        super.onStart();
 
         // if (!GameData.main.IsCustom()) {
         //     this.btnImageSelect.SetActive(false);

@@ -134,7 +134,7 @@ export default class TableView extends ScrollView {
 
     _tableView: any[] = [];
 
-    onLoad() {
+    onAwake() {
         var self = this;
 
 
@@ -1033,7 +1033,7 @@ export default class TableView extends ScrollView {
     //     }
     // }
 
-    start() {
+    onStart() {
         // @moon 
         this.viewNode = this.content.parent;
 
