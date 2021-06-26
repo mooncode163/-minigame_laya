@@ -1,15 +1,14 @@
 
-import { _decorator, Component, Node, Sprite, Label, Button, EventHandler, tween, Vec3, Enum, UITransform, Size, Color } from 'cc';
-import { Common } from '../../Common';
-import { UIImage } from '../UIImage/UIImage';
-import { UIText } from '../UIText/UIText';
-import { UIView } from '../ViewController/UIView';
-
-const { ccclass, property, type, string } = _decorator;
+ 
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
+
+import Common from "../../Common";
+import UIImage from "../UIImage/UIImage";
+import UIText from "../UIText/UIText";
+import UIView from "../ViewController/UIView";
 
 enum ButtonType {
     IMAGE = 0,//一张背景  
@@ -18,32 +17,29 @@ enum ButtonType {
 
     IMAGE_SWITCH,//一张背景
     IMAGE_ICON_SWITCH,//一张背景 一张Icon 叠加
-}
-//必须Enum设置才能在编辑器里设置enum的值
-Enum(ButtonType);
+} 
 
 
 // ui layer 选UI_2D 不然点击没有响应
 
 export default class UIButton extends UIView {
     public static ButtonType = ButtonType;
-
-    @type(UIImage)
+ 
+     /** @prop {name:imageBg,type:Node}*/
     imageBg: UIImage | null = null;
-
-    @type(UIImage)
+    /** @prop {name:imageIcon,type:Node}*/
     imageIcon: UIImage | null = null;
 
-    @type(UIText)
+     /** @prop {name:textTitle,type:Node}*/
     textTitle: UIText | null = null;
 
     enableFitTextSize: boolean = false;
     isSwicthSelect: boolean = false;
 
     // 必须设置两个@type 才能在editor里修改
-    @type(ButtonType)
+   
     private _type = ButtonType.IMAGE;
-    @type(ButtonType)
+    
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -60,27 +56,27 @@ export default class UIButton extends UIView {
         if (this.imageIcon == null) {
             return;
         }
-        this.imageBg.node.active = true;
+        this.imageBg.owner.active = true;
         switch (this._type) {
             case ButtonType.IMAGE:
             case ButtonType.IMAGE_SWITCH:
                 {
-                    this.imageIcon.node.active = false;
-                    this.textTitle.node.active = false;
+                    this.imageIcon.owner.active = false;
+                    this.textTitle.owner.active = false;
 
                 }
                 break;
             case ButtonType.IMAGE_TEXT:
                 {
-                    this.imageIcon.node.active = false;
-                    this.textTitle.node.active = true;
+                    this.imageIcon.owner.active = false;
+                    this.textTitle.owner.active = true;
                 }
                 break;
             case ButtonType.IMAGE_ICON:
             case ButtonType.IMAGE_ICON_SWITCH:
                 {
-                    this.imageIcon.node.active = true;
-                    this.textTitle.node.active = false;
+                    this.imageIcon.owner.active = true;
+                    this.textTitle.owner.active = false;
                 }
                 break;
 
@@ -129,11 +125,10 @@ export default class UIButton extends UIView {
     set text(value) {
         this.textTitle.text = value;
         if (this.enableFitTextSize) {
-            var w = Common.GetTextSize(value, this.fontSize).width + this.fontSize;
-            var size = this.node.getComponent(UITransform)?.contentSize;
-            var h = size.height;
-            // Debug.Log("GetTextSize w = " + w + " h=" + h); 
-            this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+            // var w = Common.GetTextSize(value, this.fontSize).width + this.fontSize;
+            // var size = this.node.getComponent(UITransform)?.contentSize;
+            // var h = size.height; 
+            // this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
         }
         this.LayOut();
     }
@@ -142,21 +137,15 @@ export default class UIButton extends UIView {
     //color
     get color() {
         if (this.textTitle == null) {
-            return Color.BLACK;
+            return Laya.Color.BLACK;
         }
         return this.textTitle.color;
     }
     set color(value) {
-        this.textTitle.color = value;
+        // this.textTitle.color = value;
     }
 
-
-    // [1]
-    // dummy = '';
-
-    // [2]
-    //
-    // serializableDummy = 0;
+ 
 
 
     LayOut() {
@@ -233,14 +222,4 @@ export default class UIButton extends UIView {
     // }
 }
 
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

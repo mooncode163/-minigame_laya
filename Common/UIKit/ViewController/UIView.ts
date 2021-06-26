@@ -43,9 +43,7 @@ import UIViewUtil from "./UIViewUtil";
 
 export default class UIView extends Laya.Script {
 
-    keyText: string = "";
 
-    keyColor: string = "";
    
     //   public  get keyImage(): string {        
     //         return this._keyImage;
@@ -57,12 +55,6 @@ export default class UIView extends Laya.Script {
 
 
 
-    keyImage2: string = "";
-
-
-    keyImageH: string = "";//only for landscap 横屏
-
-    keyImageH2: string = "";
     index: number;
     keyId: string;
     tag: string;
@@ -241,28 +233,7 @@ export default class UIView extends Laya.Script {
     OnUIDidFinish() {
 
     }
-    //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
-    GetKeyColor(def: Laya.Color) {
-        var ret = Laya.Color.BLACK;
-        if (def) {
-            ret = def;
-        }
-
-        if (!Common.BlankString(this.keyColor)) {
-            ret = ColorConfig.main.GetColor(this.keyColor);
-            Debug.Log("UIView this.keyColor =" + this.keyColor + " ret=" + ret);
-        } else {
-            Debug.Log("UIView this.keyColor null");
-        }
-        return ret;
-    }
-    GetKeyText() {
-        var ret = "";
-        if (!Common.BlankString(this.keyText)) {
-            ret = Language.main.GetString(this.keyText);
-        }
-        return ret;
-    }
+ 
 
 
 

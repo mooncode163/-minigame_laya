@@ -53,6 +53,13 @@ export default class UIImage extends UIView {
 
     /** @prop {name:keyImage,type:string}*/
     keyImage: string = "";
+    /** @prop {name:keyImage2,type:string}*/
+    keyImage2: string = "";
+    /** @prop {name:keyImageH,type:string}*/
+    keyImageH: string = "";//only for landscap 横屏
+    /** @prop {name:keyImageH2,type:string}*/
+    keyImageH2: string = "";
+
 
     // @type(RelationType) 
     /** @prop {name:testType,type:Option,option:"None,PARENT", default:PARENT}*/

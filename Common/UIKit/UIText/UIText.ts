@@ -1,37 +1,39 @@
 
-import { _decorator, Component, Node, Sprite, Label, Color } from 'cc';
-import { Common } from '../../Common';
-import { Debug } from '../../Debug';
-import { UIView } from '../ViewController/UIView'; 
-const { ccclass, property, type, string } = _decorator;
+
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import Common from "../../Common";
+import ColorConfig from "../../Config/ColorConfig";
+import Debug from "../../Debug";
+import Language from "../../Language/Language";
+import UIView from "../ViewController/UIView";
 
-// label Overflow 需要设置为RESIZE_HEIGHT 才能设置UIText 的显示大小
- 
+
 export default class UIText extends UIView {
 
-    @type(Label)
-    label: Label | null = null;
+    /** @prop {name:label,type:Node}*/
+    public label: Laya.Label;
 
-    @type(string)
+    /** @prop {name:keyText,type:string}*/
+    keyText: string = "";
+    /** @prop {name:keyColor,type:string}*/
+    keyColor: string = "";
+
     //get 的用法
     get text() {
-        return this.label.string;
+        return this.label.text;
     }
     // set 的用法
     set text(value) {
-        this.label.string = value;
+        this.label.text = value;
         this.LayOut();
 
     }
 
 
-
-    @type(Number)
     //get 的用法
     get fontSize() {
         return this.label.fontSize;
@@ -39,12 +41,11 @@ export default class UIText extends UIView {
     // set 的用法
     set fontSize(value) {
         this.label.fontSize = value;
-        this.label.lineHeight = value;
+        // this.label.lineHeight = value;
         this.LayOut();
 
     }
 
-    @type(Color)
     //get 的用法
     get color() {
         return this.label.color;
@@ -61,10 +62,9 @@ export default class UIText extends UIView {
 
         if (!Common.BlankString(this.keyColor)) {
             Debug.Log("UIText this.color");
-            var ret = this.GetKeyColor(Color.YELLOW);
-            Debug.Log("UIText this.color =" + ret);
-            // this.label.color= ret;
-            this.color = ret;
+            var ret = this.GetKeyColor(Laya.Color.YELLOW);
+            Debug.Log("UIText this.color =" + ret); 
+            // this.color = ret;
         }
         if (!Common.BlankString(this.keyText)) {
             this.text = this.GetKeyText();
@@ -85,19 +85,30 @@ export default class UIText extends UIView {
         }
         this.LayOut();
     }
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+
+    //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
+    GetKeyColor(def: Laya.Color) {
+        var ret = Laya.Color.BLACK;
+        if (def) {
+            ret = def;
+        }
+
+        if (!Common.BlankString(this.keyColor)) {
+            ret = ColorConfig.main.GetColor(this.keyColor);
+            Debug.Log("UIView this.keyColor =" + this.keyColor + " ret=" + ret);
+        } else {
+            Debug.Log("UIView this.keyColor null");
+        }
+        return ret;
+    }
+    GetKeyText() {
+        var ret = "";
+        if (!Common.BlankString(this.keyText)) {
+            ret = Language.main.GetString(this.keyText);
+        }
+        return ret;
+    }
+
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

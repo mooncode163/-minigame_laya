@@ -1,8 +1,11 @@
+import AudioPlay from "../../Audio/AudioPlay";
+import Common from "../../Common";
+import CommonRes from "../../CommonRes";
+import Debug from "../../Debug";
+
  
 export default class AnimateButton extends Button {
-    // @type([EventHandler])
-    // clickAnimateEvents: EventHandler[] = []; 
-    @type([EventHandler])
+ 
     // @serializable
     // @displayOrder(20)
     // @tooltip('按钮点击事件的列表。先将数量改为1或更多，就可以为每个点击事件设置接受者和处理方法')
@@ -66,20 +69,7 @@ export default class AnimateButton extends Button {
          
         // this.node.emit(EventType.CLICK, this);
     }
-
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+ 
 }
 
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 
