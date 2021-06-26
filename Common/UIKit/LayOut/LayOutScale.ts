@@ -1,5 +1,6 @@
 import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
 import Common from "../../Common";
+import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutBase from "./LayOutBase";
  
 import { ScaleType } from "./LayOutUtil";
@@ -48,23 +49,23 @@ export default class LayOutScale extends LayOutBase {
         switch (this.type) {
             case ScaleType.MIN:
                 {
-                   // this.ScaleNode(this.node, false);
+                   this.ScaleNode(this.owner, false);
                 }
                 break;
             case ScaleType.MAX:
                 {
-                   // this.ScaleNode(this.node, true);
+                   this.ScaleNode(this.owner, true);
                 }
                 break;
 
         }
     }
 
-    ScaleNode(node: any, isMaxFit: boolean) {
+    ScaleNode(node: Laya.Node, isMaxFit: boolean) {
         var x, y, w, h; 
-        /*
-        var size = this.node.getComponent(UITransform).contentSize;
-        var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
+         
+        var size = UIViewUtil.GetNodeContentSize(this.owner);
+        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
@@ -94,9 +95,13 @@ export default class LayOutScale extends LayOutBase {
             scale = Common.GetBestFitScale(w, h, w_parent, h_parent);
         }
         scale = scale * this.ratio; 
-        node.scale.x = scale;
-        node.scale.y = scale;
-        */
+
+        var sp = node as Laya.Sprite;
+        if(sp!=null)
+        {
+            sp.scaleX = scale;
+            sp.scaleY = scale;
+        } 
     }
  
 }

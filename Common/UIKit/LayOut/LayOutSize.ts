@@ -1,11 +1,12 @@
  
  
 // import { serializable } from 'cc.decorator';
-
-import { AdKitCommon } from "../../AdKit/AdKitCommon";
+ 
+import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
-import { LayOutBase } from "./LayOutBase";
-import { SideType, SizeType, LayOutUtil } from "./LayOutUtil";
+import UIViewUtil from "../ViewController/UIViewUtil"; 
+import LayOutBase from "./LayOutBase";
+import LayOutUtil, { SideType, SizeType } from "./LayOutUtil";
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
@@ -132,9 +133,9 @@ export default class LayOutSize extends LayOutBase {
 
     UpdateSizeX() {
         var x, y, w, h;
-        /*
-        var size = this.node.getComponent(UITransform).contentSize;
-        var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
+     
+        var size = UIViewUtil.GetNodeContentSize(this.owner);
+        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
         w = size.width;
         h = size.height;
         var w_parent = sizeParent.width;
@@ -185,8 +186,8 @@ export default class LayOutSize extends LayOutBase {
                 break;
             case SizeType.MATCH_TARGET:
                 {
-                    if (this.target != null) {
-                        w = this.target.getComponent(UITransform).contentSize.width * this.ratioW;
+                    if (this.target != null) { 
+                        w = UIViewUtil.GetNodeContentSize(this.target).width * this.ratioW;
 
                     }
 
@@ -202,30 +203,30 @@ export default class LayOutSize extends LayOutBase {
                 {
 
                     if ((this.sideType == SideType.LEFT) || (this.sideType == SideType.RIGHT)) {
-                        w = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target, this.sideType) * this.ratioW;
+                        w = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target as Laya.Sprite, this.sideType) * this.ratioW;
                     }
 
                 }
                 break;
             case SizeType.BETWEEN_TWO_TARGET:
                 {
-                    w = LayOutUtil.main.GetBetweenTwoTargetSize(this.target, this.target2, false);
+                    w = LayOutUtil.main.GetBetweenTwoTargetSize(this.target as Laya.Sprite, this.target2 as Laya.Sprite, false);
 
                 }
                 break;
         }
-        Debug.Log("UpdateSizeX w=" + w + " h=" + h);
-        this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+        Debug.Log("UpdateSizeX w=" + w + " h=" + h); 
+        UIViewUtil.SetNodeContentSize(this.owner,w,h);
 
-        */
+        
     }
 
 
     UpdateSizeY() {
         var x, y, w, h;
-        /*
-        var size = this.node.getComponent(UITransform).contentSize;
-        var sizeParent = this.node.parent.getComponent(UITransform).contentSize;
+        
+        var size = UIViewUtil.GetNodeContentSize(this.owner);
+        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
         w = size.width;
         h = size.height;
 
@@ -275,7 +276,7 @@ export default class LayOutSize extends LayOutBase {
             case SizeType.MATCH_TARGET:
                 {
                     if (this.target != null) {
-                        h = this.target.getComponent(UITransform).contentSize.height * this.ratioH;
+                        h = UIViewUtil.GetNodeContentSize(this.target).height * this.ratioH;
 
                     }
 
@@ -291,14 +292,14 @@ export default class LayOutSize extends LayOutBase {
                 {
                    
                     if ((this.sideType == SideType.UP) || (this.sideType == SideType.DOWN)) {
-                        h = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target, this.sideType) * this.ratioH;
+                        h = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target as Laya.Sprite, this.sideType) * this.ratioH;
                     }
 
                 }
                 break;
             case SizeType.BETWEEN_TWO_TARGET:
                 {
-                    h = LayOutUtil.main.GetBetweenTwoTargetSize(this.target, this.target2, true);
+                    h = LayOutUtil.main.GetBetweenTwoTargetSize(this.target as Laya.Sprite, this.target2 as Laya.Sprite, true);
 
                 }
                 break;
@@ -307,9 +308,9 @@ export default class LayOutSize extends LayOutBase {
         if (this.enableOffsetAdBanner) { 
             h -= AdKitCommon.main.heightCanvasAdBanner;
         } 
-        Debug.Log("UpdateSizeY w=" + w + " h=" + h);
-        this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
-        */
+        Debug.Log("UpdateSizeY w=" + w + " h=" + h); 
+        UIViewUtil.SetNodeContentSize(this.owner,w,h);
+        
     }
     UpdateSize() {
         this.UpdateSizeX();

@@ -11,15 +11,52 @@ import Device from "../../Device";
 import FileUtil from "../../File/FileUtil";
 import TextureUtil from "../../Image/TextureUtil";
 import Platform from "../../Platform";
+import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
 
 
+enum ENUM_Effect {
+    null = 0,
+    popupEffect = 1,
+    closeEffect = 2
+};
+
+function ENUM_ChangeString(enumObject) {
+    let reslut = "";
+    for (var entry in ENUM_Effect) {
+        reslut = reslut + "," + entry;
+    }
+    return reslut;
+}
+
+var effectOption = ENUM_ChangeString(ENUM_Effect);
+
 export default class UIImage extends UIView {
 
+ 
+    /** @prop {name:targetEffect, tips:"UI特效", type:ENUM_Effect, default:null}*/
+    private targetEffect: ENUM_Effect = null; //这样写实不行的
 
+    /** @prop {name:targetEffect, tips:"UI特效", type:Option, option:effectOption, default:null}*/
+    private targetEffect1: ENUM_Effect = null; //这样也是不行的
+ 
+
+    /** @prop {name:image,type:Node}*/
     public image: Laya.Image;
+
+    /** @prop {name:testPrefab,type:Prefab}*/
+    public testPrefab: Laya.Prefab;
+
+
     isCache: boolean = true;
 
+
+    /** @prop {name:keyImage,type:string}*/
+    keyImage: string = "";
+
+    // @type(RelationType) 
+    /** @prop {name:testType,type:Option,option:"None,PARENT", default:PARENT}*/
+    testType = RelationType.PARENT;
 
     isSizeFitTexture: boolean = false;
 
@@ -27,12 +64,15 @@ export default class UIImage extends UIView {
         Debug.Log("UIImage onAwake");
         super.onAwake();
         var keyPic = this.keyImage;
+        // this.image = this.owner.getChildByName("Image") as Laya.Image;
 
-        if(this.image==null){
+        if (this.image == null) {
             Debug.Log("UIImage image==null");
-        }else{
+        } else {
             Debug.Log("UIImage image!=null");
         }
+
+        Debug.Log("UIImage testType=" + this.testType);
 
         if (Device.main.isLandscape) {
             if (!Common.BlankString(this.keyImageH)) {
@@ -65,6 +105,14 @@ export default class UIImage extends UIView {
         this.LayOut();
     }
 
+    GetKeyImage() {
+        var ret = "";
+        if (!Common.BlankString(this.keyImage)) {
+            ret = ImageRes.main.GetImage(this.keyImage);
+        }
+        return ret;
+    }
+
     UpdateImageByKey(key: string) {
         var pic = "";
         if (Common.BlankString(key)) {
@@ -82,7 +130,7 @@ export default class UIImage extends UIView {
 
     UpdateImageTexture(tex: Laya.Texture2D) {
 
-        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO); 
+        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
         if (this.isSizeFitTexture) {
             this.SetContentSize(tex.width, tex.height);
             this.LayOut();
@@ -148,18 +196,11 @@ export default class UIImage extends UIView {
 
     LayOut() {
         super.LayOut();
+
+        // UIViewUtil.SetNodeContentSize(this.image,256,256);
+        // UIViewUtil.SetNodePosition(this.owner,256,128);
     }
 
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

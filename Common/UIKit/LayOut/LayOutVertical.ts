@@ -20,7 +20,7 @@ export default class LayOutVertical extends HorizontalOrVerticalLayoutBase {
         if (!this.Enable()) {
             return;
         } 
-        // this.row = LayOutUtil.main.GetChildCount(this.node,this.enableHide);
+        this.row = LayOutUtil.main.GetChildCount(this.owner,this.enableHide);
         super.LayOut();
     } 
 } 

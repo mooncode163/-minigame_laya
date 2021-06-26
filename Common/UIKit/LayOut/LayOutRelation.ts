@@ -1,6 +1,7 @@
  
 import AdKitCommon from "../../AdKit/AdKitCommon";
-import Debug from "../../Debug"; 
+import Debug from "../../Debug";  
+import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutBase from "./LayOutBase";
 import { RelationType, Align } from "./LayOutUtil";
 
@@ -10,7 +11,8 @@ export default class LayOutRelation extends LayOutBase {
 
     // @type(RelationType)
     private _type = RelationType.PARENT;
-    // @type(RelationType)
+    // @type(RelationType) 
+    /** @prop {name:type,type:Option,option:"None,PARENT", default:PARENT}*/ 
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -52,14 +54,14 @@ export default class LayOutRelation extends LayOutBase {
         }
         super.LayOut();
         var x, y, w, h;
-        /*
-        var pt = this.node.getPosition();
+        
+        var pt = UIViewUtil.GetNodePosition(this.owner);
         x = pt.x;
         y = pt.y;
 
         // var rctran = this.node.getComponent(cc.RectTransform);
-        var size = this.node.getComponent(UITransform)?.contentSize;
-        var sizeParent = this.node.parent?.getComponent(UITransform)?.contentSize;
+        var size = UIViewUtil.GetNodeBoundingBox(this.owner);
+        var sizeParent = UIViewUtil.GetNodeBoundingBox(this.owner.parent);  
         w = size?.width;
         h = size?.height;
 
@@ -109,11 +111,11 @@ export default class LayOutRelation extends LayOutBase {
                     if (this.target == null) {
                         break;
                     }
-                    var sizeTarget = this.target?.getComponent(UITransform)?.contentSize;
+                    var sizeTarget = UIViewUtil.GetNodeBoundingBox(this.target);   
                     if (sizeTarget == null) {
                         break;
                     }
-                    var ptTarget = this.target.getPosition();
+                    var ptTarget = UIViewUtil.GetNodePosition(this.target); 
                     // 位于target的左边
                     if (this.align == Align.LEFT) {
                         x = ptTarget.x - sizeTarget.width / 2 - w / 2 - this.offset.x;
@@ -141,22 +143,10 @@ export default class LayOutRelation extends LayOutBase {
 
         if (this.enableOffsetAdBanner) {
             y += AdKitCommon.main.heightCanvasAdBanner;
-        }
-        this.node.setPosition(x, y);
-*/
-    }
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
-}
+        } 
+        UIViewUtil.SetNodePosition(this.target,x,y);
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+    }
+   
+}
+ 

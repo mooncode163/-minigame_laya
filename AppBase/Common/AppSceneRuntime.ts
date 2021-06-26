@@ -1,5 +1,5 @@
  
-import { ui } from '../../../ui/layaMaxUI';
+// import { ui } from '../../../ui/layaMaxUI';
 import Debug from '../../Common/Debug'; 
 
 
@@ -24,7 +24,10 @@ export module ui.test {
 */
 
 
-export default class AppSceneRuntime extends ui.test.TestSceneUI {
+// export default class AppSceneRuntime extends ui.test.TestSceneUI 
+export default class AppSceneRuntime extends Laya.Scene 
+
+{
     static _main: AppSceneRuntime;
     //静态方法
     static get main() {

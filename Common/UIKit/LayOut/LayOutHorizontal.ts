@@ -20,7 +20,7 @@ export default class LayOutHorizontal extends HorizontalOrVerticalLayoutBase {
         }
         super.LayOut();
         this.row = 1;
-        // this.col = LayOutUtil.main.GetChildCount(this.node, this.enableHide);
+        this.col = LayOutUtil.main.GetChildCount(this.owner, this.enableHide);
         Debug.Log("LayOutHorizontal LayOut");
         super.LayOut();
 

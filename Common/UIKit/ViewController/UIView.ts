@@ -22,13 +22,23 @@ import Language from "../../Language/Language";
 import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
 import UIViewUtil from "./UIViewUtil";
+ 
+
+// 编辑器绑定脚本变量 @prop
+// https://www.jianshu.com/p/411d3cb87325
+// https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-3-4-0
+ 
+
+// 一个完整的标签主要由下面几个部分：
+// type IDE属性类型，此类型是指IDE属性类型，非真正的属性类型，不过大多情况下是一样的
+// name IDE内显示的属性名称
+// tips IDE内鼠标经过属性名称上后，显示的鼠标提示，如果没有则使用name（可选）
+// default 输入框显示的默认值（可选）
+ 
 
 
-// TypeScript自动引入脚本插件
-// https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-
+// 模板@prop如何使用枚举
+// http://ask.layabox.com/question/44695
 
 
 export default class UIView extends Laya.Script {
@@ -36,9 +46,16 @@ export default class UIView extends Laya.Script {
     keyText: string = "";
 
     keyColor: string = "";
+   
+    //   public  get keyImage(): string {        
+    //         return this._keyImage;
+    //     } 
+    //       /**@internal */
+    //     public set keyImage(value: string) {
+    //         this._keyImage = value;
+    //     }
 
 
-    keyImage: string = "";
 
     keyImage2: string = "";
 
@@ -103,13 +120,12 @@ export default class UIView extends Laya.Script {
     }
 
 
-    static SetNodeContentSize(node:Laya.Node, w, h) {
+    static SetNodeContentSize(node: Laya.Node, w, h) {
         // var sp = node.getComponent(Laya.Sprite);
         var sp = node as Laya.Sprite;
-        if(sp!=null)
-        {
+        if (sp != null) {
             sp.width = w;
-            sp.height = h; 
+            sp.height = h;
         }
     }
 
@@ -140,15 +156,14 @@ export default class UIView extends Laya.Script {
         this.LayOutInternal();
     }
 
-    LayOutNode(node:Laya.Node) {
+    LayOutNode(node: Laya.Node) {
         {
             var list = node.getComponents(LayOutBase);
-            if(list==null)
-            {
+            if (list == null) {
                 return;
             }
-       
-            
+
+
             for (let ly of list) {
                 if (ly) {
                     ly.LayOut();
@@ -194,17 +209,16 @@ export default class UIView extends Laya.Script {
     }
 
     // Laya.Size
-    GetContentSize() { 
+    GetContentSize() {
         var sp = this.owner as Laya.Sprite;
         var w = 0;
         var h = 0;
-        if(sp!=null)
-        {
+        if (sp != null) {
             w = sp.width;
-            h = sp.height; 
+            h = sp.height;
         }
 
-        return new Laya.Size(w, h); 
+        return new Laya.Size(w, h);
     }
 
     GetBoundingBox() {
@@ -250,13 +264,7 @@ export default class UIView extends Laya.Script {
         return ret;
     }
 
-    GetKeyImage() {
-        var ret = "";
-        if (!Common.BlankString(this.keyImage)) {
-            ret = ImageRes.main.GetImage(this.keyImage);
-        }
-        return ret;
-    }
+
 
     GetImageOfKey(key) {
         var ret = "";
@@ -291,19 +299,9 @@ export default class UIView extends Laya.Script {
     }
 
 
-    AddChild(child:UIView) { 
+    AddChild(child: UIView) {
         this.owner.addChild(child.owner);
         this.LayOut();
     }
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 
