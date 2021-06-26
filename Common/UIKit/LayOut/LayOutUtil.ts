@@ -5,6 +5,10 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import AdKitCommon from "../../AdKit/AdKitCommon";
+import Debug from "../../Debug";
+import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutElement from "./LayOutElement";
 
 
@@ -107,73 +111,68 @@ export default class LayOutUtil {
     }
 
     //两个node之间的中心位置x
-    GetBetweenCenterX(node1, node2) {
+    GetBetweenCenterX(node1:Laya.Sprite, node2:Laya.Sprite) {
         var nodeleft, noderight;
-        if (node1.getPosition().x < node2.getPosition().x) {
+        if ((node1 as Laya.Sprite).x < (node2 as Laya.Sprite).x) {
             nodeleft = node1;
             noderight = node2;
         } else {
             nodeleft = node2;
             noderight = node1;
         }
-       /*
-        var rctran = nodeleft.getComponent(UITransform).contentSize;
-        var v1 = nodeleft.getPosition().x + rctran.width / 2;
-        // rctran = noderight.getComponent(cc.RectTransform);
-        rctran = noderight.getComponent(UITransform).contentSize;
-        var v2 = noderight.getPosition().x - rctran.width / 2;
+ 
+        // var rctran = nodeleft.getComponent(UITransform).contentSize;
+        var v1 = nodeleft.x + nodeleft.width / 2; 
+        // rctran = noderight.getComponent(UITransform).contentSize;
+        var v2 = noderight.x - noderight.width / 2;
         return (v1 + v2) / 2;
-        */
+        
     }
     //两个node之间的中心位置y
-    GetBetweenCenterY(node1, node2) {
+    GetBetweenCenterY(node1:Laya.Sprite, node2:Laya.Sprite) {
         var nodeDown, nodeUp;
-        if (node1.getPosition().y < node2.getPosition().y) {
+        if ((node1 as Laya.Sprite).y < (node2 as Laya.Sprite).y) {
             nodeDown = node1;
             nodeUp = node2;
         } else {
             nodeDown = node2;
             nodeUp = node1;
         }
-        /*
-        // var rctran = nodeDown.getComponent(cc.RectTransform);
-        var rctran = nodeDown.getComponent(UITransform).contentSize;
-        var v1 = nodeDown.getPosition().y + rctran.height / 2;
-        // rctran = nodeUp.getComponent(cc.RectTransform);
-        rctran = nodeUp.getComponent(UITransform).contentSize;
-        var v2 = nodeUp.getPosition().y - rctran.height / 2;
+         
+        var v1 = nodeDown.y + nodeDown.height / 2; 
+        var v2 = nodeUp.y - nodeUp.height / 2;
         return (v1 + v2) / 2;
-        */
+        
     }
 
     //node和屏幕边界之间的中心位置x或者y
-    GetBetweenScreenCenter(node:Node, align:Align,enableAdBanner:boolean=false) {
+    GetBetweenScreenCenter(node:Laya.Sprite, align:Align,enableAdBanner:boolean=false) {
         var v1 = 0, v2 = 0;
-        /*
+        
         var sizeCanvas = AppSceneBase.main.sizeCanvas;
      
-        var rctran = node.getComponent(UITransform).contentSize;
+        // var rctran = node.getComponent(UITransform).contentSize;
         // var rctran = node.getComponent(cc.RectTransform);
         switch (align) {
             case Align.LEFT:
                 {
                     //左边界
                     v1 = -sizeCanvas.width / 2;
-                    v2 = node.getPosition().x - rctran.width / 2;
+                    v2 = node.x - node.width / 2;
                 }
                 break;
             case Align.RIGHT:
                 {
                     //右边界
                     v1 = sizeCanvas.width / 2;
-                    v2 = node.getPosition().x + rctran.width / 2;
+                    v2 = node.x + node.width / 2;
                 }
                 break;
             case Align.UP:
                 {
                     //上边界
                     v1 = sizeCanvas.height / 2;
-                    v2 = node.getPosition().y + rctran.height / 2;
+                    v2 = node.y + node.height / 2;
                 }
                 break;
             case Align.DOWN:
@@ -185,23 +184,23 @@ export default class LayOutUtil {
                         // AdKitCommon.main.heightCanvasAdBanner = 256;
                         v1 += AdKitCommon.main.heightCanvasAdBanner;
                     }
-                    v2 = node.getPosition().y - rctran.height / 2;
+                    v2 = node.y - node.height / 2;
                 }
                 break;
         }
 
         return (v1 + v2) / 2;
-        */
+         
     }
 
 
 
     //两个对象之间的宽度或者高度 cc.Node
-    GetBetweenTwoTargetSize(node1, node2, isHeight) {
+    GetBetweenTwoTargetSize(node1:Laya.Sprite, node2:Laya.Sprite, isHeight) {
         var objDown, objUp;
-        var pos1 = node1.getPosition();
-        var pos2 = node2.getPosition();
-        if (pos1.y < pos2.y) {
+        // var pos1 = node1.getPosition();
+        // var pos2 = node2.getPosition();
+        if (node1.y < node2.y) {
             objDown = node1;
             objUp = node2;
         }
@@ -209,17 +208,17 @@ export default class LayOutUtil {
             objDown = node2;
             objUp = node1;
         }
-        /*
-        var pos = objDown.getPosition();
+       
+        // var pos = objDown.getPosition();
         var size =UIViewUtil.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
-        var y1 = pos.y + size.height / 2;
-        var x1 = pos.x + size.width / 2;
+        var y1 = objDown.y + size.height / 2;
+        var x1 = objDown.x + size.width / 2;
 
         // objUp
-        pos = objUp.getPosition();
+        // pos = objUp.getPosition();
         size = UIViewUtil.GetNodeBoundingBox(objUp);
-        var y2 = pos.y - size.height / 2;
-        var x2 = pos.x - size.width / 2;
+        var y2 = objUp.y - size.height / 2;
+        var x2 = objUp.x - size.width / 2;
 
         var ret = 0;
         if (isHeight) {
@@ -230,17 +229,17 @@ export default class LayOutUtil {
         }
 
         return ret;
-        */
+       
 
     }
 
 
     //边界和对象之间的宽度或者高度 type SizeType
-    GetBetweenSideAndTargetSize(node, type) {
+    GetBetweenSideAndTargetSize(node:Laya.Sprite, type) {
         var v1 = 0, v2 = 0;
-        /*
+       
         var size =UIViewUtil.GetNodeBoundingBox(node);// node.getBoundingBox();
-        var pos = node.getPosition();
+        // var pos = node.getPosition();
         // var sizeParent = node.parent.getBoundingBox();
         var sizeParent = UIViewUtil.GetNodeBoundingBox(node.parent);
         var w_parent = sizeParent.width;
@@ -251,29 +250,29 @@ export default class LayOutUtil {
                 {
                     //左边界
                     v1 = -w_parent / 2;
-                    v2 = pos.x - size.width / 2;
+                    v2 = node.x - size.width / 2;
                 }
                 break;
             case SideType.RIGHT:
                 {
                     //右边界
                     v1 = w_parent / 2;
-                    v2 = pos.x + size.width / 2;
+                    v2 = node.x + size.width / 2;
                 }
                 break;
             case SideType.UP:
                 {
                     //上边界
                     v1 = h_parent / 2;
-                    v2 = pos.y + size.height / 2;
-                    Debug.Log("GetBetweenSideAndTargetSize h_parent="+h_parent+" pos.y="+pos.y+" size.height="+size.height)
+                    v2 = node.y + size.height / 2;
+                    Debug.Log("GetBetweenSideAndTargetSize h_parent="+h_parent+" pos.y="+node.y+" size.height="+size.height)
                 }
                 break;
             case SideType.DOWN:
                 {
                     //下边界
                     v1 = -h_parent / 2;
-                    v2 = pos.y - size.height / 2;
+                    v2 = node.y - size.height / 2;
                 }
                 break;
         }
@@ -283,14 +282,14 @@ export default class LayOutUtil {
         ret = Math.abs(v1 - v2);
 
         return ret;
-        */
+       
        
     }
 
-    GetChildCount(node, includeHide = true) {
+    GetChildCount(node:Laya.Node, includeHide = true) {
         var count = 0;
-        for (var i = 0; i < node.children.length; i++) {
-            var child = node.children[i];
+        for (var i = 0; i < node.numChildren; i++) {
+            var child = node.getChildAt(i);
             if (child == null) {
                 // 过滤已经销毁的嵌套子对象 
                 continue;

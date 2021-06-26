@@ -1,6 +1,7 @@
-import { Platform } from "../../Platform";
-import { AdBannerMooSnow } from "../../Platform/moosnow/AdKit/AdBannerMooSnow";
-import { AdBannerPlatformWrapper } from "./AdBannerPlatformWrapper";
+import Platform from "../../Platform";
+import AdBannerPlatformWrapper from "./AdBannerPlatformWrapper";
+
+ 
 
  
 export default class AdBanner  {
@@ -23,7 +24,7 @@ export default class AdBanner  {
         //     p = new AdBannerWeiXin();
         // }
         if (Platform.isWeiXin||Platform.isByte)  {
-            p = new AdBannerMooSnow();
+            // p = new AdBannerMooSnow();
         }
         
         return p;

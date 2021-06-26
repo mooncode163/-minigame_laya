@@ -1,6 +1,7 @@
-import { Platform } from "../../Platform";
-import { AdInsertMooSnow } from "../../Platform/moosnow/AdKit/AdInsertMooSnow";
-import { AdInsertPlatformWrapper } from "./AdInsertPlatformWrapper";
+import Platform from "../../Platform";
+import AdInsertPlatformWrapper from "./AdInsertPlatformWrapper";
+
+ 
 
  
 export default class AdInsert  {
@@ -23,7 +24,7 @@ export default class AdInsert  {
         // }
 
 		if (Platform.isWeiXin||Platform.isByte)  {
-            p = new AdInsertMooSnow();
+            // p = new AdInsertMooSnow();
         }
         return p;
     }

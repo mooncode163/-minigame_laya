@@ -19,12 +19,13 @@ export default class LayOutBetween extends LayOutBase {
         }
         super.LayOut();
 
-        /*
+
         var x, y, w, h;
         Debug.Log("LayOutBetween LayOut");
-        var pt = this.owner.getPosition();
-        x = pt.x;
-        y = pt.y;
+        var sp = this.owner  as Laya.Sprite;
+        // var pt = this.owner.getPosition();
+        x = sp.x;
+        y = sp.y;
         if (this.target == null) {
             return;
         }
@@ -32,27 +33,29 @@ export default class LayOutBetween extends LayOutBase {
 
         //左右
         if (this.align == Align.Horizontal) {
-            x = LayOutUtil.main.GetBetweenCenterX(this.target, this.target2) + this.offset.x;
+            x = LayOutUtil.main.GetBetweenCenterX(this.target as Laya.Sprite, this.target2 as Laya.Sprite) + this.offset.x;
         }
         if (this.align == Align.Vertical) {
-            y = LayOutUtil.main.GetBetweenCenterY(this.target, this.target2) + this.offset.y;
+            y = LayOutUtil.main.GetBetweenCenterY(this.target as Laya.Sprite, this.target2 as Laya.Sprite) + this.offset.y;
         }
 
         //屏幕边界
         if ((this.align == Align.LEFT) || (this.align == Align.RIGHT)) {
-            x = LayOutUtil.main.GetBetweenScreenCenter(this.target, this.align) + this.offset.x;
+            x = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align) + this.offset.x;
         }
         if (this.align == Align.UP) {
-            y = LayOutUtil.main.GetBetweenScreenCenter(this.target, this.align) + this.offset.y;
+            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align) + this.offset.y;
 
         }
         if (this.align == Align.DOWN) {
-            y = LayOutUtil.main.GetBetweenScreenCenter(this.target, this.align, this.enableOffsetAdBanner) + this.offset.y;
+            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align, this.enableOffsetAdBanner) + this.offset.y;
 
         }
         Debug.Log("LayOutBetween x=" + x + " y=" + y + " align=" + this.align);
-        this.node.setPosition(x, y);
-*/
+        
+        sp.x = x;
+        sp.y = y; 
+
     }
 
 }

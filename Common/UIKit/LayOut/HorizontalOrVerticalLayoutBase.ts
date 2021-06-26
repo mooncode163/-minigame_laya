@@ -32,10 +32,9 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             return;
         }  
         super.LayOut();
-
-/*
-        for (var i = 0; i < this.node.children.length; i++) {
-            var child = this.node.children[i];
+ 
+        for (var i = 0; i < this.owner.numChildren; i++) {
+            var child = this.owner.getChildAt(i);
             if (child == null) {
                 // 过滤已经销毁的嵌套子对象 
                 continue;
@@ -70,44 +69,47 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 c = this.col - 1 - c;
             }
 
-            var pt = this.GetItemPostion(child, r, c);
-       
-            child.setPosition(pt.x, pt.y);
+            
+            var sp = child  as Laya.Sprite;
+            var pt = this.GetItemPostion(sp, r, c);
+            sp.x = pt.x;
+            sp.y = pt.y;
+            // child.setPosition(pt.x, pt.y);
             idx++;
 
         }
 
-*/
+
 
     }
 
     // r 行 ; c 列  返回中心位置 Vector2
-    GetItemPostion (nodeItem:Node, r:Number, c:Number) {
+    GetItemPostion (nodeItem:Laya.Sprite, r:any, c:any) {
         var x, y, w, h; 
-/*
-        var rctran = UIViewUtil.GetNodeBoundingBox(this.node); 
+
+        var rctran = UIViewUtil.GetNodeBoundingBox(this.owner); 
         w = rctran.width;
         h = rctran.height;
         var item_w = 0, item_h = 0, x_left = 0, y_bottom = 0, w_total = 0, h_total = 0;
 
-        var rctranItem =UIViewUtil.GetNodeBoundingBox(nodeItem); 
+        // var rctranItem =UIViewUtil.GetNodeBoundingBox(nodeItem); 
 
         if (this.childControlWidth) {
             item_w = (w - (this.space.x * (this.col - 1))) / this.col;
             // rctranItem.sizeDelta = new Vector2(item_w, rctranItem.sizeDelta.y);
-            rctranItem.width = item_w;
+            nodeItem.width = item_w;
         }
         else {
-            item_w = rctranItem.width;
+            item_w = nodeItem.width;
         }
 
         if (this.childControlHeight) {
             item_h = (h - (this.space.y * (this.row - 1))) / this.row;
             // rctranItem.sizeDelta = new Vector2(rctranItem.sizeDelta.x, item_h);
-            rctranItem.height = item_w;
+            nodeItem.height = item_w;
         }
         else {
-            item_h = rctranItem.height;
+            item_h = nodeItem.height;
         }
 
         w_total = item_w * this.col + (this.space.x * (this.col - 1));
@@ -148,8 +150,8 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             }
         }
         y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
-        return new Vec2(x, y);
-*/
+        return new Laya.Vector2(x, y);
+
     }
 
     onAwake() {

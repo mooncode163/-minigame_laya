@@ -1,6 +1,7 @@
-import { Platform } from "../../Platform";
-import { AdVideoMooSnow } from "../../Platform/moosnow/AdKit/AdVideoMooSnow";
-import { AdVideoPlatformWrapper } from "./AdVideoPlatformWrapper";
+import Platform from "../../Platform";
+import AdVideoPlatformWrapper from "./AdVideoPlatformWrapper";
+
+ 
 
  
 export default class AdVideo  {
@@ -24,7 +25,7 @@ export default class AdVideo  {
         //     p = new AdVideoWeiXin();
         // }
         if (Platform.isWeiXin||Platform.isByte)  {
-            p = new AdVideoMooSnow();
+            // p = new AdVideoMooSnow();
         }
         return p;
     }

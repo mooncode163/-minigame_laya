@@ -140,9 +140,15 @@ export default class UIView extends Laya.Script {
         this.LayOutInternal();
     }
 
-    LayOutNode(node) {
+    LayOutNode(node:Laya.Node) {
         {
             var list = node.getComponents(LayOutBase);
+            if(list==null)
+            {
+                return;
+            }
+       
+            
             for (let ly of list) {
                 if (ly) {
                     ly.LayOut();
