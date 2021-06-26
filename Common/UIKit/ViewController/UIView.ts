@@ -1,4 +1,4 @@
- 
+
 
 // vscode 插件开发 typescript部分报错 Object is possibly 'undefined'.
 /*
@@ -28,23 +28,23 @@ import UIViewUtil from "./UIViewUtil";
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
- 
- 
- 
-export default class UIView extends Laya.Script{
-    
+
+
+
+export default class UIView extends Laya.Script {
+
     keyText: string = "";
-    
+
     keyColor: string = "";
 
-    
+
     keyImage: string = "";
-    
+
     keyImage2: string = "";
 
-    
+
     keyImageH: string = "";//only for landscap 横屏
-    
+
     keyImageH2: string = "";
     index: number;
     keyId: string;
@@ -103,8 +103,14 @@ export default class UIView extends Laya.Script{
     }
 
 
-    static SetNodeContentSize(node, w, h) {
-        // node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+    static SetNodeContentSize(node:Laya.Node, w, h) {
+        // var sp = node.getComponent(Laya.Sprite);
+        var sp = node as Laya.Sprite;
+        if(sp!=null)
+        {
+            sp.width = w;
+            sp.height = h; 
+        }
     }
 
     onAwake() {
@@ -117,16 +123,17 @@ export default class UIView extends Laya.Script{
     //UIViewController
     SetController(con: UIViewController) {
         this.controller = con;
-        // this.owner.parent = con.objController;
+        con.objController.addChild(this.owner);
         con.view = this;
 
         con.ViewDidAppear();
- 
+
 
     }
 
-    SetViewParent(node) { 
+    SetViewParent(node) {
         // this.owner.parent = node;
+        node.addChild(this.owner);
     }
 
     LayOut() {
@@ -135,13 +142,13 @@ export default class UIView extends Laya.Script{
 
     LayOutNode(node) {
         {
-            // var list = node.getComponents(LayOutBase);
-            // for (let ly of list) {
-            //     if (ly) {
-            //         ly.LayOut();
-            //     }
-            // }
- 
+            var list = node.getComponents(LayOutBase);
+            for (let ly of list) {
+                if (ly) {
+                    ly.LayOut();
+                }
+            }
+
         }
     }
 
@@ -175,20 +182,32 @@ export default class UIView extends Laya.Script{
     }
 
     SetContentSize(w, h) {
+        UIView.SetNodeContentSize(this.owner, w, h);
         // this.owner?.getComponent(UITransform)?.setContentSize(new Size(w, h));
-        // this.LayOutInternalChild();
+        this.LayOutInternalChild();
     }
-    GetContentSize() {
-        // return this.owner?.getComponent(UITransform)?.contentSize;
+
+    // Laya.Size
+    GetContentSize() { 
+        var sp = this.owner as Laya.Sprite;
+        var w = 0;
+        var h = 0;
+        if(sp!=null)
+        {
+            w = sp.width;
+            h = sp.height; 
+        }
+
+        return new Laya.Size(w, h); 
     }
 
     GetBoundingBox() {
-        // return UIViewUtil.GetNodeBoundingBox(this.owner);
+        return UIViewUtil.GetNodeBoundingBox(this.owner);
     }
 
     // UIView parent
     SetParent(parent: UIView) {
-        // this.owner.parent = parent.owner;
+        parent.owner.addChild(this.owner);
         this.LayOut();
     }
 
@@ -203,7 +222,7 @@ export default class UIView extends Laya.Script{
 
     }
     //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
-    GetKeyColor(def:Laya.Color) {
+    GetKeyColor(def: Laya.Color) {
         var ret = Laya.Color.BLACK;
         if (def) {
             ret = def;
@@ -253,11 +272,21 @@ export default class UIView extends Laya.Script{
         //     }
 
         // });
+
+        for (var i = 0; i < this.owner.numChildren; i++) {
+            var child = this.owner.getChildAt(i);
+            var ui = child.getComponent(UIView);
+            if (ui != null) {
+                if (this.owner != ui.owner) {
+                    ui.UpdateLanguage();
+                }
+            }
+        }
     }
 
 
-    AddChild(child) {
-        child.node.setParent(this.owner);
+    AddChild(child:UIView) { 
+        this.owner.addChild(child.owner);
         this.LayOut();
     }
 }

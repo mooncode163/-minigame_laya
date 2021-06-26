@@ -1,4 +1,5 @@
-import { NaviViewController } from "../NaviBar/NaviViewController";
+ 
+import NaviViewController from "../NaviBar/NaviViewController";
 import UIView from "./UIView";
 
  
@@ -18,7 +19,7 @@ export default class UIViewController   {
 
 
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
-    objController: Node | null = null;
+    objController: Laya.Node | null = null;
 
     naviController: NaviViewController | null = null;
 
@@ -26,7 +27,7 @@ export default class UIViewController   {
     CreateObjController() {
 
         if (this.objController == null) {
-            this.objController = new Node('Controller');
+            this.objController = new Laya.Node();
         }
         this.ViewDidLoad();
 
@@ -41,7 +42,7 @@ export default class UIViewController   {
     }
 
     //SetViewParent
-    SetViewParent(node: Node | null) {
+    SetViewParent(node: Laya.Node | null) {
 
         console.log("SetViewParent node");
         if (node == null) {
@@ -53,11 +54,14 @@ export default class UIViewController   {
         if (this.objController == null) {
             console.log("objController is null");
         } else {
-            this.objController.setParent(node); 
-            var size = node.getComponent(UITransform).contentSize;
-            this.objController.addComponent(UIView);
-            this.objController.addComponent(UITransform);
-            this.objController?.getComponent(UITransform)?.setContentSize(size);
+            // this.objController.setParent(node); 
+            node.addChild(this.objController);
+            // var size = node.getComponent(UITransform).contentSize;
+            var ui=this.objController.addComponent(UIView);
+            // ui.SetContentSize()
+            // this.objController.addComponent(UITransform);
+            // this.objController?.getComponent(UITransform)?.setContentSize(size);
+
         }
     }
 
@@ -102,9 +106,9 @@ export default class UIViewController   {
             return;
         }
         //child
-        var children = this.objController.children;
-        for (var i = 0; i < children.length; i++) {
-            var child = children[i];
+        // var children = this.objController.numChildren;
+        for (var i = 0; i < this.objController.numChildren; i++) {
+            var child = this.objController.getChildAt(i);
             var viewchild = child.getComponent(UIView);
             if (viewchild != null) {
                 viewchild.UpdateLanguage();

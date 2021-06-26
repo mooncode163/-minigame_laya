@@ -17,32 +17,74 @@ strict设置false状态
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
-
-import { UIViewController } from "./UIViewController";
  
 export default class UIViewUtil {
 
-    static GetNodeBoundingBox(node: Node) {
-        return node.getComponent(UITransform)?.getBoundingBox();
+    static GetNodeBoundingBox(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        var w = 0;
+        var h = 0;
+        if(sp!=null)
+        {
+            w = sp.width*sp.scaleX;
+            h = sp.height*sp.scaleY; 
+        }
+
+        return new Laya.Size(w, h); 
     }
 
-    static SetNodeContentSize(node, w, h) {
-        node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+    static SetNodeContentSize(node: Laya.Node, w, h) {
+        var sp = node as Laya.Sprite;
+        if(sp!=null)
+        {
+            sp.width = w;
+            sp.height = h; 
+        } 
     }
     static GetNodeContentSize(node) {
-        return node?.getComponent(UITransform)?.contentSize;
+        var sp = node as Laya.Sprite;
+        var w = 0;
+        var h = 0;
+        if(sp!=null)
+        {
+            w = sp.width;
+            h = sp.height; 
+        }
+
+        return new Laya.Size(w, h); 
     }
-    static GetNodeWidth(node: Node) {
-        return node.getComponent(UITransform)?.width;
+    static GetNodeWidth(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        var w = 0; 
+        if(sp!=null)
+        {
+            w = sp.width; 
+        }
+
+        return w;
     }
-    static GetNodeHeight(node: Node) {
-        return node.getComponent(UITransform)?.height;
+    static GetNodeHeight(node: Laya.Node) {
+        var sp = node as Laya.Sprite; 
+        var h = 0;
+        if(sp!=null)
+        { 
+            h = sp.height; 
+        }
+        return h;
     }
-    static SetNodeWidth(node: Node,w:number) {
-        node.getComponent(UITransform).width = w;
+    static SetNodeWidth(node:Laya.Node,w:number) {
+        var sp = node as Laya.Sprite; 
+        if(sp!=null)
+        {
+            sp.width = w; 
+        }
     }
-    static SetNodeHeight(node: Node,h:number) {
-        node.getComponent(UITransform).height = h;
+    static SetNodeHeight(node:Laya.Node,h:number) {
+        var sp = node as Laya.Sprite; 
+        if(sp!=null)
+        {
+            sp.height = h; 
+        }
     }
 }
 

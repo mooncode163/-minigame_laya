@@ -3,9 +3,25 @@ import { ui } from '../../../ui/layaMaxUI';
 import Debug from '../../Common/Debug'; 
 
 
-// typescript 提示 Object is possibly ‘null‘ 的N种解决方法
-// https://blog.csdn.net/iamlujingtao/article/details/110573421
+/*
 
+
+import View=Laya.View;
+import Dialog=Laya.Dialog;
+import Scene=Laya.Scene;
+var REG: Function = Laya.ClassUtils.regClass;
+export module ui.test {
+    export class TestSceneUI extends Scene {
+        constructor(){ super()}
+        createChildren():void {
+            super.createChildren();
+            this.loadScene("test/TestScene");
+        }
+    }
+    REG("ui.test.TestSceneUI",TestSceneUI);
+}
+
+*/
 
 
 export default class AppSceneRuntime extends ui.test.TestSceneUI {
