@@ -11,6 +11,7 @@ import PopUpManager from '../../Common/UIKit/PopUp/PopUpManager';
 import UIViewController from '../../Common/UIKit/ViewController/UIViewController';
 import UIViewUtil from '../../Common/UIKit/ViewController/UIViewUtil';
 import AppSceneUtil from './AppSceneUtil';
+import InitViewController from './InitViewController';
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -25,7 +26,7 @@ export default class AppSceneBase extends Laya.Script {
 
     /** @prop {name:rootNode,type:Node}*/
     public rootNode: Laya.Node;
- 
+
 
     // @type(Size)
     sizeCanvas: Laya.Size;
@@ -61,6 +62,7 @@ export default class AppSceneBase extends Laya.Script {
         Debug.Log("AppSceneBase onLoad");
         this.isHasRunApp = false;
 
+        // AppSceneUtil.rootNode = this.rootNode;
         // 关闭左下角的fps和调试信息
         // setDisplayStats(false);  
 
@@ -68,7 +70,7 @@ export default class AppSceneBase extends Laya.Script {
 
         //component
         this.owner.addComponent(AudioPlay);
-        this.owner.addComponent(MusicBgPlay); 
+        this.owner.addComponent(MusicBgPlay);
 
         CloudResPreLoad.main.Load(
             {
@@ -94,20 +96,10 @@ export default class AppSceneBase extends Laya.Script {
 
     RunApp() {
         Debug.Log("AppSceneBase RunApp");
+ 
+        var p = InitViewController.main; 
+        this.SetRootViewController(p);
 
-        var filepath = "Resources/Common/UIKit/UIImage/UIImage.prefab";
-        ResManager.LoadPrefab(
-            {
-                filepath: filepath,
-                success: (p: any, data: any) => {
-                    console.log("load prefab:", data);
-                    this.owner.parent.addChild(data.create());
-                },
-                fail: () => {
-                    Debug.Log("AppScene fail=");
-                },
-            });
-            
 
     }
     InitValue() {
@@ -117,7 +109,7 @@ export default class AppSceneBase extends Laya.Script {
 
         // this.sizeCanvas = this.canvasMain?.getComponent(UITransform)?.contentSize;
         // var size = UIViewUtil.GetNodeContentSize(this.canvasMain);
-        var size = new Laya.Size(Laya.stage.width,Laya.stage.height); 
+        var size = new Laya.Size(Laya.stage.width, Laya.stage.height);
         if (size != null) {
             this.sizeCanvas = size;
         }

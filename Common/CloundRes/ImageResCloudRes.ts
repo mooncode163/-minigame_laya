@@ -23,7 +23,7 @@ export default class ImageResCloudRes extends ConfigBase {
 
         
         // strDir = Common.RES_CONFIG_DATA_COMMON + "/Image";
-       var strDir = "/Common/UI"  
+       var strDir = "Resources/Common/UI"  
        var fileName = "ImageRes.json";
         {
             this.imageResCommon = new ImageResInternal();

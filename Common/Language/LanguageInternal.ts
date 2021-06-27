@@ -31,11 +31,10 @@ export default class LanguageInternal extends ConfigInternalBase {
       }
       */
     Load(obj: any) {
-        this.ltLocalization = new LTLocalization();
-        var key = FileUtil.GetFileBeforeExtWithOutDot(this.fileJson);
+        this.ltLocalization = new LTLocalization(); 
         ResManager.LoadText(
             {
-                filepath: key,
+                filepath: this.fileJson,
                 success: (p: any, data: string) => {
                     // this.OnFinish(obj); 
                     this.ltLocalization.ReadData(data);

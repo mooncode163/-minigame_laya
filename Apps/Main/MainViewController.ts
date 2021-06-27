@@ -1,6 +1,7 @@
-import { HomeViewController } from "../../AppBase/Home/HomeViewController";
-import { NaviViewController } from "../../Common/UIKit/NaviBar/NaviViewController";
+import HomeViewController from "../../AppBase/Home/HomeViewController";
+import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
 
+ 
  
 export default class MainViewController extends NaviViewController {
     static _main: MainViewController;

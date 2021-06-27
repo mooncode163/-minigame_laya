@@ -1,17 +1,19 @@
-import { UIHomeCenterBar } from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
-import { UIHomeSideBar } from "../../Apps/Merge/UI/Home/UIHomeSideBar";
-import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import UIHomeCenterBar from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
+import UIHomeSideBar from "../../Apps/Merge/UI/Home/UIHomeSideBar";
+import PrefabCache from "../../Common/Cache/PrefabCache";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
 import UIView from "../../Common/UIKit/ViewController/UIView";
-import { UIHomeAppCenter } from "./UIHomeAppCenter";
+import UIHomeAppCenter from "./UIHomeAppCenter";
+
+ 
 
  
 export default class UIHomeBase extends UIView {
-    @type(UIText)
+    
     textTitle: UIText = null;
 
-    @type(UIImage)
+    
     imageBg: UIImage = null;
 
 
@@ -28,10 +30,10 @@ export default class UIHomeBase extends UIView {
             {
                 key: key,
                 success: (p: any, data: any) => {
-                    var node = instantiate(data);
-                    this.uiCenterBar = node.getComponent(UIHomeCenterBar);
-                    this.uiCenterBar.SetParent(this);
-
+                    // var node = instantiate(data);
+                    // this.uiCenterBar = node.getComponent(UIHomeCenterBar);
+                    // this.uiCenterBar.SetParent(this);
+                    this.owner.addChild(data.create());
                 },
                 fail: () => {
 
@@ -49,10 +51,10 @@ export default class UIHomeBase extends UIView {
             {
                 key: key,
                 success: (p: any, data: any) => {
-                    var node = instantiate(data);
-                    this.uiSideBar = node.getComponent(UIHomeSideBar);
-                    this.uiSideBar.SetParent(this);
-
+                    // var node = instantiate(data);
+                    // this.uiSideBar = node.getComponent(UIHomeSideBar);
+                    // this.uiSideBar.SetParent(this);
+                    this.owner.addChild(data.create());
                 },
                 fail: () => {
 
@@ -68,9 +70,10 @@ export default class UIHomeBase extends UIView {
             {
                 key: key,
                 success: (p: any, data: any) => {
-                    var node = instantiate(data);
-                    this.uiAppCenter = node.getComponent(UIHomeAppCenter);
-                    this.uiAppCenter.SetParent(this);
+                    // var node = instantiate(data);
+                    this.owner.addChild(data.create());
+                    // this.uiAppCenter = node.getComponent(UIHomeAppCenter);
+                    // this.uiAppCenter.SetParent(this);
 
                 },
                 fail: () => {

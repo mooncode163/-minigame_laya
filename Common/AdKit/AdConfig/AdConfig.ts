@@ -1,8 +1,10 @@
-import { Common } from "../../Common";
-import { ConfigBase } from "../../Config/ConfigBase";
-import { Device } from "../../Device";
-import { Platform } from "../../Platform";
-import { AdConfigInternal } from "./AdConfigInternal";
+import Common from "../../Common";
+import ConfigBase from "../../Config/ConfigBase";
+import Device from "../../Device";
+import Platform from "../../Platform";
+import AdConfigInternal from "./AdConfigInternal";
+
+ 
 
  
 export default class AdConfig extends ConfigBase {
@@ -43,7 +45,7 @@ export default class AdConfig extends ConfigBase {
             }
 
             this.adConfigApp = new AdConfigInternal();
-            this.adConfigApp.fileJson = strDir + "/" + fileName;
+            this.adConfigApp.fileJson = strDir + "/" + fileName+".json";
             this.listItem.push(this.adConfigApp);
         }
 

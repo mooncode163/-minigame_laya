@@ -1,11 +1,12 @@
 import UIImage from "../UIImage/UIImage";
 import UIView from "../ViewController/UIView";
+import UIViewUtil from "../ViewController/UIViewUtil";
 
  
 export default class UIProgress extends UIView {
-    @type(UIImage)
+ 
     imageBg: UIImage | null = null;
-    @type(UIImage)
+     
     imageFt: UIImage | null = null;
 
     progress= 0;
@@ -31,8 +32,8 @@ export default class UIProgress extends UIView {
  
         this.imageFt.SetContentSize(w,h);
         x = -size.width / 2 + w / 2;
-        y = 0;
-        this.imageFt.node.setPosition(x, y);
+        y = 0; 
+        UIViewUtil.SetNodePosition(this.imageFt.owner,x,y);
     }
     LayOut() {
         super.LayOut();

@@ -3,6 +3,7 @@ import Debug from "../Debug";
 import Device from "../Device";
 import JsonUtil from "../File/JsonUtil";
 import Platform from "../Platform";
+import ResManager from "../Res/ResManager";
 import Source from "../Source";
 import ConfigBase from "./ConfigBase";
 import ConfigInternal from "./ConfigInternal";
@@ -13,6 +14,18 @@ import ConfigInternal from "./ConfigInternal";
 export default class Config extends ConfigBase {
     configApp: ConfigInternal = null;
     configCommon: ConfigInternal = null;
+
+
+    static _main: Config;
+    //静态方法
+    static get main() {
+        if (this._main == null) {
+            this._main = new Config();
+            this._main.Init();
+        }
+        return this._main;
+    } 
+
     get appKeyName() {
         return this.configCommon.GetString("APP_NAME_KEYWORD", "");
     }
@@ -77,47 +90,42 @@ export default class Config extends ConfigBase {
     get APP_FOR_KIDS() {
         return this.configCommon.GetString("APP_FOR_KIDS", "");
     }
-    static _main: Config;
-    //静态方法
-    static get main() {
-        if (this._main == null) {
-            this._main = new Config();
-            this._main.Init();
-        }
-        return this._main;
-    }
+
 
     Init() {
 
         var strDir = Common.RES_CONFIG_DATA + "/config";
         var fileName = "config_android";
+        var filepath = "";
         {
-            if (Platform.isAndroid) {
-                fileName = "config_android";
-            }
-            if (Platform.isiOS) {
-                fileName = "config_ios";
-            }
+            // if (Platform.isAndroid) {
+            //     fileName = "config_android";
+            // }
+            // if (Platform.isiOS) {
+            //     fileName = "config_ios";
+            // }
 
-            if (Platform.isWin) {
-                fileName = "config_" + Source.WIN;
-                fileName = "config_android";
-            }
+            // if (Platform.isWin) {
+            //     fileName = "config_" + Source.WIN;
+            //     fileName = "config_android";
+            // }
 
-            if (Platform.isWeiXin) {
-                fileName = "config_weixin";
-            }
-            if (Device.main.isLandscape) {
-                fileName += "_hd";
-            }
-
+            // if (Platform.isWeiXin) {
+            //     fileName = "config_weixin";
+            // }
+            // if (Device.main.isLandscape) {
+            //     fileName += "_hd";
+            // }
+            fileName += ".json";
+            filepath = strDir + "/" + fileName;
             this.configApp = new ConfigInternal();
-            this.configApp.fileJson = strDir + "/" + fileName;
-            this.listItem.push(this.configApp);
+            this.configApp.fileJson = filepath;
+            this.listItem.push(this.configApp); 
+                
         }
         {
             this.configCommon = new ConfigInternal();
-            fileName = "config_common";
+            fileName = "config_common.json";
             this.configCommon.fileJson = strDir + "/" + fileName;
             this.listItem.push(this.configCommon);
         }

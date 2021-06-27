@@ -2,14 +2,15 @@ import Common from "../../Common";
 import Debug from "../../Debug";
 import UIView from "../ViewController/UIView";
 import UIViewController from "../ViewController/UIViewController";
+import UIViewUtil from "../ViewController/UIViewUtil";
 import UINaviBar from "./UINaviBar";
 
  
 export default class NaviViewController extends UIViewController {
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
-    objContent: Node | null = null;
+    objContent: Laya.Node | null = null;
 
-    uiNaviBarPrefab: Prefab | null = null;
+    uiNaviBarPrefab: Laya.Prefab | null = null;
 
     uiNaviBar: UINaviBar | null = null;
     rootController: UIViewController | null = null;
@@ -26,22 +27,23 @@ export default class NaviViewController extends UIViewController {
         this.CreateContent();
         this.LoadPrefab();
     }
-    CreateBar() {
-        //this.listItem = new Array();
+    CreateBar() { 
         Debug.Log("NaviViewController CreateBar");
-        const node = instantiate(this.uiNaviBarPrefab);
-        this.uiNaviBar = node.getComponent(UINaviBar);
-        this.uiNaviBar.SetController(this);
+        // const node = instantiate(this.uiNaviBarPrefab);
+        // this.uiNaviBar = node.getComponent(UINaviBar);
+        // this.uiNaviBar.SetController(this);
     }
 
     CreateContent() {
-        this.objContent = new Node("Content");
+        this.objContent = new Laya.Node();
         this.objContent.addComponent(UIView);
-        var uitran = this.objContent.addComponent(UITransform);
-        this.objContent.parent = this.objController;
+        // var uitran = this.objContent.addComponent(UITransform);
+        // this.objContent.parent = this.objController;
+        this.objController.addChild(this.objContent);
 
         var size = Common.sizeCanvas;//this.objController.getComponent(UITransform).contentSize; 
-        uitran.setContentSize(size);
+        // uitran.setContentSize(size);
+        UIViewUtil.SetNodeContentSize(this.objContent,size.width,size.height);
 
     }
 
@@ -85,9 +87,9 @@ export default class NaviViewController extends UIViewController {
         this.UpdateController();
     }
     HideNavibar(isHide) {
-        if (this.uiNaviBar != null) {
-            this.uiNaviBar.node.active = !isHide;
-        }
+        // if (this.uiNaviBar != null) {
+        //     this.uiNaviBar.node.active = !isHide;
+        // }
     }
     DestroyController() {
         // 延迟销毁:留上一个ui 不然ui切换时候可能会看到场景的背景

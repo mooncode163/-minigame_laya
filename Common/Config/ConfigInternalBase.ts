@@ -39,12 +39,12 @@ export default class ConfigInternalBase  {
                 });
         } else {
 
-            var key = FileUtil.GetFileBeforeExtWithOutDot(this.fileJson);
+            // var key = FileUtil.GetFileBeforeExtWithOutDot(this.fileJson);
             ResManager.LoadJson(
                 {
-                    filepath: key,
+                    filepath: this.fileJson,
                     success: (p: any, data: any) => {
-                        Debug.Log("ConfigInternalBase success key=" + key);
+                        Debug.Log("ConfigInternalBase success this.fileJson=" + this.fileJson);
                         // this.OnFinish(obj);
                         this.rootJson = data;
                         this.ParseData();

@@ -1,6 +1,5 @@
-import { Common } from "../../Common/Common";
-import { ItemInfo } from "../../Common/ItemInfo";
-
+import Common from "../../Common/Common";
+import ItemInfo from "../../Common/ItemInfo";
  
 export default class LevelData {
 

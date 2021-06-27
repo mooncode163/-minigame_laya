@@ -1,13 +1,15 @@
-import { AdKitCommon } from "../../Common/AdKit/AdKitCommon";
-import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import AdKitCommon from "../../Common/AdKit/AdKitCommon";
+import PrefabCache from "../../Common/Cache/PrefabCache";
 import Debug from "../../Common/Debug";
-import { UIViewController } from "../../Common/UIKit/ViewController/UIViewController";
-import { UIGameBase } from "./UIGameBase";
+import UIViewController from "../../Common/UIKit/ViewController/UIViewController";
+import UIGameBase from "./UIGameBase";
+
+ 
 
  
 export default class GameViewController extends UIViewController {
 
-    uiPrefab: Prefab = null;
+    uiPrefab: Laya.Prefab = null;
     ui: UIGameBase = null;
     _gameBase: UIGameBase = null; 
     get gameBase() {
@@ -35,8 +37,8 @@ export default class GameViewController extends UIViewController {
 
     LoadUI() {
         if (this.ui == null) {
-            var node = instantiate(this.uiPrefab);
-            this.ui = node.getComponent(UIGameBase);
+            // var node = instantiate(this.uiPrefab);
+            // this.ui = node.getComponent(UIGameBase);
         }
     }
 
@@ -57,19 +59,19 @@ export default class GameViewController extends UIViewController {
     }
 
     LoadPrefab() {
-        var key = "UIGame" + Config.main.appType;
-        PrefabCache.main.LoadByKey(
-            {
-                key: key,
-                success: (p: any, data: any) => {
-                    this.uiPrefab = data;
-                    this.CreateUI();
+        // var key = "UIGame" + Config.main.appType;
+        // PrefabCache.main.LoadByKey(
+        //     {
+        //         key: key,
+        //         success: (p: any, data: any) => {
+        //             this.uiPrefab = data;
+        //             this.CreateUI();
                  
-                },
-                fail: () => {
+        //         },
+        //         fail: () => {
                     
-                },
-            });
+        //         },
+        //     });
  
     }
 
@@ -82,7 +84,7 @@ export default class GameViewController extends UIViewController {
     ViewDidUnLoad() {
         Debug.Log("GameViewController ViewDidUnLoad");
         super.ViewDidUnLoad();
-        this.ui.node.destroy();
+        // this.ui.node.destroy();
         this.ui = null;
 
     }

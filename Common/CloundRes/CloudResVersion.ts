@@ -1,8 +1,9 @@
-import { Platform } from "../Platform";
-import { ResManager } from "../Res/ResManager";
-import { CloudRes } from "./CloudRes";
-import { ConfigCloudRes } from "./ConfigCloudRes";
+import Platform from "../Platform";
+import ResManager from "../Res/ResManager";
+import CloudRes from "./CloudRes";
+import ConfigCloudRes from "./ConfigCloudRes";
 
+ 
  
 export default class CloudResVersion {
 

@@ -15,8 +15,9 @@ export default class ResManager {
       */
     public static Load(obj: any) { 
         Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+            var ret = Laya.loader.getRes(obj.filepath);
             if (obj.success != null) {
-                obj.success(this, data);
+                obj.success(this, ret);
             }
 
         }));

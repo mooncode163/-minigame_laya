@@ -23,10 +23,9 @@ export default class MusicBgPlay extends AudioPlay {
     } 
    
     PlayBgMusic() { 
-        this.audioSource.loop= true;
-        this.PlayByKey("Bg");
-
-        // this.scheduleOnce(this.OnDidFinish, 1);
+        // this.audioSource.loop= true;
+        // this.PlayByKey("Bg");
+ 
     }
 
     OnDidFinish() {

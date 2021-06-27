@@ -1,6 +1,11 @@
+import ConfigInternalBase from "../../Config/ConfigInternalBase";
+import Debug from "../../Debug";
+import JsonUtil from "../../File/JsonUtil";
+import Source from "../../Source";
+import AdInfo, { AdType } from "./AdInfo";
 
  
-export default class AdConfigInternal extends AdConfigInternal {
+export default class AdConfigInternal extends ConfigInternalBase {
 
     public static COUNTRY_CN: string = "cn";
     public static COUNTRY_OTHER: string = "other";

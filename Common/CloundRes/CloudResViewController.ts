@@ -1,11 +1,12 @@
-import { PrefabCache } from "../Cache/PrefabCache";
+import PrefabCache from "../Cache/PrefabCache";
 import Debug from "../Debug";
-import { PopViewController } from "../UIKit/ViewController/PopViewController";
-import { UICloudRes } from "./UICloudRes";
+import PopViewController from "../UIKit/ViewController/PopViewController";
+import UICloudRes from "./UICloudRes";
 
  
+ 
 export default class CloudResViewController extends PopViewController {
-    uiPrefab: Prefab;
+    uiPrefab: Laya.Prefab;
     ui: UICloudRes;
 
     static _main: CloudResViewController;
@@ -23,9 +24,9 @@ export default class CloudResViewController extends PopViewController {
     }
     CreateUI() {
         Debug.Log("CloudResViewController CreateUI");
-        var node = instantiate(this.uiPrefab);
-        this.ui = node.getComponent(UICloudRes);
-        this.ui.SetController(this);
+        // var node = instantiate(this.uiPrefab);
+        // this.ui = node.getComponent(UICloudRes);
+        // this.ui.SetController(this);
     }
 
     LoadPrefab() {

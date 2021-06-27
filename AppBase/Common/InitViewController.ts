@@ -105,15 +105,15 @@ export default class InitViewController extends NaviViewController {
             Common.SetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC, true);
 
             //languageCode
-            var lan = sys.language; 
+            var lan = SysLanguage.CN; 
             Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, lan);  
-            Language.main.SetLanguage(lan);
+            // Language.main.SetLanguage(lan);
         }
         else
         {
 
-            var lan = Common.GetItemOfKey(CommonRes.KEY_LANGUAGE,SysLanguage.CN); 
-            Language.main.SetLanguage(lan);
+            // var lan = Common.GetItemOfKey(CommonRes.KEY_LANGUAGE,SysLanguage.CN); 
+            // Language.main.SetLanguage(lan);
 
         }
 

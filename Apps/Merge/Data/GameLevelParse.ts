@@ -1,12 +1,14 @@
-import { LevelData } from "../../../AppBase/Game/LevelData";
-import { LevelParseBase } from "../../../AppBase/Game/LevelParseBase";
-import { CloudRes } from "../../../Common/CloundRes/CloudRes";
-import { Common } from "../../../Common/Common";
+import LevelData from "../../../AppBase/Game/LevelData";
+import LevelParseBase from "../../../AppBase/Game/LevelParseBase";
+import CloudRes from "../../../Common/CloundRes/CloudRes";
+import Common from "../../../Common/Common";
 import Debug from "../../../Common/Debug";
-import { FileUtil } from "../../../Common/File/FileUtil";
-import { ItemInfo } from "../../../Common/ItemInfo";
-import { ResManager } from "../../../Common/Res/ResManager";
-import { GameData } from "./GameData";
+import FileUtil from "../../../Common/File/FileUtil";
+import ItemInfo from "../../../Common/ItemInfo";
+import ResManager from "../../../Common/Res/ResManager";
+import GameData from "./GameData";
+
+ 
 
  
 export default class GameLevelParse extends LevelParseBase {
@@ -159,12 +161,12 @@ export default class GameLevelParse extends LevelParseBase {
 
         var idx = LevelData.main.placeLevel;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id;// + ".json"; 
-        ResManager.Load(
+        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json"; 
+        ResManager.LoadJson(
             {
                 filepath: filepath,
                 success: (p: any, data: any) => {
-                    this.ParseGameItems(data.json);
+                    this.ParseGameItems(data);
                     if (obj.success != null) {
                         obj.success(this);
                     }
@@ -196,13 +198,13 @@ export default class GameLevelParse extends LevelParseBase {
 
         var idx = 0;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id;// + ".json";
+        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json";
 
-        ResManager.Load(
+        ResManager.LoadJson(
             {
                 filepath: filepath,
                 success: (p: any, data: any) => {
-                    this.ParseGameItemsDefault(data.json);
+                    this.ParseGameItemsDefault(data);
                     if (obj.success != null) {
                         obj.success(this);
                     }

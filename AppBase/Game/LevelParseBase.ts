@@ -1,10 +1,12 @@
-import { CloudRes } from "../../Common/CloundRes/CloudRes";
-import { Common } from "../../Common/Common";
+import CloudRes from "../../Common/CloundRes/CloudRes";
+import Common from "../../Common/Common";
 import Debug from "../../Common/Debug";
-import { JsonUtil } from "../../Common/File/JsonUtil";
-import { ItemInfo } from "../../Common/ItemInfo";
-import { ResManager } from "../../Common/Res/ResManager";
-import { LevelData } from "./LevelData";
+import JsonUtil from "../../Common/File/JsonUtil";
+import ItemInfo from "../../Common/ItemInfo";
+import ResManager from "../../Common/Res/ResManager";
+import LevelData from "./LevelData";
+
+ 
 
  
 export default class LevelParseBase  {
@@ -63,13 +65,13 @@ export default class LevelParseBase  {
       */
 
     StartParsePlaceList (obj:any) {
-        var filepath = Common.GAME_RES_DIR + "/place/place_list";
+        var filepath = Common.GAME_RES_DIR + "/place/place_list.json";
         Debug.Log("StartParsePlaceList ");
-        ResManager.Load(
+        ResManager.LoadJson(
             {
                 filepath: filepath,
                 success: (p: any, data: any) => {
-                    this.ParsePlaceList(data.json);
+                    this.ParsePlaceList(data);
                     if (obj.success != null) {
                         obj.success(this);
                     }
@@ -141,11 +143,11 @@ export default class LevelParseBase  {
         //var filepath = cc.Common.GAME_RES_DIR + "/guanka/item_Bird" + ".json";//+ infoPlace.id 
         var filepath = Common.GAME_RES_DIR + "/guanka/item_" + infoPlace.id;// + ".json";//
    
-        ResManager.Load(
+        ResManager.LoadJson(
             {
                 filepath: filepath,
                 success: (p: any, data: any) => {
-                    this.ParseGuanka(data.json);
+                    this.ParseGuanka(data);
                     // if (obj.success != null) {
                     //     obj.success(this, data);
                     // }
@@ -157,6 +159,10 @@ export default class LevelParseBase  {
                 },
             }); 
     }
+
+    ParseGuanka(data:any) { 
+    }
+
  
 
     LoadGuankaItemId(cbFinish) {

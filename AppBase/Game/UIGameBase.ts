@@ -1,35 +1,36 @@
-import { AppRes } from "../../Apps/Main/AppRes";
-import { AdKitCommon } from "../../Common/AdKit/AdKitCommon";
-import { MusicBgPlay } from "../../Common/Audio/MusicBgPlay";
-import { PrefabCache } from "../../Common/Cache/PrefabCache";
-import { Common } from "../../Common/Common";
-import { CommonRes } from "../../Common/CommonRes";
+import AppRes from "../../Apps/Main/AppRes";
+import AdKitCommon from "../../Common/AdKit/AdKitCommon";
+import MusicBgPlay from "../../Common/Audio/MusicBgPlay";
+import PrefabCache from "../../Common/Cache/PrefabCache";
+import Common from "../../Common/Common";
+import CommonRes from "../../Common/CommonRes";
 import Debug from "../../Common/Debug";
-import { ItemInfo } from "../../Common/ItemInfo";
-import { Language } from "../../Common/Language/Language";
-import { Share } from "../../Common/Share/Share";
-import { FrendBoard } from "../../Common/SNS/FrendBoard";
+import ItemInfo from "../../Common/ItemInfo";
+import Language from "../../Common/Language/Language";
+import Share from "../../Common/Share/Share";
+import FrendBoard from "../../Common/SNS/FrendBoard";
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
-import { ViewAlertManager } from "../../Common/UIKit/UIViewAlert/ViewAlertManager";
+import ViewAlertManager from "../../Common/UIKit/UIViewAlert/ViewAlertManager";
 import UIView from "../../Common/UIKit/ViewController/UIView";
-import { GameManager } from "./GameManager";
-import { LevelData } from "./LevelData";
-import { LevelManager } from "./LevelManager";
+import GameManager from "./GameManager";
+import LevelData from "./LevelData";
+import LevelManager from "./LevelManager";
+
+ 
 
  
 export default class UIGameBase extends UIView {
     static GAME_AD_INSERT_SHOW_STEP = 2;
-    gamePrefab: Prefab | null = null;
-
-    @type(UIButton)
+    gamePrefab: Laya.Prefab | null = null;
+ 
     btnMusic: UIButton | null = null;
-    @type(UIButton)
+   
     btnBack: UIButton | null = null;
-    @type(UIImage)
+  
     imageBg: UIImage | null = null;
-    @type(UIText)
+ 
     textTitle: UIText | null = null;
 
     listProLoad: ItemInfo[] = [];
@@ -96,11 +97,8 @@ export default class UIGameBase extends UIView {
             MusicBgPlay.main.StopBgMusic();
         }
     }
-    OnClickBtnShare(event, customEventData) {
-        // LevelData.main.gameLevel = 0;
-        // LevelData.main.gameLevelFinish = -1;
-        // GameManager.main.GotoPlayAgain(); 
-       Share.main.ShareImageText("", Config.main.shareTitle, Config.main.shareUrl, "");
+    OnClickBtnShare(event, customEventData) { 
+    //    Share.main.ShareImageText("", Config.main.shareTitle, Config.main.shareUrl, "");
     }
 
     //guanka  

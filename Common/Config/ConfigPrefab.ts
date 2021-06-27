@@ -40,7 +40,7 @@ export default class ConfigPrefab extends ConfigBase {
         }
         {
 
-            var filepath = "Common/Prefab/ConfigPrefab.json";
+            var filepath = "Resources/Common/Prefab/ConfigPrefab.json";
             {
                 this.configPrefabCommon = new ConfigPrefabInternal();
                 this.configPrefabCommon.fileJson = filepath;

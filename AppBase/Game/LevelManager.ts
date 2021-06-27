@@ -1,7 +1,9 @@
-import { GameLevelParse } from "../../Apps/Merge/Data/GameLevelParse";
+import GameLevelParse from "../../Apps/Merge/Data/GameLevelParse";
 import Debug from "../../Common/Debug";
-import { GameViewController } from "./GameViewController";
-import { LevelData } from "./LevelData";
+import GameViewController from "./GameViewController";
+import LevelData from "./LevelData";
+
+ 
 
  
 export default class LevelManager  {
@@ -77,7 +79,7 @@ fail: (p:any) => {
 
         }
         // GameManager.GotoGame();
-        GameViewController.main.gameBase.UpdateGuankaLevel(LevelData.main.gameLevel);
+        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
 
     }
 
@@ -91,7 +93,7 @@ fail: (p:any) => {
             return;
 
         }
-        GameViewController.main.gameBase.UpdateGuankaLevel(LevelData.main.gameLevel);
+        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
 
     }
 
@@ -108,7 +110,7 @@ fail: (p:any) => {
         LevelData.main.gameLevel = 0;
 
         this.StartParseGuanka(this.objGuanka);
-        GameViewController.main.gameBase.UpdateGuankaLevel(LevelData.main.gameLevel);
+        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
 
     }
 
@@ -123,7 +125,7 @@ fail: (p:any) => {
         LevelData.main.gameLevel = 0;
 
         this.StartParseGuanka(this.objGuanka);
-        GameViewController.main.gameBase.UpdateGuankaLevel(LevelData.main.gameLevel);
+        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
 
     }
     //关卡循环
@@ -135,7 +137,7 @@ fail: (p:any) => {
             LevelData.main.gameLevel = 0;
 
         }
-        GameViewController.main.gameBase.UpdateGuankaLevel(LevelData.main.gameLevel);
+        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
 
     }
 

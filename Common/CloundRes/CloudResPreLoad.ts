@@ -24,8 +24,8 @@ export default class CloudResPreLoad  {
     Init() {
  
         this.listItem.push(ConfigCloudRes.main);
-        // this.listItem.push(LanguageCloudRes.main);
-        // this.listItem.push(ImageResCloudRes.main);
+        this.listItem.push(LanguageCloudRes.main);
+        this.listItem.push(ImageResCloudRes.main);
         
     }
     /*

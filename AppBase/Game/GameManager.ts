@@ -1,8 +1,10 @@
+import GameViewController from "./GameViewController";
+import LevelData from "./LevelData";
 
  
 export default class GameManager  {
     static gameMode = 0;
-    uiPrefab:Prefab=null; 
+    uiPrefab:Laya.Prefab=null; 
 
     static _main: GameManager;
     //静态方法

@@ -1,10 +1,12 @@
-import { AdConfig } from "./AdKit/AdConfig/AdConfig";
-import { ColorConfig } from "./Config/ColorConfig";
-import { ConfigAudio } from "./Config/ConfigAudio";
-import { ConfigBase } from "./Config/ConfigBase";
-import { ConfigPrefab } from "./Config/ConfigPrefab";
-import { ImageRes } from "./Config/ImageRes";
-import { Language } from "./Language/Language";
+import AdConfig from "./AdKit/AdConfig/AdConfig";
+import ColorConfig from "./Config/ColorConfig";
+import ConfigAudio from "./Config/ConfigAudio";
+import ConfigBase from "./Config/ConfigBase";
+import ConfigPrefab from "./Config/ConfigPrefab";
+import ImageRes from "./Config/ImageRes";
+import Debug from "./Debug";
+import Language from "./Language/Language";
+import Config from "./Config/Config";
 
  
 export default class AppPreLoad  {
@@ -23,7 +25,7 @@ export default class AppPreLoad  {
     } 
 
     Init() {
-
+        
         this.listItem.push(Config.main);
         this.listItem.push(ColorConfig.main);
         this.listItem.push(Language.main);
