@@ -10,6 +10,9 @@ export default class UIHomeMerge extends UIHomeBase {
  
     imageLogo: UIImage = null;
 
+        /** @prop {name:btnTest,type:Node}*/
+    btnTest:Laya.Button;
+
     onAwake() {
         super.onAwake();
 

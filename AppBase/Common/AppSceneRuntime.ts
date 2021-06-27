@@ -40,6 +40,16 @@ export default class AppSceneRuntime extends Laya.Scene
     constructor() {
         super();
         AppSceneRuntime._main = this;
+
+
+        //初始化引擎-让舞台大小与屏幕大小一致
+        // Laya.init(Laya.Browser.width, Laya.Browser.height,Laya.WebGL);
+        // Laya.init(1536,2048,Laya.WebGL);
+         // Laya.init(1536,2048,Laya.WebGL);
+        //  Laya.stage.designWidth = 1536;
+        //  Laya.stage.designHeight = 2048;
+
+
         Debug.Log("AppSceneRuntime constructor");
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;

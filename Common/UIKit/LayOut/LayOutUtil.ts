@@ -28,10 +28,10 @@ export enum Align {
 }
  
 export enum RelationType {
-    NONE,// 
-    PARENT,//相对父窗口 
-    TARGET,//相对目标 
-    ALL,
+    NONE="NONE",// 
+    PARENT="PARENT",//相对父窗口 
+    TARGET="TARGET",//相对目标 
+    ALL="ALL",
 }
  
  

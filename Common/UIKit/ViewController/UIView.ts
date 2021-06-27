@@ -41,6 +41,9 @@ import UIViewUtil from "./UIViewUtil";
 // http://ask.layabox.com/question/44695
 
 
+
+// laya ui 坐标原点在屏幕左上角  和android ios 的系统UI一致
+// laya 的舞台stage 类似于 cocos unity 的canvas
 export default class UIView extends Laya.Script {
 
 

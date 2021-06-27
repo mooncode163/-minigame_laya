@@ -27,7 +27,7 @@ export default class LayOutBase extends Laya.Script {
     
     space = new Laya.Vector2(0,0);
   
-    align = Align.LEFT;
+    align:Align = Align.RIGHT;
 
     directionVertical = Direction.TOP_TO_BOTTOM;
     directionHorizontal = Direction.LEFT_TO_RIGHT;

@@ -21,6 +21,20 @@ export default class Device {
     }
 
     // https://www.jianshu.com/p/b083f8d3948b
+
+/*
+设备像素分辨率：Laya.Browser.clientWidth，Laya.Browser.clientHeight;
+设备物理分辨率：Laya.Browser.width，Laya.Browser.height;
+像素比：Laya.Browser.pixelRatio;
+
+
+设计分辨率:
+GameConfig{
+    static width:number=1536;
+    static height:number=2048;
+    static scaleMode:string="fixedwidth";
+    
+*/
     get screenSize():Laya.Size { 
         var w = Laya.Browser.width;
         var h = Laya.Browser.height;

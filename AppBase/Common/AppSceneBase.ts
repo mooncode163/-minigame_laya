@@ -52,6 +52,8 @@ export default class AppSceneBase extends Laya.Script {
 
     constructor() {
         super();
+
+       
         AppSceneBase._main = this;
         AppSceneUtil.main = this;
         Debug.Log("AppSceneBase constructor");
@@ -117,7 +119,7 @@ export default class AppSceneBase extends Laya.Script {
 
         // let screenSize = director.getWinSizeInPixels();
         // var str = "sizeCanvas w=" + this.sizeCanvas.width + ",h=" + this.sizeCanvas.height;
-        // Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height);
+        Debug.Log("sizeCanvas  width=" + this.sizeCanvas.width + ",height=" + this.sizeCanvas.height);
         // Debug.Log(str);
 
 
@@ -169,18 +171,12 @@ export default class AppSceneBase extends Laya.Script {
             return;
         }
 
-        // tran && tran.setContentSize(this.sizeCanvas);
-        // tran?.setContentSize(this.sizeCanvas); 
-        // if(this.sizeCanvas!=null)
-        {
-            // sizeCanvas: Size | null = null;
-            // tran?.setContentSize(this.sizeCanvas?.);
-            let sz = this.sizeCanvas;
-            UIViewUtil.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
-        }
-
+    
+        UIViewUtil.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
+         
         size = UIViewUtil.GetNodeContentSize(this.rootNode);
         Debug.Log("this.rootNode size=" + size);
+        Debug.Log("this.rootNode  width=" + size.width + ",height=" + size.height);
     }
 
 
