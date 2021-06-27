@@ -162,7 +162,7 @@ export default class LayOutSize extends LayOutBase {
                     w = this.width;
                     //  if (IsSprite())
                     // {
-                    //     w= Common.CanvasToWorldWidth(AppSceneBase.main.mainCamera, AppSceneBase.main.sizeCanvas, width);
+                    //     w= Common.CanvasToWorldWidth(AppSceneBase.main.mainCamera, Common.sizeCanvas, width);
                     // }
                     //    x = rctran.anchoredPosition.x;
                 }
@@ -251,7 +251,7 @@ export default class LayOutSize extends LayOutBase {
                     h = this.height;
                     //  if (IsSprite())
                     // {
-                    //     w= Common.CanvasToWorldWidth(AppSceneBase.main.mainCamera, AppSceneBase.main.sizeCanvas, width);
+                    //     w= Common.CanvasToWorldWidth(AppSceneBase.main.mainCamera, Common.sizeCanvas, width);
                     // }
                     //    x = rctran.anchoredPosition.x;
                 }

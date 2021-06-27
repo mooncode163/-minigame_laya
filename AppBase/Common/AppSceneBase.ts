@@ -1,7 +1,16 @@
 
- 
-import Debug from '../../Common/Debug'; 
+
+import AudioPlay from '../../Common/Audio/AudioPlay';
+import MusicBgPlay from '../../Common/Audio/MusicBgPlay';
+import CloudResPreLoad from '../../Common/CloundRes/CloudResPreLoad';
+import Common from '../../Common/Common';
+import Debug from '../../Common/Debug';
+import Device from '../../Common/Device';
+import ResManager from '../../Common/Res/ResManager';
+import PopUpManager from '../../Common/UIKit/PopUp/PopUpManager';
 import UIViewController from '../../Common/UIKit/ViewController/UIViewController';
+import UIViewUtil from '../../Common/UIKit/ViewController/UIViewUtil';
+import AppSceneUtil from './AppSceneUtil';
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -14,15 +23,12 @@ export default class AppSceneBase extends Laya.Script {
 
     rootViewController: UIViewController | null = null;
 
-   
-    // canvasMain: Laya.Canvas | null = null;
-
+    /** @prop {name:rootNode,type:Node}*/
+    public rootNode: Laya.Node;
  
-    rootNode: Laya.Node | null = null;
-
 
     // @type(Size)
-    sizeCanvas: Laya.Size | null = null;
+    sizeCanvas: Laya.Size;
 
     // designWidth=960;
     // designHeight=480;
@@ -33,7 +39,7 @@ export default class AppSceneBase extends Laya.Script {
 
     isHasRunApp = false;
 
-    
+
     static _main: AppSceneBase;
     //静态方法
     static get main() {
@@ -46,24 +52,186 @@ export default class AppSceneBase extends Laya.Script {
     constructor() {
         super();
         AppSceneBase._main = this;
+        AppSceneUtil.main = this;
         Debug.Log("AppSceneBase constructor");
 
     }
-
-
-
     onAwake() {
-        //   super();
-        Debug.Log("AppSceneBase onAwake");
+
+        Debug.Log("AppSceneBase onLoad");
+        this.isHasRunApp = false;
+
+        // 关闭左下角的fps和调试信息
+        // setDisplayStats(false);  
+
+        this.InitValue();
+
+        //component
+        this.owner.addComponent(AudioPlay);
+        this.owner.addComponent(MusicBgPlay); 
+
+        CloudResPreLoad.main.Load(
+            {
+                success: (p: any) => {
+                    this.RunApp();
+                },
+                fail: (p: any) => {
+                    // this.OnFinish(obj);
+                    this.RunApp();
+                },
+            });
+
+
+        // this.RunApp();
+    }
+    onStart() {
+        // [3]
+        Debug.Log("AppSceneBase start");
+    }
+    // update (deltaTime: number) {
+    //     // [4]
+    // }
+
+    RunApp() {
+        Debug.Log("AppSceneBase RunApp");
+
+        var filepath = "Resources/Common/UIKit/UIImage/UIImage.prefab";
+        ResManager.LoadPrefab(
+            {
+                filepath: filepath,
+                success: (p: any, data: any) => {
+                    console.log("load prefab:", data);
+                    this.owner.parent.addChild(data.create());
+                },
+                fail: () => {
+                    Debug.Log("AppScene fail=");
+                },
+            });
+            
+
+    }
+    InitValue() {
+        Debug.Log("AppSceneBase InitValue");
+        var w, h;
+
+
+        // this.sizeCanvas = this.canvasMain?.getComponent(UITransform)?.contentSize;
+        // var size = UIViewUtil.GetNodeContentSize(this.canvasMain);
+        var size = new Laya.Size(Laya.stage.width,Laya.stage.height); 
+        if (size != null) {
+            this.sizeCanvas = size;
+        }
+        Common.sizeCanvas = this.sizeCanvas;
+
+        // let screenSize = director.getWinSizeInPixels();
+        // var str = "sizeCanvas w=" + this.sizeCanvas.width + ",h=" + this.sizeCanvas.height;
+        // Debug.Log("screen size width=" + screenSize.width + ",height=" + screenSize.height);
+        // Debug.Log(str);
+
+
+
+
+        // this.textTitle.string = str;
+        // this.sizeCanvas.width = screenSize.width * this.sizeCanvas.height / screenSize.height;
+        // Debug.Log("sizeCanvas size=" + this.sizeCanvas);
+        // var framesize = cc.view.getFrameSize();
+        // Debug.Log("frame size=" + framesize);
+        // // cc.view.setFrameSize(windowSize.width,windowSize.height);
+        // // var framesize1 = cc.view.getFrameSize();
+        // //  Debug.Log("new frame size=" + framesize1);
+
+        //按2048
+        // w = this.canvasMain.design
+        // w = view.getDesignResolutionSize().width;
+        // h = view.getDesignResolutionSize().height;
+        Debug.Log("DesignResolutionSize w=" + w + " h=" + h + " this.sizeCanvas=" + this.sizeCanvas);
+        // w = this.btnUpRight.getComponent(UITransform).contentSize.width;
+        // Debug.Log("btnUpRight pos="+this.btnUpRight.node.position+" contentSize="+w);
+        // var x,y;
+        // x = screenSize.width/2-w/2;
+        // x = 1024;
+        // x = this.sizeCanvas.width/2;
+        // y = this.btnUpRight.node.position.y;
+        // y = this.sizeCanvas.height/2;
+        // this.btnUpRight.node.position.x=x;
+        // this.btnUpRight.node.position.y=y;
+
+        // Debug.Log("btnUpRight pos2="+this.btnUpRight.node.position+" contentSize="+w);
+
+
+        // w = this.canvasMain.designResolutionSize.width;
+        // h = this.canvasMain.designResolutionSize.height;
+
+        if (Device.main.isLandscape) {
+            // view.setDesignResolutionSize(math.absMax(w,h),math.absMin(w,h),view.getResolutionPolicy());
+
+            // this.canvasMain.fitWidth = true;
+            // this.canvasMain.fitHeight = false;
+        } else {
+            // this.canvasMain.designResolution = new cc.size(Math.min(h, h), Math.max(w, h));
+            // this.canvasMain.fitHeight = true;
+            // this.canvasMain.fitWidth = false;
+        }
+
+        if (this.sizeCanvas == null) {
+            return;
+        }
+
+        // tran && tran.setContentSize(this.sizeCanvas);
+        // tran?.setContentSize(this.sizeCanvas); 
+        // if(this.sizeCanvas!=null)
+        {
+            // sizeCanvas: Size | null = null;
+            // tran?.setContentSize(this.sizeCanvas?.);
+            let sz = this.sizeCanvas;
+            UIViewUtil.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
+        }
+
+        size = UIViewUtil.GetNodeContentSize(this.rootNode);
+        Debug.Log("this.rootNode size=" + size);
     }
 
-    onStart() {
-        //   super();
-        Debug.Log("AppSceneBase onStart");
+
+
+    SetRootViewController(controller: UIViewController) {
+
+        if (this.rootViewController != null) {
+            this.rootViewController.DestroyObjController();
+        }
+        this.rootViewController = controller;
+        this.rootViewController.SetViewParent(this.rootNode);//this.rootNode  this.canvasMain.node
+
+
     }
-    LayOut() { 
+
+
+    UpdateLanguage() {
+        if (this.rootViewController != null) {
+            this.rootViewController.UpdateLanguage();
+        }
+
+        var listPopup = PopUpManager.main.listItem;
+        if (listPopup != null) {
+            var len = listPopup.length;
+            for (var i = 0; i < len; i++) {
+                var ui = listPopup[i];
+                ui.UpdateLanguage();
+            }
+        }
     }
-    
+
+
+    LayOut() {
+        if (this.rootViewController != null) {
+            this.rootViewController.LayOut();
+            var ui = this.rootViewController.view;
+            if (ui != null) {
+                ui.LayOut();
+            }
+
+        }
+    }
+
 }
 
 

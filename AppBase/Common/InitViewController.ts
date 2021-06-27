@@ -12,6 +12,7 @@ import Platform from "../../Common/Platform";
 import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
 import LevelManager from "../Game/LevelManager";
 import AppSceneBase from "./AppSceneBase";
+import AppSceneUtil from "./AppSceneUtil";
 
  
  
@@ -195,7 +196,7 @@ export default class InitViewController extends NaviViewController {
         var p = MainViewController.main;
         // this.Push(MainViewController.main); 
 
-        AppSceneBase.main.SetRootViewController(p);
+        AppSceneUtil.main.SetRootViewController(p);
 
 
         var ret = Common.GetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC,false);
@@ -209,13 +210,4 @@ export default class InitViewController extends NaviViewController {
 
 }
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

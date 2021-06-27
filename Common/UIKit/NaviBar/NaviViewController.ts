@@ -1,3 +1,9 @@
+import Common from "../../Common";
+import Debug from "../../Debug";
+import UIView from "../ViewController/UIView";
+import UIViewController from "../ViewController/UIViewController";
+import UINaviBar from "./UINaviBar";
+
  
 export default class NaviViewController extends UIViewController {
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
@@ -34,7 +40,7 @@ export default class NaviViewController extends UIViewController {
         var uitran = this.objContent.addComponent(UITransform);
         this.objContent.parent = this.objController;
 
-        var size = AppSceneBase.main.sizeCanvas;//this.objController.getComponent(UITransform).contentSize; 
+        var size = Common.sizeCanvas;//this.objController.getComponent(UITransform).contentSize; 
         uitran.setContentSize(size);
 
     }
@@ -127,13 +133,4 @@ export default class NaviViewController extends UIViewController {
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

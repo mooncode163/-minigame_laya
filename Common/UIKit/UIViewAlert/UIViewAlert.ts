@@ -28,7 +28,7 @@ export default class UIViewAlert extends UIViewPop {
         super.LayOut();
         {
             ratio = 0.8;
-            var size = AppSceneBase.main.sizeCanvas;
+            var size = Common.sizeCanvas;
             var ratio = 0.8;
             //显示异常
             //this.node.setContentSize(size * ratio);
@@ -91,13 +91,4 @@ export default class UIViewAlert extends UIViewPop {
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

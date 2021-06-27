@@ -1,6 +1,5 @@
-  
-import Debug from "../Common/Debug";
-import ResManager from "../Common/Res/ResManager";
+
+import Debug from "../Common/Debug"; 
 import AppSceneBase from "./Common/AppSceneBase";
 
 
@@ -11,7 +10,9 @@ import AppSceneBase from "./Common/AppSceneBase";
  */
 export default class AppScene extends AppSceneBase// ui.test.TestSceneUI
 
-{ 
+{
+    
+
     onAwake() {
         super.onAwake();
         Debug.Log("AppScene onAwake");
@@ -41,23 +42,12 @@ export default class AppScene extends AppSceneBase// ui.test.TestSceneUI
         //             },
         //         }); 
 
-        var filepath = "Resources/Common/UIKit/UIImage/UIImage.prefab"; 
-        ResManager.LoadPrefab(
-            {
-                filepath: filepath,
-                success: (p: any, data: any) => { 
-                    console.log("load prefab:", data);
-                    this.owner.parent.addChild(data.create());
-                },
-                fail: () => {
-                    Debug.Log("AppScene fail=");
-                },
-            });
+
 
     }
 
-    ononStart() {
-        super.ononStart();
+    onStart() {
+        super.onStart();
         Debug.Log("AppScene onStart");
     }
 }

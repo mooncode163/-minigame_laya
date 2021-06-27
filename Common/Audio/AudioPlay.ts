@@ -1,11 +1,13 @@
-import { ConfigAudio } from "../Config/ConfigAudio";
+ 
+import ConfigAudio from "../Config/ConfigAudio";
 import Debug from "../Debug";
-import { ResManager } from "../Res/ResManager";
+import ResManager from "../Res/ResManager";
+ 
 
  
-export default class AudioPlay extends Component {  
-    @type(AudioSource)
-    audioSource: AudioSource = null;
+export default class AudioPlay extends Laya.Script {  
+ 
+    audioSource: any = null;
     static _main: AudioPlay;
     //静态方法
     static get main() {
@@ -19,20 +21,14 @@ export default class AudioPlay extends Component {
     onAwake() {
         // super.onAwake();
         AudioPlay._main = this;
-        this.audioSource = this.node.addComponent(AudioSource);
-        Debug.Log("  LoadAudio onLoad");
-        // var AUDIO_Merge = Common.CLOUD_RES_DIR+"/Audio/bg3.ogg";
-        // AudioPlay.main.PlayFile(AUDIO_Merge);
+        // this.audioSource = this.node.addComponent(AudioSource);
+        Debug.Log("  LoadAudio onLoad"); 
 
     }
     onStart() {
         // super.onStart();
     }
-    PlayAudioClip(clip: AudioClip) {
-        // var ret = Common.GetBoolOfKey(this.KEY_ENABLE_PLAYSOUND, false);
-        // // if (!ret) {
-        // //     return;
-        // // }
+    PlayAudioClip(clip: any) { 
         if (clip == null) {
             return;
         }
@@ -56,7 +52,7 @@ export default class AudioPlay extends Component {
         ResManager.LoadUrlAudio(
             {
                 url: url,
-                success: (p: any, clip: AudioClip) => {
+                success: (p: any, clip: any) => {
                     this.PlayAudioClip(clip);
                 },
                 fail: (p: any) => {
@@ -69,7 +65,7 @@ export default class AudioPlay extends Component {
         ResManager.LoadAudio(
             {
                 filepath: filepath,
-                success: (p: any, clip: AudioClip) => {
+                success: (p: any, clip: any) => {
                     this.PlayAudioClip(clip);
                 },
                 fail: (p: any) => {
@@ -91,7 +87,7 @@ export default class AudioPlay extends Component {
         ResManager.LoadAudio(
             {
                 filepath: filepath,
-                success: (p: any, clip: AudioClip) => {
+                success: (p: any, clip: any) => {
                     this.PlayAudioClip(clip);
                 },
                 fail: (p: any) => {
@@ -106,15 +102,4 @@ export default class AudioPlay extends Component {
         this.audioSource.stop();
     }
 }
-
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

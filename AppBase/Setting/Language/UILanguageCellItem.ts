@@ -46,7 +46,7 @@ export default class UILanguageCellItem extends UICellItemBase {
         var lan =Language.main;
        Debug.Log("language id= " + this.info.id);
         lan.SetLanguage(this.info.id);
-       AppSceneBase.main.UpdateLanguage();
+        AppSceneUtil.main.UpdateLanguage();
 
        Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, this.info.id); 
        UILanguage.main.OnClickBtnBack(null,null);
@@ -61,13 +61,4 @@ export default class UILanguageCellItem extends UICellItemBase {
 
 }
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

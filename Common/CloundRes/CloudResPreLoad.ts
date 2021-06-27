@@ -1,8 +1,9 @@
-import { ConfigBase } from "../Config/ConfigBase";
-import Debug from "../Debug";
-import { ConfigCloudRes } from "./ConfigCloudRes";
-import { ImageResCloudRes } from "./ImageResCloudRes";
-import { LanguageCloudRes } from "./LanguageCloudRes";
+ 
+import ConfigBase from "../Config/ConfigBase";
+import Debug from "../Debug"; 
+import ConfigCloudRes from "./ConfigCloudRes";
+import ImageResCloudRes from "./ImageResCloudRes";
+import LanguageCloudRes from "./LanguageCloudRes";
 
  
 export default class CloudResPreLoad  {
@@ -23,8 +24,8 @@ export default class CloudResPreLoad  {
     Init() {
  
         this.listItem.push(ConfigCloudRes.main);
-        this.listItem.push(LanguageCloudRes.main);
-        this.listItem.push(ImageResCloudRes.main);
+        // this.listItem.push(LanguageCloudRes.main);
+        // this.listItem.push(ImageResCloudRes.main);
         
     }
     /*
@@ -78,14 +79,4 @@ export default class CloudResPreLoad  {
     }
 
 }
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+ 

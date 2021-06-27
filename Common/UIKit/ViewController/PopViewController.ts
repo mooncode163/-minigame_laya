@@ -1,4 +1,5 @@
 import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import UIViewController from "./UIViewController";
  
 
@@ -20,10 +21,10 @@ export default class PopViewController extends UIViewController {
         //this.iDelegate = dele;
         var root = obj.controller;
         if (root == null) {
-            root = AppSceneBase.main.rootViewController;
+            root = AppSceneUtil.main.rootViewController;
         }
         // this.SetViewParent(root.objController);
-        this.SetViewParent(AppSceneBase.main.rootNode);
+        this.SetViewParent(AppSceneUtil.main.rootNode);
     }
 
     Close () { 

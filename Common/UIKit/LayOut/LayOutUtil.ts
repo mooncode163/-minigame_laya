@@ -3,10 +3,9 @@
 
 // TypeScript自动引入脚本插件
 // https://blog.csdn.net/u011004567/article/details/78507236
-// VS Code的插件-TypeScript Importer
-
-import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+// VS Code的插件-TypeScript Importer 
 import AdKitCommon from "../../AdKit/AdKitCommon";
+import Common from "../../Common";
 import Debug from "../../Debug";
 import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutElement from "./LayOutElement";
@@ -149,7 +148,7 @@ export default class LayOutUtil {
     GetBetweenScreenCenter(node:Laya.Sprite, align:Align,enableAdBanner:boolean=false) {
         var v1 = 0, v2 = 0;
         
-        var sizeCanvas = AppSceneBase.main.sizeCanvas;
+        var sizeCanvas = Common.sizeCanvas;
      
         // var rctran = node.getComponent(UITransform).contentSize;
         // var rctran = node.getComponent(cc.RectTransform);

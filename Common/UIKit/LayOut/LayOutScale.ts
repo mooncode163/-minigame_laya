@@ -1,4 +1,4 @@
-import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+ 
 import Common from "../../Common";
 import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutBase from "./LayOutBase";
@@ -71,11 +71,8 @@ export default class LayOutScale extends LayOutBase {
         var h_parent = sizeParent.height;
         w_parent = sizeParent.width;
         h_parent = sizeParent.height;
-        if(AppSceneBase.main==null)
-        {
-            return;
-        }
-        var sizeCanvas = AppSceneBase.main.sizeCanvas;
+        
+        var sizeCanvas = Common.sizeCanvas;
         if (w_parent == 0) {
             w_parent = sizeCanvas.width;
         }

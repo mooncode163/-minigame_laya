@@ -90,6 +90,8 @@ export default class UIButton extends UIView {
     onAwake() {
         super.onAwake();
         this.type = this._type;
+
+      
     }
 
     onStart() {
@@ -97,24 +99,7 @@ export default class UIButton extends UIView {
         super.onStart();
     }
 
-
-
-    //fontSize
-    get fontSize() {
-        if (this.textTitle == null) {
-            return 12;
-        }
-        return this.textTitle.fontSize;
-    }
-    set fontSize(value) {
-        if (this.textTitle == null) {
-            return;
-        }
-        this.textTitle.fontSize = value;
-        this.LayOut();
-    }
-
-
+ 
     //text
     get text() {
         if (this.textTitle == null) {

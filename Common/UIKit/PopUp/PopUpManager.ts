@@ -1,3 +1,12 @@
+ 
+import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
+import AudioPlay from "../../Audio/AudioPlay";
+import PrefabCache from "../../Cache/PrefabCache";
+import Common from "../../Common";
+import CommonRes from "../../CommonRes";
+import Debug from "../../Debug";
+import UIViewPop from "./UIViewPop";
 
  
 export default class PopUpManager  {
@@ -60,17 +69,16 @@ export default class PopUpManager  {
 
     }
     LoadBgInternal(prefab) {
-        var nodeRoot = AppSceneBase.main.rootNode;
+        var nodeRoot = AppSceneUtil.main.rootNode;
 
         // this.nodePannel = new Node("Pannel");
         // this.nodePannel.addComponent(UIView);
         // var uitran = this.nodePannel.addComponent(UITransform);
         // this.nodePannel.color = new Color(52, 52, 52, 50);
         if (prefab != null) {
-            var node = instantiate(prefab);
-            // var panel = new Node("Panel");
+            var node = prefab.create(); 
             node.setParent(nodeRoot);
-            // node.setContentSize(AppSceneBase.main.sizeCanvas);
+            // node.setContentSize(Common.sizeCanvas);
 
             //拦截点击
             //  panel.addComponent(BlockInputEvents);
@@ -94,8 +102,8 @@ export default class PopUpManager  {
 
     OpenPopup(prefab: any) {
         Debug.Log("OpenPopup");
-        var nodeRoot = AppSceneBase.main.rootNode;
-        var nodePop = instantiate(prefab);
+        var nodeRoot = AppSceneUtil.main.rootNode; 
+        var nodePop = prefab.create(); 
         nodePop.setParent(nodeRoot);
         var ui = nodePop.getComponent(UIViewPop);
         if (nodePop == null) {
@@ -109,35 +117,7 @@ export default class PopUpManager  {
         if (this.objPop.open != null) {
             this.objPop.open(ui);
         }
-        /* 
-        Canvas canvas = AppSceneBase.main.canvasMain;
-       // var panel = new GameObject("Panel");
-         var panel = new Node("Panel");
-        var panelImage = panel.AddComponent<Image>();
-        var color = Color.black;
-        color.a = 0;
-        panelImage.color = color;
-        var panelTransform = panel.GetComponent<RectTransform>();
-        panelTransform.anchorMin = new Vector2(0, 0);
-        panelTransform.anchorMax = new Vector2(1, 1);
-        panelTransform.pivot = new Vector2(0.5f, 0.5f);
-        panel.transform.SetParent(canvas.transform, false);
-        currentPanels.Push(panel);
-        StartCoroutine(FadeIn(panel.GetComponent<Image>(), 0.2f));
- 
-        //var popup = Instantiate(request.asset) as GameObject;
-        var popup = Instantiate(objPrefab) as GameObject;
-        Assert.IsNotNull((popup));
-        popup.transform.SetParent(canvas.transform, false);
- 
        
- 
-        if (onOpened != null) {
-            onOpened(popup.GetComponent<T>());
-        }
-        _onClose = onClose;
-        currentPopups.Push(popup);
-        */
         var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
         if (ret) {
             //play sound click
@@ -168,7 +148,7 @@ export default class PopUpManager  {
     ClosePopup() {
 
         if (this.nodePannel != null) {
-            this.nodePannel.destroy();
+            // this.nodePannel.destroy();
             this.nodePannel = null;
         }
         if (this.listItem.length == 0) {
@@ -209,13 +189,13 @@ export default class PopUpManager  {
         var scale1 = 1.2;
         var scale2 = 0;
 
-        tween(ui.node)
-            .to(duration / 2, { scale: new Vec3(scale1, scale1, 1) })
-            .to(duration / 2, { scale: new Vec3(scale2, scale2, 1) })
-            .call(() => {
-                ui.DoClose();
-            })
-            .onStart()
+        // tween(ui.node)
+        //     .to(duration / 2, { scale: new Vec3(scale1, scale1, 1) })
+        //     .to(duration / 2, { scale: new Vec3(scale2, scale2, 1) })
+        //     .call(() => {
+        //         ui.DoClose();
+        //     })
+        //     .onStart()
 
     }
 
@@ -262,13 +242,4 @@ export default class PopUpManager  {
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

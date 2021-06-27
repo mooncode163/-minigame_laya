@@ -320,7 +320,7 @@ export default class GameMerge extends GameBase {
         var pos = ui.GetPosition(event);
         var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
         var posui = ui.GetUIPosition(event);
-        Debug.Log("OnUITouchEvent posnodeAR = " + posnodeAR + " posui=" + posui + " sizeCanvas=" + AppSceneBase.main.sizeCanvas);
+        Debug.Log("OnUITouchEvent posnodeAR = " + posnodeAR + " posui=" + posui + " sizeCanvas=" + Common.sizeCanvas);
         switch (status) {
             case UITouchEvent.TOUCH_DOWN:
                 this.OnTouchDown(posnodeAR);
@@ -436,13 +436,4 @@ export default class GameMerge extends GameBase {
   }
 }
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+

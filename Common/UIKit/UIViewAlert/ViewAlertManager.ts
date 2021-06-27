@@ -1,4 +1,5 @@
 import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import { PrefabCache } from "../../Cache/PrefabCache";
 import { ConfigPrefab } from "../../Config/ConfigPrefab";
 import { PopUpManager } from "../PopUp/PopUpManager";
@@ -58,7 +59,7 @@ export default class ViewAlertManager  {
 
         this.ui.keyName = this.keyName;
         this.ui.SetText(title, msg, yes, no);
-        this.ui.SetViewParent(AppSceneBase.main.canvasMain.node);
+        this.ui.SetViewParent(AppSceneUtil.main.canvasMain.node);
     }
     //string
     Show(title, msg, yes, no) {
@@ -135,13 +136,4 @@ export default class ViewAlertManager  {
 }
 
 
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting: https://docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass: https://docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */
+
