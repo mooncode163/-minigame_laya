@@ -8,7 +8,7 @@ import UINaviBar from "./UINaviBar";
  
 export default class NaviViewController extends UIViewController {
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
-    objContent: Laya.Node | null = null;
+    objContent: Laya.View | null = null;
 
     uiNaviBarPrefab: Laya.Prefab | null = null;
 
@@ -35,7 +35,7 @@ export default class NaviViewController extends UIViewController {
     }
 
     CreateContent() {
-        this.objContent = new Laya.Node();
+        this.objContent = new Laya.View();
         this.objContent.addComponent(UIView);
         // var uitran = this.objContent.addComponent(UITransform);
         // this.objContent.parent = this.objController;

@@ -19,7 +19,7 @@ export default class UIViewController   {
 
 
     // @type(Node) // Declare that the cc type of the attribute _targetNode is Node
-    objController: Laya.Node | null = null;
+    objController: Laya.View | null = null;
 
     naviController: NaviViewController | null = null;
 
@@ -27,7 +27,7 @@ export default class UIViewController   {
     CreateObjController() {
 
         if (this.objController == null) {
-            this.objController = new Laya.Node();
+            this.objController = new Laya.View();
         }
         this.ViewDidLoad();
 

@@ -45,7 +45,9 @@ export default class HomeViewController extends UIViewController {
                 filepath: filepath,
                 success: (p: any, data: any) => {
                     console.log("load prefab:", data);
-                    AppSceneUtil.main.rootNode.addChild(data.create());
+                    // AppSceneUtil.main.rootNode.addChild(data.create());
+                    var ui = this.uiPrefab.create(); 
+                    this.objController.addChild(ui); 
                 },
                 fail: () => {
                     Debug.Log("AppScene fail=");
@@ -68,8 +70,8 @@ export default class HomeViewController extends UIViewController {
                 filepath: "Resources/AppCommon/Prefab/Home/UIHomeMerge.prefab",
                 success: (p: any, data: any) => {
                     this.uiPrefab = data;
-
-                    this.objController.addChild(this.uiPrefab.create());
+                    var ui = this.uiPrefab.create(); 
+                    this.objController.addChild(ui); 
                     this.CreateUI();
 
                 },
