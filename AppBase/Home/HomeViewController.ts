@@ -39,20 +39,20 @@ export default class HomeViewController extends UIViewController {
         // }
         this.LoadPrefab();
 
-        var filepath = "Resources/Common/Prefab/UIKit/UIImage/UIImage.prefab";
-        ResManager.LoadPrefab(
-            {
-                filepath: filepath,
-                success: (p: any, data: any) => {
-                    console.log("load prefab:", data);
-                    // AppSceneUtil.main.rootNode.addChild(data.create());
-                    var ui = this.uiPrefab.create(); 
-                    this.objController.addChild(ui); 
-                },
-                fail: () => {
-                    Debug.Log("AppScene fail=");
-                },
-            });
+        // var filepath = "Resources/Common/Prefab/UIKit/UIImage/UIImage.prefab";
+        // ResManager.LoadPrefab(
+        //     {
+        //         filepath: filepath,
+        //         success: (p: any, data: any) => {
+        //             console.log("load prefab:", data);
+        //             // AppSceneUtil.main.rootNode.addChild(data.create());
+        //             var ui = data.create(); 
+        //             this.objController.addChild(ui); 
+        //         },
+        //         fail: () => {
+        //             Debug.Log("AppScene fail=");
+        //         },
+        //     });
 
     }
     ViewDidUnLoad() {
@@ -70,8 +70,7 @@ export default class HomeViewController extends UIViewController {
                 filepath: "Resources/AppCommon/Prefab/Home/UIHomeMerge.prefab",
                 success: (p: any, data: any) => {
                     this.uiPrefab = data;
-                    var ui = this.uiPrefab.create(); 
-                    this.objController.addChild(ui); 
+
                     this.CreateUI();
 
                 },
@@ -84,17 +83,10 @@ export default class HomeViewController extends UIViewController {
 
     CreateUI() {
         Debug.Log("HomeViewController CreateUI");
-        this.CreateUIInternal();
 
-    }
-    CreateUIInternal() {
-        Debug.Log("HomeViewController CreateUIInternal");
-
-        // this.objController.addChild(this.uiPrefab.create());
-        // return;
-        // const newNode = instantiate(this.uiPrefab);
-        // this.ui = newNode.getComponent(UIHomeBase);
-        // this.ui.SetController(this);
+        var node = this.uiPrefab.create();
+        this.ui = node.getComponent(UIHomeBase);
+        this.ui.SetController(this);
 
         // CloudResViewController.main().Show(null, null);
         if (this.runCount == 0) {
