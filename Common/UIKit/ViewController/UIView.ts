@@ -24,7 +24,7 @@ import UIViewController from "./UIViewController";
 import UIViewUtil from "./UIViewUtil";
  
 
-// 编辑器绑定脚本变量 @prop
+// 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // https://www.jianshu.com/p/411d3cb87325
 // https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-3-4-0
  

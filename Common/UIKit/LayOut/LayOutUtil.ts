@@ -13,18 +13,18 @@ import LayOutElement from "./LayOutElement";
 
 // 微信小程序 const Align = LayOutUtil.Align; 会异常 所以用export enum的方式
 export enum Align {
-    UP,//0
-    DOWN,//1
-    LEFT,//2
-    RIGHT,//3
-    CENTER,
-    UP_LEFT,
-    UP_RIGHT,
-    DOWN_LEFT,
-    DOWN_RIGHT,
-    Horizontal,
-    Vertical,
-    SAME_POSTION,
+    UP="UP",//0
+    DOWN="DOWN",//1
+    LEFT="LEFT",//2
+    RIGHT="RIGHT",//3
+    CENTER="CENTER",
+    UP_LEFT="UP_LEFT",
+    UP_RIGHT="UP_RIGHT",
+    DOWN_LEFT="DOWN_LEFT",
+    DOWN_RIGHT="DOWN_RIGHT",
+    Horizontal="Horizontal",
+    Vertical="Vertical",
+    SAME_POSTION="SAME_POSTION",
 }
  
 export enum RelationType {

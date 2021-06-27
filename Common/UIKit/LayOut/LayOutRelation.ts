@@ -9,9 +9,13 @@ import { RelationType, Align } from "./LayOutUtil";
 
 export default class LayOutRelation extends LayOutBase {
 
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+    /** @prop {name:target,type:Node}*/
+    /** @prop {name:target2,type:Node}*/
+   
+
     // @type(RelationType)
     private _type = RelationType.PARENT;
-    // @type(RelationType) 
     /** @prop {name:type,type:Option,option:"None,PARENT", default:"PARENT"}*/
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
@@ -63,15 +67,14 @@ export default class LayOutRelation extends LayOutBase {
                     if (this.align == Align.RIGHT) {
                         x = w_parent - w - this.offset.x;
                     }
-                    //         if (this.align == Align.UP) {
-                    //             Debug.Log("Align.UP this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " h=" + h);
-                    //             y = h_parent / 2 - h / 2 - this.offset.y;
-                    //         }
-                    //         if (this.align == Align.DOWN) {
-                    //             y = - h_parent / 2 + h / 2 + this.offset.y;
-                    //             // var sizeCanvas = AppSceneBase.Main().sizeCanvas;
-                    //             // y = - sizeCanvas.height/2  + this.offset.y;
-                    //         }
+                    if (this.align == Align.UP) {
+                        Debug.Log("Align.UP this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " h=" + h);
+                        y = this.offset.y;
+                    }
+                    if (this.align == Align.DOWN) {
+                        y = h_parent - h - this.offset.y;
+
+                    }
                     //         if (this.align == Align.DOWN_LEFT) {
                     //             x = - w_parent / 2 + w / 2 + this.offset.x;
                     //             y = - h_parent / 2 + h / 2 + this.offset.y;

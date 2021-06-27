@@ -1,33 +1,31 @@
 import Device from "../../Device";
-import { Align, Direction } from "./LayOutUtil"; 
- 
+import { Align, Direction, RelationType } from "./LayOutUtil";
+
 export default class LayOutBase extends Laya.Script {
-    // @type(Node)
-    target:Laya.Node = null;
-    // @type(Node)
-    target2: Laya.Node = null; 
-
-
-   
+ 
+    align: Align = Align.LEFT;
+    public target2: Laya.Node;
+    public target: Laya.Node;
+    
     enableLayout = true;
-   
+
     enableHide = true; //是否包含Hide true 包含 false  不包含
 
     // 选择横屏配置参数
-   
-    enableLandscape = false;
-   
-    enableOffsetAdBanner = false; 
 
-   
+    enableLandscape = false;
+
+    enableOffsetAdBanner = false;
+
+
     isOnlyForPortrait = false;
-   
+
     isOnlyForLandscape = false;
 
-    
-    space = new Laya.Vector2(0,0);
-  
-    align:Align = Align.RIGHT;
+
+    space = new Laya.Vector2(0, 0);
+
+
 
     directionVertical = Direction.TOP_TO_BOTTOM;
     directionHorizontal = Direction.LEFT_TO_RIGHT;
@@ -40,7 +38,7 @@ export default class LayOutBase extends Laya.Script {
 
     // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
     // @type(Vec2)
-    private _offsetMin = new Laya.Vector2(0, 0); 
+    private _offsetMin = new Laya.Vector2(0, 0);
     // @type(Vec2)
     //get 的用法
     get offsetMin(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
@@ -50,9 +48,9 @@ export default class LayOutBase extends Laya.Script {
     set offsetMin(value: Laya.Vector2) {
         this._offsetMin = value;
     }
- 
+
     // @type(Vec2)
-    private _offsetMax = new Laya.Vector2(0, 0); 
+    private _offsetMax = new Laya.Vector2(0, 0);
     // @type(Vec2)
     //get 的用法
     get offsetMax(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
@@ -112,6 +110,5 @@ export default class LayOutBase extends Laya.Script {
         }
         return ret;
     }
- 
+
 }
- 

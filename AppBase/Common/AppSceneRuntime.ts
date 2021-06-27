@@ -45,7 +45,7 @@ export default class AppSceneRuntime extends Laya.Scene
         //初始化引擎-让舞台大小与屏幕大小一致
         // Laya.init(Laya.Browser.width, Laya.Browser.height,Laya.WebGL);
         // Laya.init(1536,2048,Laya.WebGL);
-         // Laya.init(1536,2048,Laya.WebGL);
+        //  Laya.init(1536,2048,Laya.WebGL);
         //  Laya.stage.designWidth = 1536;
         //  Laya.stage.designHeight = 2048;
 
