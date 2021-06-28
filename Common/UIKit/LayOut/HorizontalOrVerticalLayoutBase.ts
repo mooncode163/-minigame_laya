@@ -2,37 +2,39 @@ import Debug from "../../Debug";
 import UIViewUtil from "../ViewController/UIViewUtil";
 import LayOutBase from "./LayOutBase";
 import LayOutElement from "./LayOutElement";
- 
+
 import { Direction, Align } from "./LayOutUtil";
 
- 
+
 export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
 
- 
-        //是否控制大小
-        childControlHeight=false;
-        childControlWidth=false;
 
-        //是否整个区域展开
-        childForceExpandHeight=false;
-        childForceExpandWidth=false;
+    //是否控制大小
+    childControlHeight = false;
+    childControlWidth = false;
 
-        childScaleHeight=false;
-        childScaleWidth=false;
+    //是否整个区域展开
 
-        row=1;//行
-        col=1;//列  
- 
+    childForceExpandHeight = false;
+    childForceExpandWidth = false;
 
-    LayOut () {
+
+    childScaleHeight = false;
+    childScaleWidth = false;
+
+    row = 1;//行
+    col = 1;//列  
+
+
+    LayOut() {
 
         var idx = 0;
-        var r = 0, c = 0; 
+        var r = 0, c = 0;
         if (!this.Enable()) {
             return;
-        }  
+        }
         super.LayOut();
- 
+
         for (var i = 0; i < this.owner.numChildren; i++) {
             var child = this.owner.getChildAt(i);
             if (child == null) {
@@ -52,7 +54,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 }
             }
 
-           
+
 
             //  LayoutElement
             //floor 小于等于 x，且与 x 最接近的整数。
@@ -69,8 +71,8 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 c = this.col - 1 - c;
             }
 
-            
-            var sp = child  as Laya.Sprite;
+
+            var sp = child as Laya.Sprite;
             var pt = this.GetItemPostion(sp, r, c);
             sp.x = pt.x;
             sp.y = pt.y;
@@ -84,10 +86,10 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
     }
 
     // r 行 ; c 列  返回中心位置 Vector2
-    GetItemPostion (nodeItem:Laya.Sprite, r:any, c:any) {
-        var x, y, w, h; 
+    GetItemPostion(nodeItem: Laya.Sprite, r: any, c: any) {
+        var x, y, w, h;
 
-        var rctran = UIViewUtil.GetNodeBoundingBox(this.owner); 
+        var rctran = UIViewUtil.GetNodeBoundingBox(this.owner);
         w = rctran.width;
         h = rctran.height;
         var item_w = 0, item_h = 0, x_left = 0, y_bottom = 0, w_total = 0, h_total = 0;
@@ -155,13 +157,12 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
     }
 
     onAwake() {
-        super.onAwake();  
+        super.onAwake();
     }
     onStart() {
-         
+
         super.onStart();
         this.LayOut();
     }
- 
+
 }
- 

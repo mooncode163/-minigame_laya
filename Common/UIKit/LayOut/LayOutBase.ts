@@ -8,21 +8,12 @@ export default class LayOutBase extends Laya.Script {
     public target: Laya.Node;
     
     enableLayout = true;
-
     enableHide = true; //是否包含Hide true 包含 false  不包含
-
     // 选择横屏配置参数
-
     enableLandscape = false;
-
     enableOffsetAdBanner = false;
-
-
     isOnlyForPortrait = false;
-
     isOnlyForLandscape = false;
-
-
     space = new Laya.Vector2(0, 0);
 
 

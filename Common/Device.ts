@@ -28,6 +28,11 @@ export default class Device {
 像素比：Laya.Browser.pixelRatio;
 
 
+
+GameConfig配置
+使用laya2.0 后，GameConfig.js是由ide自动生成的，并且修改无效
+UI页面 按F9   可以修改 GameConfig.js  记得F12 导出哦
+
 设计分辨率:
 GameConfig{
     static width:number=1536;

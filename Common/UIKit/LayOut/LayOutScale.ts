@@ -9,6 +9,19 @@ import { ScaleType } from "./LayOutUtil";
 export default class LayOutScale extends LayOutBase {
 
    
+    // @prop 在基类定义
+    /** @prop {name:enableLayout,type:Bool}*/
+    /** @prop {name:enableHide,type:Bool}*/
+    /** @prop {name:enableLandscape,type:Bool}*/
+    /** @prop {name:enableOffsetAdBanner,type:Bool}*/
+    /** @prop {name:isOnlyForPortrait,type:Bool}*/
+    /** @prop {name:isOnlyForLandscape,type:Bool}*/
+    /** @prop {name:space,type:Vector}*/
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+    /** @prop {name:target,type:Node}*/
+    /** @prop {name:target2,type:Node}*/
+    // @prop 在基类定义
+    
     ratio = 1.0;
  
     private _type = ScaleType.MIN;
