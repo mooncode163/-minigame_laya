@@ -1,4 +1,4 @@
-import Debug from "../Debug"; 
+import Debug from "../Debug";
 // 资源加载
 // https://ldc2.layabox.com/doc/?nav=zh-js-4-3-1
 export default class ResManager {
@@ -13,8 +13,8 @@ export default class ResManager {
         },
       }
       */
-    public static Load(obj: any) { 
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+    public static Load(obj: any) {
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
             var ret = Laya.loader.getRes(obj.filepath);
             if (obj.success != null) {
                 obj.success(this, ret);
@@ -35,9 +35,9 @@ export default class ResManager {
        },
      }
      */
-    public static LoadText(obj: any) {  
+    public static LoadText(obj: any) {
         // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
             var str: string = Laya.loader.getRes(obj.filepath);
             if (obj.success != null) {
                 obj.success(this, str);
@@ -47,10 +47,10 @@ export default class ResManager {
     }
 
 
-  
-    public static LoadJson(obj: any) {  
+
+    public static LoadJson(obj: any) {
         // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data:any): void { 
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
             var json: JSON = Laya.loader.getRes(obj.filepath);
             //  console.log(json["name"]);
             if (obj.success != null) {
@@ -60,22 +60,22 @@ export default class ResManager {
         }));
     }
 
-  /*
-      {
-          filepath:"", 
-          success: function (p,tex:Texture2D) {
-          },
-          fail: function (p) {
-          },
-          progress: function (p) {
-          } ,
-        
-      }
-      */
-    public static LoadPrefab(obj: any) { 
-        console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath); 
-        var pic = obj.filepath; 
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (pref:Laya.Prefab): void {
+    /*
+        {
+            filepath:"", 
+            success: function (p,tex:Texture2D) {
+            },
+            fail: function (p) {
+            },
+            progress: function (p) {
+            } ,
+          
+        }
+        */
+    public static LoadPrefab(obj: any) {
+        console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath);
+        var pic = obj.filepath;
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (pref: Laya.Prefab): void {
             if (obj.success != null) {
                 obj.success(this, pref);
             }
@@ -85,7 +85,7 @@ export default class ResManager {
 
         }));
 
-        
+
     }
 
     /*
@@ -102,31 +102,30 @@ export default class ResManager {
       */
 
 
+    //  laya editor  f9 设置图片的最大 2048x2048 默认512x512
+    // filepath 可以是本地图片 也可以是网络图片
     public static LoadTexture(obj: any) {
         // texture spriteFrame
         console.log("ResManager LoadTexture obj.filepath=" + obj.filepath);
-        // var pic = FileUtil.GetFileBeforeExtWithOutDot(obj.filepath) + "/texture";
-        var pic = obj.filepath;
-        // "res/threeDimen/texture/earth.png"
         //加载纹理
-        Laya.Texture2D.load(pic, Laya.Handler.create(null, function (tex): void {
-            //使用纹理
-            // var earth1 = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createSphere(5, 32, 32))) as Laya.MeshSprite3D;
-            // earth1.transform.translate(new Laya.Vector3(17, 20, 0));
-
-            // var earthMat = new Laya.BlinnPhongMaterial();
-            // earthMat.albedoTexture = tex;
-            // earthMat.albedoIntensity = 1;
-            // earth1.meshRenderer.material = earthMat;
-
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
             console.log("ResManager texture is not null");
-            if (obj.success != null) {
-                obj.success(this, tex);
+            var tex = Laya.loader.getRes(obj.filepath);
+            if (tex == null) {
+                if (obj.fail != null) {
+                    obj.fail(this);
+                }
+            } else {
+
+                if (obj.success != null) {
+                    Debug.Log("LoadTexture tex w="+tex.width+" h="+tex.height);
+                    obj.success(this, tex);
+                }
             }
 
         }));
 
-        
+
     }
 
     /*
@@ -187,7 +186,7 @@ export default class ResManager {
     public static LoadUrl(obj: any) {
         Debug.Log("ResManager LoadUrl obj.url=" + obj.url);
 
-      
+
         // assetManager.loadRemote(obj.url, function (err: any, data: any) {
         //     if (data == null) {
         //         console.log("ResManager LoadUrl is null err=", err);

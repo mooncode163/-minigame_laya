@@ -1,8 +1,10 @@
-import { AdConfig } from "../../../AdKit/AdConfig/AdConfig";
+import AdConfig from "../../../AdKit/AdConfig/AdConfig";
 import { AdType } from "../../../AdKit/AdConfig/AdInfo";
-import { AdVideoPlatformWrapper } from "../../../AdKit/Video/AdVideoPlatformWrapper";
+import AdVideoPlatformWrapper from "../../../AdKit/Video/AdVideoPlatformWrapper";
 import Debug from "../../../Debug";
-import { Source } from "../../../Source";
+import Source from "../../../Source";
+
+ 
 
  
 export default class AdVideoWeiXin extends AdVideoPlatformWrapper {
@@ -15,6 +17,7 @@ export default class AdVideoWeiXin extends AdVideoPlatformWrapper {
 
     }
     InitAd(source) {
+        var wx = Laya.Browser.window.wx;
         var adkey = AdConfig.main.GetAdKey(Source.WEIXIN, AdType.VIDEO);
         Debug.Log("AdVideoWeiXin adkey="+adkey);
         // 在页面中定义激励视频广告 

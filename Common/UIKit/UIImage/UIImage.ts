@@ -33,17 +33,18 @@ var effectOption = ENUM_ChangeString(ENUM_Effect);
 
 export default class UIImage extends UIView {
 
- 
+
     /** @prop {name:targetEffect, tips:"UI特效", type:ENUM_Effect, default:null}*/
     private targetEffect: ENUM_Effect = null; //这样写实不行的
 
     /** @prop {name:targetEffect, tips:"UI特效", type:Option, option:effectOption, default:null}*/
     private targetEffect1: ENUM_Effect = null; //这样也是不行的
- 
+
 
     /** @prop {name:image,type:Node}*/
     public image: Laya.Image;
-
+    /** @prop {name:image2,type:Node}*/
+    public image2: Laya.Sprite;
     /** @prop {name:testPrefab,type:Prefab}*/
     public testPrefab: Laya.Prefab;
 
@@ -81,35 +82,76 @@ export default class UIImage extends UIView {
 
         Debug.Log("UIImage testType=" + this.testType);
 
-        if (Device.main.isLandscape) {
-            if (!Common.BlankString(this.keyImageH)) {
-                keyPic = this.keyImageH;
-            }
-        }
+        // if (Device.main.isLandscape) {
+        //     if (!Common.BlankString(this.keyImageH)) {
+        //         keyPic = this.keyImageH;
+        //     }
+        // }
 
-        if (Common.BlankString(keyPic)) {
-            return;
-        }
+        // if (Common.BlankString(keyPic)) {
+        //     return;
+        // }
 
-        var pic = ImageRes.main.GetImage(keyPic);
+        // var pic = ImageRes.main.GetImage(keyPic);
 
-        if (!FileUtil.FileExist(pic)) {
+        // if (!FileUtil.FileExist(pic)) {
 
-            if (Device.main.isLandscape) {
-                keyPic = this.keyImageH2;
-            }
-            else {
-                keyPic = this.keyImage2;
-            }
-        }
-        this.UpdateImageByKey(keyPic);
+        //     if (Device.main.isLandscape) {
+        //         keyPic = this.keyImageH2;
+        //     }
+        //     else {
+        //         keyPic = this.keyImage2;
+        //     }
+        // }
+        // this.UpdateImageByKey(keyPic);
+
         this.LayOut();
     }
 
     onStart() {
         // [3]
         super.onStart();
+
+        var filepath = "Resources/App/UI/Bg/HomeBg.png";
+        // this.image.skin = pic;
+        var imageload = this.image2;
+        // Laya.Texture2D.load(filepath, Laya.Handler.create(null, function (tex): void {
+        //     // imageload.skin = pic;
+        //     var data = Laya.loader.getRes(filepath);
+        //     imageload.texture = data;
+
+        // }));
+
+        // Laya.loader.load(filepath, Laya.Handler.create(this, this.onLoaded));
+        // this.image2.loadImage(pic); 
+
+        // filepath = "comp/image.png";
+
+
+        // filepath = "Resources/App/UI/Bg/BgTest.png";
+        // this.image2.loadImage(filepath);  
+        var url = "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-2d2b7463-734d-482e-9539-28c66239be5d/356d43ca-241a-4e50-af69-17b80a0888c3.png";
+        // filepath = url;
+        Laya.loader.load(filepath, Laya.Handler.create(this, function (data): void { 
+            // var tex = Laya.loader.getRes(filepath);
+            var tex = data;
+            this.image2.texture = tex;
+            Debug.Log("tex w="+tex.width+" h="+tex.height);
+
+        }));
+
         this.LayOut();
+    }
+
+    onLoaded() {
+
+        // var pic = "Resources/UI/Bg/HomeBg.jpg";
+        // var texture=Laya.loader.getRes(pic);
+        // this.image.skin = pic;
+        // this.image.source = texture;
+        var filepath = "Resources/App/UI/Bg/HomeBg.png";
+        var texture = Laya.loader.getRes(filepath);
+        this.image2.texture = texture;
     }
 
     GetKeyImage() {

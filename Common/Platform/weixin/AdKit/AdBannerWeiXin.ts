@@ -1,10 +1,19 @@
-import { AdConfig } from "../../../AdKit/AdConfig/AdConfig";
-import { AdType } from "../../../AdKit/AdConfig/AdInfo";
-import { AdBannerPlatformWrapper } from "../../../AdKit/Banner/AdBannerPlatformWrapper";
-import Debug from "../../../Debug";
-import { Source } from "../../../Source";
 
- 
+
+// laya 如何调用微信接口
+// https://blog.csdn.net/yuer2040/article/details/83339728
+/*
+  if (Laya.Browser.onMiniGame) {
+                var wx = Laya.Browser.window.wx;
+
+                */
+
+import AdConfig from "../../../AdKit/AdConfig/AdConfig";
+import { AdType } from "../../../AdKit/AdConfig/AdInfo";
+import AdBannerPlatformWrapper from "../../../AdKit/Banner/AdBannerPlatformWrapper";
+import Debug from "../../../Debug";
+import Source from "../../../Source";
+
 export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
     bannerAd = null;
     width = 0;
@@ -21,10 +30,10 @@ export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
     },
   }
   */
-    InitAd(obj: any) { 
-        let adkey = AdConfig.main.GetAdKey(Source.WEIXIN, AdType.BANNER); 
-        Debug.Log("AdBannerWeiXin adkey="+adkey);
-        
+    InitAd(obj: any) {
+        let adkey = AdConfig.main.GetAdKey(Source.WEIXIN, AdType.BANNER);
+        Debug.Log("AdBannerWeiXin adkey=" + adkey);
+        var wx = Laya.Browser.window.wx;
         let winSize = wx.getSystemInfoSync();
         this.objAd = obj;
         console.log(winSize);
@@ -34,19 +43,21 @@ export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
         this.bannerAd = wx.createBannerAd({
             adUnitId: adkey, //填写广告id
             style: {
-                left: (winSize.windowWidth-bannerWidth)/2,
+                left: (winSize.windowWidth - bannerWidth) / 2,
                 top: winSize.windowHeight - bannerHeight,
                 width: bannerWidth,
             }
         });
 
         this.bannerAd.onError((res) => {
-        
-         }) 
 
+        })
     }
 
-    ShowAd(isShow:boolean) {
+
+
+    ShowAd(isShow: boolean) {
+        var wx = Laya.Browser.window.wx;
         let winSize = wx.getSystemInfoSync();
         this.bannerAd.show(); //banner 默认隐藏(hide) 要打开
         //微信缩放后得到banner的真实高度，从新设置banner的top 属性
@@ -56,7 +67,7 @@ export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
             // 屏幕单位
             this.width = this.bannerAd.style.realWidth * winSize.pixelRatio;
             this.height = this.bannerAd.style.realHeight * winSize.pixelRatio;
-            Debug.Log("screen winSize.windowWidth ="+winSize.windowWidth+" winSize.windowHeight ="+winSize.windowHeight+" winSize.pixelRatio="+winSize.pixelRatio);
+            Debug.Log("screen winSize.windowWidth =" + winSize.windowWidth + " winSize.windowHeight =" + winSize.windowHeight + " winSize.pixelRatio=" + winSize.pixelRatio);
             if (this.objAd.success != null) {
                 this.objAd.success(this, this.width, this.height);
             }
@@ -67,23 +78,12 @@ export default class AdBannerWeiXin extends AdBannerPlatformWrapper {
     GetHeight() {
         return this.height;
     }
-    SetScreenSize(w:any, h:any) {
+    SetScreenSize(w: any, h: any) {
 
     }
     //y 基于屏幕底部
-    SetScreenOffset(w:any, h:any) {
+    SetScreenOffset(w: any, h: any) {
 
     }
 }
 
-
-/**
- * [1] Class member could be defined like this.
- * [2] Use `property` decorator if your want the member to be serializable.
- * [3] Your initialization goes here.
- * [4] Your update function goes here.
- *
- * Learn more about scripting= https=//docs.cocos.com/creator/3.0/manual/en/scripting/
- * Learn more about CCClass= https=//docs.cocos.com/creator/3.0/manual/en/scripting/ccclass.html
- * Learn more about life-cycle callbacks= https=//docs.cocos.com/creator/3.0/manual/en/scripting/life-cycle-callbacks.html
- */

@@ -1,4 +1,5 @@
 import Platform from "../../Platform";
+import AdBannerWeiXin from "../../Platform/weixin/AdKit/AdBannerWeiXin";
 import AdBannerPlatformWrapper from "./AdBannerPlatformWrapper";
 
  
@@ -20,9 +21,9 @@ export default class AdBanner  {
 
     GetPlatform () {
         var p = null;
-        // if (Platform.isWeiXin||Platform.isByte)  {
-        //     p = new AdBannerWeiXin();
-        // }
+        if (Platform.isWeiXin||Platform.isByte)  {
+            p = new AdBannerWeiXin();
+        }
         if (Platform.isWeiXin||Platform.isByte)  {
             // p = new AdBannerMooSnow();
         }

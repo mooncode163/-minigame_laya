@@ -1,7 +1,7 @@
 import FileSystemPlatformWrapper from "../../../File/FileSystemPlatformWrapper";
 
- 
- 
+
+
 export default class FileSystemWeixin extends FileSystemPlatformWrapper {
     static _main: FileSystemWeixin;
     //静态方法
@@ -13,17 +13,18 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
     }
 
     GetRootDirPath() {
-        // var ret = `${wx.env.USER_DATA_PATH}/` + FileSystemPlatformWrapper.FILE_ROOT_DIR;
-        // return ret;  
+        var wx = Laya.Browser.window.wx;
+        var ret = `${wx.env.USER_DATA_PATH}/` + FileSystemPlatformWrapper.FILE_ROOT_DIR;
+        return ret;
         return "";
     }
 
     DownloadFile(obj: any) {
-/*
+        var wx = Laya.Browser.window.wx;
         const fs = wx.getFileSystemManager()
         var dir = this.GetRootDirPath();
 
-        const downloadTask = wx.downloadFile({ 
+        const downloadTask = wx.downloadFile({
             url: obj.url,
             success(res) {
                 var filePath = res.tempFilePath;
@@ -49,12 +50,12 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
         })
 
         // downloadTask.abort() // 取消下载任务
-        */
+
 
     }
 
     UnzipFile(obj: any) {
-        /*
+        var wx = Laya.Browser.window.wx;
         const fs = wx.getFileSystemManager();
         var dir = this.GetRootDirPath();
         fs.unzip({
@@ -75,11 +76,11 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         });
-        */
+
     }
 
     ReadFile(obj: any) {
-        /*
+        var wx = Laya.Browser.window.wx;
         const fs = wx.getFileSystemManager()
         var dir = this.GetRootDirPath();
         fs.readFile({
@@ -96,10 +97,10 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
-        */
+
     }
     WriteFile(obj: any) {
-        /*
+        var wx = Laya.Browser.window.wx;
         const fs = wx.getFileSystemManager()
         fs.writeFile({
             filePath: obj.filePath,
@@ -115,11 +116,10 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
-         */
     }
 
     DeleteFile(filepath: string) {
-        /*
+        var wx = Laya.Browser.window.wx;
         const fs = wx.getFileSystemManager()
         fs.removeSavedFile({
             filePath: filepath,
@@ -131,8 +131,8 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
             },
 
         })
-        */
+      
     }
 
 }
- 
+

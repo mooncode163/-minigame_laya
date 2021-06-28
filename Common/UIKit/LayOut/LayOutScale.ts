@@ -21,11 +21,12 @@ export default class LayOutScale extends LayOutBase {
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
     // @prop 在基类定义
-    
+
     ratio = 1.0;
  
     private _type = ScaleType.MIN;
-   
+    /** @prop {name:type,type:Option,option:"MIN,MAX",default:"MIN"}*/
+    // @prop 在基类定义
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -40,7 +41,7 @@ export default class LayOutScale extends LayOutBase {
 
     onAwake() {
         super.onAwake(); 
-        this.type = this._type;
+        // this.type = this._type;
         this.LayOut();
     }
 
@@ -76,9 +77,12 @@ export default class LayOutScale extends LayOutBase {
 
     ScaleNode(node: Laya.Node, isMaxFit: boolean) {
         var x, y, w, h; 
-         
-        var size = UIViewUtil.GetNodeContentSize(this.owner);
-        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
+        if(node==null)
+        {
+            return;
+        } 
+        var size = UIViewUtil.GetNodeContentSize(node);
+        var sizeParent = UIViewUtil.GetNodeContentSize(node.parent); 
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;

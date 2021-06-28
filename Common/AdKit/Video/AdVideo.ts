@@ -1,4 +1,5 @@
 import Platform from "../../Platform";
+import AdVideoWeiXin from "../../Platform/weixin/AdKit/AdVideoWeiXin";
 import AdVideoPlatformWrapper from "./AdVideoPlatformWrapper";
 
  
@@ -21,9 +22,9 @@ export default class AdVideo  {
     }
     GetPlatform() {
         var p = null;
-        // if (Platform.isWeiXin||Platform.isByte)  {
-        //     p = new AdVideoWeiXin();
-        // }
+        if (Platform.isWeiXin||Platform.isByte)  {
+            p = new AdVideoWeiXin();
+        }
         if (Platform.isWeiXin||Platform.isByte)  {
             // p = new AdVideoMooSnow();
         }
