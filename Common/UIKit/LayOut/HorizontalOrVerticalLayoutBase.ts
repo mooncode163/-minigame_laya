@@ -118,18 +118,20 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         h_total = item_h * this.row + (this.space.y * (this.row - 1));
 
         if (this.childForceExpandWidth) {
-            x_left = -w / 2;
+            x_left =0;// -w / 2;
         }
         else {
             if (this.align == Align.LEFT) {
-                x_left = -w / 2;
+                x_left = 0;//-w / 2;
             }
             else if (this.align == Align.RIGHT) {
-                x_left = w / 2 - w_total;
+                // x_left = w / 2 - w_total; 
+                x_left = w-w_total;
             }
             else {
                 //CENTER
-                x_left = -w_total / 2;
+                // x_left = -w_total / 2;
+                x_left = w/2-w_total/2;
             }
         }
 
@@ -137,18 +139,18 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         Debug.Log("x_left=" + " item_w=" + item_w);
 
         if (this.childForceExpandHeight) {
-            y_bottom = -h / 2;
+            y_bottom = h;//-h / 2;
         }
         else {
             if (this.align == Align.DOWN) {
-                y_bottom = -h / 2;
+                y_bottom = h;//-h / 2;
             }
             else if (this.align == Align.UP) {
-                y_bottom = h / 2 - h_total;
+                y_bottom = h - h_total;
             }
             else {
                 //CENTER
-                y_bottom = -h_total / 2;
+                y_bottom = h/2+h_total / 2;
             }
         }
         y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
