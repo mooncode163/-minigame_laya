@@ -94,7 +94,7 @@ export default class LayOutSize extends LayOutBase {
     } 
  
     private _typeX = SizeType.MATCH_PARENT;
-     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_CONTENT"}*/
+     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_PARENT"}*/
     get typeX() {
         return this._typeX;
     }
@@ -105,7 +105,7 @@ export default class LayOutSize extends LayOutBase {
     
  
     private _typeY = SizeType.MATCH_PARENT; 
-    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_CONTENT"}*/
+    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_PARENT"}*/
     get typeY() {
         return this._typeY;
     }

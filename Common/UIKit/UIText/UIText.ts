@@ -10,11 +10,12 @@ import ColorConfig from "../../Config/ColorConfig";
 import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import UIView from "../ViewController/UIView";
+import UIViewUtil from "../ViewController/UIViewUtil";
 
 
 export default class UIText extends UIView {
 
-    /** @prop {name:label,type:Node}*/
+    // /** @prop {name:label,type:Node}*/
     public label: Laya.Label;
 
     /** @prop {name:keyText,type:string}*/
@@ -59,11 +60,13 @@ export default class UIText extends UIView {
     onAwake() {
         super.onAwake();
         Debug.Log("UIText this.keyColor =" + this.keyColor);
+        
+        this.label = this.owner.getChildByName("Label") as Laya.Label;
 
         if (!Common.BlankString(this.keyColor)) {
             Debug.Log("UIText this.color");
             var ret = this.GetKeyColor(Laya.Color.YELLOW);
-            Debug.Log("UIText this.color =" + ret); 
+            Debug.Log("UIText this.color =" + ret);
             // this.color = ret;
         }
         if (!Common.BlankString(this.keyText)) {
@@ -77,6 +80,10 @@ export default class UIText extends UIView {
     }
     LayOut() {
         super.LayOut();
+        // 同步大小
+        var size = UIViewUtil.GetNodeContentSize(this.owner);
+        UIViewUtil.SetNodeContentSize(this.label, size.width, size.height);
+
     }
     UpdateLanguage() {
         super.UpdateLanguage();

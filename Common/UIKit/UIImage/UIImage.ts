@@ -13,6 +13,7 @@ import TextureUtil from "../../Image/TextureUtil";
 import Platform from "../../Platform";
 import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
+import UIViewUtil from "../ViewController/UIViewUtil";
 
 
 enum ENUM_Effect {
@@ -65,7 +66,7 @@ export default class UIImage extends UIView {
         super.onStart();
 
         var keyPic = this.keyImage;
-        // this.image = this.owner.getChildByName("Image") as Laya.Image;
+        this.image = this.owner.getChildByName("Image") as Laya.Image;
 
         if (this.image == null) {
             Debug.Log("UIImage image==null");
@@ -186,10 +187,9 @@ export default class UIImage extends UIView {
                 success: (p: any, tex: Laya.Texture) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, false, board);
                     if (this.isSizeFitTexture) {
-                        this.SetContentSize(tex.width, tex.height);
-                        this.LayOut();
+                        this.SetContentSize(tex.width, tex.height); 
                     }
-
+                    this.LayOut();
                 },
                 fail: (p: any) => {
 
@@ -212,9 +212,12 @@ export default class UIImage extends UIView {
 
     LayOut() {
         super.LayOut();
+        
+        // image 和uiimage同步大小
+        var size = UIViewUtil.GetNodeContentSize(this.owner);
+        UIViewUtil.SetNodeContentSize(this.image,size.width,size.height);
+        
 
-        // UIViewUtil.SetNodeContentSize(this.image,256,256);
-        // UIViewUtil.SetNodePosition(this.owner,256,128);
     }
 
 }

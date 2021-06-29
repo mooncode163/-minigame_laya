@@ -25,16 +25,11 @@ export default class UIButton extends UIView {
     public static ButtonType = ButtonType;
  
     /** @prop {name:clickHandler,type:Handler}*/
-    public  clickHandler: Handler;
-    /** @prop {name:btnBg,type:Node}*/
+    public  clickHandler: Handler; 
     btnBg: Laya.Button;
-
-    /** @prop {name:imageBg,type:Node}*/
+ 
     imageBg: UIImage | null = null;
-    /** @prop {name:imageIcon,type:Node}*/
     imageIcon: UIImage | null = null;
-
-    /** @prop {name:textTitle,type:Node}*/
     textTitle: UIText | null = null;
 
     enableFitTextSize: boolean = false;
@@ -51,7 +46,7 @@ export default class UIButton extends UIView {
     // set 的用法
     set type(value) {
         this._type = value;
-        if (this.imageBg == null) {
+        if (this.btnBg == null) {
             return;
         }
         if (this.textTitle == null) {
@@ -103,6 +98,17 @@ export default class UIButton extends UIView {
 
     onAwake() {
         super.onAwake();
+        
+        //只用来点击事件  不显示
+        this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+
+        this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
+        this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
+        this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
+        
+
+        
+
         // this.type = this._type;
         this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
 
@@ -153,6 +159,11 @@ export default class UIButton extends UIView {
 
     OnBtnClick() {
         Debug.Log("UIButton OnBtnClick");
+
+        //  //缩小至0.8的缓动效果
+        // Laya.Tween.to(this, {scaleX:0.8, scaleY: 0.8}, 2);
+
+
         if (this.clickHandler) {
             Debug.Log("UIButton run");
             this.clickHandler.run();
@@ -245,10 +256,10 @@ export default class UIButton extends UIView {
     UpdateSwitch(isSel: boolean) {
         this.isSwicthSelect = isSel;
         if (this.isSwicthSelect) {
-            this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
+           // this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage);
         } else {
-            this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
+           // this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage2);
         }
     }
