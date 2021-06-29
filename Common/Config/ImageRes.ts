@@ -4,8 +4,8 @@ import Platform from "../Platform";
 import ConfigBase from "./ConfigBase";
 import ImageResInternal from "./ImageResInternal";
 
- 
- 
+
+
 export default class ImageRes extends ConfigBase {
     imageResApp: ImageResInternal = null;
     imageResAppCommon: ImageResInternal = null;
@@ -28,6 +28,7 @@ export default class ImageRes extends ConfigBase {
 
         var strDir = Common.RES_CONFIG_DATA + "/Image";
         var fileName = "ImageResApp.json";
+
         {
             this.imageResApp = new ImageResInternal();
             this.imageResApp.fileJson = strDir + "/" + fileName;
@@ -43,7 +44,7 @@ export default class ImageRes extends ConfigBase {
         }
 
         // strDir = Common.RES_CONFIG_DATA_COMMON + "/Image";
-        strDir = "/Common/UI"  
+        strDir = "/Common/UI"
         fileName = "ImageRes.json";
         {
             this.imageResCommon = new ImageResInternal();
@@ -290,8 +291,8 @@ export default class ImageRes extends ConfigBase {
                     if (p == this.imageResCloudRes) {
                         if (Platform.isCloudRes) {
                             // 从CloudRes缓存目录读取
-                            ret = CloudRes.main.rootPath+"/" + ret;
-                        }else{
+                            ret = CloudRes.main.rootPath + "/" + ret;
+                        } else {
                             // 在resoureces目录
                             ret = Common.CLOUD_RES_DIR + "/" + ret;
                         }
@@ -346,7 +347,7 @@ export default class ImageRes extends ConfigBase {
 
 
     GetImageBoard(key: string) {
-        var ret =Laya.Vector4.ZERO;
+        var ret = Laya.Vector4.ZERO;
 
         if (Common.BlankString(key)) {
             return ret;
@@ -354,7 +355,7 @@ export default class ImageRes extends ConfigBase {
         this.listItem.forEach((item) => {
             var p = item as ImageResInternal;
             // Debug.Log("GetImageBoard ScoreBg 0 ret="+ret);
-            if ((ret.x == 0)&&(ret.y == 0)&&(ret.z == 0)&&(ret.w == 0)) {
+            if ((ret.x == 0) && (ret.y == 0) && (ret.z == 0) && (ret.w == 0)) {
                 if (p != null) {
                     ret = p.GetImageBoard(key);
                     // Debug.Log("GetImageBoard ScoreBg 2 ret="+ret);
@@ -364,7 +365,7 @@ export default class ImageRes extends ConfigBase {
                 return;
             }
         });
- 
+
 
         return ret;
     }

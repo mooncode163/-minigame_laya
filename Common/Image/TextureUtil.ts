@@ -11,10 +11,10 @@ export default class TextureUtil {
             // border left right top bottom
              //sizeGrid  上边距,右边距,下边距,左边距
              var strsplit = ","
-             image.sizeGrid = "32,32,32,32"; 
-            //  image.sizeGrid = border.z.toString()+strsplit+border.y.toString()+strsplit+border.w.toString()+strsplit+border.x.toString()
-
-            image.sizeGrid = String(border.z)+strsplit+String(border.y)+strsplit+String(border.w)+strsplit+String(border.x)
+            //  image.sizeGrid = "32,32,32,32"; 
+            // 九宫格
+            image.sizeGrid = border.z.toString()+strsplit+border.y.toString()+strsplit+border.w.toString()+strsplit+border.x.toString()
+            //image.sizeGrid = String(border.z)+strsplit+String(border.y)+strsplit+String(border.w)+strsplit+String(border.x)
             Debug.Log("image.sizeGrid="+image.sizeGrid);
         }
 

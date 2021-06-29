@@ -45,6 +45,9 @@ export default class ImageResInternal extends ConfigInternalBase {
 
     GetImageBoardString(key: string) {
         var str = "";
+        if (!this.IsHasKey(key)) {
+            return str;
+        }
         str = JsonUtil.GetString(this.rootJson[key], this.KEY_BOARD, "");
         return str;
     }
@@ -52,6 +55,9 @@ export default class ImageResInternal extends ConfigInternalBase {
     //9宫格图片边框参数 (left,right,top,bottom)
     //cc.Vec4 (left,right,top,bottom)
     GetImageBoard(key: string) {
+        if (!this.IsHasKey(key)) {
+            return Laya.Vector4.ZERO;
+        }
         var str = JsonUtil.GetString(this.rootJson[key], this.KEY_BOARD, "");
         Debug.Log("GetImageBoard str="+str+ " key="+key);
         return this.String2Vec4(str);

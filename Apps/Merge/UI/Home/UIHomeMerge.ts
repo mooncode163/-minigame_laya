@@ -1,21 +1,58 @@
- 
-import UIHomeBase from "../../../../AppBase/Home/UIHomeBase"; 
-import Debug from "../../../../Common/Debug"; 
-import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
- 
 
- 
- 
+import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
+import Debug from "../../../../Common/Debug";
+import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
+import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+
+
+
+
 export default class UIHomeMerge extends UIHomeBase {
- 
+
     imageLogo: UIImage = null;
 
-        /** @prop {name:btnTest,type:Node}*/
-    btnTest:Laya.Button;
+    /** @prop {name:btnPlay,type:Node}*/
+    btnPlay: Laya.Button;
+
+
+    /** @prop {name:uiButton,type:Node}*/
+    uiButton: Laya.Node;
 
     onAwake() {
         super.onAwake();
+        Debug.Log("UIHomeMerge uiButton  set click");
+        
+        UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
+            if(btn!=null)
+            {
+                Debug.Log("UIHomeMerge UIButton  btn not null");
+                btn.DidClickFinish();
+            }
 
+            Debug.Log("UIHomeMerge UIButton  SetClickFunction on click");
+
+        });
+
+       
+
+        // var uibtn = this.uiButton.getComponent(UIButton);
+        // uibtn.clickHandler = Laya.Handler.create(this, function (): void {
+
+        //     Debug.Log("UIHomeMerge UIButton  on click");
+
+        // },null,false);
+
+        // (this.uiButton as UIButton).SetClickFunction(this,function (btn:UIButton): void {
+        //     if(btn!=null)
+        //     {
+        //         Debug.Log("UIHomeMerge UIButton  btn not null");
+        //         btn.DidClickFinish();
+        //     }
+
+        //     Debug.Log("UIHomeMerge UIButton  SetClickFunction on click");
+
+        // });
+        // this.btnPlay.on(Laya.Event.CLICK, this, this.OnBtnClickPlay);
         // var info = GameLevelParse.main.GetLastItemInfo();
         // var pic = GameLevelParse.main.GetImagePath(info.id);
         // Debug.Log("UIHomeMerge pic=" + pic);
@@ -41,7 +78,7 @@ export default class UIHomeMerge extends UIHomeBase {
         // // AudioPlay.main.PlayByKey("bg3");
         // moosnow.platform.login(() => {
         //     console.log('moosnow 登录成功 ')
- 
+
         // })
 
         // moosnow.ad.getAd((res) => {
@@ -56,9 +93,9 @@ export default class UIHomeMerge extends UIHomeBase {
         this.LayOut();
     }
 
-    OnBtnClickPlay(event: Event, customEventData: string) {
+    OnBtnClickPlay() {
         Debug.Log("OnBtnClickPlay");
-        this.GotoGame();
+        // this.GotoGame();
     }
 
     GotoGame() {
