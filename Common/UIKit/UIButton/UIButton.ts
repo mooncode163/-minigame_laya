@@ -12,6 +12,7 @@ import Debug from "../../Debug";
 import UIImage from "../UIImage/UIImage";
 import UIText from "../UIText/UIText";
 import UIView from "../ViewController/UIView";
+import UIViewUtil from "../ViewController/UIViewUtil";
 
 enum ButtonType {
     IMAGE = 0,//一张背景  
@@ -30,6 +31,7 @@ export default class UIButton extends UIView {
     public clickHandler: Handler;
     btnBg: Laya.Button;
 
+    // content: Laya.Image;
     imageBg: UIImage | null = null;
     imageIcon: UIImage | null = null;
     textTitle: UIText | null = null;
@@ -107,12 +109,15 @@ export default class UIButton extends UIView {
 
         //只用来点击事件  不显示
         this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+        // this.content = this.owner.getChildByName("Content") as Laya.Image;
+        
+        
 
         this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
         this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
         this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
 
-
+        UIViewUtil.SetNodePivotCenter(this.owner);
 
 
         // this.type = this._type;
@@ -124,11 +129,15 @@ export default class UIButton extends UIView {
 
         // },null,false);
 
+        this.LayOut();
+
     }
 
     onStart() {
         // [3]
-        // super.onStart();
+        super.onStart();
+
+        this.LayOut();
     }
 
 
@@ -223,7 +232,7 @@ export default class UIButton extends UIView {
 
 
     LayOut() {
-        // super.LayOut();
+        super.LayOut();
     }
 
     /*

@@ -32,6 +32,7 @@ function ENUM_ChangeString(enumObject) {
 
 var effectOption = ENUM_ChangeString(ENUM_Effect);
 
+// image: Laya.Image anchorX,Y 范围0-1 自身的旋转等猫点 pivotX、pivotY和anchorX、anchorY效果一样，都是设置轴心点，只不过一个是设置值，一个是设置百分比
 export default class UIImage extends UIView {
 
     /** @prop {name:image,type:Node}*/
@@ -212,7 +213,7 @@ export default class UIImage extends UIView {
 
     LayOut() {
         super.LayOut();
-        
+
         // image 和uiimage同步大小
         var size = UIViewUtil.GetNodeContentSize(this.owner);
         UIViewUtil.SetNodeContentSize(this.image,size.width,size.height);

@@ -66,6 +66,15 @@ export default class LayOutRelation extends LayOutBase {
         var h_parent = sizeParent.height;
         // this.align = Align.RIGHT;
         // x = w_parent - w;
+
+        var sp = this.owner as Laya.Sprite;
+        var pivotX = 0;
+        var pivotY = 0;
+        if(sp!=null)
+        {
+            pivotX = sp.pivotX;
+            pivotY = sp.pivotY;
+        }
         Debug.Log("this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x);
         switch (this.type) {
             case RelationType.PARENT:
@@ -73,34 +82,46 @@ export default class LayOutRelation extends LayOutBase {
 
                     if (this.align == Align.LEFT) {
                         x = this.offset.x;
+                        x +=pivotX; 
                     }
                     if (this.align == Align.RIGHT) {
                         x = w_parent - w - this.offset.x;
+                        x +=pivotX; 
                     }
                     if (this.align == Align.UP) {
                         // Debug.Log("Align.UP this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " h=" + h);
-                        y = this.offset.y;
+                        y = this.offset.y; 
+                        y +=pivotY;
                     }
                     if (this.align == Align.DOWN) {
                         y = h_parent - h - this.offset.y;
-
+                        y +=pivotY;
                     }
                     if (this.align == Align.DOWN_LEFT) {
                         x = this.offset.x;
                         y = h_parent - h - this.offset.y;
+                        x +=pivotX; 
+                        y +=pivotY;
                     }
                     if (this.align == Align.DOWN_RIGHT) {
                         x = w_parent - w - this.offset.x;
                         y = h_parent - h - this.offset.y;
+                        x +=pivotX; 
+                        y +=pivotY;
                     }
                     if (this.align == Align.UP_LEFT) {
                         x = this.offset.x;
                         y = this.offset.y;
+                        x +=pivotX; 
+                        y +=pivotY;
                     }
                     if (this.align == Align.UP_RIGHT) {
                         x = w_parent - w - this.offset.x;
                         y = this.offset.y;
+                        x +=pivotX; 
+                        y +=pivotY;
                     }
+           
                 }
                 break;
             case RelationType.TARGET:
@@ -141,6 +162,7 @@ export default class LayOutRelation extends LayOutBase {
         if (this.enableOffsetAdBanner) {
             y -= AdKitCommon.main.heightCanvasAdBanner;
         }
+      
         UIViewUtil.SetNodePosition(this.owner, x, y);
 
     }

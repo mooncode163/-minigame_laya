@@ -39,6 +39,15 @@ export default class UIViewUtil {
         }
     }
 
+    // 设置猫点在中心
+    static SetNodePivotCenter(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            sp.pivotX = sp.width/2;
+            sp.pivotY = sp.height/2;
+        }
+    }
+
     static GetNodeBoundingBox(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         var w = 0;

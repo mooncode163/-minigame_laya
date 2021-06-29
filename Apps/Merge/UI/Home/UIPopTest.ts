@@ -1,7 +1,9 @@
+import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
 
  
 export default class UIPopTest extends UIViewPop {
@@ -16,6 +18,10 @@ export default class UIPopTest extends UIViewPop {
          this.btnClose = this.owner.getChildByName("BtnClose") as Laya.Button; 
          // this.type = this._type;
          this.btnClose.on(Laya.Event.CLICK, this, this.OnBtnClickClose);
+
+         var size = Common.sizeCanvas; 
+         UIViewUtil.SetNodePivotCenter(this.owner);
+         UIViewUtil.SetNodePosition(this.owner,size.width/2,size.height/2);
     }
 
     OnBtnClickClose() {
