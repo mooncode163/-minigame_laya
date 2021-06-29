@@ -88,6 +88,14 @@ export default class UIButton extends UIView {
 
     }
 
+
+    /*
+    用法
+     UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
+            // this.OnBtnClickPlay();
+        }.bind(this));
+    */
+
     static SetClickByNode(node: Laya.Node, caller:any,method:Function|null) {
         var uibtn = node.getComponent(UIButton); 
         uibtn.SetClickFunction(caller,method);
@@ -163,7 +171,7 @@ export default class UIButton extends UIView {
             {
                 
             } 
-        });
+        }.bind(this));
 */
     // 动画点击回调
     SetClickFunction(caller:any,method:Function|null) {

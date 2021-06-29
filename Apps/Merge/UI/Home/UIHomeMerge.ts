@@ -21,7 +21,7 @@ export default class UIHomeMerge extends UIHomeBase {
     onAwake() {
         super.onAwake();
         Debug.Log("UIHomeMerge uiButton  set click");
-        
+
         UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
             if(btn!=null)
             {
@@ -30,10 +30,12 @@ export default class UIHomeMerge extends UIHomeBase {
             }
 
             Debug.Log("UIHomeMerge UIButton  SetClickFunction on click");
+            this.OnBtnClickPlay();
+        }.bind(this));
 
-        });
+        // UIButton.SetClickByNode(this.uiButton,this, this.OnBtnClickHome.bind(this));
 
-       
+        
 
         // var uibtn = this.uiButton.getComponent(UIButton);
         // uibtn.clickHandler = Laya.Handler.create(this, function (): void {
@@ -91,6 +93,11 @@ export default class UIHomeMerge extends UIHomeBase {
     onStart() {
         super.onStart();
         this.LayOut();
+    }
+
+    OnBtnClickHome() {
+        Debug.Log("OnBtnClickHome");
+        this.OnBtnClickPlay();
     }
 
     OnBtnClickPlay() {
