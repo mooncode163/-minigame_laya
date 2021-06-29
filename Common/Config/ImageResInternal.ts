@@ -12,6 +12,10 @@ export default class ImageResInternal extends ConfigInternalBase {
     //Vector4 (left,right,top,bottom)
     String2Vec4(str: string) {
         var x, y, z, w;
+        if(str=="")
+        {
+            return Laya.Vector4.ZERO;
+        }
         // var rgb = str.Split(',');
         var rgb = str.split(",");
         x = Number(rgb[0]);
@@ -49,6 +53,7 @@ export default class ImageResInternal extends ConfigInternalBase {
     //cc.Vec4 (left,right,top,bottom)
     GetImageBoard(key: string) {
         var str = JsonUtil.GetString(this.rootJson[key], this.KEY_BOARD, "");
+        Debug.Log("GetImageBoard str="+str+ " key="+key);
         return this.String2Vec4(str);
     }
 

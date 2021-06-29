@@ -92,11 +92,9 @@ export default class LayOutSize extends LayOutBase {
         this._height = value;
         this.LayOut();
     } 
-
-     // 必须设置两个@type 才能在editor里修改
-    // @type(SizeType) 
+ 
     private _typeX = SizeType.MATCH_PARENT;
-    // @type(SizeType) 
+     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_CONTENT"}*/
     get typeX() {
         return this._typeX;
     }
@@ -105,11 +103,9 @@ export default class LayOutSize extends LayOutBase {
         this.LayOut();
     }
     
-
-     // 必须设置两个@type 才能在editor里修改
-    // @type(SizeType) 
-    private _typeY = SizeType.MATCH_PARENT;
-    // @type(SizeType) 
+ 
+    private _typeY = SizeType.MATCH_PARENT; 
+    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_CONTENT"}*/
     get typeY() {
         return this._typeY;
     }
@@ -145,7 +141,10 @@ export default class LayOutSize extends LayOutBase {
 
     UpdateSizeX() {
         var x, y, w, h;
-     
+        if(this.owner==null)
+        {
+            return;
+        }
         var size = UIViewUtil.GetNodeContentSize(this.owner);
         var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
         w = size.width;
@@ -236,7 +235,10 @@ export default class LayOutSize extends LayOutBase {
 
     UpdateSizeY() {
         var x, y, w, h;
-        
+        if(this.owner==null)
+        {
+            return;
+        }
         var size = UIViewUtil.GetNodeContentSize(this.owner);
         var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
         w = size.width;

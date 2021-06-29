@@ -1,6 +1,8 @@
-import { SettingViewController } from "../../../../AppBase/Setting/SettingViewController";
-import { Share } from "../../../../Common/Share/Share";
+import SettingViewController from "../../../../AppBase/Setting/SettingViewController";
+import Share from "../../../../Common/Share/Share";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
+
+ 
 
  
 export default class UIHomeSideBar extends UIView {
