@@ -31,21 +31,19 @@ export default class PopUpManager  {
 
     Show(obj: any) {
         this.objPop = obj;
-        this.LoadBg();
+        // this.LoadBg();
 
-        // PrefabCache.main.Load(
-        //     {
-        //         filepath: this.objPop.prefab,
-        //         success: (p: any, data: any) => {
-        //             Debug.Log("PopUpManager LoadBgInternal success");
-        //             // this.LoadBgInternal(data);
-        //             this.OpenPopup(data);
-
-        //         },
-        //         fail: () => {
-        //             Debug.Log("PopUpManager LoadBgInternal fail");
-        //         },
-        //     });
+        PrefabCache.main.Load(
+            {
+                filepath: this.objPop.prefab,
+                success: (p: any, data: any) => {
+                    Debug.Log("PopUpManager LoadBgInternal success");
+                    this.OpenPopup(data);
+                },
+                fail: () => {
+                    Debug.Log("PopUpManager LoadBgInternal fail");
+                },
+            });
 
     }
 
@@ -103,14 +101,15 @@ export default class PopUpManager  {
     OpenPopup(prefab: any) {
         Debug.Log("OpenPopup");
         var nodeRoot = AppSceneUtil.main.rootNode; 
-        var nodePop = prefab.create(); 
-        nodePop.setParent(nodeRoot);
+        var nodePop = prefab.create();  
+        nodeRoot.addChild(nodePop);
         var ui = nodePop.getComponent(UIViewPop);
         if (nodePop == null) {
             Debug.Log("OpenPopup nodePop is null");
         }
         if (ui == null) {
             Debug.Log("OpenPopup ui is null");
+            return;
         }
         this.listItem.push(ui);
 

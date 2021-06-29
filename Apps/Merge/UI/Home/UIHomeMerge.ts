@@ -1,6 +1,9 @@
 
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
+import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
+import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
+import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 
@@ -103,6 +106,20 @@ export default class UIHomeMerge extends UIHomeBase {
     OnBtnClickPlay() {
         Debug.Log("OnBtnClickPlay");
         // this.GotoGame();
+
+        // var key = "UIPopProp";
+        // var strPrefab = ConfigPrefab.main.GetPrefab(key);
+
+        PopUpManager.main.Show(
+            {
+                prefab: "Resources/AppCommon/Prefab/Home/PopTest.prefab",
+                open: (ui: any) => {
+                    
+                },
+                close: (ui: any) => {
+                },
+            });
+
     }
 
     GotoGame() {

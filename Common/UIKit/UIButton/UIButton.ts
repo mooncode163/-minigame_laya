@@ -5,7 +5,9 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import AudioPlay from "../../Audio/AudioPlay";
 import Common from "../../Common";
+import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import UIImage from "../UIImage/UIImage";
 import UIText from "../UIText/UIText";
@@ -23,11 +25,11 @@ enum ButtonType {
 // UIView
 export default class UIButton extends UIView {
     public static ButtonType = ButtonType;
- 
+
     /** @prop {name:clickHandler,type:Handler}*/
-    public  clickHandler: Handler; 
+    public clickHandler: Handler;
     btnBg: Laya.Button;
- 
+
     imageBg: UIImage | null = null;
     imageIcon: UIImage | null = null;
     textTitle: UIText | null = null;
@@ -38,6 +40,10 @@ export default class UIButton extends UIView {
     // 必须设置两个@type 才能在editor里修改
 
     private _type = ButtonType.IMAGE;
+
+    duration = 200;//0.2 //ms
+    scale1 = 1.2;
+    scale2 = 1;
 
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
@@ -91,23 +97,23 @@ export default class UIButton extends UIView {
         }.bind(this));
     */
 
-    static SetClickByNode(node: Laya.Node, caller:any,method:Function|null) {
-        var uibtn = node.getComponent(UIButton); 
-        uibtn.SetClickFunction(caller,method);
-   }
+    static SetClickByNode(node: Laya.Node, caller: any, method: Function | null) {
+        var uibtn = node.getComponent(UIButton);
+        uibtn.SetClickFunction(caller, method);
+    }
 
     onAwake() {
         super.onAwake();
-        
+
         //只用来点击事件  不显示
         this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
 
         this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
         this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
         this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
-        
 
-        
+
+
 
         // this.type = this._type;
         this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
@@ -157,13 +163,34 @@ export default class UIButton extends UIView {
     }
 
 
+
+    onTween1Finish() {
+
+        Laya.Tween.clearTween(this.onTween1Finish);
+        Laya.Tween.to(this.owner, { scaleX: this.scale2, scaleY: this.scale2 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween2Finish));
+    }
+
+    onTween2Finish() {
+        Laya.Tween.clearTween(this.onTween2Finish);
+        this.DoClickItem();
+    }
     OnBtnClick() {
-        Debug.Log("UIButton OnBtnClick");
+        Debug.Log("UIButton OnBtnClick"); 
+        Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
+        //.to(this.owner, { scaleX: scale2, scaleY: scale2 }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.DoClickItem.bind(this), [this], false));
+       
+        var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
+        if (ret) {
+            //play sound click
+            AudioPlay.main.PlayByKey("BtnClick");
+        }
 
-        //  //缩小至0.8的缓动效果
-        // Laya.Tween.to(this, {scaleX:0.8, scaleY: 0.8}, 2);
+
+    }
 
 
+    DoClickItem() {
+        Debug.Log("UIButton DoClickItem");
         if (this.clickHandler) {
             Debug.Log("UIButton run");
             this.clickHandler.run();
@@ -172,7 +199,7 @@ export default class UIButton extends UIView {
 
     DidClickFinish() {
         Debug.Log("UIButton DidClickFinish");
-        
+
     }
 
     /*
@@ -183,15 +210,15 @@ export default class UIButton extends UIView {
                 
             } 
         }.bind(this));
-*/
+    */
     // 动画点击回调
-    SetClickFunction(caller:any,method:Function|null) {
+    SetClickFunction(caller: any, method: Function | null) {
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
         //     Debug.Log("UIHomeMerge UIButton  on click");
-    
+
         // },null,false);
-        this.clickHandler = Laya.Handler.create(this,method,[this],false);
+        this.clickHandler = Laya.Handler.create(this, method, [this], false);
     }
 
 
@@ -256,10 +283,10 @@ export default class UIButton extends UIView {
     UpdateSwitch(isSel: boolean) {
         this.isSwicthSelect = isSel;
         if (this.isSwicthSelect) {
-           // this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
+            // this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage);
         } else {
-           // this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
+            // this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage2);
         }
     }
