@@ -1,21 +1,22 @@
-import { AdKitCommon } from "../../../../Common/AdKit/AdKitCommon";
-import { ConfigPrefab } from "../../../../Common/Config/ConfigPrefab";
+import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
+import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
-import { LayOutUtil } from "../../../../Common/UIKit/LayOut/LayOutUtil";
-import { LayOutVertical } from "../../../../Common/UIKit/LayOut/LayOutVertical";
-import { PopUpManager } from "../../../../Common/UIKit/PopUp/PopUpManager";
+import LayOutUtil from "../../../../Common/UIKit/LayOut/LayOutUtil";
+import LayOutVertical from "../../../../Common/UIKit/LayOut/LayOutVertical";
+import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import { GameData, GameStatus } from "../../Data/GameData";
-import { GameMerge } from "./GameMerge";
+import GameData, { GameStatus } from "../../Data/GameData";
+import GameMerge from "./GameMerge";
+import { PropType } from "./UIPopProp";
 
  
+ 
 export default class UIToolBar extends UIView {
-    @type(UIImage)
+   
     imageBg: UIImage | null = null;
-
-    @type(UIButton)
+ 
     btnImageSelect: UIButton | null = null;
     onAwake() {
         super.onAwake();
@@ -38,12 +39,13 @@ export default class UIToolBar extends UIView {
         var rctran = this.GetContentSize();
         var w = rctran.width;
         var h = rctran.height;
-
-        var btn = this.node.getComponentInChildren(UIButton);
+        var child = this.owner.getChildAt(0);
+        // var btn = this.owner.getComponentInChildren(UIButton);
+        var btn = child.getComponent(UIButton);
         var rctranBtn = btn.GetContentSize();
 
-        var count = LayOutUtil.main.GetChildCount(this.node, false);
-        var ly = this.node.getComponent(LayOutVertical);
+        var count = LayOutUtil.main.GetChildCount(this.owner, false);
+        var ly = this.owner.getComponent(LayOutVertical);
         // count =10;
         var oft =  ly.space.y*2;
         // oft = 32;

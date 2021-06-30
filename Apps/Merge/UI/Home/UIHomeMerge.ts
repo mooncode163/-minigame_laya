@@ -1,4 +1,5 @@
 
+import GameViewController from "../../../../AppBase/Game/GameViewController";
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
 import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
@@ -105,36 +106,29 @@ export default class UIHomeMerge extends UIHomeBase {
 
     OnBtnClickPlay() {
         Debug.Log("OnBtnClickPlay");
-        // this.GotoGame();
+        this.GotoGame();
 
         // var key = "UIPopProp";
         // var strPrefab = ConfigPrefab.main.GetPrefab(key);
 
-        PopUpManager.main.Show(
-            {
-                prefab: "Resources/AppCommon/Prefab/Home/PopTest.prefab",
-                open: (ui: any) => {
+        // PopUpManager.main.Show(
+        //     {
+        //         prefab: "Resources/AppCommon/Prefab/Home/PopTest.prefab",
+        //         open: (ui: any) => {
                     
-                },
-                close: (ui: any) => {
-                },
-            });
+        //         },
+        //         close: (ui: any) => {
+        //         },
+        //     });
 
     }
+ 
 
     GotoGame() {
-        this.GotoGameByModeInteranl();
-        // LevelManager.main().StartParsePlace(function () {
-
-        // }.bind(this)
-        // );
-    }
-
-    GotoGameByModeInteranl() {
         if (this.controller != null) {
             var navi = this.controller.naviController;
             Debug.Log("GotoGame GameViewController");
-            // navi.Push(GameViewController.main);
+            navi.Push(GameViewController.main);
         } else {
             Debug.Log("GotoGame controller = null");
         }

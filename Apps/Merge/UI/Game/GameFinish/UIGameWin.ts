@@ -1,43 +1,39 @@
-import { GameManager } from "../../../../../AppBase/Game/GameManager";
-import { LevelData } from "../../../../../AppBase/Game/LevelData";
-import { UIViewPop } from "../../../../../Common/UIKit/PopUp/UIViewPop";
+import GameManager from "../../../../../AppBase/Game/GameManager";
+import LevelData from "../../../../../AppBase/Game/LevelData";
+import UIViewPop from "../../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../../../../Common/UIKit/UIText/UIText";
-import { GameLevelParse } from "../../../Data/GameLevelParse";
+import GameLevelParse from "../../../Data/GameLevelParse";
 
- 
+
+
 export default class UIGameWin extends UIViewPop {
- 
-    @type(UIText)
-    textTitle: UIText | null = null; 
-    @type(UIImage)
-    imageBg: UIImage | null = null; 
-    @type(UIImage)
-    imageLogo: UIImage | null = null; 
-    @type(UIImage)
-    imageItem0: UIImage | null = null; 
 
-    @type(UIImage)
-    imageItem1: UIImage | null = null; 
+    textTitle: UIText | null = null;
 
-    @type(UIImage)
-    imageItem2: UIImage | null = null; 
+    imageBg: UIImage | null = null;
 
-    @type(UIButton)
-    btnRestart: UIButton | null = null; 
+    imageLogo: UIImage | null = null;
 
-    listItem:UIImage[]=[];
-  
-    onLoad () {
+    imageItem0: UIImage | null = null;
+
+    imageItem1: UIImage | null = null;
+
+    imageItem2: UIImage | null = null;
+
+    btnRestart: UIButton | null = null;
+
+    listItem: UIImage[] = [];
+
+    onLoad() {
         super.onAwake();
- 
+
         this.listItem.push(this.imageItem0);
         this.listItem.push(this.imageItem1);
         this.listItem.push(this.imageItem2);
 
-        for (var i = 0; i < this.listItem.length; i++)
-        {
+        for (var i = 0; i < this.listItem.length; i++) {
             var info = GameLevelParse.main.GetLevelItemInfo(i);
             var pic = GameLevelParse.main.GetImagePath(info.id);
             var ui = this.listItem[i];
@@ -53,20 +49,20 @@ export default class UIGameWin extends UIViewPop {
         }
         this.LayOut();
     }
-    start () {
+    start() {
         super.onStart();
         this.LayOut();
     }
-     
+
 
     LayOut() {
-        super.LayOut(); 
+        super.LayOut();
     }
-  
- 
+
+
 
     OnClickBtnRestart(event: Event, customEventData: string) {
-        this.Close(); 
+        this.Close();
 
         // placeLevel 不改变
         // LevelManager.main.placeLevel = 0;

@@ -3,15 +3,15 @@ import PrefabCache from "../../Common/Cache/PrefabCache";
 import Debug from "../../Common/Debug";
 import UIViewController from "../../Common/UIKit/ViewController/UIViewController";
 import UIGameBase from "./UIGameBase";
+import Config from "../../Common/Config/Config";
 
- 
 
- 
+
 export default class GameViewController extends UIViewController {
 
     uiPrefab: Laya.Prefab = null;
     ui: UIGameBase = null;
-    _gameBase: UIGameBase = null; 
+    _gameBase: UIGameBase = null;
     get gameBase() {
         // this.LoadUI();
         return this.ui;
@@ -30,16 +30,14 @@ export default class GameViewController extends UIViewController {
 
 
 
-    Init() { 
-  
+    Init() {
+
     }
- 
+
 
     LoadUI() {
-        if (this.ui == null) {
-            // var node = instantiate(this.uiPrefab);
-            // this.ui = node.getComponent(UIGameBase);
-        }
+        var node = this.uiPrefab.create();
+        this.ui = node.getComponent(UIGameBase);
     }
 
     CreateUI() {
@@ -55,31 +53,31 @@ export default class GameViewController extends UIViewController {
     }
 
     LoadPrefabEnd() {
-     
+
     }
 
     LoadPrefab() {
-        // var key = "UIGame" + Config.main.appType;
-        // PrefabCache.main.LoadByKey(
-        //     {
-        //         key: key,
-        //         success: (p: any, data: any) => {
-        //             this.uiPrefab = data;
-        //             this.CreateUI();
-                 
-        //         },
-        //         fail: () => {
-                    
-        //         },
-        //     });
- 
+        var key = "UIGame" + Config.main.appType;
+        PrefabCache.main.LoadByKey(
+            {
+                key: key,
+                success: (p: any, data: any) => {
+                    this.uiPrefab = data;
+                    this.CreateUI();
+
+                },
+                fail: () => {
+
+                },
+            });
+
     }
 
 
     ViewDidLoad() {
         Debug.Log("GameViewController ViewDidLoad");
         super.ViewDidLoad();
-        this.LoadPrefab(); 
+        this.LoadPrefab();
     }
     ViewDidUnLoad() {
         Debug.Log("GameViewController ViewDidUnLoad");
@@ -94,7 +92,7 @@ export default class GameViewController extends UIViewController {
 
     }
 
-    GotoGame(name:string) {
+    GotoGame(name: string) {
     }
 }
 

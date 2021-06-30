@@ -1,14 +1,18 @@
+import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
+import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import { GameData, GameStatus } from "../../Data/GameData";
-import { GameMerge } from "./GameMerge";
-import { UIGameMerge } from "./UIGameMerge";
+import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import GameData, { GameStatus } from "../../Data/GameData";
+import GameMerge from "./GameMerge";
+import UIGameMerge from "./UIGameMerge";
+
+ 
 
  
 export default class UIMergeItem extends UIView {
-    @type(UIImage)
+    
     imageItem: UIImage | null = null;
     isNew = false;
     type = 0;
@@ -23,7 +27,7 @@ export default class UIMergeItem extends UIView {
         // manager.enabled = true;
         // manager.enabledDebugDraw = true;
         // var collider = this.node.getComponent(PhysicsBoxCollider);
-        var ev = this.node.addComponent(UITouchEvent);
+        var ev = this.owner.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
     }
     onStart() {
@@ -62,11 +66,12 @@ export default class UIMergeItem extends UIView {
 
     // 碰撞线检测
     IsCollisionDeadLine() {
-        var pos = GameMerge.main.nodeDeadline.getPosition();
-        var y1 = this.node.getPosition().y + this.GetBoundingBox().height / 2;
-        var y2 = this.node.getPosition().y - this.GetBoundingBox().height / 2;
+        var pos =UIViewUtil.GetPosition(GameMerge.main.nodeDeadline);
+        var posMy =UIViewUtil.GetPosition(this.owner);
+        var y1 = posMy.y + this.GetBoundingBox().height / 2;
+        var y2 = posMy.y - this.GetBoundingBox().height / 2;
         if ((pos.y > y2) && (pos.y < y1)) {
-            this.t += director.getDeltaTime();
+            this.t += Common.GetCurrentTime();
             if (this.t > 2.0) {
                 this.t = 0;
                 if (!GameData.main.isGameFail) {
@@ -86,9 +91,9 @@ export default class UIMergeItem extends UIView {
     }
 
     EnableGravity(isEnable) {
-        var bd = this.node.getComponent(RigidBody2D);
-        bd.type = isEnable ? ERigidBody2DType.Dynamic : ERigidBody2DType.Static;
-        // bd.type = isEnable ?ERigidBody2DType.DYNAMIC:ERigidBody2DType.STATIC;// RigidBodyType.Dynamic : RigidBodyType.Static;
+        // var bd = this.node.getComponent(RigidBody2D);
+        // bd.type = isEnable ? ERigidBody2DType.Dynamic : ERigidBody2DType.Static;
+        
     }
 
     OnTouchDown(pos) {
@@ -100,55 +105,55 @@ export default class UIMergeItem extends UIView {
 
 
     }
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: EventTouch) {
+    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
 
-        var pos = ui.GetPosition(event);
-        var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
-        var posui = ui.GetUIPosition(event);
+        // var pos = ui.GetPosition(event);
+        // var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
+        // var posui = ui.GetUIPosition(event);
 
-        var imageProp = UIGameMerge.main.game.imageProp;
-        var duration = 0.5; 
+        // var imageProp = UIGameMerge.main.game.imageProp;
+        // var duration = 0.5; 
 
-        // var uiTrans = GameMerge.main.node.getComponent(UITransform);
-        // var toPos = uiTrans.convertToNodeSpaceAR(new Vec3(posui.x, posui.y, 0)); 
-        var toPos =ui.GetPositionOnNode(GameMerge.main.node,event);
-        switch (status) {
-            case UITouchEvent.TOUCH_DOWN:
-                this.OnTouchDown(posnodeAR);
-                break;
+        // // var uiTrans = GameMerge.main.node.getComponent(UITransform);
+        // // var toPos = uiTrans.convertToNodeSpaceAR(new Vec3(posui.x, posui.y, 0)); 
+        // var toPos =ui.GetPositionOnNode(GameMerge.main.node,event);
+        // switch (status) {
+        //     case UITouchEvent.TOUCH_DOWN:
+        //         this.OnTouchDown(posnodeAR);
+        //         break;
 
-            case UITouchEvent.TOUCH_MOVE:
-                this.OnTouchMove(posnodeAR);
-                break;
+        //     case UITouchEvent.TOUCH_MOVE:
+        //         this.OnTouchMove(posnodeAR);
+        //         break;
 
-            case UITouchEvent.TOUCH_UP:
-                this.OnTouchUp(posnodeAR);
-                {
-                    if (GameData.main.status == GameStatus.Prop) {
-                        if (UIGameMerge.main.typeProp == PropType.Hammer) {
-                            tween(imageProp.node)
-                                .to(duration / 2, { position: toPos })
-                                .call(() => {
-                                    GameMerge.main.DeleteItem(this);
-                                })
-                                .onStart()
-                        }
+        //     case UITouchEvent.TOUCH_UP:
+        //         this.OnTouchUp(posnodeAR);
+        //         {
+        //             if (GameData.main.status == GameStatus.Prop) {
+        //                 if (UIGameMerge.main.typeProp == PropType.Hammer) {
+        //                     tween(imageProp.node)
+        //                         .to(duration / 2, { position: toPos })
+        //                         .call(() => {
+        //                             GameMerge.main.DeleteItem(this);
+        //                         })
+        //                         .onStart()
+        //                 }
 
-                        if (UIGameMerge.main.typeProp == PropType.Bomb) {
+        //                 if (UIGameMerge.main.typeProp == PropType.Bomb) {
 
-                            tween(imageProp.node)
-                                .to(duration / 2, { position: toPos })
-                                .call(() => {
-                                    GameMerge.main.DeleteAllItemsOfId(this.id);
-                                })
-                                .onStart() 
+        //                     tween(imageProp.node)
+        //                         .to(duration / 2, { position: toPos })
+        //                         .call(() => {
+        //                             GameMerge.main.DeleteAllItemsOfId(this.id);
+        //                         })
+        //                         .onStart() 
 
-                        }
-                    }
+        //                 }
+        //             }
 
-                }
-                break;
-        }
+        //         }
+        //         break;
+        // }
     }
 
 }

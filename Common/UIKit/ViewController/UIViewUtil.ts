@@ -19,7 +19,21 @@ strict设置false状态
 
 export default class UIViewUtil {
 
-
+    static SetPosition(node: Laya.Node, pt: Laya.Vector3) {
+        UIViewUtil.SetNodePosition(node,pt.x,pt.y);
+    }
+    static GetPosition(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        var x = 0;
+        var y = 0;
+        var z = 0;
+        if (sp != null) {
+            x = sp.x;
+            y = sp.y;
+            // z = sp.z;
+        }
+        return new Laya.Vector3(x, y,z);
+    }  
     static GetNodePosition(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         var x = 0;
@@ -30,7 +44,7 @@ export default class UIViewUtil {
         }
         return new Laya.Vector2(x, y);
     }
-
+   
     static SetNodePosition(node: Laya.Node, x: any, y: any) {
         var sp = node as Laya.Sprite;
         if (sp != null) {

@@ -1,20 +1,23 @@
-import AppSceneBase from "../../../../AppBase/Common/AppSceneBase";
-import { GameBase } from "../../../../AppBase/Game/GameBase";
-import { PrefabCache } from "../../../../Common/Cache/PrefabCache";
-import { Common } from "../../../../Common/Common";
+import GameBase from "../../../../AppBase/Game/GameBase";
+import PrefabCache from "../../../../Common/Cache/PrefabCache";
+import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
-import { GameData, GameStatus } from "../../Data/GameData";
-import { GameLevelParse } from "../../Data/GameLevelParse";
-import { UIGameMerge } from "./UIGameMerge";
-import { UIMergeItem } from "./UIMergeItem";
+import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import GameData, { GameStatus } from "../../Data/GameData";
+import GameLevelParse from "../../Data/GameLevelParse";
+import UIGameMerge from "./UIGameMerge";
+import UIMergeItem from "./UIMergeItem";
+
+ 
 
  
 export default class GameMerge extends GameBase {
-    @type(Node)
-    nodeDeadline: Node | null = null;
-    @type(UIImage)
+  
+    nodeDeadline: Laya.Node | null = null;
+  
     imageProp: UIImage | null = null;
     static TimeStep = 0.8;
 
@@ -83,7 +86,7 @@ export default class GameMerge extends GameBase {
     }
 
     StartGame() {
-        var ev = this.node.addComponent(UITouchEvent);
+        var ev = this.owner.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
         this.time = GameMerge.TimeStep;
     }
@@ -91,9 +94,9 @@ export default class GameMerge extends GameBase {
 
     update() {         //用作延迟生成物体
         if (this.time < GameMerge.TimeStep) {
-            var tick = director.getDeltaTime();
+            var tick = Common.GetCurrentTimeMs();
             // Debug.Log("update tick="+tick);
-            this.time += director.getDeltaTime();
+            this.time += tick;
         }
         else {
             //判断场景中没有生成物体
@@ -120,7 +123,7 @@ export default class GameMerge extends GameBase {
     OnDestroy() {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
-            uilist.node.destroy();
+            uilist.owner.destroy();
         }
         this.listItem.splice(0, this.listItem.length);
 
@@ -208,7 +211,7 @@ export default class GameMerge extends GameBase {
             var uilist = this.listItem[i];
             if (uilist == ui) {
                 this.ShowMergeParticle(ui.node.position, ui.id);
-                uilist.node.destroy();
+                uilist.owner.destroy();
                 this.listItem.splice(i, 1);
                 break;
             }
@@ -234,8 +237,8 @@ export default class GameMerge extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist.id == id) {
-                this.ShowMergeParticle(uilist.node.position, uilist.id);
-                uilist.node.destroy();
+                this.ShowMergeParticle(UIViewUtil.GetNodePosition(this.owner), uilist.id);
+                uilist.owner.destroy();
             }
         }
         for (var i = 0; i < this.listItem.length; i++) {
@@ -253,7 +256,7 @@ export default class GameMerge extends GameBase {
         // keyid ="juzi";
 
         var x, y, w, h;
-        var node = instantiate(this.prefabItem);
+        var node = this.prefabItem.create();
         var ui = node.getComponent(UIMergeItem);
         ui.hasGoDownDeadLine = false;
         ui.isNew = true;
@@ -273,7 +276,7 @@ export default class GameMerge extends GameBase {
 
         // ui.node.scale.x = scale;
         // ui.node.scale.y = scale;
-        ui.node.scale = new Vec3(scale, scale, 1);
+        ui.node.scale = new Laya.Vector3(scale, scale, 1);
 
         var rectParent = this.GetBoundingBox();
         x = 0;
@@ -295,16 +298,16 @@ export default class GameMerge extends GameBase {
     ShowProp(isShow: boolean) {
         this.imageProp.SetActive(isShow);
         if (isShow) {
-            var z = this.imageProp.node.getPosition().z;
-            var pos = new Vec3(0,0,0);
+            var z =UIViewUtil.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
+            var pos = new Laya.Vector3(0,0,0);
             pos.z = z;
-            this.imageProp.node.setPosition(pos);
+            UIViewUtil.SetPosition(this.imageProp.owner,pos); 
         }
     }
     UpdateProp(keypic: string) {
         this.imageProp.UpdateImageByKey(keypic);
     }
-    OnTouchDown(pos:Vec3) {
+    OnTouchDown(pos:Laya.Vector3) {
 
         // Debug.Log("GameMerge down id=" + this.id);
         // var z = this.imageProp.node.getPosition().z;
@@ -316,25 +319,25 @@ export default class GameMerge extends GameBase {
     }
     OnTouchUp(pos) {
     }
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: EventTouch) {
-        var pos = ui.GetPosition(event);
-        var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
-        var posui = ui.GetUIPosition(event);
-        Debug.Log("OnUITouchEvent posnodeAR = " + posnodeAR + " posui=" + posui + " sizeCanvas=" + Common.sizeCanvas);
-        switch (status) {
-            case UITouchEvent.TOUCH_DOWN:
-                this.OnTouchDown(posnodeAR);
-                break;
+    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
+        // var pos = ui.GetPosition(event);
+        // var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
+        // var posui = ui.GetUIPosition(event);
+        // Debug.Log("OnUITouchEvent posnodeAR = " + posnodeAR + " posui=" + posui + " sizeCanvas=" + Common.sizeCanvas);
+        // switch (status) {
+        //     case UITouchEvent.TOUCH_DOWN:
+        //         this.OnTouchDown(posnodeAR);
+        //         break;
 
-            case UITouchEvent.TOUCH_MOVE:
-                this.OnTouchMove(posnodeAR);
-                break;
+        //     case UITouchEvent.TOUCH_MOVE:
+        //         this.OnTouchMove(posnodeAR);
+        //         break;
 
-            case UITouchEvent.TOUCH_UP:
-                this.OnTouchUp(posnodeAR);
-                break;
-        }
-        this.UpdateEvent(status, posnodeAR);
+        //     case UITouchEvent.TOUCH_UP:
+        //         this.OnTouchUp(posnodeAR);
+        //         break;
+        // }
+        // this.UpdateEvent(status, posnodeAR);
     }
 
 

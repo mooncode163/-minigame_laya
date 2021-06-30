@@ -1,20 +1,21 @@
-import { LevelData } from "../../../../AppBase/Game/LevelData";
-import { UIGameBase } from "../../../../AppBase/Game/UIGameBase";
-import { PrefabCache } from "../../../../Common/Cache/PrefabCache";
-import { ConfigPrefab } from "../../../../Common/Config/ConfigPrefab";
+import LevelData from "../../../../AppBase/Game/LevelData";
+import UIGameBase from "../../../../AppBase/Game/UIGameBase";
+import PrefabCache from "../../../../Common/Cache/PrefabCache";
+import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
-import { Language } from "../../../../Common/Language/Language";
-import { PopUpManager } from "../../../../Common/UIKit/PopUp/PopUpManager";
+import Language from "../../../../Common/Language/Language";
+import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
-import { GameData } from "../../Data/GameData";
-import { GameMerge } from "./GameMerge";
-import { UIPopProp } from "./UIPopProp";
-import { UIToolBar } from "./UIToolBar";
+import GameData from "../../Data/GameData";
+import GameMerge from "./GameMerge";
+import UIPopProp, { PropType } from "./UIPopProp";
+import UIToolBar from "./UIToolBar";
 
+ 
  
 export default class UIGameMerge extends UIGameBase {
 
-    @type(UIText)
+ 
     titleScore: UIText | null = null; 
 
     game:GameMerge = null;
@@ -59,8 +60,8 @@ export default class UIGameMerge extends UIGameBase {
             {
                 key: key,
                 success: (p: any, data: any) => { 
-                    var node = instantiate(data); 
-                    node.parent = this.node;
+                    var node = data.create();  
+                    this.owner.addChild(node);
                 },
                 fail: () => {
                 },
@@ -70,8 +71,8 @@ export default class UIGameMerge extends UIGameBase {
     }
 
     CreateGame () {
-        this.UpdateLevel(LevelData.main.gameLevel);
-        // this.OnGameFinish(true);
+        // this.UpdateLevel(LevelData.main.gameLevel);
+        
 
     }
 
@@ -81,14 +82,14 @@ export default class UIGameMerge extends UIGameBase {
             this.game.OnDestroy();
             this.game.destroy();
         }
-        var node = instantiate(this.gamePrefab);
-        this.game = node.getComponent(GameMerge);
-        this.game.node.parent = this.node; 
+        var node = this.gamePrefab.create();
+        this.game = node.getComponent(GameMerge); 
+        this.owner.addChild(this.game.owner);
         //zorder  priority 让imageBg 显示在最底层，game显示在UI下面
         // 
         // zIndex priority
-        this.imageBg.node.getComponent(UITransform).priority = -20; 
-        this.game.node.getComponent(UITransform).priority = -10;
+        // this.imageBg.node.getComponent(UITransform).priority = -20; 
+        // this.game.node.getComponent(UITransform).priority = -10;
         this.isShowGame = true;
         // this.callbackGuankaFinish = null;
       

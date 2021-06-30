@@ -1,15 +1,15 @@
-import { GameManager } from "../../../../../AppBase/Game/GameManager";
-import { LevelData } from "../../../../../AppBase/Game/LevelData";
-import { UIViewPop } from "../../../../../Common/UIKit/PopUp/UIViewPop";
+import GameManager from "../../../../../AppBase/Game/GameManager";
+import LevelData from "../../../../../AppBase/Game/LevelData";
+import UIViewPop from "../../../../../Common/UIKit/PopUp/UIViewPop";
 import UIText from "../../../../../Common/UIKit/UIText/UIText";
 
  
+
+ 
 export default class UIGameFail extends UIViewPop {
-
-    @type(UIText)
+ 
     textTitle: UIText | null = null; 
-
-    @type(UIText)
+ 
     textMsg: UIText | null = null; 
   
 

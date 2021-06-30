@@ -1,10 +1,12 @@
-import { AudioPlay } from "../../../../Common/Audio/AudioPlay";
-import { Common } from "../../../../Common/Common";
+import AudioPlay from "../../../../Common/Audio/AudioPlay";
+import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import { GameData } from "../../Data/GameData";
-import { GameMerge } from "./GameMerge";
-import { UIGameMerge } from "./UIGameMerge";
+import GameData from "../../Data/GameData";
+import GameMerge from "./GameMerge";
+import UIGameMerge from "./UIGameMerge";
+
+ 
 
  
 export default class CollisionDetection extends UIView {
@@ -13,7 +15,7 @@ export default class CollisionDetection extends UIView {
     playFallingSound = false;//定义是否播放过下落声音 
 
     isNewItem = false;
-    otherCollider:Collider2D;
+    otherCollider;
     keyNext="";
 
     onAwake() {
@@ -21,21 +23,15 @@ export default class CollisionDetection extends UIView {
         super.onAwake();
 
         // 还需要body勾选回调接口
-        let collider = this.getComponent(Collider2D);
-        if (collider) {
-            collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-            collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
-            collider.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
-            collider.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
-        }
-
-        // Registering global contact callback functions
-        // if (PhysicsSystem2D.instance) {
-        //     PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        //     PhysicsSystem2D.instance.on(Contact2DType.END_CONTACT, this.onEndContact, this);
-        //     PhysicsSystem2D.instance.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
-        //     PhysicsSystem2D.instance.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
+        // let collider = this.getComponent(Collider2D);
+        // if (collider) {
+        //     collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        //     collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
+        //     collider.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
+        //     collider.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
         // }
+
+     
 
     }
     onStart() {
@@ -46,6 +42,7 @@ export default class CollisionDetection extends UIView {
     }
 
     CreateNewItem() {
+        /*
         var keynext = this.keyNext;
         var v2 = this.otherCollider.node.position;//保存被碰撞物体的位置
         var _tag = this.otherCollider.node.name;
@@ -72,6 +69,8 @@ export default class CollisionDetection extends UIView {
             //game win 合成了大西瓜
             //  UIGameMerge.main.OnGameFinish(false);
         }
+
+        */
     }
 
     public updateCulling () {
@@ -90,7 +89,7 @@ export default class CollisionDetection extends UIView {
             // AudioPlay.main.PlayFile(AppRes.AUDIO_Down);
             AudioPlay.main.PlayByKey("Down");
         }
-        if (other.node.name != this.node.name) {
+        if (other.node.name != this.owner.name) {
             // Debug.Log("OnCollisionEnter2D other.node.name != this.node.name"+_tag);
             return;
         }
@@ -100,7 +99,7 @@ export default class CollisionDetection extends UIView {
         var enable = false;
         var limity = 10;
         var stepy = 0;
-        stepy = Math.abs(this.node.position.y - GameMerge.main.posYInit);
+        stepy = Math.abs((this.owner as Laya.Sprite).y - GameMerge.main.posYInit);
         if (stepy < limity) {
             Debug.Log("OnCollisionEnter2D stepy 1=" + stepy);
             return;
@@ -132,12 +131,13 @@ export default class CollisionDetection extends UIView {
                 return;
             } 
             {
-                Debug.Log("OnCollisionEnter2D keynext=" + keynext + " this.name=" + this.node.name + " other.name=" + other.node.name + " this.position=" + this.node.position + " other.position=" + other.node.position);
+                // Debug.Log("OnCollisionEnter2D keynext=" + keynext + " this.name=" + this.owner.name + " other.name=" + other.node.name + " this.position=" + this.owner.position + " other.position=" + other.node.position);
              
                 this.keyNext = keynext;
                 this.otherCollider=other;
                 // 创建新的物体需要在主线程里执行
-                this.scheduleOnce(this.CreateNewItem.bind(this));  
+                // this.scheduleOnce(this.CreateNewItem.bind(this));  
+                Laya.timer.once(0,this,this.CreateNewItem);  
             }
         }
 
@@ -157,31 +157,31 @@ export default class CollisionDetection extends UIView {
     }
 
     // 只在两个碰撞体开始接触时被调用一次
-    onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // will be called once when two colliders begin to contact
-        Debug.Log('CollisionDetection OnCollisionEnter2D on collision enter onBeginContact otherCollider.name=' + otherCollider.node.name + " this.name=" + this.node.name);
-        this.CheckCollision(otherCollider);
-    }
+    // onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    //     // will be called once when two colliders begin to contact
+    //     Debug.Log('CollisionDetection OnCollisionEnter2D on collision enter onBeginContact otherCollider.name=' + otherCollider.node.name + " this.name=" + this.node.name);
+    //     this.CheckCollision(otherCollider);
+    // }
 
-    // 只在两个碰撞体结束接触时被调用一次
-    onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // will be called once when the contact between two colliders just about to end.
-        // Debug.Log('onEndContact');
-    }
+    // // 只在两个碰撞体结束接触时被调用一次
+    // onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    //     // will be called once when the contact between two colliders just about to end.
+    //     // Debug.Log('onEndContact');
+    // }
 
-    // 每次将要处理碰撞体接触逻辑时被调用
-    onPreSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // will be called every time collider contact should be resolved
-        if (otherCollider.node.name == GameData.NameDeadLine) {
-            Debug.Log("CollisionDetection onPreSolve enter other.name=" + otherCollider.node.name);
-        }
-    }
+    // // 每次将要处理碰撞体接触逻辑时被调用
+    // onPreSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    //     // will be called every time collider contact should be resolved
+    //     if (otherCollider.node.name == GameData.NameDeadLine) {
+    //         Debug.Log("CollisionDetection onPreSolve enter other.name=" + otherCollider.node.name);
+    //     }
+    // }
 
-    // 每次处理完碰撞体接触逻辑时被调用
-    onPostSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-        // will be called every time collider contact should be resolved
-        // Debug.Log('onPostSolve');
-    }
+    // // 每次处理完碰撞体接触逻辑时被调用
+    // onPostSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    //     // will be called every time collider contact should be resolved
+    //     // Debug.Log('onPostSolve');
+    // }
 
 }
 

@@ -60,7 +60,7 @@ export default class UIView extends Laya.Script {
 
 
     index: number;
-    keyId: string;
+    keyId: string; 
     tag: string;
     title: string;
 

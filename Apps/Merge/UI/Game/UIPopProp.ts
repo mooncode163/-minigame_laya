@@ -1,43 +1,51 @@
-import { Language } from "../../../../Common/Language/Language";
-import { UIViewPop } from "../../../../Common/UIKit/PopUp/UIViewPop";
+import Language from "../../../../Common/Language/Language";
+import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
-import { UITouchEvent } from "../../../../Common/UIKit/UITouchEvent";
-import { GameData, GameStatus } from "../../Data/GameData";
-import { GameLevelParse } from "../../Data/GameLevelParse";
-import { UIGameMerge } from "./UIGameMerge";
+import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
+import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import GameData, { GameStatus } from "../../Data/GameData";
+import GameLevelParse from "../../Data/GameLevelParse";
+import UIGameMerge from "./UIGameMerge";
 
  
+export enum PropType {
+    Hammer,// 
+    Magic,
+    Bomb,
+
+} 
+ 
 export default class UIPopProp extends UIViewPop {
-    @type(UIText)
+    
     textTitle: UIText | null = null;
-    @type(UIText)
+    
     textGuide0: UIText | null = null;
 
-    @type(UIText)
+    
     textGuide1: UIText | null = null;
-    @type(UIText)
+    
     textGuideSelect: UIText | null = null;
-    @type(UIImage)
+    
     imageIcon: UIImage | null = null;
 
-    @type(UIImage)
+    
     imageItem0: UIImage | null = null;
-    @type(UIImage)
+    
     imageItem1: UIImage | null = null;
-    @type(UIImage)
+    
     imageItem2: UIImage | null = null;
-    @type(UIImage)
+    
     imageItem3: UIImage | null = null;
-    @type(UIImage)
+    
     imageItem4: UIImage | null = null;
-    @type(UIImage)
+    
     imageSelect: UIImage | null = null;
 
     listItem: UIImage[] = [];
 
-    @type(Node)
-    objItemList: Node | null = null;
+    
+    objItemList: Laya.Node | null = null;
  
 
     type: PropType;
@@ -58,8 +66,8 @@ export default class UIPopProp extends UIViewPop {
                 var pic = GameLevelParse.main.GetImagePath(info.id);
                 var ui = this.listItem[i];
                 ui.index = i;
-                ui.id = info.id;
-                var ev = ui.node.addComponent(UITouchEvent);
+                ui.keyId = info.id;
+                var ev = ui.owner.addComponent(UITouchEvent);
                 ev.callBackTouch = this.OnUITouchEvent.bind(this);
                 ui.UpdateImage(pic);
             }
@@ -121,12 +129,12 @@ export default class UIPopProp extends UIViewPop {
         this.SetSelectImage(this.imageItem0);
     }
 
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: EventTouch) {
+    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
         switch (status) {
 
             case UITouchEvent.STATUS_Click:
                 {
-                    var image = ui.node.getComponent(UIImage);
+                    var image = ui.owner.getComponent(UIImage);
                     this.SetSelectImage(image);
                 }
                 break;
@@ -135,10 +143,16 @@ export default class UIPopProp extends UIViewPop {
     }
 
     SetSelectImage(ui: UIImage) {
-        this.idChangeTo = ui.id;
-        this.imageSelect.node.setPosition(ui.node.parent.getPosition());
+        this.idChangeTo = ui.keyId;
+        UIViewUtil.SetPosition(this.imageSelect.owner,UIViewUtil.GetPosition(ui.owner.parent)); 
         var scale =  1.15;
-        this.imageSelect.node.scale = new Vec3(scale, scale, 1); 
+        // this.imageSelect.owner.scalex = new Vec3(scale, scale, 1); 
+        var sp = this.imageSelect.owner as Laya.Sprite;
+        if(sp!=null)
+        {
+            sp.scaleX = scale;
+            sp.scaleY = scale;
+        } 
     }
     LayOut() {
         super.LayOut(); 
