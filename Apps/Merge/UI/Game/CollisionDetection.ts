@@ -155,6 +155,32 @@ export default class CollisionDetection extends UIView {
         return this.isItDetected;
     }
 
+     
+    OnCollisionEnter(collision){
+        console.log("开始碰撞",collision.other.owner.name);
+    }
+
+    onCollisionStay(collision){
+        console.log("持续碰撞",collision.other.owner.name);
+    }
+
+    onCollisionExit(collision){
+        console.log("结束碰撞",collision.other.owner.name);
+    }
+
+    onTriggerEnter(other){
+        console.log("开始触发",other.owner.name);
+    }
+
+    onTriggerStay(other){
+        console.log("持续触发",other.owner.name);
+    }
+
+    onTriggerExit(other){
+        console.log("结束触发",other.owner.name);
+    }
+    
+
     // 只在两个碰撞体开始接触时被调用一次
     // onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
     //     // will be called once when two colliders begin to contact

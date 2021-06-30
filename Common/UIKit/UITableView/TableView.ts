@@ -204,7 +204,7 @@ export default class TableView extends ScrollView {
         if (this.ScrollModel === ScrollModel.Horizontal) {
             if (index === 0) {
 
-                pt.x = -UIViewUtil.GetNodeWidth(this.content) * this.content.getComponent(UITransform).anchorX + node.getComponent(UITransform).width * node.getComponent(UITransform).anchorX;
+                pt.x = -UI.GetNodeWidth(this.content) * this.content.getComponent(UITransform).anchorX + node.getComponent(UITransform).width * node.getComponent(UITransform).anchorX;
             } else {
                 pt.x = getChildByCellIndex(this.content, index - 1).getPosition().x + node.getComponent(UITransform).width;
             }
@@ -213,7 +213,7 @@ export default class TableView extends ScrollView {
             
             if (index === 0) {
                 // node.y
-                pt.y = UIViewUtil.GetNodeHeight(this.content) * (1 - this.content.getComponent(UITransform).anchorY) - node.getComponent(UITransform).height * (1 - node.getComponent(UITransform).anchorY);
+                pt.y = UI.GetNodeHeight(this.content) * (1 - this.content.getComponent(UITransform).anchorY) - node.getComponent(UITransform).height * (1 - node.getComponent(UITransform).anchorY);
             } else {
                 var y1 = 
                 pt.y = getChildByCellIndex(this.content, index - 1).getPosition().y - node.getComponent(UITransform).height;
@@ -266,10 +266,10 @@ export default class TableView extends ScrollView {
             var length = 0;
             if (this.ScrollModel === ScrollModel.Horizontal) {
                 node.getComponent(UITransform).width = cell.getComponent(UITransform).width;
-                node.getComponent(UITransform).height = UIViewUtil.GetNodeHeight(this.content);
+                node.getComponent(UITransform).height = UI.GetNodeHeight(this.content);
 
 
-                var childrenCount = Math.floor((UIViewUtil.GetNodeHeight(this.content)) / (cell.getComponent(UITransform).height));
+                var childrenCount = Math.floor((UI.GetNodeHeight(this.content)) / (cell.getComponent(UITransform).height));
                 //@moon
                 if (this.oneCellNum != 0) {
                     // childrenCount = this.oneCellNum;
@@ -290,7 +290,7 @@ export default class TableView extends ScrollView {
                     //@moon
                     var w_item, h_item;
                     w_item = node.getComponent(UITransform).width;
-                    h_item = Math.floor(UIViewUtil.GetNodeHeight(this.content) / childrenCount);
+                    h_item = Math.floor(UI.GetNodeHeight(this.content) / childrenCount);
                     UIView.SetNodeContentSize(cell, w_item, h_item)
                     Debug.Log("cell w_item=" + w_item + " h_item=" + h_item);
 
@@ -311,7 +311,7 @@ export default class TableView extends ScrollView {
                 }
             } else {
                 node.getComponent(UITransform).height = cell.getComponent(UITransform).height;
-                var childrenCount = Math.floor((UIViewUtil.GetNodeWidth(this.content)) / (cell.getComponent(UITransform).width));
+                var childrenCount = Math.floor((UI.GetNodeWidth(this.content)) / (cell.getComponent(UITransform).width));
                 //@moon
                 if (this.oneCellNum != 0) {
                     childrenCount = this.oneCellNum;
@@ -322,7 +322,7 @@ export default class TableView extends ScrollView {
                 //@moon
 
 
-                node.getComponent(UITransform).width = UIViewUtil.GetNodeWidth(this.content);
+                node.getComponent(UITransform).width = UI.GetNodeWidth(this.content);
 
 
                 for (var index = 0; index < childrenCount; ++index) {
@@ -334,7 +334,7 @@ export default class TableView extends ScrollView {
 
                     //@moon
                     var w_item, h_item;
-                    w_item = Math.floor(UIViewUtil.GetNodeWidth(this.content) / childrenCount);
+                    w_item = Math.floor(UI.GetNodeWidth(this.content) / childrenCount);
                     h_item = node.getComponent(UITransform).height;
                     UIView.SetNodeContentSize(cell, w_item, h_item);
                     Debug.Log("cell w_item=" + w_item + " h_item" + h_item+" childrenCount="+childrenCount);
@@ -371,7 +371,7 @@ export default class TableView extends ScrollView {
     _getCellSize() {
         var cell = this._getCell();
         // var cellSize = cell.getContentSize();
-        var cellSize = UIViewUtil.GetNodeContentSize(cell);
+        var cellSize = UI.GetNodeContentSize(cell);
         this._cellPool.put(cell);
         return cellSize;
     }
@@ -398,9 +398,9 @@ export default class TableView extends ScrollView {
     }
     _getCellPoolCacheName() {
         if (this.ScrollModel === ScrollModel.Horizontal) {
-            return this.cell.name + 'h' + UIViewUtil.GetNodeHeight(this.content);
+            return this.cell.name + 'h' + UI.GetNodeHeight(this.content);
         } else {
-            return this.cell.name + 'w' + UIViewUtil.GetNodeWidth(this.content);
+            return this.cell.name + 'w' + UI.GetNodeWidth(this.content);
         }
     }
  
@@ -455,8 +455,8 @@ export default class TableView extends ScrollView {
             }
 
             this.content.getComponent(UITransform).width = this._count * this._cellSize.width;
-            // if (UIViewUtil.GetNodeWidth(this.content) <= this.viewNode.width) {
-            //     UIViewUtil.GetNodeWidth(this.content) = this.viewNode.width + 1;
+            // if (UI.GetNodeWidth(this.content) <= this.viewNode.width) {
+            //     UI.GetNodeWidth(this.content) = this.viewNode.width + 1;
             // }
 
             //停止_scrollView滚动

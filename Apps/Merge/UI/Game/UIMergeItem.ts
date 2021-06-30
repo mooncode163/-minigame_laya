@@ -3,7 +3,7 @@ import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import GameData, { GameStatus } from "../../Data/GameData";
 // import GameMerge from "./GameMerge"; 
 
@@ -68,8 +68,8 @@ export default class UIMergeItem extends UIView {
 
     // 碰撞线检测
     IsCollisionDeadLine() {
-        // var pos =UIViewUtil.GetPosition(GameMerge.main.nodeDeadline);
-        // var posMy =UIViewUtil.GetPosition(this.owner);
+        // var pos =UI.GetPosition(GameMerge.main.nodeDeadline);
+        // var posMy =UI.GetPosition(this.owner);
         // var y1 = posMy.y + this.GetBoundingBox().height / 2;
         // var y2 = posMy.y - this.GetBoundingBox().height / 2;
         // if ((pos.y > y2) && (pos.y < y1)) {

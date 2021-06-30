@@ -7,7 +7,7 @@
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Common from "../../Common";
 import Debug from "../../Debug";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import LayOutElement from "./LayOutElement";
 
 
@@ -118,8 +118,8 @@ export default class LayOutUtil {
             nodeleft = node2;
             noderight = node1;
         }
-        var pivotXLeft = UIViewUtil.GetPivotX(nodeleft);
-        var pivotXRight = UIViewUtil.GetPivotX(noderight);  
+        var pivotXLeft = UI.GetPivotX(nodeleft);
+        var pivotXRight = UI.GetPivotX(noderight);  
         // var rctran = nodeleft.getComponent(UITransform).contentSize;
         var v1 = nodeleft.x + (nodeleft.width-pivotXLeft);
         // rctran = noderight.getComponent(UITransform).contentSize;
@@ -137,8 +137,8 @@ export default class LayOutUtil {
             nodeDown = node2;
             nodeUp = node1;
         }
-        var pivotXDown= UIViewUtil.GetPivotY(nodeDown);
-        var pivotXUp = UIViewUtil.GetPivotY(nodeUp);  
+        var pivotXDown= UI.GetPivotY(nodeDown);
+        var pivotXUp = UI.GetPivotY(nodeUp);  
         var v1 = nodeDown.y-pivotXDown;
         var v2 = nodeUp.y + nodeUp.height-pivotXUp;
         return (v1 + v2) / 2;
@@ -150,8 +150,8 @@ export default class LayOutUtil {
         var v1 = 0, v2 = 0;
 
         var sizeCanvas = Common.sizeCanvas;
-        var pivotX= UIViewUtil.GetPivotX(node);
-        var pivotY= UIViewUtil.GetPivotY(node);
+        var pivotX= UI.GetPivotX(node);
+        var pivotY= UI.GetPivotY(node);
         // var rctran = node.getComponent(UITransform).contentSize;
         // var rctran = node.getComponent(cc.RectTransform);
         switch (align) {
@@ -222,12 +222,12 @@ export default class LayOutUtil {
                 objUp = node1;
             }
         }
-        var pivotXDown= UIViewUtil.GetPivotX(objDown);
-        var pivotYDown= UIViewUtil.GetPivotY(objDown);
-        var pivotXUp= UIViewUtil.GetPivotX(objUp);
-        var pivotYUp= UIViewUtil.GetPivotY(objUp);
+        var pivotXDown= UI.GetPivotX(objDown);
+        var pivotYDown= UI.GetPivotY(objDown);
+        var pivotXUp= UI.GetPivotX(objUp);
+        var pivotYUp= UI.GetPivotY(objUp);
         // var pos = objDown.getPosition();
-        var size = UIViewUtil.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
+        var size = UI.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
         var y1 = objDown.y-pivotYDown;// + size.height / 2;
 
         // 左
@@ -235,7 +235,7 @@ export default class LayOutUtil {
 
         // objUp
         // pos = objUp.getPosition();
-        size = UIViewUtil.GetNodeBoundingBox(objUp);
+        size = UI.GetNodeBoundingBox(objUp);
         var y2 = objUp.y + size.height-pivotYUp;
 
         // 右
@@ -258,12 +258,12 @@ export default class LayOutUtil {
     //边界和对象之间的宽度或者高度 type SizeType
     GetBetweenSideAndTargetSize(node: Laya.Sprite, type) {
         var v1 = 0, v2 = 0;
-        var pivotX= UIViewUtil.GetPivotX(node);
-        var pivotY= UIViewUtil.GetPivotY(node);
-        var size = UIViewUtil.GetNodeBoundingBox(node);// node.getBoundingBox();
+        var pivotX= UI.GetPivotX(node);
+        var pivotY= UI.GetPivotY(node);
+        var size = UI.GetNodeBoundingBox(node);// node.getBoundingBox();
         // var pos = node.getPosition();
         // var sizeParent = node.parent.getBoundingBox();
-        var sizeParent = UIViewUtil.GetNodeBoundingBox(node.parent);
+        var sizeParent = UI.GetNodeBoundingBox(node.parent);
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
         Debug.Log("GetBetweenSideAndTargetSize type=" + type);

@@ -9,7 +9,7 @@ import Device from '../../Common/Device';
 import ResManager from '../../Common/Res/ResManager';
 import PopUpManager from '../../Common/UIKit/PopUp/PopUpManager';
 import UIViewController from '../../Common/UIKit/ViewController/UIViewController';
-import UIViewUtil from '../../Common/UIKit/ViewController/UIViewUtil';
+import UI from '../../Common/UIKit/ViewController/UI';
 import AppSceneUtil from './AppSceneUtil';
 import InitViewController from './InitViewController';
 
@@ -110,7 +110,7 @@ export default class AppSceneBase extends Laya.Script {
 
 
         // this.sizeCanvas = this.canvasMain?.getComponent(UITransform)?.contentSize;
-        // var size = UIViewUtil.GetNodeContentSize(this.canvasMain);
+        // var size = UI.GetNodeContentSize(this.canvasMain);
         var size = new Laya.Size(Laya.stage.width, Laya.stage.height);
         if (size != null) {
             this.sizeCanvas = size;
@@ -172,9 +172,9 @@ export default class AppSceneBase extends Laya.Script {
         }
 
     
-        UIViewUtil.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
+        UI.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
          
-        size = UIViewUtil.GetNodeContentSize(this.rootNode);
+        size = UI.GetNodeContentSize(this.rootNode);
         Debug.Log("this.rootNode size=" + size);
         Debug.Log("this.rootNode  width=" + size.width + ",height=" + size.height);
     }

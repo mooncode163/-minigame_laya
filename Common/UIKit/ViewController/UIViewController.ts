@@ -2,7 +2,7 @@
 import Common from "../../Common";
 import NaviViewController from "../NaviBar/NaviViewController";
 import UIView from "./UIView";
-import UIViewUtil from "./UIViewUtil";
+import UI from "./UI";
 
  
  
@@ -60,7 +60,7 @@ export default class UIViewController   {
             node.addChild(this.objController);
             // var size = node.getComponent(UITransform).contentSize;
             var ui=this.objController.addComponent(UIView);
-            UIViewUtil.SetNodeContentSize(this.objController,Common.sizeCanvas.width,Common.sizeCanvas.height);
+            UI.SetNodeContentSize(this.objController,Common.sizeCanvas.width,Common.sizeCanvas.height);
             
             // ui.SetContentSize()
             // this.objController.addComponent(UITransform);

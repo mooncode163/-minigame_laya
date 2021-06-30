@@ -1,6 +1,6 @@
 import Debug from "../Debug";
 import UIView from "../UIKit/ViewController/UIView";
-import UIViewUtil from "../UIKit/ViewController/UIViewUtil";
+import UI from "../UIKit/ViewController/UI";
 
 
 export default class TextureUtil {
@@ -20,7 +20,7 @@ export default class TextureUtil {
 
         if(isUpdateSize)
         { 
-            UIViewUtil.SetNodeContentSize(image,tex.width,tex.height);
+            UI.SetNodeContentSize(image,tex.width,tex.height);
             // this.LayOut();
         }
     }
@@ -33,7 +33,7 @@ export default class TextureUtil {
 
         if(isUpdateSize)
         { 
-            UIViewUtil.SetNodeContentSize(sprite,tex.width,tex.height);
+            UI.SetNodeContentSize(sprite,tex.width,tex.height);
             // this.LayOut();
         }
     }

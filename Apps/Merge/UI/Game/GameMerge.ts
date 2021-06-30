@@ -5,7 +5,7 @@ import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
 // import UIGameMerge from "./UIGameMerge";
@@ -244,7 +244,7 @@ export default class GameMerge extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist.id == id) {
-                this.ShowMergeParticle(UIViewUtil.GetNodePosition(this.owner), uilist.id);
+                this.ShowMergeParticle(UI.GetNodePosition(this.owner), uilist.id);
                 uilist.owner.destroy();
             }
         }
@@ -282,7 +282,7 @@ export default class GameMerge extends GameBase {
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
  
-        UIViewUtil.SetScaleXY(ui.owner,scale);  
+        UI.SetScaleXY(ui.owner,scale);  
 
         var rectParent = this.GetBoundingBox();
         x = rectParent.width/2;
@@ -292,7 +292,7 @@ export default class GameMerge extends GameBase {
         this.posYInit = y;
         Debug.Log("OnCollisionEnter2D this.posYInit=" + this.posYInit + " key=" + key + " scale=" + scale);
         // ui.node.setPosition(x, y);
-        UIViewUtil.SetNodePosition(ui.owner,x,y);
+        UI.SetNodePosition(ui.owner,x,y);
         // ui.transform.localScale = new Vector3(scale, scale, 1);
         // ui.transform.localPosition = new Vector3(0, posYInit, -1);
         this.listItem.push(ui);
@@ -305,10 +305,10 @@ export default class GameMerge extends GameBase {
     ShowProp(isShow: boolean) {
         this.imageProp.SetActive(isShow);
         if (isShow) {
-            var z =UIViewUtil.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
+            var z =UI.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
             var pos = new Laya.Vector3(0,0,0);
             pos.z = z;
-            UIViewUtil.SetPosition(this.imageProp.owner,pos); 
+            UI.SetPosition(this.imageProp.owner,pos); 
         }
     }
     UpdateProp(keypic: string) {

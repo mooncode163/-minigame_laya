@@ -1,7 +1,7 @@
 
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
 import { RelationType, Align } from "./LayOutUtil";
 
@@ -52,13 +52,13 @@ export default class LayOutRelation extends LayOutBase {
         super.LayOut();
         var x, y, w, h;
 
-        var pt = UIViewUtil.GetNodePosition(this.owner);
+        var pt = UI.GetNodePosition(this.owner);
         x = pt.x;
         y = pt.y;
 
         // var rctran = this.node.getComponent(cc.RectTransform);
-        var size = UIViewUtil.GetNodeBoundingBox(this.owner);
-        var sizeParent = UIViewUtil.GetNodeBoundingBox(this.owner.parent);
+        var size = UI.GetNodeBoundingBox(this.owner);
+        var sizeParent = UI.GetNodeBoundingBox(this.owner.parent);
         w = size.width;
         h = size.height;
 
@@ -67,8 +67,8 @@ export default class LayOutRelation extends LayOutBase {
         // this.align = Align.RIGHT;
         // x = w_parent - w;
  
-        var pivotX = UIViewUtil.GetPivotX(this.owner);
-        var pivotY = UIViewUtil.GetPivotY(this.owner); 
+        var pivotX = UI.GetPivotX(this.owner);
+        var pivotY = UI.GetPivotY(this.owner); 
         Debug.Log("this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x +" pivotX="+pivotX);
         switch (this.type) {
             case RelationType.PARENT:
@@ -130,11 +130,11 @@ export default class LayOutRelation extends LayOutBase {
                     if (this.target == null) {
                         break;
                     }
-                    var sizeTarget = UIViewUtil.GetNodeBoundingBox(this.target);
+                    var sizeTarget = UI.GetNodeBoundingBox(this.target);
                     if (sizeTarget == null) {
                         break;
                     }
-                    var ptTarget = UIViewUtil.GetNodePosition(this.target);
+                    var ptTarget = UI.GetNodePosition(this.target);
                     // 位于target的左边
                     if (this.align == Align.LEFT) {
                         x = ptTarget.x - w - this.offset.x;
@@ -170,7 +170,7 @@ export default class LayOutRelation extends LayOutBase {
             y -= AdKitCommon.main.heightCanvasAdBanner;
         }
       
-        UIViewUtil.SetNodePosition(this.owner, x, y);
+        UI.SetNodePosition(this.owner, x, y);
 
     }
 

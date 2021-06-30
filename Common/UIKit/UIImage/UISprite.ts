@@ -212,8 +212,8 @@ export default class UISprite extends UIView {
     LayOut() {
         super.LayOut();
 
-        // UIViewUtil.SetNodeContentSize(this.image,256,256);
-        // UIViewUtil.SetNodePosition(this.owner,256,128);
+        // UI.SetNodeContentSize(this.image,256,256);
+        // UI.SetNodePosition(this.owner,256,128);
     }
 
 }

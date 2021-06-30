@@ -4,7 +4,7 @@
  
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
-import UIViewUtil from "../ViewController/UIViewUtil"; 
+import UI from "../ViewController/UI"; 
 import LayOutBase from "./LayOutBase";
 import LayOutUtil, { SideType, SizeType } from "./LayOutUtil";
 
@@ -147,8 +147,8 @@ export default class LayOutSize extends LayOutBase {
         {
             return;
         }
-        var size = UIViewUtil.GetNodeContentSize(this.owner);
-        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
+        var size = UI.GetNodeContentSize(this.owner);
+        var sizeParent = UI.GetNodeContentSize(this.owner.parent); 
         w = size.width;
         h = size.height;
         var w_parent = sizeParent.width;
@@ -200,7 +200,7 @@ export default class LayOutSize extends LayOutBase {
             case SizeType.MATCH_TARGET:
                 {
                     if (this.target != null) { 
-                        w = UIViewUtil.GetNodeContentSize(this.target).width * this.ratioW;
+                        w = UI.GetNodeContentSize(this.target).width * this.ratioW;
 
                     }
 
@@ -229,7 +229,7 @@ export default class LayOutSize extends LayOutBase {
                 break;
         }
         Debug.Log("UpdateSizeX w=" + w + " h=" + h); 
-        UIViewUtil.SetNodeContentSize(this.owner,w,h);
+        UI.SetNodeContentSize(this.owner,w,h);
 
         
     }
@@ -241,8 +241,8 @@ export default class LayOutSize extends LayOutBase {
         {
             return;
         }
-        var size = UIViewUtil.GetNodeContentSize(this.owner);
-        var sizeParent = UIViewUtil.GetNodeContentSize(this.owner.parent); 
+        var size = UI.GetNodeContentSize(this.owner);
+        var sizeParent = UI.GetNodeContentSize(this.owner.parent); 
         w = size.width;
         h = size.height;
 
@@ -292,7 +292,7 @@ export default class LayOutSize extends LayOutBase {
             case SizeType.MATCH_TARGET:
                 {
                     if (this.target != null) {
-                        h = UIViewUtil.GetNodeContentSize(this.target).height * this.ratioH;
+                        h = UI.GetNodeContentSize(this.target).height * this.ratioH;
 
                     }
 
@@ -325,7 +325,7 @@ export default class LayOutSize extends LayOutBase {
             h -= AdKitCommon.main.heightCanvasAdBanner;
         } 
         Debug.Log("UpdateSizeY w=" + w + " h=" + h); 
-        UIViewUtil.SetNodeContentSize(this.owner,w,h);
+        UI.SetNodeContentSize(this.owner,w,h);
         
     }
     UpdateSize() {

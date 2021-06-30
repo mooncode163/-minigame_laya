@@ -2,7 +2,7 @@ import Common from "../../Common";
 import Debug from "../../Debug";
 import UIView from "../ViewController/UIView";
 import UIViewController from "../ViewController/UIViewController";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import UINaviBar from "./UINaviBar";
 
  
@@ -43,7 +43,7 @@ export default class NaviViewController extends UIViewController {
 
         var size = Common.sizeCanvas;//this.objController.getComponent(UITransform).contentSize; 
         // uitran.setContentSize(size);
-        UIViewUtil.SetNodeContentSize(this.objContent,size.width,size.height);
+        UI.SetNodeContentSize(this.objContent,size.width,size.height);
 
     }
 

@@ -10,7 +10,7 @@ import ColorConfig from "../../Config/ColorConfig";
 import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import UIView from "../ViewController/UIView";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 
 
 export default class UIText extends UIView {
@@ -60,7 +60,7 @@ export default class UIText extends UIView {
     onAwake() {
         super.onAwake();
         Debug.Log("UIText this.keyColor =" + this.keyColor);
-        UIViewUtil.SetNodePivotCenter(this.owner);
+        UI.SetNodePivotCenter(this.owner);
         this.label = this.owner.getChildByName("Label") as Laya.Label;
 
         if (!Common.BlankString(this.keyColor)) {
@@ -81,9 +81,9 @@ export default class UIText extends UIView {
     LayOut() {
         super.LayOut();
         // 同步大小
-        var size = UIViewUtil.GetNodeContentSize(this.owner);
-        UIViewUtil.SetNodeContentSize(this.label, size.width, size.height);
-        UIViewUtil.SetNodePivotCenter(this.owner);
+        var size = UI.GetNodeContentSize(this.owner);
+        UI.SetNodeContentSize(this.label, size.width, size.height);
+        UI.SetNodePivotCenter(this.owner);
         super.LayOut();
 
     }

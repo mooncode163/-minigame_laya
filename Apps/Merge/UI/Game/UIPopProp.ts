@@ -3,7 +3,7 @@ import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
-import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
 // import UIGameMerge from "./UIGameMerge";
@@ -144,7 +144,7 @@ export default class UIPopProp extends UIViewPop {
 
     SetSelectImage(ui: UIImage) {
         this.idChangeTo = ui.keyId;
-        UIViewUtil.SetPosition(this.imageSelect.owner,UIViewUtil.GetPosition(ui.owner.parent)); 
+        UI.SetPosition(this.imageSelect.owner,UI.GetPosition(ui.owner.parent)); 
         var scale =  1.15;
         // this.imageSelect.owner.scalex = new Vec3(scale, scale, 1); 
         var sp = this.imageSelect.owner as Laya.Sprite;

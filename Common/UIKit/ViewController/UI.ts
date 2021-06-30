@@ -17,10 +17,10 @@ strict设置false状态
 
 // Laya UI坐标系原点在屏幕左上角
 
-export default class UIViewUtil {
+export default class UI {
 
     static SetPosition(node: Laya.Node, pt: Laya.Vector3) {
-        UIViewUtil.SetNodePosition(node,pt.x,pt.y);
+        UI.SetNodePosition(node,pt.x,pt.y);
     }
     static GetPosition(node: Laya.Node) {
         var sp = node as Laya.Sprite;

@@ -21,7 +21,7 @@ import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
-import UIViewUtil from "./UIViewUtil";
+import UI from "./UI";
  
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
@@ -222,7 +222,7 @@ export default class UIView extends Laya.Script {
     }
 
     GetBoundingBox() {
-        return UIViewUtil.GetNodeBoundingBox(this.owner);
+        return UI.GetNodeBoundingBox(this.owner);
     }
 
     // UIView parent

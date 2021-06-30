@@ -12,7 +12,7 @@ import Debug from "../../Debug";
 import UIImage from "../UIImage/UIImage";
 import UIText from "../UIText/UIText";
 import UIView from "../ViewController/UIView";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 
 enum ButtonType {
     IMAGE = 0,//一张背景  
@@ -136,7 +136,7 @@ export default class UIButton extends UIView {
 
     onAwake() {
         super.onAwake();
-        UIViewUtil.SetNodePivotCenter(this.owner);
+        UI.SetNodePivotCenter(this.owner);
         //只用来点击事件  不显示
         this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
         // this.content = this.owner.getChildByName("Content") as Laya.Image;
@@ -230,7 +230,7 @@ export default class UIButton extends UIView {
 
     LayOut() {
         super.LayOut();
-        UIViewUtil.SetNodePivotCenter(this.owner);
+        UI.SetNodePivotCenter(this.owner);
         super.LayOut();
 
     }

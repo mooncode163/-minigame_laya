@@ -1,5 +1,5 @@
 import Debug from "../../Debug";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
 import LayOutUtil, { Align } from "./LayOutUtil";
 
@@ -45,11 +45,11 @@ export default class LayOutBetween extends LayOutBase {
         if (this.target == null) {
             return;
         }
-        var size = UIViewUtil.GetNodeBoundingBox(this.owner); 
+        var size = UI.GetNodeBoundingBox(this.owner); 
         w = size.width;
         h = size.height;
-        var pivotX= UIViewUtil.GetPivotX(this.owner);
-        var pivotY= UIViewUtil.GetPivotY(this.owner);
+        var pivotX= UI.GetPivotX(this.owner);
+        var pivotY= UI.GetPivotY(this.owner);
         //左右
         if (this.align == Align.Horizontal) {
             x = LayOutUtil.main.GetBetweenCenterX(this.target as Laya.Sprite, this.target2 as Laya.Sprite)-w/2 + this.offset.x;

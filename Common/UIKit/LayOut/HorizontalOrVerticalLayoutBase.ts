@@ -1,5 +1,5 @@
 import Debug from "../../Debug";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
 import LayOutElement from "./LayOutElement";
 
@@ -89,12 +89,12 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
     GetItemPostion(nodeItem: Laya.Sprite, r: any, c: any) {
         var x, y, w, h;
 
-        var rctran = UIViewUtil.GetNodeBoundingBox(this.owner);
+        var rctran = UI.GetNodeBoundingBox(this.owner);
         w = rctran.width;
         h = rctran.height;
         var item_w = 0, item_h = 0, x_left = 0, y_bottom = 0, w_total = 0, h_total = 0;
 
-        // var rctranItem =UIViewUtil.GetNodeBoundingBox(nodeItem); 
+        // var rctranItem =UI.GetNodeBoundingBox(nodeItem); 
 
         if (this.childControlWidth) {
             item_w = (w - (this.space.x * (this.col - 1))) / this.col;
@@ -154,8 +154,8 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             }
         }
         y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
-        var pivotX = UIViewUtil.GetPivotX(nodeItem);
-        var pivotY = UIViewUtil.GetPivotY(nodeItem); 
+        var pivotX = UI.GetPivotX(nodeItem);
+        var pivotY = UI.GetPivotY(nodeItem); 
         x += pivotX;
         y += pivotY;
         return new Laya.Vector2(x, y);

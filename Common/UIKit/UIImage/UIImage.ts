@@ -13,7 +13,7 @@ import TextureUtil from "../../Image/TextureUtil";
 import Platform from "../../Platform";
 import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 
 
 enum ENUM_Effect {
@@ -215,10 +215,10 @@ export default class UIImage extends UIView {
         super.LayOut();
 
         // image 和uiimage同步大小
-        var size = UIViewUtil.GetNodeContentSize(this.owner);
-        UIViewUtil.SetNodeContentSize(this.image,size.width,size.height);
+        var size = UI.GetNodeContentSize(this.owner);
+        UI.SetNodeContentSize(this.image,size.width,size.height);
         
-        UIViewUtil.SetNodePivotCenter(this.owner);
+        UI.SetNodePivotCenter(this.owner);
         super.LayOut();
     }
 

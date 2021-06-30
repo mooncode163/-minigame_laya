@@ -34,6 +34,42 @@ export default class UITouchEvent extends Laya.Script {
 
     }
 
+
+    onMouseDown(e){
+        // console.log("按下");
+        console.log("按下 " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+    }
+    onMouseMove(e){
+        console.log("移动");
+    }
+    onMouseOut(e){
+        console.log("移出");
+    }
+    onMouseOver(e){
+        console.log("进入");
+    }
+    onMouseUp(e){
+        // console.log("抬起");
+        console.log("抬起 " + this.owner.name);
+    }
+    onClick(e)
+    {
+        //e.stopPropagation();//阻止事件冒泡/上报
+        console.log("点击" + this.owner.name);
+    }
+    // onStageMouseDown(e){
+    //     console.log("舞台中按下");
+    // }
+    // onStageMouseUp(e){
+    //     console.log("舞台中抬起");
+    // }
+    // onStageMouseMove(e){
+    //     // console.log("舞台中移动");
+    // }
+    // onStageClick(e){
+    //     console.log("舞台中点击");
+    // } 
+
     // //屏幕坐标,原点在屏幕左下角 
     // GetPosition(event?: EventTouch) {
     //     return event.getLocation();
@@ -102,6 +138,7 @@ export default class UITouchEvent extends Laya.Script {
     // protected _onTouchCancel(event?: EventTouch) {
 
     // }
+
 }
 
 

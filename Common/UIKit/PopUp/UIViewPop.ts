@@ -3,7 +3,7 @@ import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import UIView from "../ViewController/UIView";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 
  
 export default class UIViewPop extends UIView {  
@@ -16,7 +16,7 @@ export default class UIViewPop extends UIView {
         super.onAwake();
         this.LayOut();
 
-        // UIViewUtil.SetNodePosition(this.owner,0,0);
+        // UI.SetNodePosition(this.owner,0,0);
     }
     onStart () {
         super.onStart();

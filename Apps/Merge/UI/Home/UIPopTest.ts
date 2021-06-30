@@ -3,7 +3,7 @@ import Debug from "../../../../Common/Debug";
 import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 
  
 export default class UIPopTest extends UIViewPop {
@@ -20,8 +20,8 @@ export default class UIPopTest extends UIViewPop {
          this.btnClose.on(Laya.Event.CLICK, this, this.OnBtnClickClose);
 
          var size = Common.sizeCanvas; 
-         UIViewUtil.SetNodePivotCenter(this.owner);
-         UIViewUtil.SetNodePosition(this.owner,size.width/2,size.height/2);
+         UI.SetNodePivotCenter(this.owner);
+         UI.SetNodePosition(this.owner,size.width/2,size.height/2);
     }
 
     OnBtnClickClose() {

@@ -1,6 +1,6 @@
  
 import Common from "../../Common";
-import UIViewUtil from "../ViewController/UIViewUtil";
+import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
  
 import { ScaleType } from "./LayOutUtil";
@@ -82,8 +82,8 @@ export default class LayOutScale extends LayOutBase {
         {
             return;
         } 
-        var size = UIViewUtil.GetNodeContentSize(node);
-        var sizeParent = UIViewUtil.GetNodeContentSize(node.parent); 
+        var size = UI.GetNodeContentSize(node);
+        var sizeParent = UI.GetNodeContentSize(node.parent); 
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
