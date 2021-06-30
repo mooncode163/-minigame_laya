@@ -18,19 +18,20 @@ import GameManager from "./GameManager";
 import LevelData from "./LevelData";
 import LevelManager from "./LevelManager";
 import Config from "../../Common/Config/Config";
- 
 
- 
+
+
 export default class UIGameBase extends UIView {
     static GAME_AD_INSERT_SHOW_STEP = 2;
     gamePrefab: Laya.Prefab | null = null;
- 
+
     btnMusic: UIButton | null = null;
-   
-    btnBack: UIButton | null = null;
-  
+
+    /** @prop {name:btnBack,type:Node}*/
+    btnBack: Laya.Node;
+
     imageBg: UIImage | null = null;
- 
+
     textTitle: UIText | null = null;
 
     listProLoad: ItemInfo[] = [];
@@ -44,7 +45,7 @@ export default class UIGameBase extends UIView {
         this.LayOut();
     }
 
-    OnClickBtnBack(event: Event, customEventData: string) {
+    OnClickBtnBack() {
         if (this.controller != null) {
             var navi = this.controller.naviController;
             if (navi != null) {
@@ -58,8 +59,22 @@ export default class UIGameBase extends UIView {
     Init() {
     }
 
-
     LoadGamePrefab() {
+        PrefabCache.main.LoadByKey(
+            {
+                key:"GameMerge",
+                // filepath: "Resources/AppCommon/Prefab/Game/GameMerge.prefab",
+                success: (p: any, data: any) => {
+                    this.gamePrefab = data;
+                    this.CreateGame();
+
+                },
+                fail: () => {
+
+                },
+            });
+    }
+    LoadGamePrefab2() {
         var key = "Game" + Config.main.appType;
         PrefabCache.main.LoadByKey(
             {
@@ -97,8 +112,8 @@ export default class UIGameBase extends UIView {
             MusicBgPlay.main.StopBgMusic();
         }
     }
-    OnClickBtnShare(event, customEventData) { 
-    //    Share.main.ShareImageText("", Config.main.shareTitle, Config.main.shareUrl, "");
+    OnClickBtnShare(event, customEventData) {
+        //    Share.main.ShareImageText("", Config.main.shareTitle, Config.main.shareUrl, "");
     }
 
     //guanka  

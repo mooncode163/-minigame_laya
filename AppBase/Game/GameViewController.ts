@@ -55,29 +55,10 @@ export default class GameViewController extends UIViewController {
     LoadPrefabEnd() {
 
     }
+ 
+
 
     LoadPrefab() {
-        var key = "UIHome" + Config.main.appType;
-        // var key = "UIHomeMerge"
-        Debug.Log("HomeViewController LoadPrefab key=" + key);
-        PrefabCache.main.Load(
-            {
-                key: key,
-                filepath: "Resources/AppCommon/Prefab/Game/UIGameMerge.prefab",
-                success: (p: any, data: any) => {
-                    this.uiPrefab = data;
-
-                    this.CreateUI();
-
-                },
-                fail: () => {
-
-                },
-            });
-    }
-
-
-    LoadPrefab2() {
         var key = "UIGame" + Config.main.appType;
         PrefabCache.main.LoadByKey(
             {

@@ -44,15 +44,9 @@ export default class GameMerge extends GameBase {
         super.onAwake();
         GameMerge._main = this;
         this.time = 0;
-        this.LoadPrefab();
-        // this.setContentSize(this.node.parent.getContentSize());
-        this.imageProp.SetActive(false);
-        // PhysicsSystem2D.instance.enable = true;
-        // PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.All;
-        this.LayOut();
-
-        // var AUDIO_Merge = Common.CLOUD_RES_DIR+"/Audio/bg3.ogg";
-        // AudioPlay.main.PlayFile(AUDIO_Merge);
+        this.LoadPrefab(); 
+        // this.imageProp.SetActive(false); 
+        this.LayOut(); 
 
     }
     onStart() {
@@ -70,9 +64,23 @@ export default class GameMerge extends GameBase {
 
 
     LoadPrefab() {
+        // PrefabCache.main.LoadByKey(
+        //     {
+        //         key: "UIMergeItem",
+        //         success: (p: any, data: any) => {
+        //             this.prefabItem = data;
+        //             this.StartGame();
+
+        //         },
+        //         fail: () => {
+
+        //         },
+        //     });
+
         PrefabCache.main.LoadByKey(
             {
-                key: "UIMergeItem",
+                key:"UIMergeItem",
+                // filepath: "Resources/AppCommon/Prefab/Game/UIMergeItem.prefab",
                 success: (p: any, data: any) => {
                     this.prefabItem = data;
                     this.StartGame();
@@ -92,7 +100,7 @@ export default class GameMerge extends GameBase {
     }
 
 
-    update() {         //用作延迟生成物体
+    onUpdate() {         //用作延迟生成物体
         if (this.time < GameMerge.TimeStep) {
             var tick = Common.GetCurrentTimeMs();
             // Debug.Log("update tick="+tick);
@@ -259,32 +267,32 @@ export default class GameMerge extends GameBase {
         var ui = node.getComponent(UIMergeItem);
         ui.hasGoDownDeadLine = false;
         ui.isNew = true;
-        ui.id = keyid;
+        ui.keyid = keyid;
         // ui.index = indexItem++; 
         // AppSceneBase.main.AddObjToMainWorld(ui.gameObject);
         ui.SetParent(this);
         ui.name = keyid;
-        ui.node.name = keyid;
+        // ui.node.name = keyid;
         var pic = GameLevelParse.main.GetImagePath(key);
+        Debug.Log("CreateItem pic="+pic+" key="+key);
         ui.UpdateImage(pic);
 
         ui.EnableGravity(false);
         this.ScaleStart = 0.2;
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
-
-        // ui.node.scale.x = scale;
-        // ui.node.scale.y = scale;
-        ui.node.scale = new Laya.Vector3(scale, scale, 1);
+ 
+        UIViewUtil.SetScaleXY(ui.owner,scale);  
 
         var rectParent = this.GetBoundingBox();
-        x = 0;
+        x = rectParent.width/2;
         y = rectParent.height / 2 - ui.GetBoundingBox().height / 2;
 
         // y = 512;
         this.posYInit = y;
         Debug.Log("OnCollisionEnter2D this.posYInit=" + this.posYInit + " key=" + key + " scale=" + scale);
-        ui.node.setPosition(x, y);
+        // ui.node.setPosition(x, y);
+        UIViewUtil.SetNodePosition(ui.owner,x,y);
         // ui.transform.localScale = new Vector3(scale, scale, 1);
         // ui.transform.localPosition = new Vector3(0, posYInit, -1);
         this.listItem.push(ui);

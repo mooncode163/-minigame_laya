@@ -62,12 +62,12 @@ export default class HomeViewController extends UIViewController {
     }
     LoadPrefab() {
         var key = "UIHome" + Config.main.appType;
-        // var key = "UIHomeMerge"
+        var key = "UIHomeMerge"
         Debug.Log("HomeViewController LoadPrefab key=" + key);
-        PrefabCache.main.Load(
+        PrefabCache.main.LoadByKey(
             {
                 key: key,
-                filepath: "Resources/AppCommon/Prefab/Home/UIHomeMerge.prefab",
+                // filepath: "Resources/AppCommon/Prefab/Home/UIHomeMerge.prefab",
                 success: (p: any, data: any) => {
                     this.uiPrefab = data;
 

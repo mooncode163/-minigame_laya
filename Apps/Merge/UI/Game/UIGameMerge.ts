@@ -1,10 +1,12 @@
  
+import LevelData from "../../../../AppBase/Game/LevelData";
 import UIGameBase from "../../../../AppBase/Game/UIGameBase";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
 import Language from "../../../../Common/Language/Language";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
+import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
 import GameData from "../../Data/GameData";
 import GameMerge from "./GameMerge";
@@ -14,7 +16,7 @@ import UIToolBar from "./UIToolBar";
  
  
 export default class UIGameMerge extends UIGameBase {
-
+      /** @prop {name:btnBack,type:Node}*/ 
  
     titleScore: UIText | null = null; 
 
@@ -37,15 +39,18 @@ export default class UIGameMerge extends UIGameBase {
         super.LayOut();
     }
  
-    onLoad () {
+    onAwake () {
         super.onAwake();
         UIGameMerge._main = this;
         this.LayOut();
         // this.LoadLanguageGame(); 
         // this.textTitle.node.active = false;
+ 
+        UIButton.SetClickByNode(this.btnBack,this, this.OnClickBtnBack.bind(this));
+        
         
     }
-    start () {
+    onStart () {
         super.onStart();
         this.LayOut();
  
@@ -71,7 +76,7 @@ export default class UIGameMerge extends UIGameBase {
     }
 
     CreateGame () {
-        // this.UpdateLevel(LevelData.main.gameLevel);
+        this.UpdateLevel(LevelData.main.gameLevel);
         
 
     }
@@ -96,10 +101,10 @@ export default class UIGameMerge extends UIGameBase {
 
     }
     UpdateScore () {
-        var str = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
-        Debug.Log("UpdateScore str="+str);
-        this.titleScore.text = str;
-        this.LayOut();
+        // var str = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
+        // Debug.Log("UpdateScore str="+str);
+        // this.titleScore.text = str;
+        // this.LayOut();
        
     }
 

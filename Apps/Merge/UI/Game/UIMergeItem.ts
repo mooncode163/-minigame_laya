@@ -12,7 +12,7 @@ import GameData, { GameStatus } from "../../Data/GameData";
  
 export default class UIMergeItem extends UIView {
     
-    imageItem: UIImage | null = null;
+    imageItem: UIImage =null;
     isNew = false;
     type = 0;
     t = 0;
@@ -21,6 +21,9 @@ export default class UIMergeItem extends UIView {
     onAwake() {
         super.onAwake();
         this.t = 0;
+ 
+        this.imageItem = this.owner.getChildByName("ImgeItem").getComponent(UIImage);
+
         // this.node.zIndex = 100;
         // var manager = director.getCollisionManager();
         // manager.enabled = true;
@@ -33,7 +36,7 @@ export default class UIMergeItem extends UIView {
         super.onStart();
     }
 
-    update() {
+    onUpdate() {
         if (!this.isNew) {
             // 游戏失败判断  onCollisionEnter 碰撞检测失效 直接判断位置
             this.IsCollisionDeadLine();
@@ -86,7 +89,7 @@ export default class UIMergeItem extends UIView {
     }
 
     UpdateImage(pic) {
-        this.imageItem.UpdateImage(pic);
+        this.imageItem.UpdateImage(pic,"");
     }
 
     EnableGravity(isEnable) {

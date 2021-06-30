@@ -63,7 +63,7 @@ export default class UIView extends Laya.Script {
     keyId: string; 
     tag: string;
     title: string;
-
+    name:string;
     mainCam: Laya.Camera | null = null;
     // frame: Rect | null = null;
     // objTag: CCObject | null = null;  
@@ -154,6 +154,10 @@ export default class UIView extends Laya.Script {
 
     LayOutNode(node: Laya.Node) {
         {
+            if(node==null)
+            {
+                return;
+            }
             var list = node.getComponents(LayOutBase);
             if (list == null) {
                 return;
@@ -180,10 +184,10 @@ export default class UIView extends Laya.Script {
     LayOutInternalChild() {
         //child
         // var children = this.owner.children;
-        // for (var i = 0; i < children.length; i++) {
-        //     var child = children[i];
-        //     this.LayOutNode(child);
-        // }
+        for (var i = 0; i < this.owner.numChildren; i++) {
+            var child = this.owner.getChildAt[i];
+            this.LayOutNode(child);
+        }
     }
 
     LayOutDidFinish() {

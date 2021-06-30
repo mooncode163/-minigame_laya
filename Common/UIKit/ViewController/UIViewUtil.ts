@@ -109,6 +109,41 @@ export default class UIViewUtil {
         }
         return h;
     }
+    static SetScaleXY(node: Laya.Node,scale) {
+        var sp = node as Laya.Sprite; 
+        if (sp != null) { 
+            sp.scaleX = scale; 
+            sp.scaleY = scale; 
+        } 
+    }
+    static SetScaleX(node: Laya.Node,scale) {
+        var sp = node as Laya.Sprite; 
+        if (sp != null) { 
+            sp.scaleX = scale; 
+        } 
+    }
+
+    static SetScaleY(node: Laya.Node,scale) {
+        var sp = node as Laya.Sprite; 
+        if (sp != null) { 
+            sp.scaleY = scale; 
+        } 
+    }
+    static GetScaleX(node: Laya.Node) {
+        var sp = node as Laya.Sprite; 
+        if (sp != null) { 
+            return sp.scaleX; 
+        } 
+        return 1;
+    }
+    static GetScaleY(node: Laya.Node) {
+        var sp = node as Laya.Sprite; 
+        if (sp != null) { 
+            return sp.scaleY; 
+        } 
+        return 1;
+    }
+
     static GetPivotX(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         var x = 0;
