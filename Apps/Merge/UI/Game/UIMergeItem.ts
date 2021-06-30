@@ -5,8 +5,7 @@ import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
 import GameData, { GameStatus } from "../../Data/GameData";
-import GameMerge from "./GameMerge";
-import UIGameMerge from "./UIGameMerge";
+// import GameMerge from "./GameMerge"; 
 
  
 
@@ -66,23 +65,23 @@ export default class UIMergeItem extends UIView {
 
     // 碰撞线检测
     IsCollisionDeadLine() {
-        var pos =UIViewUtil.GetPosition(GameMerge.main.nodeDeadline);
-        var posMy =UIViewUtil.GetPosition(this.owner);
-        var y1 = posMy.y + this.GetBoundingBox().height / 2;
-        var y2 = posMy.y - this.GetBoundingBox().height / 2;
-        if ((pos.y > y2) && (pos.y < y1)) {
-            this.t += Common.GetCurrentTime();
-            if (this.t > 2.0) {
-                this.t = 0;
-                if (!GameData.main.isGameFail) {
-                    GameData.main.isGameFail = true;
-                    Debug.Log("UIMergeItem game over");
-                    UIGameMerge.main.OnGameFinish(true);
-                }
-            }
+        // var pos =UIViewUtil.GetPosition(GameMerge.main.nodeDeadline);
+        // var posMy =UIViewUtil.GetPosition(this.owner);
+        // var y1 = posMy.y + this.GetBoundingBox().height / 2;
+        // var y2 = posMy.y - this.GetBoundingBox().height / 2;
+        // if ((pos.y > y2) && (pos.y < y1)) {
+        //     this.t += Common.GetCurrentTime();
+        //     if (this.t > 2.0) {
+        //         this.t = 0;
+        //         if (!GameData.main.isGameFail) {
+        //             GameData.main.isGameFail = true;
+        //             Debug.Log("UIMergeItem game over");
+        //             UIGameMerge.main.OnGameFinish(true);
+        //         }
+        //     }
 
-            return true;
-        }
+        //     return true;
+        // }
         return false;
     }
 

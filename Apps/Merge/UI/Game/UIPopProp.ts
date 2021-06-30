@@ -6,7 +6,7 @@ import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
-import UIGameMerge from "./UIGameMerge";
+// import UIGameMerge from "./UIGameMerge";
 
  
 export enum PropType {
@@ -123,7 +123,7 @@ export default class UIPopProp extends UIViewPop {
         }
         this.imageIcon.UpdateImageByKey(keyImageIcon);
 
-        UIGameMerge.main.game.UpdateProp(keyImageIcon);
+        // UIGameMerge.main.game.UpdateProp(keyImageIcon);
         this.LayOut();
 
         this.SetSelectImage(this.imageItem0);
@@ -169,8 +169,8 @@ export default class UIPopProp extends UIViewPop {
     }
     OnClickBtnYes(event: Event, customEventData: string) {
         this.OnClose();
-        UIGameMerge.main.game.ShowProp(true);
-        UIGameMerge.main.OnGameProp(this, this.type);
+        // UIGameMerge.main.game.ShowProp(true);
+        // UIGameMerge.main.OnGameProp(this, this.type);
 
     }
     OnClickBtnNo(event: Event, customEventData: string) {

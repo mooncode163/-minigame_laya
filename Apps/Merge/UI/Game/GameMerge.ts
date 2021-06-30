@@ -8,7 +8,7 @@ import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import UIViewUtil from "../../../../Common/UIKit/ViewController/UIViewUtil";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
-import UIGameMerge from "./UIGameMerge";
+// import UIGameMerge from "./UIGameMerge";
 import UIMergeItem from "./UIMergeItem";
 
  
@@ -188,10 +188,9 @@ export default class GameMerge extends GameBase {
         this.OnRestPlayInternal();
     }
 
-    OnRestPlayInternal() {
-        // UIGameMerge.main.gameStatus = UIGameMerge.Status.Play;
+    OnRestPlayInternal() { 
         GameData.main.status = GameStatus.Play;
-        UIGameMerge.main.game.ShowProp(false);
+        // UIGameMerge.main.game.ShowProp(false);
     }
     // 改变类型为  string toId
     ChangeItem(toId) {

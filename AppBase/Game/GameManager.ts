@@ -1,4 +1,4 @@
-import GameViewController from "./GameViewController";
+// import GameViewController from "./GameViewController";
 import LevelData from "./LevelData";
 
  
@@ -28,12 +28,12 @@ export default class GameManager  {
     GotoGame (fromController) {
         var navi = fromController.naviController;
         if (navi != null) {
-            navi.Push(GameViewController.main);
+            // navi.Push(GameViewController.main);
         }
     }  
  
     GotoPlayAgain () {
-        GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
+        // GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
     }
 
 }

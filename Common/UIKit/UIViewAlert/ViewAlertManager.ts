@@ -1,13 +1,14 @@
-import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
+ 
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
-import { PrefabCache } from "../../Cache/PrefabCache";
-import { ConfigPrefab } from "../../Config/ConfigPrefab";
-import { PopUpManager } from "../PopUp/PopUpManager";
-import { UIViewAlert } from "./UIViewAlert";
+import PrefabCache from "../../Cache/PrefabCache";
+import ConfigPrefab from "../../Config/ConfigPrefab";
+import PopUpManager from "../PopUp/PopUpManager";
+import UIViewAlert from "./UIViewAlert";
+ 
 
  
 export default class ViewAlertManager  {
-    uiPrefab: Prefab = null;
+    uiPrefab: Laya.Prefab = null;
     ui: UIViewAlert = null;
     keyName: string = "";
     isNeedShow: boolean = false;
@@ -53,13 +54,13 @@ export default class ViewAlertManager  {
 
     ShowInternal(title, msg, yes, no) {
         //Debug.Log("ShowInternal SetText title ="+title+" msg="+msg);
-        var node = instantiate(this.uiPrefab);
+        var node = this.uiPrefab.create();
         this.ui = node.getComponent(UIViewAlert);
         // this.ui.callback = this.OnUIViewAlertFinished.bind(this);
 
         this.ui.keyName = this.keyName;
         this.ui.SetText(title, msg, yes, no);
-        this.ui.SetViewParent(AppSceneUtil.main.canvasMain.node);
+        // this.ui.SetViewParent(AppSceneUtil.main.canvasMain.node);
     }
     //string
     Show(title, msg, yes, no) {
