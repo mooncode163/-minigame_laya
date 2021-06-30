@@ -27,11 +27,10 @@ export default class LayOutBase extends Laya.Script {
     // })
     // public ali: Align = null!;
 
-    // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
-    // @type(Vec2)
+   
+
+    // 左下角偏移量
     private _offsetMin = new Laya.Vector2(0, 0);
-    // @type(Vec2)
-    //get 的用法
     get offsetMin(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._offsetMin;
     }
@@ -40,10 +39,8 @@ export default class LayOutBase extends Laya.Script {
         this._offsetMin = value;
     }
 
-    // @type(Vec2)
     private _offsetMax = new Laya.Vector2(0, 0);
-    // @type(Vec2)
-    //get 的用法
+    // 右上角偏移量
     get offsetMax(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._offsetMax;
     }

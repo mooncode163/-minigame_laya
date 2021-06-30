@@ -45,6 +45,8 @@ export default class LayOutSize extends LayOutBase {
     /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
+    /** @prop {name:offsetMin,type:Vector}*/
+    /** @prop {name:offsetMax,type:Vector}*/
     // @prop 在基类定义
    
 
