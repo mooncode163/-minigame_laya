@@ -218,7 +218,8 @@ export default class UIImage extends UIView {
         var size = UIViewUtil.GetNodeContentSize(this.owner);
         UIViewUtil.SetNodeContentSize(this.image,size.width,size.height);
         
-
+        UIViewUtil.SetNodePivotCenter(this.owner);
+        super.LayOut();
     }
 
 }

@@ -48,27 +48,32 @@ export default class LayOutBetween extends LayOutBase {
         var size = UIViewUtil.GetNodeBoundingBox(this.owner); 
         w = size.width;
         h = size.height;
-
+        var pivotX= UIViewUtil.GetPivotX(this.owner);
+        var pivotY= UIViewUtil.GetPivotY(this.owner);
         //左右
         if (this.align == Align.Horizontal) {
             x = LayOutUtil.main.GetBetweenCenterX(this.target as Laya.Sprite, this.target2 as Laya.Sprite)-w/2 + this.offset.x;
+            x+=pivotX;
         }
         if (this.align == Align.Vertical) {
             y = LayOutUtil.main.GetBetweenCenterY(this.target as Laya.Sprite, this.target2 as Laya.Sprite) -h/2+ this.offset.y;
+            y+=pivotY;
         }
 
         //屏幕边界 
         if ((this.align == Align.LEFT) || (this.align == Align.RIGHT)) {
             x = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-w/2 + this.offset.x;
+            x+=pivotX;
         }
 
         if (this.align == Align.UP) {
             y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-h/2 + this.offset.y;
+            y+=pivotY;
 
         }
         if (this.align == Align.DOWN) {
             y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align, this.enableOffsetAdBanner)-h/2 + this.offset.y;
-
+            y+=pivotY;
         }
         Debug.Log("LayOutBetween x=" + x + " y=" + y + " align=" + this.align);
         

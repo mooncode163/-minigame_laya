@@ -95,6 +95,22 @@ export default class UIViewUtil {
         }
         return h;
     }
+    static GetPivotX(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        var x = 0;
+        if (sp != null) {
+            x = sp.pivotX;
+        }
+        return x;
+    }
+    static GetPivotY(node: Laya.Node) {
+        var sp = node as Laya.Sprite;
+        var x = 0;
+        if (sp != null) {
+            x = sp.pivotY;
+        }
+        return x;
+    } 
     static SetNodeWidth(node: Laya.Node, w: number) {
         var sp = node as Laya.Sprite;
         if (sp != null) {

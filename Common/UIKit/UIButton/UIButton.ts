@@ -92,55 +92,6 @@ export default class UIButton extends UIView {
     }
 
 
-    /*
-    用法
-     UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
-            // this.OnBtnClickPlay();
-        }.bind(this));
-    */
-
-    static SetClickByNode(node: Laya.Node, caller: any, method: Function | null) {
-        var uibtn = node.getComponent(UIButton);
-        uibtn.SetClickFunction(caller, method);
-    }
-
-    onAwake() {
-        super.onAwake();
-
-        //只用来点击事件  不显示
-        this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
-        // this.content = this.owner.getChildByName("Content") as Laya.Image;
-        
-        
-
-        this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
-        this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
-        this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
-
-        UIViewUtil.SetNodePivotCenter(this.owner);
-
-
-        // this.type = this._type;
-        this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
-
-        // this.clickHandler = Laya.Handler.create(this, function (): void {
-
-        //     Debug.Log("UIButton _clickHandler on click");
-
-        // },null,false);
-
-        this.LayOut();
-
-    }
-
-    onStart() {
-        // [3]
-        super.onStart();
-
-        this.LayOut();
-    }
-
-
     //text
     get text() {
         if (this.textTitle == null) {
@@ -170,6 +121,52 @@ export default class UIButton extends UIView {
     set color(value) {
         // this.textTitle.color = value;
     }
+
+    /*
+    用法
+     UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
+            // this.OnBtnClickPlay();
+        }.bind(this));
+    */
+
+    static SetClickByNode(node: Laya.Node, caller: any, method: Function | null) {
+        var uibtn = node.getComponent(UIButton);
+        uibtn.SetClickFunction(caller, method);
+    }
+
+    onAwake() {
+        super.onAwake();
+        UIViewUtil.SetNodePivotCenter(this.owner);
+        //只用来点击事件  不显示
+        this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+        // this.content = this.owner.getChildByName("Content") as Laya.Image;
+        
+        
+
+        this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
+        this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
+        this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
+ 
+        // this.type = this._type;
+        this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
+
+        // this.clickHandler = Laya.Handler.create(this, function (): void {
+
+        //     Debug.Log("UIButton _clickHandler on click");
+
+        // },null,false);
+
+        this.LayOut();
+
+    }
+
+    onStart() {
+        // [3]
+        super.onStart();
+
+        this.LayOut();
+    }
+
 
 
 
@@ -233,6 +230,9 @@ export default class UIButton extends UIView {
 
     LayOut() {
         super.LayOut();
+        UIViewUtil.SetNodePivotCenter(this.owner);
+        super.LayOut();
+
     }
 
     /*

@@ -66,16 +66,10 @@ export default class LayOutRelation extends LayOutBase {
         var h_parent = sizeParent.height;
         // this.align = Align.RIGHT;
         // x = w_parent - w;
-
-        var sp = this.owner as Laya.Sprite;
-        var pivotX = 0;
-        var pivotY = 0;
-        if(sp!=null)
-        {
-            pivotX = sp.pivotX;
-            pivotY = sp.pivotY;
-        }
-        Debug.Log("this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x);
+ 
+        var pivotX = UIViewUtil.GetPivotX(this.owner);
+        var pivotY = UIViewUtil.GetPivotY(this.owner); 
+        Debug.Log("this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x +" pivotX="+pivotX);
         switch (this.type) {
             case RelationType.PARENT:
                 {
@@ -121,6 +115,13 @@ export default class LayOutRelation extends LayOutBase {
                         x +=pivotX; 
                         y +=pivotY;
                     }
+                    if (this.align == Align.CENTER) {
+                        x = w_parent/2 - w/2 + this.offset.x;
+                        y = h_parent/2 - h/2 + this.offset.y;
+                        x +=pivotX; 
+                        y +=pivotY;
+                    }
+                    
            
                 }
                 break;
@@ -137,21 +138,27 @@ export default class LayOutRelation extends LayOutBase {
                     // 位于target的左边
                     if (this.align == Align.LEFT) {
                         x = ptTarget.x - w - this.offset.x;
+                        x +=pivotX; 
                     }
                     if (this.align == Align.RIGHT) {
                         x = ptTarget.x + sizeTarget.width + this.offset.x;
+                        x +=pivotX; 
                     }
                     if (this.align == Align.UP) {
                         y = ptTarget.y - h - this.offset.y;
+                        y +=pivotY;
                     }
                     if (this.align == Align.DOWN) {
                         y = ptTarget.y + sizeTarget.height + this.offset.y;
+                        y +=pivotY;
                     }
 
                     //相同位置
                     if (this.align == Align.SAME_POSTION) {
                         x = ptTarget.x;
                         y = ptTarget.y;
+                        x +=pivotX; 
+                        y +=pivotY;
                     }
 
                 }

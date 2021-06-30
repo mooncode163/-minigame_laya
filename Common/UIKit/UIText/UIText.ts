@@ -60,7 +60,7 @@ export default class UIText extends UIView {
     onAwake() {
         super.onAwake();
         Debug.Log("UIText this.keyColor =" + this.keyColor);
-        
+        UIViewUtil.SetNodePivotCenter(this.owner);
         this.label = this.owner.getChildByName("Label") as Laya.Label;
 
         if (!Common.BlankString(this.keyColor)) {
@@ -83,6 +83,8 @@ export default class UIText extends UIView {
         // 同步大小
         var size = UIViewUtil.GetNodeContentSize(this.owner);
         UIViewUtil.SetNodeContentSize(this.label, size.width, size.height);
+        UIViewUtil.SetNodePivotCenter(this.owner);
+        super.LayOut();
 
     }
     UpdateLanguage() {

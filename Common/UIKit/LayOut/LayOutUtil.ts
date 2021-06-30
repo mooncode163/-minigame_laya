@@ -118,11 +118,12 @@ export default class LayOutUtil {
             nodeleft = node2;
             noderight = node1;
         }
-
+        var pivotXLeft = UIViewUtil.GetPivotX(nodeleft);
+        var pivotXRight = UIViewUtil.GetPivotX(noderight);  
         // var rctran = nodeleft.getComponent(UITransform).contentSize;
-        var v1 = nodeleft.x + nodeleft.width;
+        var v1 = nodeleft.x + (nodeleft.width-pivotXLeft);
         // rctran = noderight.getComponent(UITransform).contentSize;
-        var v2 = noderight.x;
+        var v2 = noderight.x-pivotXRight;
         return (v1 + v2) / 2;
 
     }
@@ -136,9 +137,10 @@ export default class LayOutUtil {
             nodeDown = node2;
             nodeUp = node1;
         }
-
-        var v1 = nodeDown.y;
-        var v2 = nodeUp.y + nodeUp.height / 2;
+        var pivotXDown= UIViewUtil.GetPivotY(nodeDown);
+        var pivotXUp = UIViewUtil.GetPivotY(nodeUp);  
+        var v1 = nodeDown.y-pivotXDown;
+        var v2 = nodeUp.y + nodeUp.height-pivotXUp;
         return (v1 + v2) / 2;
 
     }
@@ -148,7 +150,8 @@ export default class LayOutUtil {
         var v1 = 0, v2 = 0;
 
         var sizeCanvas = Common.sizeCanvas;
-
+        var pivotX= UIViewUtil.GetPivotX(node);
+        var pivotY= UIViewUtil.GetPivotY(node);
         // var rctran = node.getComponent(UITransform).contentSize;
         // var rctran = node.getComponent(cc.RectTransform);
         switch (align) {
@@ -156,21 +159,21 @@ export default class LayOutUtil {
                 {
                     //左边界
                     v1 = 0;// -sizeCanvas.width / 2;
-                    v2 = node.x;// - node.width / 2;
+                    v2 = node.x-pivotX;// - node.width / 2;
                 }
                 break;
             case Align.RIGHT:
                 {
                     //右边界
                     v1 = sizeCanvas.width;
-                    v2 = node.x + node.width;
+                    v2 = node.x + node.width-pivotX;
                 }
                 break;
             case Align.UP:
                 {
                     //上边界
                     v1 = 0;//sizeCanvas.height / 2;
-                    v2 = node.y;//+ node.height / 2;
+                    v2 = node.y-pivotY;//+ node.height / 2;
                 }
                 break;
             case Align.DOWN:
@@ -181,7 +184,7 @@ export default class LayOutUtil {
                         // AdKitCommon.main.heightCanvasAdBanner = 256;
                         v1 -= AdKitCommon.main.heightCanvasAdBanner;
                     }
-                    v2 = node.y + node.height;
+                    v2 = node.y + node.height-pivotY;
                 }
                 break;
         }
@@ -219,22 +222,24 @@ export default class LayOutUtil {
                 objUp = node1;
             }
         }
-
-
+        var pivotXDown= UIViewUtil.GetPivotX(objDown);
+        var pivotYDown= UIViewUtil.GetPivotY(objDown);
+        var pivotXUp= UIViewUtil.GetPivotX(objUp);
+        var pivotYUp= UIViewUtil.GetPivotY(objUp);
         // var pos = objDown.getPosition();
         var size = UIViewUtil.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
-        var y1 = objDown.y;// + size.height / 2;
+        var y1 = objDown.y-pivotYDown;// + size.height / 2;
 
         // 左
-        var x1 = objDown.x+size.width;
+        var x1 = objDown.x+size.width-pivotXDown;
 
         // objUp
         // pos = objUp.getPosition();
         size = UIViewUtil.GetNodeBoundingBox(objUp);
-        var y2 = objUp.y + size.height;
+        var y2 = objUp.y + size.height-pivotYUp;
 
         // 右
-        var x2 = objUp.x;
+        var x2 = objUp.x-pivotXUp;
 
         var ret = 0;
         if (isHeight) {
@@ -253,7 +258,8 @@ export default class LayOutUtil {
     //边界和对象之间的宽度或者高度 type SizeType
     GetBetweenSideAndTargetSize(node: Laya.Sprite, type) {
         var v1 = 0, v2 = 0;
-
+        var pivotX= UIViewUtil.GetPivotX(node);
+        var pivotY= UIViewUtil.GetPivotY(node);
         var size = UIViewUtil.GetNodeBoundingBox(node);// node.getBoundingBox();
         // var pos = node.getPosition();
         // var sizeParent = node.parent.getBoundingBox();
@@ -266,21 +272,21 @@ export default class LayOutUtil {
                 {
                     //左边界
                     v1 = 0;// -w_parent / 2;
-                    v2 = node.x;//- size.width / 2;
+                    v2 = node.x-pivotX;//- size.width / 2;
                 }
                 break;
             case SideType.RIGHT:
                 {
                     //右边界
                     v1 = w_parent;
-                    v2 = node.x + size.width;
+                    v2 = node.x + size.width-pivotX;
                 }
                 break;
             case SideType.UP:
                 {
                     //上边界
                     v1 = 0;
-                    v2 = node.y;
+                    v2 = node.y-pivotY;
                     Debug.Log("GetBetweenSideAndTargetSize h_parent=" + h_parent + " pos.y=" + node.y + " size.height=" + size.height)
                 }
                 break;
@@ -288,7 +294,7 @@ export default class LayOutUtil {
                 {
                     //下边界
                     v1 = h_parent;
-                    v2 = node.y + size.height;
+                    v2 = node.y + size.height-pivotY;
                 }
                 break;
         }

@@ -154,6 +154,10 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             }
         }
         y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
+        var pivotX = UIViewUtil.GetPivotX(nodeItem);
+        var pivotY = UIViewUtil.GetPivotY(nodeItem); 
+        x += pivotX;
+        y += pivotY;
         return new Laya.Vector2(x, y);
 
     }

@@ -47,19 +47,21 @@ export default class LayOutSize extends LayOutBase {
     /** @prop {name:target2,type:Node}*/
     // @prop 在基类定义
    
+
+    /** @prop {name:ratio,type:number}*/
     ratio = 1.0;
-   
+    /** @prop {name:ratioW,type:number}*/
     ratioW = 1.0;
-   
+   /** @prop {name:ratioH,type:number}*/
     ratioH = 1.0;
-   
+   /** @prop {name:widthH,type:number}*/
     widthH = 1.0;//宽
-   
+   /** @prop {name:heightH,type:number}*/
     heightH = 1.0;//高  
  
-      // 必须设置两个@type 才能在editor里修改
-    // @type(SideType) 
+        
     _sideType = SideType.LEFT;
+    /** @prop {name:sideType,type:Option,option:"LEFT,RIGHT,UP,UDOWNP",default:"LEFT"}*/
     // @type(SideType) 
     get sideType() {
         return this._sideType;

@@ -21,7 +21,8 @@ export default class LayOutScale extends LayOutBase {
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
     // @prop 在基类定义
-
+    
+     /** @prop {name:ratio,type:number}*/
     ratio = 1.0;
  
     private _type = ScaleType.MIN;
