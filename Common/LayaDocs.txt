@@ -1,3 +1,8 @@
 1, laya mac Chrome 黑屏问题    
     https://www.jianshu.com/p/ee65ee9a1d90
     open -n /Applications/Google\ Chrome.app/ --args --disable-web-security  --user-data-dir=/Users/moon/Documents/MyChromeDevUserData/
+
+
+
+2.    // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
+        AppSceneUtil.main.rootNode.addChild(image);

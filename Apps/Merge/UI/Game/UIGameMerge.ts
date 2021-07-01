@@ -48,7 +48,17 @@ export default class UIGameMerge extends UIGameBase {
  
         UIButton.SetClickByNode(this.btnBack,this, this.OnClickBtnBack.bind(this));
         
-        
+        // var image = new Laya.Image();
+        // image.width = 256;
+        // image.height = 256;
+        // image.x = 512;
+        // var filepath = "comp/image.png";
+        // image.skin = filepath
+        // var cl = image.addComponent(Laya.CircleCollider);
+        // cl.radius = image.width/2;
+        // var bd = image.addComponent(Laya.RigidBody);
+        // this.node.addChild(image);
+
     }
     onStart () {
         super.onStart();

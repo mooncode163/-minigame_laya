@@ -2,6 +2,7 @@
 import GameViewController from "../../../../AppBase/Game/GameViewController";
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
 import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
+import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
@@ -90,6 +91,34 @@ export default class UIHomeMerge extends UIHomeBase {
         // moosnow.ad.getAd((res) => {
         //     console.log('moosnow 广告数据 ', res)
         // })
+
+        // GameMerge UIMergeItem
+        // PrefabCache.main.LoadByKey(
+        //     {
+        //         key:"GameMerge",
+        //         // filepath: "Resources/AppCommon/Prefab/Game/GameMerge.prefab",
+        //         success: (p: any, data: any) => {
+        //             var node = data.create(); 
+        //             this.owner.addChild(node);
+
+        //         },
+        //         fail: () => {
+
+        //         },
+        //     });
+
+    //  var image = new Laya.Image();
+    //  image.width = 256;
+    //  image.height = 256;
+    //  image.x = 512;
+    //  var filepath = "comp/image.png";
+    //  image.skin = filepath
+    //  var cl = image.addComponent(Laya.CircleCollider);
+    //  cl.radius = image.width/2;
+    //  var bd = image.addComponent(Laya.RigidBody);
+    //  this.node.addChild(image);
+
+
     }
 
 

@@ -46,6 +46,17 @@ export default class GameMerge extends GameBase {
         this.LoadPrefab();  
         this.LayOut(); 
 
+        // var image = new Laya.Image();
+        // image.width = 256;
+        // image.height = 256;
+        // image.x = 512;
+        // var filepath = "comp/image.png";
+        // image.skin = filepath
+        // var cl = image.addComponent(Laya.CircleCollider);
+        // cl.radius = image.width/2;
+        // var bd = image.addComponent(Laya.RigidBody);
+        // this.node.addChild(image);
+
     }
     onStart() {
         super.onStart();
@@ -114,6 +125,19 @@ export default class GameMerge extends GameBase {
                 this.uiItem = this.CreateItem(key);
                 // this.GetComponent<SizeChange>().GettingBigger(fruitInTheScene);//使物体缓慢变大
 
+
+                // var image = new Laya.Image();
+                // image.width = 256;
+                // image.height = 256;
+                // image.x = 512;
+                // var filepath = "comp/image.png";
+                // image.skin = filepath
+                // var cl = image.addComponent(Laya.CircleCollider);
+                // cl.radius = image.width/2;
+                // var bd = image.addComponent(Laya.RigidBody);
+                // this.node.addChild(image);
+
+                
                 this.hasItBeenGenerated = true;//更改hasItBeenGenerated状态
             }
 
@@ -271,9 +295,7 @@ export default class GameMerge extends GameBase {
         ui.SetParent(this);
         ui.name = keyid;
         // ui.node.name = keyid;
-        var pic = GameLevelParse.main.GetImagePath(key);
-        Debug.Log("CreateItem pic="+pic+" key="+key);
-        ui.UpdateImage(pic);
+   
 
         ui.EnableGravity(false);
         this.ScaleStart = 0.2;
@@ -292,6 +314,11 @@ export default class GameMerge extends GameBase {
         Debug.Log("OnCollisionEnter2D this.posYInit=" + this.posYInit + " key=" + key + " scale=" + scale);
         // ui.node.setPosition(x, y);
         UI.SetNodePosition(ui.owner,x,y);
+
+        var pic = GameLevelParse.main.GetImagePath(key);
+        Debug.Log("CreateItem pic="+pic+" key="+key);
+        ui.UpdateImage(pic);
+        
         // ui.transform.localScale = new Vector3(scale, scale, 1);
         // ui.transform.localPosition = new Vector3(0, posYInit, -1);
         this.listItem.push(ui);

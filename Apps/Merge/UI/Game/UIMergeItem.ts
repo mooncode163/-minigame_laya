@@ -4,16 +4,18 @@ import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import UI from "../../../../Common/UIKit/ViewController/UI";
-import GameData, { GameStatus } from "../../Data/GameData"; 
+import GameData, { GameStatus } from "../../Data/GameData";
 import TextureUtil from "../../../../Common/Image/TextureUtil";
 import Platform from "../../../../Common/Platform";
 import TextureCache from "../../../../Common/Cache/TextureCache";
+import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
+import { ui } from "../../../../../ui/layaMaxUI";
 // import GameMerge from "./GameMerge";  
 
- 
+
 export default class UIMergeItem extends UIView {
-    image:Laya.Image;
-    imageItem: UIImage =null;
+    image: Laya.Image;
+    imageItem: UIImage = null;
     isNew = false;
     type = 0;
     t = 0;
@@ -22,13 +24,12 @@ export default class UIMergeItem extends UIView {
     onAwake() {
         super.onAwake();
         this.t = 0;
-        
+
         var nodetmp = this.FindChild("ImgeItem");
-        if(nodetmp!=null)
-        {
-            this.imageItem =nodetmp.getComponent(UIImage);
-        } 
-        this.image =this.FindChild("Image") as Laya.Image;
+        if (nodetmp != null) {
+            this.imageItem = nodetmp.getComponent(UIImage);
+        }
+        // this.image = this.FindChild("Image") as Laya.Image;
 
         // this.node.zIndex = 100;
         // var manager = director.getCollisionManager();
@@ -37,9 +38,21 @@ export default class UIMergeItem extends UIView {
         // var collider = this.node.getComponent(PhysicsBoxCollider);
         var ev = this.owner.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
+
+
+
+
     }
     onStart() {
         super.onStart();
+    }
+
+    onDestroy()
+    {
+        if(this.image!=null)
+        {
+            this.image.destroy();
+        }
     }
 
     onUpdate() {
@@ -95,17 +108,34 @@ export default class UIMergeItem extends UIView {
     }
 
     UpdateImage(pic) {
-        if(this.imageItem!=null)
-        {
-            this.imageItem.UpdateImage(pic,"");
+        if (this.imageItem != null) {
+            this.imageItem.UpdateImage(pic, "");
         }
 
         var isCloud = false;
         if (Platform.isCloudRes) {
             isCloud = true;
-        } 
+        }
 
-     
+
+
+        var image = new Laya.Image();
+        this.image = image;
+        image.width = 256;
+        image.height = 256;
+        image.x = this.x;
+        UI.SetNodePivotCenter(image);
+        var sizeparent = UI.GetNodeContentSize(this.node.parent);
+        // image.x = sizeparent.width/2-image.width/2;
+        // var filepath = "comp/image.png";
+        // image.skin = filepath
+        var cl = image.addComponent(Laya.CircleCollider);
+        cl.radius = image.width / 2;
+        var bd = image.addComponent(Laya.RigidBody);
+
+        // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
+        AppSceneUtil.main.rootNode.addChild(image);
+
         TextureCache.main.Load(
             {
                 filepath: pic,
@@ -120,12 +150,13 @@ export default class UIMergeItem extends UIView {
 
                 },
             });
+ 
     }
 
     EnableGravity(isEnable) {
         // var bd = this.node.getComponent(RigidBody2D);
         // bd.type = isEnable ? ERigidBody2DType.Dynamic : ERigidBody2DType.Static;
-        
+
     }
 
     OnTouchDown(pos) {
