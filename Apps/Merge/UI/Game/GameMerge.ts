@@ -3,20 +3,20 @@ import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import UITouchEvent from "../../../../Common/UIKit/UITouchEvent"; 
+import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
 // import UIGameMerge from "./UIGameMerge";
 import UIMergeItem from "./UIMergeItem";
 
- 
 
- 
+
+
 export default class GameMerge extends GameBase {
-  
+
     nodeDeadline: Laya.Node | null = null;
-  
+
     imageProp: UIImage | null = null;
     static TimeStep = 0.8;
 
@@ -32,7 +32,7 @@ export default class GameMerge extends GameBase {
     isMouseUp = false;
     isAutoClick = false;
     posYInit: 0;
- 
+
 
     static _main: GameMerge;
     //静态方法
@@ -43,8 +43,8 @@ export default class GameMerge extends GameBase {
         super.onAwake();
         GameMerge._main = this;
         this.time = 0;
-        this.LoadPrefab();  
-        this.LayOut(); 
+        this.LoadPrefab();
+        this.LayOut();
 
         // var image = new Laya.Image();
         // image.width = 256;
@@ -88,7 +88,7 @@ export default class GameMerge extends GameBase {
 
         PrefabCache.main.LoadByKey(
             {
-                key:"UIMergeItem",
+                key: "UIMergeItem",
                 // filepath: "Resources/AppCommon/Prefab/Game/UIMergeItem.prefab",
                 success: (p: any, data: any) => {
                     this.prefabItem = data;
@@ -103,15 +103,15 @@ export default class GameMerge extends GameBase {
     }
 
     StartGame() {
-        var ev = this.owner.addComponent(UITouchEvent);
-        ev.callBackTouch = this.OnUITouchEvent.bind(this);
+        // var ev = this.owner.addComponent(UITouchEvent);
+        // ev.callBackTouch = this.OnUITouchEvent.bind(this);
         this.time = GameMerge.TimeStep;
     }
 
 
     onUpdate() {         //用作延迟生成物体
         if (this.time < GameMerge.TimeStep) {
-            var tick = Common.GetCurrentTimeMs();
+            var tick = Common.GetCurrentTime();
             // Debug.Log("update tick="+tick);
             this.time += tick;
         }
@@ -137,7 +137,7 @@ export default class GameMerge extends GameBase {
                 // var bd = image.addComponent(Laya.RigidBody);
                 // this.node.addChild(image);
 
-                
+
                 this.hasItBeenGenerated = true;//更改hasItBeenGenerated状态
             }
 
@@ -218,7 +218,7 @@ export default class GameMerge extends GameBase {
         this.OnRestPlayInternal();
     }
 
-    OnRestPlayInternal() { 
+    OnRestPlayInternal() {
         GameData.main.status = GameStatus.Play;
         // UIGameMerge.main.game.ShowProp(false);
     }
@@ -262,7 +262,7 @@ export default class GameMerge extends GameBase {
     }
 
     // 摧毁所有的同类 string
-    DeleteAllItemsOfId(id) { 
+    DeleteAllItemsOfId(id) {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist.id == id) {
@@ -295,17 +295,17 @@ export default class GameMerge extends GameBase {
         ui.SetParent(this);
         ui.name = keyid;
         // ui.node.name = keyid;
-   
 
-        ui.EnableGravity(false);
+
+       
         this.ScaleStart = 0.2;
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
- 
+
         // UI.SetScaleXY(ui.owner,scale);  
 
         var rectParent = this.GetBoundingBox();
-        x = rectParent.width/2;
+        x = rectParent.width / 2;
         y = rectParent.height / 2 - ui.GetBoundingBox().height / 2;
 
         // y = 512;
@@ -313,12 +313,12 @@ export default class GameMerge extends GameBase {
         this.posYInit = y;
         Debug.Log("OnCollisionEnter2D this.posYInit=" + this.posYInit + " key=" + key + " scale=" + scale);
         // ui.node.setPosition(x, y);
-        UI.SetNodePosition(ui.owner,x,y);
+        UI.SetNodePosition(ui.owner, x, y);
 
         var pic = GameLevelParse.main.GetImagePath(key);
-        Debug.Log("CreateItem pic="+pic+" key="+key);
+        Debug.Log("CreateItem pic=" + pic + " key=" + key);
         ui.UpdateImage(pic);
-        
+        ui.EnableGravity(false);
         // ui.transform.localScale = new Vector3(scale, scale, 1);
         // ui.transform.localPosition = new Vector3(0, posYInit, -1);
         this.listItem.push(ui);
@@ -331,47 +331,43 @@ export default class GameMerge extends GameBase {
     ShowProp(isShow: boolean) {
         this.imageProp.SetActive(isShow);
         if (isShow) {
-            var z =UI.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
-            var pos = new Laya.Vector3(0,0,0);
+            var z = UI.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
+            var pos = new Laya.Vector3(0, 0, 0);
             pos.z = z;
-            UI.SetPosition(this.imageProp.owner,pos); 
+            UI.SetPosition(this.imageProp.owner, pos);
         }
     }
     UpdateProp(keypic: string) {
         this.imageProp.UpdateImageByKey(keypic);
     }
-    OnTouchDown(pos:Laya.Vector3) {
 
+
+    onMouseDown(e) {
         // Debug.Log("GameMerge down id=" + this.id);
         // var z = this.imageProp.node.getPosition().z;
         // var posnew = new Vec3(pos.x,pos.y,0);
         // posnew.z = z;
         // this.imageProp.node.setPosition(posnew);
-    }
-    OnTouchMove(pos) {
-    }
-    OnTouchUp(pos) {
-    }
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
-        // var pos = ui.GetPosition(event);
-        // var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
-        // var posui = ui.GetUIPosition(event);
-        // Debug.Log("OnUITouchEvent posnodeAR = " + posnodeAR + " posui=" + posui + " sizeCanvas=" + Common.sizeCanvas);
-        // switch (status) {
-        //     case UITouchEvent.TOUCH_DOWN:
-        //         this.OnTouchDown(posnodeAR);
-        //         break;
 
-        //     case UITouchEvent.TOUCH_MOVE:
-        //         this.OnTouchMove(posnodeAR);
-        //         break;
-
-        //     case UITouchEvent.TOUCH_UP:
-        //         this.OnTouchUp(posnodeAR);
-        //         break;
-        // }
-        // this.UpdateEvent(status, posnodeAR);
+        // console.log("按下");
+        // console.log("按下 " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+        this.UpdateEvent(UITouchEvent.TOUCH_DOWN, new Laya.Vector2(e.stageX,e.stageY));
     }
+    onMouseMove(e) {
+        // console.log("移动");
+        this.UpdateEvent(UITouchEvent.TOUCH_MOVE, new Laya.Vector2(e.stageX,e.stageY));
+    }
+    onMouseUp(e) {
+        // console.log("抬起");
+        // console.log("抬起 " + this.owner.name); 
+        this.UpdateEvent(UITouchEvent.TOUCH_UP, new Laya.Vector2(e.stageX,e.stageY));
+    }
+    onClick(e) {
+        //e.stopPropagation();//阻止事件冒泡/上报
+        console.log("点击" + this.owner.name);
+    }
+
+
 
 
     UpdateEvent(status, point) {
@@ -421,8 +417,10 @@ export default class GameMerge extends GameBase {
                         // mousePosition.x = 0;
                         // mousePosition.y = 200;
 
-                        this.uiItem.node.setPosition(mousePosition);
-
+                        // this.uiItem.node.setPosition(mousePosition);
+                        this.uiItem.x = mousePosition.x;
+                        this.uiItem.y = mousePosition.y;
+                        this.uiItem.LayOut();
 
                     }
                 }
@@ -436,7 +434,9 @@ export default class GameMerge extends GameBase {
                     if (this.uiItem.isNew) {
                         // Vector3 pos = new Vector3(mousePosition.x, posYInit, 0);//更改水果在场景中的位置
                         mousePosition.y = this.posYInit;
-                        this.uiItem.node.setPosition(mousePosition);
+                        // this.uiItem.node.setPosition(mousePosition);
+                        this.uiItem.x = mousePosition.x;
+                        this.uiItem.y = mousePosition.y;
                     }
                 }
             }
@@ -465,11 +465,10 @@ export default class GameMerge extends GameBase {
 
 
     }
-  // 判断场景里是否有掉落下来的球
-   IsHasFalledBall()
-  {
-      return this.listItem.length > 1 ? true : false;
-  }
+    // 判断场景里是否有掉落下来的球
+    IsHasFalledBall() {
+        return this.listItem.length > 1 ? true : false;
+    }
 }
 
 

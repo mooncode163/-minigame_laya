@@ -42,12 +42,6 @@ export default class UITouchEvent extends Laya.Script {
     onMouseMove(e){
         console.log("移动");
     }
-    onMouseOut(e){
-        console.log("移出");
-    }
-    onMouseOver(e){
-        console.log("进入");
-    }
     onMouseUp(e){
         // console.log("抬起");
         console.log("抬起 " + this.owner.name);
@@ -57,6 +51,14 @@ export default class UITouchEvent extends Laya.Script {
         //e.stopPropagation();//阻止事件冒泡/上报
         console.log("点击" + this.owner.name);
     }
+    
+    onMouseOut(e){
+        console.log("移出");
+    }
+    onMouseOver(e){
+        console.log("进入");
+    }
+   
     // onStageMouseDown(e){
     //     console.log("舞台中按下");
     // }

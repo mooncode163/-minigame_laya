@@ -39,7 +39,22 @@ export default class UIMergeItem extends UIView {
         var ev = this.owner.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
 
+        var image = new Laya.Image();
+        this.image = image;
+        image.width = 256;
+        image.height = 256;
+       
+        UI.SetNodePivotCenter(image);
+        var sizeparent = UI.GetNodeContentSize(this.node.parent);
+        // image.x = sizeparent.width/2-image.width/2;
+        // var filepath = "comp/image.png";
+        // image.skin = filepath
+        var cl = image.addComponent(Laya.CircleCollider);
+        cl.radius = image.width / 2;
+        var bd = image.addComponent(Laya.RigidBody);
 
+        // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
+        AppSceneUtil.main.rootNode.addChild(image);
 
 
     }
@@ -119,22 +134,7 @@ export default class UIMergeItem extends UIView {
 
 
 
-        var image = new Laya.Image();
-        this.image = image;
-        image.width = 256;
-        image.height = 256;
-        image.x = this.x;
-        UI.SetNodePivotCenter(image);
-        var sizeparent = UI.GetNodeContentSize(this.node.parent);
-        // image.x = sizeparent.width/2-image.width/2;
-        // var filepath = "comp/image.png";
-        // image.skin = filepath
-        var cl = image.addComponent(Laya.CircleCollider);
-        cl.radius = image.width / 2;
-        var bd = image.addComponent(Laya.RigidBody);
 
-        // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
-        AppSceneUtil.main.rootNode.addChild(image);
 
         TextureCache.main.Load(
             {
@@ -150,13 +150,27 @@ export default class UIMergeItem extends UIView {
 
                 },
             });
+
+            this.LayOut();
  
     }
-
+    LayOut() {
+        super.LayOut();
+        if(this.image!=null)
+        {
+            this.image.x = this.x;
+            this.image.y = this.y;
+        }
+    }
     EnableGravity(isEnable) {
         // var bd = this.node.getComponent(RigidBody2D);
         // bd.type = isEnable ? ERigidBody2DType.Dynamic : ERigidBody2DType.Static;
-
+        if(this.image!=null)
+        {
+            var bd = this.image.getComponent(Laya.RigidBody);
+            bd.type=isEnable ? "dynamic" : "static";
+            // Laya.RigidBody
+        }
     }
 
     OnTouchDown(pos) {
