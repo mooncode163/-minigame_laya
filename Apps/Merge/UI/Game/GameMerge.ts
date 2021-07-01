@@ -3,8 +3,7 @@ import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
-import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import UITouchEvent from "../../../../Common/UIKit/UITouchEvent"; 
 import UI from "../../../../Common/UIKit/ViewController/UI";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
@@ -44,8 +43,7 @@ export default class GameMerge extends GameBase {
         super.onAwake();
         GameMerge._main = this;
         this.time = 0;
-        this.LoadPrefab(); 
-        // this.imageProp.SetActive(false); 
+        this.LoadPrefab();  
         this.LayOut(); 
 
     }

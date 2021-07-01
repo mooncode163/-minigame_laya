@@ -14,7 +14,7 @@ export default class LayOutBase extends Laya.Script {
     enableOffsetAdBanner = false;
     isOnlyForPortrait = false;
     isOnlyForLandscape = false;
-    space = new Laya.Vector2(0, 0);
+    // space = new Laya.Vector2(0, 0);
 
 
 
@@ -28,39 +28,45 @@ export default class LayOutBase extends Laya.Script {
     // public ali: Align = null!;
 
    
+    // private _offset = new Laya.Vector2(0, 0); 
+    // get offset(): Laya.Vector2 {
+    //     return this._offset;
+    // } 
+    // set offset(value: Laya.Vector2) {
+    //     this._offset = value;
+    // }
 
-    // 左下角偏移量
-    private _offsetMin = new Laya.Vector2(0, 0);
-    get offsetMin(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
-        return this._offsetMin;
-    }
-    // set 的用法
-    set offsetMin(value: Laya.Vector2) {
-        this._offsetMin = value;
-    }
+    offsetX:number=0;
+    offsetY:number=0;
+    
 
-    private _offsetMax = new Laya.Vector2(0, 0);
-    // 右上角偏移量
-    get offsetMax(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
-        return this._offsetMax;
-    }
-    // set 的用法
-    set offsetMax(value: Laya.Vector2) {
-        this._offsetMax = value;
-    }
+    offsetXLeft:number=0;
+    offsetXRight:number=0;
+    offsetYUp:number=0;
+    offsetYDown:number=0;
+    
 
-    // vec2 @type 必须用new 不能Vec2.ZERO 不然编译报错 因为ZERO是Readonly 
-    // @type(Vec2)
-    private _offset = new Laya.Vector2(0, 0);
-    // @type(Vec2)
-    //get 的用法
-    get offset(): Laya.Vector2 {
-        return this._offset;
-    }
-    // set 的用法
-    set offset(value: Laya.Vector2) {
-        this._offset = value;
-    }
+    // // 左下角偏移量
+    // private _offsetMin = new Laya.Vector2(0, 0);
+    // get offsetMin(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
+    //     return this._offsetMin;
+    // }
+    // // set 的用法
+    // set offsetMin(value: Laya.Vector2) {
+    //     this._offsetMin = value;
+    // }
+
+    // private _offsetMax = new Laya.Vector2(0, 0);
+    // // 右上角偏移量
+    // get offsetMax(): Laya.Vector2 {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
+    //     return this._offsetMax;
+    // }
+    // // set 的用法
+    // set offsetMax(value: Laya.Vector2) {
+    //     this._offsetMax = value;
+    // }
+
+   
 
     onAwake() {
         this.LayOut();

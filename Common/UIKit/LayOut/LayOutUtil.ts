@@ -11,20 +11,20 @@ import UI from "../ViewController/UI";
 import LayOutElement from "./LayOutElement";
 
 
-// 微信小程序 const Align = LayOutUtil.Align; 会异常 所以用export enum的方式
+// Laya 编辑器会截取"_" 字符所以不带"_"
 export enum Align {
     UP = "UP",//0
     DOWN = "DOWN",//1
     LEFT = "LEFT",//2
     RIGHT = "RIGHT",//3
     CENTER = "CENTER",
-    UP_LEFT = "UP_LEFT",
-    UP_RIGHT = "UP_RIGHT",
-    DOWN_LEFT = "DOWN_LEFT",
-    DOWN_RIGHT = "DOWN_RIGHT",
+    UPLEFT = "UPLEFT",
+    UPRIGHT = "UPRIGHT",
+    DOWNLEFT = "DOWNLEFT",
+    DOWNRIGHT = "DOWNRIGHT",
     Horizontal = "Horizontal",
     Vertical = "Vertical",
-    SAME_POSTION = "SAME_POSTION",
+    SAMEPOSTION = "SAMEPOSTION",
 }
 
 export enum RelationType {
@@ -69,10 +69,10 @@ export enum Direction {
 
 export enum SizeType {
     MATCH_CONTENT = "MATCH_CONTENT",//按内容设置
-    MATCH_PARENT = "MATCH_PARENT",//与父窗口等大或者按比例 
+    PARENT = "PARENT",//与父窗口等大或者按比例 
     MATCH_TARGET = "MATCH_TARGET",//与目标等大或者按比例 
-    MATCH_PARENT_MIN = "MATCH_PARENT_MIN",//父窗口width 和 height 的 min
-    MATCH_PARENT_MAX = "MATCH_PARENT_MAX",//父窗口width 和 height 的 max
+    PARENT_MIN = "PARENT_MIN",//父窗口width 和 height 的 min
+    PARENT_MAX = "PARENT_MAX",//父窗口width 和 height 的 max
     MATCH_WIDTH = "MATCH_WIDTH",//width 和 height 相等
     MATCH_HEIGHT = "MATCH_HEIGHT",//width 和 height相等
     BETWEEN_SIDE_TARGET = "BETWEEN_SIDE_TARGET",//夹在边界和target之间

@@ -47,7 +47,7 @@ export default class UIToolBar extends UIView {
         var count = LayOutUtil.main.GetChildCount(this.owner, false);
         var ly = this.owner.getComponent(LayOutVertical);
         // count =10;
-        var oft =  ly.space.y*2;
+        var oft =  ly.offsetY*2;
         // oft = 32;
         h = count * (rctranBtn.height +oft);
         // h = 512;

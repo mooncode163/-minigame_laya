@@ -1,5 +1,6 @@
  
 import Common from "../../Common";
+import Debug from "../../Debug";
 import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
  
@@ -16,10 +17,16 @@ export default class LayOutScale extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-    /** @prop {name:space,type:Vector}*/
-    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+   
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"LEFT"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
+
+    /** @prop {name:offsetXLeft,type:Number}*/
+    /** @prop {name:offsetXRight,type:Number}*/
+    /** @prop {name:offsetYUp,type:Number}*/
+    /** @prop {name:offsetYDown,type:Number}*/
+
     // @prop 在基类定义
     
      /** @prop {name:ratio,type:number}*/
@@ -97,9 +104,8 @@ export default class LayOutScale extends LayOutBase {
         if (h_parent == 0) {
             h_parent = sizeCanvas.height;
         }
-        w_parent -= (this.offsetMin.x + this.offsetMax.x);
-        h_parent -= (this.offsetMin.y + this.offsetMax.y);
-
+        w_parent -= (this.offsetXLeft + this.offsetXRight);
+        h_parent -= (this.offsetYUp + this.offsetYDown);
         w = size.width;
         h = size.height;
 
@@ -110,7 +116,7 @@ export default class LayOutScale extends LayOutBase {
             scale = Common.GetBestFitScale(w, h, w_parent, h_parent);
         }
         scale = scale * this.ratio; 
-
+        Debug.Log("LayOutScale  scale=" + scale+" name="+this.owner.name+" w_parent="+w_parent+" h_parent="+h_parent+" w="+w+" h="+h+ " isMaxFit="+isMaxFit); 
         var sp = node as Laya.Sprite;
         if(sp!=null)
         {

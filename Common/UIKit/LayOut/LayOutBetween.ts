@@ -14,10 +14,13 @@ export default class LayOutBetween extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-    /** @prop {name:space,type:Vector}*/
-    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+   
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"LEFT"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
+
+    /** @prop {name:offsetX,type:Number}*/
+    /** @prop {name:offsetY,type:Number}*/
     // @prop 在基类定义
 
     onAwake() {
@@ -52,27 +55,27 @@ export default class LayOutBetween extends LayOutBase {
         var pivotY= UI.GetPivotY(this.owner);
         //左右
         if (this.align == Align.Horizontal) {
-            x = LayOutUtil.main.GetBetweenCenterX(this.target as Laya.Sprite, this.target2 as Laya.Sprite)-w/2 + this.offset.x;
+            x = LayOutUtil.main.GetBetweenCenterX(this.target as Laya.Sprite, this.target2 as Laya.Sprite)-w/2 + this.offsetX;
             x+=pivotX;
         }
         if (this.align == Align.Vertical) {
-            y = LayOutUtil.main.GetBetweenCenterY(this.target as Laya.Sprite, this.target2 as Laya.Sprite) -h/2+ this.offset.y;
+            y = LayOutUtil.main.GetBetweenCenterY(this.target as Laya.Sprite, this.target2 as Laya.Sprite) -h/2+ this.offsetY;
             y+=pivotY;
         }
 
         //屏幕边界 
         if ((this.align == Align.LEFT) || (this.align == Align.RIGHT)) {
-            x = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-w/2 + this.offset.x;
+            x = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-w/2 + this.offsetX;
             x+=pivotX;
         }
 
         if (this.align == Align.UP) {
-            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-h/2 + this.offset.y;
+            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align)-h/2 + this.offsetY;
             y+=pivotY;
 
         }
         if (this.align == Align.DOWN) {
-            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align, this.enableOffsetAdBanner)-h/2 + this.offset.y;
+            y = LayOutUtil.main.GetBetweenScreenCenter(this.target as Laya.Sprite, this.align, this.enableOffsetAdBanner)-h/2 + this.offsetY;
             y+=pivotY;
         }
         Debug.Log("LayOutBetween x=" + x + " y=" + y + " align=" + this.align);

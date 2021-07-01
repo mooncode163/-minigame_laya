@@ -121,6 +121,10 @@ export default class UIImage extends UIView {
         this.LayOut();
     }
 
+    onUpdate() {
+        // Debug.Log("UIImage onUpdate");
+        // this.LayOut();
+    }
 
     GetKeyImage() {
         var ret = "";
@@ -217,7 +221,7 @@ export default class UIImage extends UIView {
         // image 和uiimage同步大小
         var size = UI.GetNodeContentSize(this.owner);
         UI.SetNodeContentSize(this.image,size.width,size.height);
-        
+        Debug.Log("UIImage  w=" + size.width + " h=" + size.height+" name="+this.owner.name); 
         UI.SetNodePivotCenter(this.owner);
         super.LayOut();
     }

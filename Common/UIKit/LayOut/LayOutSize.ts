@@ -41,12 +41,14 @@ export default class LayOutSize extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-    /** @prop {name:space,type:Vector}*/
-    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+    
     /** @prop {name:target,type:Node}*/
-    /** @prop {name:target2,type:Node}*/
-    /** @prop {name:offsetMin,type:Vector}*/
-    /** @prop {name:offsetMax,type:Vector}*/
+    /** @prop {name:target2,type:Node}*/ 
+    /** @prop {name:offsetXLeft,type:Number}*/
+    /** @prop {name:offsetXRight,type:Number}*/
+    /** @prop {name:offsetYUp,type:Number}*/
+    /** @prop {name:offsetYDown,type:Number}*/
+     
     // @prop 在基类定义
    
 
@@ -97,8 +99,8 @@ export default class LayOutSize extends LayOutBase {
         this.LayOut();
     } 
  
-    private _typeX = SizeType.MATCH_PARENT;
-     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_PARENT"}*/
+    private _typeX = SizeType.PARENT;
+     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,PARENT,MATCH_TARGET,PARENT_MIN,PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"PARENT"}*/
     get typeX() {
         return this._typeX;
     }
@@ -108,8 +110,8 @@ export default class LayOutSize extends LayOutBase {
     }
     
  
-    private _typeY = SizeType.MATCH_PARENT; 
-    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,MATCH_PARENT,MATCH_TARGET,MATCH_PARENT_MIN,MATCH_PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"MATCH_PARENT"}*/
+    private _typeY = SizeType.PARENT; 
+    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,PARENT,MATCH_TARGET,PARENT_MIN,PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"PARENT"}*/
     get typeY() {
         return this._typeY;
     }
@@ -121,7 +123,7 @@ export default class LayOutSize extends LayOutBase {
 
     onAwake() {
         super.onAwake(); 
-        // this.LayOut();
+        this.LayOut();
     }
     onStart() {
         
@@ -155,9 +157,13 @@ export default class LayOutSize extends LayOutBase {
         h = size.height;
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
-        w_parent -= (this.offsetMin.x + this.offsetMax.x);
-        h_parent -= (this.offsetMin.y + this.offsetMax.y);
-         Debug.Log("this.typeX=" + this.typeX + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w);
+        // w_parent -= (this.offsetMin.x + this.offsetMax.x);
+        // h_parent -= (this.offsetMin.y + this.offsetMax.y);
+        w_parent -= (this.offsetXLeft + this.offsetXRight);
+        h_parent -= (this.offsetYUp + this.offsetYDown);
+        
+        
+         Debug.Log("UpdateSizeX this.typeX=" + this.typeX+ " sizeParent.width="+sizeParent.width+ " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w+" name="+this.owner.name+" this.ratioW="+this.ratioW);
         // Debug.Log("w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w);
         
         // return;
@@ -183,18 +189,18 @@ export default class LayOutSize extends LayOutBase {
                 }
                 break;
 
-            case SizeType.MATCH_PARENT:
+            case SizeType.PARENT:
                 {
                     w = w_parent * this.ratioW;
                 }
                 break;
-            case SizeType.MATCH_PARENT_MIN:
+            case SizeType.PARENT_MIN:
                 {
                     w = Math.min(w_parent, h_parent) * this.ratioW;
 
                 }
                 break;
-            case SizeType.MATCH_PARENT_MAX:
+            case SizeType.PARENT_MAX:
                 {
                     w = Math.max(w_parent, h_parent) * this.ratioW;
                 }
@@ -230,7 +236,9 @@ export default class LayOutSize extends LayOutBase {
                 }
                 break;
         }
-        Debug.Log("UpdateSizeX w=" + w + " h=" + h); 
+        // w = w_parent;
+        // h = h_parent;
+        Debug.Log("UpdateSizeX w=" + w + " h=" + h+" name="+this.owner.name); 
         UI.SetNodeContentSize(this.owner,w,h);
 
         
@@ -250,8 +258,11 @@ export default class LayOutSize extends LayOutBase {
 
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
-        w_parent -= (this.offsetMin.x + this.offsetMax.x);
-        h_parent -= (this.offsetMin.y + this.offsetMax.y);
+        // w_parent -= (this.offsetMin.x + this.offsetMax.x);
+        // h_parent -= (this.offsetMin.y + this.offsetMax.y);
+        w_parent -= (this.offsetXLeft + this.offsetXRight);
+        h_parent -= (this.offsetYUp + this.offsetYDown);
+
         Debug.Log("GetBetweenSideAndTargetSize this.sideType="+this.sideType);
         switch (this.typeY) {
             case SizeType.MATCH_CONTENT:
@@ -275,18 +286,18 @@ export default class LayOutSize extends LayOutBase {
                 }
                 break;
 
-            case SizeType.MATCH_PARENT:
+            case SizeType.PARENT:
                 {
                     h = h_parent * this.ratioH;
                 }
                 break;
-            case SizeType.MATCH_PARENT_MIN:
+            case SizeType.PARENT_MIN:
                 {
                     h = Math.min(w_parent, h_parent) * this.ratioH;
 
                 }
                 break;
-            case SizeType.MATCH_PARENT_MAX:
+            case SizeType.PARENT_MAX:
                 {
                     h = Math.max(w_parent, h_parent) * this.ratioH;
                 }

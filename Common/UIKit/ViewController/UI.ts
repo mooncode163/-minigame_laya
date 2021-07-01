@@ -13,6 +13,8 @@ strict设置false状态
 
     */
 
+import Debug from "../../Debug";
+
 
 
 // Laya UI坐标系原点在屏幕左上角
@@ -79,6 +81,8 @@ export default class UI {
         if (sp != null) {
             sp.width = w;
             sp.height = h;
+        }else{
+            Debug.Log("SetNodeContentSize sp null");
         }
     }
     static GetNodeContentSize(node:Laya.Node) {

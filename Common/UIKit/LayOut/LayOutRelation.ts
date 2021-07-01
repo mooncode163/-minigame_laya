@@ -1,4 +1,5 @@
 
+import { ui } from "../../../../ui/layaMaxUI";
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
@@ -17,10 +18,13 @@ export default class LayOutRelation extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-    /** @prop {name:space,type:Vector}*/
-    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UP_LEFT,UP_RIGHT,DOWN_LEFT,DOWN_RIGHT,Horizontal,Vertical,SAME_POSTION", default:"LEFT"}*/
+   
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"LEFT"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
+
+    /** @prop {name:offsetX,type:Number}*/
+    /** @prop {name:offsetY,type:Number}*/
     // @prop 在基类定义
 
 
@@ -66,63 +70,72 @@ export default class LayOutRelation extends LayOutBase {
         var h_parent = sizeParent.height;
         // this.align = Align.RIGHT;
         // x = w_parent - w;
- 
-        var pivotX = UI.GetPivotX(this.owner);
-        var pivotY = UI.GetPivotY(this.owner); 
-        Debug.Log("this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x +" pivotX="+pivotX);
+
+        var pivotX = UI.GetPivotX(this.owner);//*UI.GetScaleX(this.owner);
+        var pivotY = UI.GetPivotY(this.owner);
+        Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
         switch (this.type) {
             case RelationType.PARENT:
                 {
 
                     if (this.align == Align.LEFT) {
-                        x = this.offset.x;
-                        x +=pivotX; 
+                        x = this.offsetX;
+                        x += pivotX;
                     }
                     if (this.align == Align.RIGHT) {
-                        x = w_parent - w - this.offset.x;
-                        x +=pivotX; 
+                        x = w_parent - w - this.offsetX;
+                        x += pivotX;
                     }
                     if (this.align == Align.UP) {
                         // Debug.Log("Align.UP this.type=" + this.type + " w_parent=" + w_parent + " h_parent=" + h_parent + " h=" + h);
-                        y = this.offset.y; 
-                        y +=pivotY;
+                        y = this.offsetY;
+                        y += pivotY;
                     }
                     if (this.align == Align.DOWN) {
-                        y = h_parent - h - this.offset.y;
-                        y +=pivotY;
+                        y = h_parent - h - this.offsetY;
+                        y += pivotY;
                     }
-                    if (this.align == Align.DOWN_LEFT) {
-                        x = this.offset.x;
-                        y = h_parent - h - this.offset.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                    if (this.align == Align.DOWNLEFT) {
+                        x = this.offsetX;
+                        y = h_parent - h - this.offsetY;
+                        x += pivotX;
+                        y += pivotY;
                     }
-                    if (this.align == Align.DOWN_RIGHT) {
-                        x = w_parent - w - this.offset.x;
-                        y = h_parent - h - this.offset.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                    if (this.align == Align.DOWNRIGHT) {
+                        x = w_parent - w - this.offsetX;
+                        y = h_parent - h - this.offsetY;
+                        x += pivotX;
+                        y += pivotY;
                     }
-                    if (this.align == Align.UP_LEFT) {
-                        x = this.offset.x;
-                        y = this.offset.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                    if (this.align == Align.UPLEFT) {
+                        x = this.offsetX;
+                        y = this.offsetY;
+                        x += pivotX;
+                        y += pivotY;
                     }
-                    if (this.align == Align.UP_RIGHT) {
-                        x = w_parent - w - this.offset.x;
-                        y = this.offset.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                    if (this.align == Align.UPRIGHT) {
+                        x = w_parent - w - this.offsetX;
+                        y = this.offsetY;
+                        x += pivotX;
+                        y += pivotY;
                     }
                     if (this.align == Align.CENTER) {
-                        x = w_parent/2 - w/2 + this.offset.x;
-                        y = h_parent/2 - h/2 + this.offset.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                        size = UI.GetNodeContentSize(this.owner);
+                        sizeParent = UI.GetNodeContentSize(this.owner.parent);
+                        w = size.width;
+                        h = size.height;
+                        w_parent = sizeParent.width;
+                        h_parent = sizeParent.height;
+
+                        x = w_parent / 2 - w / 2 + this.offsetX;
+                        y = h_parent / 2 - h / 2 + this.offsetY;
+                        x += pivotX;
+                        y += pivotY;
+                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+
                     }
-                    
-           
+
+
                 }
                 break;
             case RelationType.TARGET:
@@ -137,28 +150,28 @@ export default class LayOutRelation extends LayOutBase {
                     var ptTarget = UI.GetNodePosition(this.target);
                     // 位于target的左边
                     if (this.align == Align.LEFT) {
-                        x = ptTarget.x - w - this.offset.x;
-                        x +=pivotX; 
+                        x = ptTarget.x - w - this.offsetX;
+                        x += pivotX;
                     }
                     if (this.align == Align.RIGHT) {
-                        x = ptTarget.x + sizeTarget.width + this.offset.x;
-                        x +=pivotX; 
+                        x = ptTarget.x + sizeTarget.width + this.offsetX;
+                        x += pivotX;
                     }
                     if (this.align == Align.UP) {
-                        y = ptTarget.y - h - this.offset.y;
-                        y +=pivotY;
+                        y = ptTarget.y - h - this.offsetY;
+                        y += pivotY;
                     }
                     if (this.align == Align.DOWN) {
-                        y = ptTarget.y + sizeTarget.height + this.offset.y;
-                        y +=pivotY;
+                        y = ptTarget.y + sizeTarget.height + this.offsetY;
+                        y += pivotY;
                     }
 
                     //相同位置
-                    if (this.align == Align.SAME_POSTION) {
+                    if (this.align == Align.SAMEPOSTION) {
                         x = ptTarget.x;
                         y = ptTarget.y;
-                        x +=pivotX; 
-                        y +=pivotY;
+                        x += pivotX;
+                        y += pivotY;
                     }
 
                 }
@@ -169,7 +182,7 @@ export default class LayOutRelation extends LayOutBase {
         if (this.enableOffsetAdBanner) {
             y -= AdKitCommon.main.heightCanvasAdBanner;
         }
-      
+
         UI.SetNodePosition(this.owner, x, y);
 
     }

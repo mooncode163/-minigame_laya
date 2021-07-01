@@ -97,7 +97,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         // var rctranItem =UI.GetNodeBoundingBox(nodeItem); 
 
         if (this.childControlWidth) {
-            item_w = (w - (this.space.x * (this.col - 1))) / this.col;
+            item_w = (w - (this.offsetX * (this.col - 1))) / this.col;
             // rctranItem.sizeDelta = new Vector2(item_w, rctranItem.sizeDelta.y);
             nodeItem.width = item_w;
         }
@@ -106,7 +106,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         }
 
         if (this.childControlHeight) {
-            item_h = (h - (this.space.y * (this.row - 1))) / this.row;
+            item_h = (h - (this.offsetY * (this.row - 1))) / this.row;
             // rctranItem.sizeDelta = new Vector2(rctranItem.sizeDelta.x, item_h);
             nodeItem.height = item_w;
         }
@@ -114,8 +114,8 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             item_h = nodeItem.height;
         }
 
-        w_total = item_w * this.col + (this.space.x * (this.col - 1));
-        h_total = item_h * this.row + (this.space.y * (this.row - 1));
+        w_total = item_w * this.col + (this.offsetX * (this.col - 1));
+        h_total = item_h * this.row + (this.offsetY * (this.row - 1));
 
         if (this.childForceExpandWidth) {
             x_left =0;// -w / 2;
@@ -135,7 +135,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
             }
         }
 
-        x = x_left + item_w * c + item_w / 2 + this.space.x * c;
+        x = x_left + item_w * c + item_w / 2 + this.offsetX * c;
         Debug.Log("x_left=" + " item_w=" + item_w);
 
         if (this.childForceExpandHeight) {
@@ -153,7 +153,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 y_bottom = h/2+h_total / 2;
             }
         }
-        y = y_bottom + item_h * r + item_h / 2 + this.space.y * r;
+        y = y_bottom + item_h * r + item_h / 2 + this.offsetY * r;
         var pivotX = UI.GetPivotX(nodeItem);
         var pivotY = UI.GetPivotY(nodeItem); 
         x += pivotX;
