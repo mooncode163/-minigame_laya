@@ -280,13 +280,14 @@ export default class GameMerge extends GameBase {
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
  
-        UI.SetScaleXY(ui.owner,scale);  
+        // UI.SetScaleXY(ui.owner,scale);  
 
         var rectParent = this.GetBoundingBox();
         x = rectParent.width/2;
         y = rectParent.height / 2 - ui.GetBoundingBox().height / 2;
 
         // y = 512;
+        y = 0;
         this.posYInit = y;
         Debug.Log("OnCollisionEnter2D this.posYInit=" + this.posYInit + " key=" + key + " scale=" + scale);
         // ui.node.setPosition(x, y);

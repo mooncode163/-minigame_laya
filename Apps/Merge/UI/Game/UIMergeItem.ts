@@ -4,14 +4,15 @@ import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import UI from "../../../../Common/UIKit/ViewController/UI";
-import GameData, { GameStatus } from "../../Data/GameData";
-// import GameMerge from "./GameMerge"; 
-
- 
+import GameData, { GameStatus } from "../../Data/GameData"; 
+import TextureUtil from "../../../../Common/Image/TextureUtil";
+import Platform from "../../../../Common/Platform";
+import TextureCache from "../../../../Common/Cache/TextureCache";
+// import GameMerge from "./GameMerge";  
 
  
 export default class UIMergeItem extends UIView {
-    
+    image:Laya.Image;
     imageItem: UIImage =null;
     isNew = false;
     type = 0;
@@ -21,8 +22,13 @@ export default class UIMergeItem extends UIView {
     onAwake() {
         super.onAwake();
         this.t = 0;
- 
-        this.imageItem = this.owner.getChildByName("ImgeItem").getComponent(UIImage);
+        
+        var nodetmp = this.FindChild("ImgeItem");
+        if(nodetmp!=null)
+        {
+            this.imageItem =nodetmp.getComponent(UIImage);
+        } 
+        this.image =this.FindChild("Image") as Laya.Image;
 
         // this.node.zIndex = 100;
         // var manager = director.getCollisionManager();
@@ -89,7 +95,31 @@ export default class UIMergeItem extends UIView {
     }
 
     UpdateImage(pic) {
-        this.imageItem.UpdateImage(pic,"");
+        if(this.imageItem!=null)
+        {
+            this.imageItem.UpdateImage(pic,"");
+        }
+
+        var isCloud = false;
+        if (Platform.isCloudRes) {
+            isCloud = true;
+        } 
+
+     
+        TextureCache.main.Load(
+            {
+                filepath: pic,
+                isCloud: isCloud,
+                success: (p: any, tex: Laya.Texture) => {
+                    TextureUtil.UpdateImageTexture(this.image, tex, false, Laya.Vector4.ZERO);
+                    // this.image.x = 128;// this.x;
+                    // this.image.x = this.x;
+                    this.LayOut();
+                },
+                fail: (p: any) => {
+
+                },
+            });
     }
 
     EnableGravity(isEnable) {

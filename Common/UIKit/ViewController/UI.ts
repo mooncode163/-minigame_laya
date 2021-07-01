@@ -177,8 +177,16 @@ export default class UI {
         }
     }
 
-
-      
+// 实例化
+    static Instantiate(prefab: Laya.Prefab):Laya.Node {
+        var node = prefab.create();
+        return node;
+    } 
+   
+    // 按名字查找子对象
+    static FindChild(parent:Laya.Node,name:string):Laya.Node {
+        return parent.getChildByName(name); 
+    } 
 }
 
 

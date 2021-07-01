@@ -22,20 +22,21 @@ import Language from "../../Language/Language";
 import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
 import UI from "./UI";
- 
+import { ui } from "../../../../ui/layaMaxUI";
+
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
 // https://www.jianshu.com/p/411d3cb87325
 // https://ldc2.layabox.com/doc/?language=zh&nav=zh-ts-3-4-0
- 
+
 
 // 一个完整的标签主要由下面几个部分：
 // type IDE属性类型，此类型是指IDE属性类型，非真正的属性类型，不过大多情况下是一样的
 // name IDE内显示的属性名称
 // tips IDE内鼠标经过属性名称上后，显示的鼠标提示，如果没有则使用name（可选）
 // default 输入框显示的默认值（可选）
- 
+
 
 
 // 模板@prop如何使用枚举
@@ -48,7 +49,7 @@ import UI from "./UI";
 export default class UIView extends Laya.Script {
 
 
-   
+
     //   public  get keyImage(): string {        
     //         return this._keyImage;
     //     } 
@@ -60,21 +61,33 @@ export default class UIView extends Laya.Script {
 
 
     index: number;
-    keyId: string; 
+    keyId: string;
     tag: string;
     title: string;
-    name:string;
-    mainCam: Laya.Camera | null = null;
-    // frame: Rect | null = null;
-    // objTag: CCObject | null = null;  
+    name: string;
+    mainCam: Laya.Camera | null = null; 
 
-    // [1]
-    // dummy = '';
 
-    // [2]
-    // 
-    // serializableDummy = 0;
+    public get x(): number {
+        return UI.GetPosition(this.node).x; 
+    }
+    public set x(value:number){
+        var pt = UI.GetPosition(this.node);
+        UI.SetNodePosition(this.node,value,pt.y);
+    }
 
+
+    public get y(): number {
+        return UI.GetPosition(this.node).y; 
+    }
+    public set y(value:number){
+        var pt = UI.GetPosition(this.node);
+        UI.SetNodePosition(this.node,pt.x,value);
+    }
+
+    public get node(): Laya.Node {
+        return this.owner;
+    }
 
     private _controller: UIViewController | null = null;
     // @type(UIViewController)
@@ -154,8 +167,7 @@ export default class UIView extends Laya.Script {
 
     LayOutNode(node: Laya.Node) {
         {
-            if(node==null)
-            {
+            if (node == null) {
                 return;
             }
             var list = node.getComponents(LayOutBase);
@@ -192,6 +204,11 @@ export default class UIView extends Laya.Script {
 
     LayOutDidFinish() {
 
+    }
+
+    // 按名字查找子对象
+    FindChild(name: string): Laya.Node {
+        return UI.FindChild(this.node, name);
     }
 
     //统一按钮状态图片
@@ -241,7 +258,7 @@ export default class UIView extends Laya.Script {
     OnUIDidFinish() {
 
     }
- 
+
 
 
 
@@ -283,4 +300,4 @@ export default class UIView extends Laya.Script {
         this.LayOut();
     }
 }
- 
+
