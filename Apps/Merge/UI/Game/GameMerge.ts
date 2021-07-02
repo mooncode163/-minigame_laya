@@ -42,6 +42,7 @@ export default class GameMerge extends GameBase {
     onAwake() {
         super.onAwake();
         GameMerge._main = this;
+        GameData.main.game = this;
         this.time = 0;
         this.LoadPrefab();
         this.LayOut();
@@ -350,16 +351,16 @@ export default class GameMerge extends GameBase {
         // this.imageProp.node.setPosition(posnew);
 
         // console.log("按下");
-        // console.log("按下 " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+        console.log("GameMerge onMouseDown " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
         this.UpdateEvent(UITouchEvent.TOUCH_DOWN, new Laya.Vector2(e.stageX,e.stageY));
     }
     onMouseMove(e) {
-        // console.log("移动");
+        // console.log("GameMerge onMouseMove");
         this.UpdateEvent(UITouchEvent.TOUCH_MOVE, new Laya.Vector2(e.stageX,e.stageY));
     }
     onMouseUp(e) {
         // console.log("抬起");
-        // console.log("抬起 " + this.owner.name); 
+        console.log("GameMerge onMouseUp " + this.owner.name); 
         this.UpdateEvent(UITouchEvent.TOUCH_UP, new Laya.Vector2(e.stageX,e.stageY));
     }
     onClick(e) {

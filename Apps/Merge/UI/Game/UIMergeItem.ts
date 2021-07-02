@@ -3,14 +3,13 @@ import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UI from "../../../../Common/UIKit/ViewController/UI";
-import GameData, { GameStatus } from "../../Data/GameData";
+import UI from "../../../../Common/UIKit/ViewController/UI"; 
 import TextureUtil from "../../../../Common/Image/TextureUtil";
 import Platform from "../../../../Common/Platform";
 import TextureCache from "../../../../Common/Cache/TextureCache";
-import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
-import { ui } from "../../../../../ui/layaMaxUI";
-// import GameMerge from "./GameMerge";  
+import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil"; 
+import CollisionDetection from "./CollisionDetection";
+ 
 
 
 export default class UIMergeItem extends UIView {
@@ -24,6 +23,7 @@ export default class UIMergeItem extends UIView {
     onAwake() {
         super.onAwake();
         this.t = 0;
+
 
         var nodetmp = this.FindChild("ImgeItem");
         if (nodetmp != null) {
@@ -56,6 +56,7 @@ export default class UIMergeItem extends UIView {
         // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
         AppSceneUtil.main.rootNode.addChild(image);
 
+        image.addComponent(CollisionDetection);
 
     }
     onStart() {
@@ -235,4 +236,4 @@ export default class UIMergeItem extends UIView {
 
 }
 
-
+  

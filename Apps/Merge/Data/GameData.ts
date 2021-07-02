@@ -27,6 +27,11 @@ export default class GameData  {
     radiusCustom = 0.4;
     score = 0;
 
+    // GameMerge
+    game:any;
+    // UIGameMerge
+    uiGame:any;
+
     static _main: GameData;
     //静态方法
     static get main() {

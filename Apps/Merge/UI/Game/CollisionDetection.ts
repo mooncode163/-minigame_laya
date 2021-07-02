@@ -2,13 +2,11 @@ import AudioPlay from "../../../../Common/Audio/AudioPlay";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import GameData from "../../Data/GameData";
-import GameMerge from "./GameMerge"; 
-
+import GameData from "../../Data/GameData"; 
  
 
  
-export default class CollisionDetection extends UIView {
+export default class CollisionDetection extends Laya.Script{
 
     isItDetected = true;//定义是否进行碰撞检测后逻辑判断
     playFallingSound = false;//定义是否播放过下落声音 
@@ -35,10 +33,7 @@ export default class CollisionDetection extends UIView {
     }
     onStart() {
         super.onStart();
-    }
-    update() {
-       
-    }
+    } 
 
     CreateNewItem() {
         /*
@@ -98,12 +93,12 @@ export default class CollisionDetection extends UIView {
         var enable = false;
         var limity = 10;
         var stepy = 0;
-        stepy = Math.abs((this.owner as Laya.Sprite).y - GameMerge.main.posYInit);
+        stepy = Math.abs((this.owner as Laya.Sprite).y - GameData.main.game.posYInit);
         if (stepy < limity) {
             Debug.Log("OnCollisionEnter2D stepy 1=" + stepy);
             return;
         }
-        stepy = Math.abs(other.node.position.y - GameMerge.main.posYInit);
+        stepy = Math.abs(other.node.position.y - GameData.main.game.posYInit);
         if (stepy < limity) {
             Debug.Log("OnCollisionEnter2D stepy 2=" + stepy);
             return;
@@ -123,7 +118,7 @@ export default class CollisionDetection extends UIView {
             Debug.Log("OnCollisionEnter2D other=" + _tag);
             //判断是否超出最大水果限制
             // if (Convert.ToInt32(_tag) < Generate.imageKeyFruit.Length)
-            var keynext = GameMerge.main.GetNextItem(_tag);
+            var keynext = GameData.main.game.GetNextItem(_tag);
 
             if (Common.BlankString(keynext)) {
                 Debug.Log("OnCollisionEnter2D keynext blank");
@@ -157,15 +152,15 @@ export default class CollisionDetection extends UIView {
 
      
     OnCollisionEnter(collision){
-        console.log("开始碰撞",collision.other.owner.name);
+        console.log("CollisionDetection 开始碰撞",collision.other.owner.name);
     }
 
     onCollisionStay(collision){
-        console.log("持续碰撞",collision.other.owner.name);
+        console.log("CollisionDetection 持续碰撞",collision.other.owner.name);
     }
 
     onCollisionExit(collision){
-        console.log("结束碰撞",collision.other.owner.name);
+        console.log("CollisionDetection 结束碰撞",collision.other.owner.name);
     }
 
     onTriggerEnter(other){
@@ -173,11 +168,11 @@ export default class CollisionDetection extends UIView {
     }
 
     onTriggerStay(other){
-        console.log("持续触发",other.owner.name);
+        console.log("CollisionDetection 持续触发",other.owner.name);
     }
 
     onTriggerExit(other){
-        console.log("结束触发",other.owner.name);
+        console.log("CollisionDetection 结束触发",other.owner.name);
     }
     
 

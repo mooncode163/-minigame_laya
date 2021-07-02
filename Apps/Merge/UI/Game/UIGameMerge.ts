@@ -42,6 +42,7 @@ export default class UIGameMerge extends UIGameBase {
     onAwake () {
         super.onAwake();
         UIGameMerge._main = this;
+        GameData.main.uiGame = this;
         this.LayOut();
         // this.LoadLanguageGame(); 
         // this.textTitle.node.active = false;

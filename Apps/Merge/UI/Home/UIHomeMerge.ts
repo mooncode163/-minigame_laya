@@ -162,6 +162,26 @@ export default class UIHomeMerge extends UIHomeBase {
             Debug.Log("GotoGame controller = null");
         }
     }
+
+
+
+    onMouseDown(e) { 
+        console.log("UIHomeMerge onMouseDown " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+    }
+    onMouseMove(e) {
+        console.log("UIHomeMerge onMouseMove"); 
+    }
+    onMouseUp(e) {
+        // console.log("抬起");
+        console.log("UIHomeMerge onMouseUp " + this.owner.name);  
+    }
+    onMouseOut(e){
+        console.log("UIHomeMerge onMouseOut 移出");
+    }
+    onMouseOver(e){
+        console.log("UIHomeMerge onMouseOver 进入");
+    }
+
 }
 
 

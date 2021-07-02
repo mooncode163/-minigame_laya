@@ -171,7 +171,9 @@ export default class AppSceneBase extends Laya.Script {
             return;
         }
 
-    
+        // 同步修改主Scene大小 不然触摸事件可能区域不完整
+        UI.SetNodeContentSize(this.owner, this.sizeCanvas.width, this.sizeCanvas.height);
+
         UI.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
          
         size = UI.GetNodeContentSize(this.rootNode);
