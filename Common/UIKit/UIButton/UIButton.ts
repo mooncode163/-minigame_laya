@@ -15,12 +15,11 @@ import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
 
 enum ButtonType {
-    IMAGE = 0,//一张背景  
-    IMAGE_TEXT,
-    IMAGE_ICON,//一张背景 一张Icon 叠加
-
-    IMAGE_SWITCH,//一张背景
-    IMAGE_ICON_SWITCH,//一张背景 一张Icon 叠加
+    IMAGE = "IMAGE",//一张背景  
+    IMAGE_TEXT= "IMAGE_TEXT",
+    IMAGE_ICON= "IMAGE_ICON",//一张背景 一张Icon 叠加
+    IMAGE_SWITCH= "IMAGE_SWITCH",//一张背景
+    IMAGE_ICON_SWITCH= "IMAGE_ICON_SWITCH",//一张背景 一张Icon 叠加
 }
 
 // UIView
@@ -39,14 +38,15 @@ export default class UIButton extends UIView {
     enableFitTextSize: boolean = false;
     isSwicthSelect: boolean = false;
 
-    // 必须设置两个@type 才能在editor里修改
-
-    private _type = ButtonType.IMAGE;
+  
+ 
 
     duration = 200;//0.2 //ms
     scale1 = 1.2;
     scale2 = 1;
 
+    private _type = ButtonType.IMAGE;
+    /** @prop {name:type,type:Option,option:"IMAGE,IMAGE_TEXT,IMAGE_ICON,IMAGE_SWITCH,IMAGE_ICON_SWITCH", default:"IMAGE"}*/
     //get 的用法
     get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
         return this._type;
@@ -63,31 +63,31 @@ export default class UIButton extends UIView {
         if (this.imageIcon == null) {
             return;
         }
-        // this.imageBg.owner.active = true;
-        // switch (this._type) {
-        //     case ButtonType.IMAGE:
-        //     case ButtonType.IMAGE_SWITCH:
-        //         {
-        //             this.imageIcon.owner.active = false;
-        //             this.textTitle.owner.active = false;
+        this.imageBg.SetActive(true);
+        
+        switch (this._type) {
+            case ButtonType.IMAGE:
+            case ButtonType.IMAGE_SWITCH:
+                {
+                    this.imageIcon.SetActive(false);
+                    this.textTitle.SetActive(false);
+                }
+                break;
+            case ButtonType.IMAGE_TEXT:
+                {
+                    this.imageIcon.SetActive(false);
+                    this.textTitle.SetActive(true); 
+                }
+                break;
+            case ButtonType.IMAGE_ICON:
+            case ButtonType.IMAGE_ICON_SWITCH:
+                {
+                    this.imageIcon.SetActive(true);
+                    this.textTitle.SetActive(false);  
+                }
+                break;
 
-        //         }
-        //         break;
-        //     case ButtonType.IMAGE_TEXT:
-        //         {
-        //             this.imageIcon.owner.active = false;
-        //             this.textTitle.owner.active = true;
-        //         }
-        //         break;
-        //     case ButtonType.IMAGE_ICON:
-        //     case ButtonType.IMAGE_ICON_SWITCH:
-        //         {
-        //             this.imageIcon.owner.active = true;
-        //             this.textTitle.owner.active = false;
-        //         }
-        //         break;
-
-        // } 
+        } 
 
     }
 

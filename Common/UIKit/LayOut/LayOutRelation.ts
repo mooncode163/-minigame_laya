@@ -19,7 +19,7 @@ export default class LayOutRelation extends LayOutBase {
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
    
-    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"LEFT"}*/
+    /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,CENTERX,CENTERY,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"CENTER"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
 
@@ -130,6 +130,35 @@ export default class LayOutRelation extends LayOutBase {
                         x = w_parent / 2 - w / 2 + this.offsetX;
                         y = h_parent / 2 - h / 2 + this.offsetY;
                         x += pivotX;
+                        y += pivotY;
+                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+
+                    }
+                    if (this.align == Align.CENTERX) {
+                        size = UI.GetNodeContentSize(this.owner);
+                        sizeParent = UI.GetNodeContentSize(this.owner.parent);
+                        w = size.width;
+                        h = size.height;
+                        w_parent = sizeParent.width;
+                        h_parent = sizeParent.height;
+
+                        x = w_parent / 2 - w / 2 + this.offsetX; 
+                        x += pivotX;
+                
+                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+
+                    }
+
+
+                    if (this.align == Align.CENTERY) {
+                        size = UI.GetNodeContentSize(this.owner);
+                        sizeParent = UI.GetNodeContentSize(this.owner.parent);
+                        w = size.width;
+                        h = size.height;
+                        w_parent = sizeParent.width;
+                        h_parent = sizeParent.height;
+ 
+                        y = h_parent / 2 - h / 2 + this.offsetY; 
                         y += pivotY;
                         Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
 

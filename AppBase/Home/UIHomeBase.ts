@@ -1,19 +1,21 @@
 import UIHomeCenterBar from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
 import UIHomeSideBar from "../../Apps/Merge/UI/Home/UIHomeSideBar";
 import PrefabCache from "../../Common/Cache/PrefabCache";
+import Debug from "../../Common/Debug";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
 import UIView from "../../Common/UIKit/ViewController/UIView";
 import UIHomeAppCenter from "./UIHomeAppCenter";
 
- 
 
- 
+
+
 export default class UIHomeBase extends UIView {
-    
-    textTitle: UIText = null;
 
-    
+    textTitle: UIText = null;
+    /** @prop {name:nodeTextTitle,type:Node}*/
+    nodeTextTitle: Laya.Node;
+
     imageBg: UIImage = null;
 
 
@@ -21,6 +23,21 @@ export default class UIHomeBase extends UIView {
     uiCenterBar: UIHomeCenterBar;
     uiSideBar: UIHomeSideBar;
 
+    onAwake() {
+        super.onAwake();
+        if (this.nodeTextTitle != null) {
+            Debug.Log("UIHomeBase nodeTextTitle is not null");
+            this.textTitle = this.nodeTextTitle.getComponent(UIText);
+            if (this.nodeTextTitle == null) {
+                Debug.Log("UIHomeBase textTitle is null");
+            } else {
+                Debug.Log("UIHomeBase textTitle is not null");
+            }
+
+        } else {
+            Debug.Log("UIHomeBase nodeTextTitle is null");
+        }
+    }
 
     LoadCenterBar() {
         // var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;

@@ -18,6 +18,8 @@ export enum Align {
     LEFT = "LEFT",//2
     RIGHT = "RIGHT",//3
     CENTER = "CENTER",
+    CENTERX = "CENTERX",
+    CENTERY = "CENTERY",
     UPLEFT = "UPLEFT",
     UPRIGHT = "UPRIGHT",
     DOWNLEFT = "DOWNLEFT",

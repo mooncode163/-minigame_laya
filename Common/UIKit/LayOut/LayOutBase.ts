@@ -3,7 +3,7 @@ import { Align, Direction, RelationType } from "./LayOutUtil";
 
 export default class LayOutBase extends Laya.Script {
  
-    align: Align = Align.LEFT;
+    align: Align = Align.CENTER;
     public target2: Laya.Node;
     public target: Laya.Node;
     

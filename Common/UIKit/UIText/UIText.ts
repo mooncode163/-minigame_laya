@@ -25,10 +25,12 @@ export default class UIText extends UIView {
 
     //get 的用法
     get text() {
+        // this.Init();
         return this.label.text;
     }
     // set 的用法
     set text(value) {
+        // this.Init();
         this.label.text = value;
         this.LayOut();
 
@@ -37,10 +39,12 @@ export default class UIText extends UIView {
 
     //get 的用法
     get fontSize() {
+        // this.Init();
         return this.label.fontSize;
     }
     // set 的用法
     set fontSize(value) {
+        // this.Init();
         this.label.fontSize = value;
         // this.label.lineHeight = value;
         this.LayOut();
@@ -59,9 +63,10 @@ export default class UIText extends UIView {
     }
     onAwake() {
         super.onAwake();
+   
         Debug.Log("UIText this.keyColor =" + this.keyColor);
         UI.SetNodePivotCenter(this.owner);
-        this.label = this.owner.getChildByName("Label") as Laya.Label;
+        this.Init();
 
         if (!Common.BlankString(this.keyColor)) {
             Debug.Log("UIText this.color");
@@ -78,6 +83,16 @@ export default class UIText extends UIView {
         // [3]
         super.onStart();
     }
+
+    Init() {
+        if(this.label!=null)
+        {
+            return;
+        }
+        this.label = this.owner.getChildByName("Label") as Laya.Label;
+         
+    }
+
     LayOut() {
         super.LayOut();
         // 同步大小
