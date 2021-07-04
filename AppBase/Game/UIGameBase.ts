@@ -18,6 +18,7 @@ import GameManager from "./GameManager";
 import LevelData from "./LevelData";
 import LevelManager from "./LevelManager";
 import Config from "../../Common/Config/Config";
+import UIFind from "../../Common/UIKit/ViewController/UIFind";
 
 
 
@@ -28,7 +29,8 @@ export default class UIGameBase extends UIView {
     btnMusic: UIButton | null = null;
 
     /** @prop {name:btnBack,type:Node}*/
-    btnBack: Laya.Node;
+    // btnBack: Laya.Node;
+    btnBack:UIButton;
 
     imageBg: UIImage | null = null;
 
@@ -37,6 +39,11 @@ export default class UIGameBase extends UIView {
     listProLoad: ItemInfo[] = [];
     onAwake() {
         super.onAwake();
+
+        // var nodeTopbar = UIFind.Find(this.node, "TopBar");
+        // this.btnBack = UIFind.FindButton(nodeTopbar, "BtnBack");
+        // this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
+
         this.LayOut();
         this.LoadGamePrefab();
     }
@@ -45,7 +52,7 @@ export default class UIGameBase extends UIView {
         this.LayOut();
     }
 
-    OnClickBtnBack() {
+    OnClickBtnBack() { 
         if (this.controller != null) {
             var navi = this.controller.naviController;
             if (navi != null) {

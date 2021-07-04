@@ -55,6 +55,10 @@ export default class UIImage extends UIView {
     /** @prop {name:isSizeFitTexture,type:Bool}*/
     isSizeFitTexture: boolean = false;
 
+
+    /** @prop {name:isPivotCenter,type:Bool}*/
+    
+
     onAwake() {
         Debug.Log("UIImage onAwake");
         super.onAwake();
@@ -222,7 +226,10 @@ export default class UIImage extends UIView {
         var size = UI.GetNodeContentSize(this.owner);
         UI.SetNodeContentSize(this.image,size.width,size.height);
         Debug.Log("UIImage  w=" + size.width + " h=" + size.height+" name="+this.owner.name); 
-        UI.SetNodePivotCenter(this.owner);
+        if(this.isPivotCenter)
+        {
+            UI.SetNodePivotCenter(this.owner);
+        }
         super.LayOut();
     }
 

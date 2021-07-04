@@ -3,17 +3,16 @@ import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UI from "../../../../Common/UIKit/ViewController/UI"; 
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import TextureUtil from "../../../../Common/Image/TextureUtil";
 import Platform from "../../../../Common/Platform";
-import TextureCache from "../../../../Common/Cache/TextureCache";
-import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil"; 
+import TextureCache from "../../../../Common/Cache/TextureCache"; 
 import CollisionDetection from "./CollisionDetection";
- 
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
+
 
 
 export default class UIMergeItem extends UIView {
-    image: Laya.Image;
     imageItem: UIImage = null;
     isNew = false;
     type = 0;
@@ -25,11 +24,8 @@ export default class UIMergeItem extends UIView {
         this.t = 0;
 
 
-        var nodetmp = this.FindChild("ImgeItem");
-        if (nodetmp != null) {
-            this.imageItem = nodetmp.getComponent(UIImage);
-        }
-        // this.image = this.FindChild("Image") as Laya.Image;
+        this.imageItem = UIFind.FindImage(this.node,"ImgeItem"); 
+        // this.image = this.Find("Image") as Laya.Image;
 
         // this.node.zIndex = 100;
         // var manager = director.getCollisionManager();
@@ -39,36 +35,15 @@ export default class UIMergeItem extends UIView {
         var ev = this.owner.addComponent(UITouchEvent);
         ev.callBackTouch = this.OnUITouchEvent.bind(this);
 
-        var image = new Laya.Image();
-        this.image = image;
-        image.width = 256;
-        image.height = 256;
-       
-        UI.SetNodePivotCenter(image);
-        var sizeparent = UI.GetNodeContentSize(this.node.parent);
-        // image.x = sizeparent.width/2-image.width/2;
-        // var filepath = "comp/image.png";
-        // image.skin = filepath
-        var cl = image.addComponent(Laya.CircleCollider);
-        cl.radius = image.width / 2;
-        var bd = image.addComponent(Laya.RigidBody);
-
-        // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
-        AppSceneUtil.main.rootNode.addChild(image);
-
-        image.addComponent(CollisionDetection);
+        this.node.addComponent(CollisionDetection);
 
     }
     onStart() {
         super.onStart();
     }
 
-    onDestroy()
-    {
-        if(this.image!=null)
-        {
-            this.image.destroy();
-        }
+    onDestroy() {
+
     }
 
     onUpdate() {
@@ -131,47 +106,18 @@ export default class UIMergeItem extends UIView {
         var isCloud = false;
         if (Platform.isCloudRes) {
             isCloud = true;
-        }
+        } 
 
+        this.LayOut();
 
-
-
-
-        TextureCache.main.Load(
-            {
-                filepath: pic,
-                isCloud: isCloud,
-                success: (p: any, tex: Laya.Texture) => {
-                    TextureUtil.UpdateImageTexture(this.image, tex, false, Laya.Vector4.ZERO);
-                    // this.image.x = 128;// this.x;
-                    // this.image.x = this.x;
-                    this.LayOut();
-                },
-                fail: (p: any) => {
-
-                },
-            });
-
-            this.LayOut();
- 
     }
     LayOut() {
         super.LayOut();
-        if(this.image!=null)
-        {
-            this.image.x = this.x;
-            this.image.y = this.y;
-        }
+
     }
     EnableGravity(isEnable) {
-        // var bd = this.node.getComponent(RigidBody2D);
-        // bd.type = isEnable ? ERigidBody2DType.Dynamic : ERigidBody2DType.Static;
-        if(this.image!=null)
-        {
-            var bd = this.image.getComponent(Laya.RigidBody);
-            bd.type=isEnable ? "dynamic" : "static";
-            // Laya.RigidBody
-        }
+        var bd = this.node.getComponent(Laya.RigidBody);
+        bd.type = isEnable ? UI.PhysicBodyTypeDynamic : UI.PhysicBodyTypeStatic;
     }
 
     OnTouchDown(pos) {
@@ -236,4 +182,4 @@ export default class UIMergeItem extends UIView {
 
 }
 
-  
+

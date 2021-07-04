@@ -6,6 +6,7 @@ import PrefabCache from "../../Cache/PrefabCache";
 import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
+import UI from "../ViewController/UI";
 import UIViewPop from "./UIViewPop";
 
  
@@ -13,7 +14,7 @@ export default class PopUpManager  {
 
     static ANIMATE_DURATION = 0.8;
     listItem: UIViewPop[] = [];
-    nodePannel: Node = null;
+    nodePannel: Laya.Node = null;
     objPop = null;
 
     static _main: PopUpManager;
@@ -74,8 +75,8 @@ export default class PopUpManager  {
         // var uitran = this.nodePannel.addComponent(UITransform);
         // this.nodePannel.color = new Color(52, 52, 52, 50);
         if (prefab != null) {
-            var node = prefab.create(); 
-            node.setParent(nodeRoot);
+            var node = UI.Instantiate(prefab);  
+            nodeRoot.addChild(node);
             // node.setContentSize(Common.sizeCanvas);
 
             //拦截点击
@@ -101,7 +102,7 @@ export default class PopUpManager  {
     OpenPopup(prefab: any) {
         Debug.Log("OpenPopup");
         var nodeRoot = AppSceneUtil.main.rootNode; 
-        var nodePop = prefab.create();  
+        var nodePop =UI.Instantiate(prefab);  
         nodeRoot.addChild(nodePop);
         var ui = nodePop.getComponent(UIViewPop);
         if (nodePop == null) {

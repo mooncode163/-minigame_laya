@@ -1,4 +1,4 @@
- 
+
 import LevelData from "../../../../AppBase/Game/LevelData";
 import UIGameBase from "../../../../AppBase/Game/UIGameBase";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
@@ -8,47 +8,50 @@ import Language from "../../../../Common/Language/Language";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
+import UI from "../../../../Common/UIKit/ViewController/UI";
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameData from "../../Data/GameData";
 import GameMerge from "./GameMerge";
 import UIPopProp, { PropType } from "./UIPopProp";
 import UIToolBar from "./UIToolBar";
 
- 
- 
+
+
 export default class UIGameMerge extends UIGameBase {
-      /** @prop {name:btnBack,type:Node}*/ 
- 
-    titleScore: UIText | null = null; 
+    /** @prop {name:btnBack,type:Node}*/
 
-    game:GameMerge = null;
+    titleScore: UIText | null = null;
+
+    game: GameMerge = null;
     // nodeImageBg:Node,
-    isShowGame= false; 
- 
-    uiToolBar:UIToolBar;
+    isShowGame = false;
 
-    typeProp:PropType;
+    uiToolBar: UIToolBar;
+
+    typeProp: PropType;
 
     static _main: UIGameMerge;
     //静态方法
     static get main() {
         return this._main;
     }
- 
-  
+
+
     LayOut() {
         super.LayOut();
     }
- 
-    onAwake () {
+
+    onAwake() {
         super.onAwake();
         UIGameMerge._main = this;
         GameData.main.uiGame = this;
         this.LayOut();
         // this.LoadLanguageGame(); 
-        // this.textTitle.node.active = false;
- 
-        UIButton.SetClickByNode(this.btnBack,this, this.OnClickBtnBack.bind(this));
-        
+        // this.textTitle.node.active = false; 
+        var nodeTopbar = UIFind.Find(this.node, "TopBar");
+        this.btnBack = UIFind.FindButton(nodeTopbar, "BtnBack");
+        this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
+
         // var image = new Laya.Image();
         // image.width = 256;
         // image.height = 256;
@@ -61,13 +64,21 @@ export default class UIGameMerge extends UIGameBase {
         // this.node.addChild(image);
 
     }
-    onStart () {
+    onStart() {
         super.onStart();
         this.LayOut();
- 
+
         // this.ShowGameWinAlert();
         // this.OnGameFinish(true);
         // this.LoadUIPopProp();
+    }
+
+    OnClickBtnBack() {
+        if (this.game != null) {
+            this.game.OnDestroy();
+            this.game.destroy();
+        }
+        super.OnClickBtnBack();
     }
     LoadUIPopProp() {
         var key = "UIPopProp";
@@ -75,8 +86,8 @@ export default class UIGameMerge extends UIGameBase {
         PrefabCache.main.LoadByKey(
             {
                 key: key,
-                success: (p: any, data: any) => { 
-                    var node = data.create();  
+                success: (p: any, data: any) => {
+                    var node = UI.Instantiate(data);
                     this.owner.addChild(node);
                 },
                 fail: () => {
@@ -86,20 +97,19 @@ export default class UIGameMerge extends UIGameBase {
 
     }
 
-    CreateGame () {
+    CreateGame() {
         this.UpdateLevel(LevelData.main.gameLevel);
-        
+
 
     }
 
-    CreateGameInteranl () {
-        if(this.game!=null)
-        {
+    CreateGameInteranl() {
+        if (this.game != null) {
             this.game.OnDestroy();
             this.game.destroy();
         }
-        var node = this.gamePrefab.create();
-        this.game = node.getComponent(GameMerge); 
+        var node = UI.Instantiate(this.gamePrefab);
+        this.game = node.getComponent(GameMerge);
         this.owner.addChild(this.game.owner);
         //zorder  priority 让imageBg 显示在最底层，game显示在UI下面
         // 
@@ -108,28 +118,28 @@ export default class UIGameMerge extends UIGameBase {
         // this.game.node.getComponent(UITransform).priority = -10;
         this.isShowGame = true;
         // this.callbackGuankaFinish = null;
-      
+
 
     }
-    UpdateScore () {
+    UpdateScore() {
         // var str = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
         // Debug.Log("UpdateScore str="+str);
         // this.titleScore.text = str;
         // this.LayOut();
-       
+
     }
 
 
     UpdateLevel(level: number) {
-        super.UpdateLevel(level); 
+        super.UpdateLevel(level);
         Debug.Log("UIGameShapeColor::UpdateGuankaLevel");
         // return;
-        
+
         GameData.main.isGameFail = false;
-        
+
         GameData.main.score = 0;
         this.CreateGameInteranl();
-        
+
         this.UpdateScore();
         // this.game.textTitle = this.textTitle;
         // this.textTitle.node.active = false;
@@ -148,17 +158,16 @@ export default class UIGameMerge extends UIGameBase {
 
     }
 
- 
-    OnGameFinish(isFail:boolean) {
+
+    OnGameFinish(isFail: boolean) {
         // var info = GameLevelParse.main.GetLevelItemInfo(LevelData.main.gameLevel);  
         var key = "UIGameWin";
         var strPrefab = "";
         //show game win
-        if (isFail)
-        { 
+        if (isFail) {
             // this.ShowAdInsert(UIGameBase.GAME_AD_INSERT_SHOW_STEP);
-            
-            key = "UIGameFail"; 
+
+            key = "UIGameFail";
         }
 
         strPrefab = ConfigPrefab.main.GetPrefab(key);
@@ -174,19 +183,16 @@ export default class UIGameMerge extends UIGameBase {
             });
     }
 
-     ShowProp()
-    {
-        this.uiToolBar.OnClickBtnBomb(null,null);
+    ShowProp() {
+        this.uiToolBar.OnClickBtnBomb(null, null);
         this.OnUIDidFinish();
     }
 
-     OnGameProp(  ui:UIPopProp,   type:PropType)
-    {
+    OnGameProp(ui: UIPopProp, type: PropType) {
         this.typeProp = type;
 
         Debug.Log("OnGameProp typeProp=" + this.typeProp);
-        switch (type)
-        {
+        switch (type) {
             case PropType.Hammer:
                 {
 

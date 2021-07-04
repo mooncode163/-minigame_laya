@@ -131,7 +131,7 @@ export default class UIButton extends UIView {
 
     static SetClickByNode(node: Laya.Node, caller: any, method: Function | null) {
         var uibtn = node.getComponent(UIButton);
-        uibtn.SetClickFunction(caller, method);
+        uibtn.SetClick(caller, method);
     }
 
     onAwake() {
@@ -210,7 +210,7 @@ export default class UIButton extends UIView {
 
     /*
     // 用法
-            uibtn.SetClickFunction(this,function (btn:UIButton): void {
+            uibtn.SetClick(this,function (btn:UIButton): void {
             if(btn!=null)
             {
                 
@@ -218,7 +218,7 @@ export default class UIButton extends UIView {
         }.bind(this));
     */
     // 动画点击回调
-    SetClickFunction(caller: any, method: Function | null) {
+    SetClick(caller: any, method: Function | null) {
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
         //     Debug.Log("UIHomeMerge UIButton  on click");

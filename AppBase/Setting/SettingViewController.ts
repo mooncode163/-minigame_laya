@@ -1,12 +1,15 @@
-import { PrefabCache } from "../../Common/Cache/PrefabCache";
+import PrefabCache from "../../Common/Cache/PrefabCache";
 import Debug from "../../Common/Debug";
-import { UIViewController } from "../../Common/UIKit/ViewController/UIViewController";
-import { UISetting } from "./UISetting";
+import UI from "../../Common/UIKit/ViewController/UI";
+import UIViewController from "../../Common/UIKit/ViewController/UIViewController";
+import UISetting from "./UISetting";
+
+ 
 
  
 export default class SettingViewController extends UIViewController {
 
-    uiPrefab: Prefab;
+    uiPrefab: Laya.Prefab;
     ui: UISetting;
     runCount = 0;
 
@@ -52,7 +55,7 @@ export default class SettingViewController extends UIViewController {
     }
     CreateUIInternal() { 
         // return;
-        const newNode = instantiate(this.uiPrefab);
+        const newNode = UI.Instantiate(this.uiPrefab);//UI.I(this.uiPrefab);
         this.ui = newNode.getComponent(UISetting);
         this.ui.SetController(this); 
     }

@@ -1,12 +1,13 @@
-import { Common } from "../../Common/Common";
-import { ItemInfo } from "../../Common/ItemInfo";
-import { Language } from "../../Common/Language/Language";
-import { Platform } from "../../Common/Platform";
+import Common from "../../Common/Common";
+import ItemInfo from "../../Common/ItemInfo";
+import Language from "../../Common/Language/Language";
+import Platform from "../../Common/Platform";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
-import { UITableView } from "../../Common/UIKit/UITableView/UITableView";
+import UITableView from "../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../Common/UIKit/UIText/UIText";
 import UIView from "../../Common/UIKit/ViewController/UIView";
 
+ 
  
 export enum SettingType {
     COMMENT =0,//0
@@ -24,14 +25,11 @@ export default class UISetting extends UIView {
     oneCellNum = 1;
     heightCell = 160;
     listItem: ItemInfo[] = [];
-
-    @type(UIText)
+ 
     textTitle: UIText = null;
-
-    @type(UIImage)
+ 
     imageBg: UIImage = null;
-
-    @type(UITableView)
+ 
     uiTableView: UITableView = null;
 
 
@@ -46,21 +44,21 @@ export default class UISetting extends UIView {
     UpdateItem() {
         this.listItem.length = 0;
         //if (AppVersion.main().appCheckHasFinished)
-        if (sys.isNative) {
-            var info = new ItemInfo();
-            info.title = Language.main.GetString("STR_SETTING_COMMENT");
-            info.tag = SettingType.COMMENT;
-            this.listItem.push(info);
-        }
+        // if (sys.isNative) {
+        //     var info = new ItemInfo();
+        //     info.title = Language.main.GetString("STR_SETTING_COMMENT");
+        //     info.tag = SettingType.COMMENT;
+        //     this.listItem.push(info);
+        // }
         //if (AppVersion.main().appCheckHasFinished)
-        if (sys.isNative) {
-            var info = new ItemInfo();
-            var strversin = Common.GetAppVersion();
-            var str = Language.main.GetString("STR_SETTING_VERSION") + "(" + strversin + ")";
-            info.title = str;
-            info.tag = SettingType.VERSION;
-            this.listItem.push(info);
-        }
+        // if (sys.isNative) {
+        //     var info = new ItemInfo();
+        //     var strversin = Common.GetAppVersion();
+        //     var str = Language.main.GetString("STR_SETTING_VERSION") + "(" + strversin + ")";
+        //     info.title = str;
+        //     info.tag = SettingType.VERSION;
+        //     this.listItem.push(info);
+        // }
 
         {
             var info = new ItemInfo();
@@ -96,22 +94,22 @@ export default class UISetting extends UIView {
             this.listItem.push(info);
         }
 
-        if (sys.isNative) {
+        // if (sys.isNative) {
 
 
-            if (Config.main.isHaveRemoveAd) {
-                var info = new ItemInfo();
-                info.title = Language.main.GetString("STR_BTN_NOAD");
-                info.tag = SettingType.NOAD;
-                this.listItem.push(info);
-            }
-            if (Platform.isiOS && Config.main.isHaveRemoveAd) {
-                var info = new ItemInfo();
-                info.title = Language.main.GetString("STR_BTN_RESTORE_NOAD");
-                info.tag = SettingType.RESTORE_IAP;
-                this.listItem.push(info);
-            }
-        }
+        //     if (Config.main.isHaveRemoveAd) {
+        //         var info = new ItemInfo();
+        //         info.title = Language.main.GetString("STR_BTN_NOAD");
+        //         info.tag = SettingType.NOAD;
+        //         this.listItem.push(info);
+        //     }
+        //     if (Platform.isiOS && Config.main.isHaveRemoveAd) {
+        //         var info = new ItemInfo();
+        //         info.title = Language.main.GetString("STR_BTN_RESTORE_NOAD");
+        //         info.tag = SettingType.RESTORE_IAP;
+        //         this.listItem.push(info);
+        //     }
+        // }
         this.InitList();
     } 
     LayOut() {

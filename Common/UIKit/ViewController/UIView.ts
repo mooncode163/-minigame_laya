@@ -21,9 +21,8 @@ import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
-import UI from "./UI";
-import { ui } from "../../../../ui/layaMaxUI";
-
+import UI from "./UI"; 
+import UIFind from "./UIFind";
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
@@ -65,24 +64,24 @@ export default class UIView extends Laya.Script {
     tag: string;
     title: string;
     name: string;
-    mainCam: Laya.Camera | null = null; 
-
+    mainCam: Laya.Camera | null = null;
+    isPivotCenter: boolean = true;
 
     public get x(): number {
-        return UI.GetPosition(this.node).x; 
+        return UI.GetPosition(this.node).x;
     }
-    public set x(value:number){
+    public set x(value: number) {
         var pt = UI.GetPosition(this.node);
-        UI.SetNodePosition(this.node,value,pt.y);
+        UI.SetNodePosition(this.node, value, pt.y);
     }
 
 
     public get y(): number {
-        return UI.GetPosition(this.node).y; 
+        return UI.GetPosition(this.node).y;
     }
-    public set y(value:number){
+    public set y(value: number) {
         var pt = UI.GetPosition(this.node);
-        UI.SetNodePosition(this.node,pt.x,value);
+        UI.SetNodePosition(this.node, pt.x, value);
     }
 
     public get node(): Laya.Node {
@@ -204,13 +203,8 @@ export default class UIView extends Laya.Script {
 
     LayOutDidFinish() {
 
-    }
-
-    // 按名字查找子对象
-    FindChild(name: string): Laya.Node {
-        return UI.FindChild(this.node, name);
-    }
-
+    } 
+ 
     //统一按钮状态图片
     UnifyButtonSprite(btn) {
         if (btn != null) {

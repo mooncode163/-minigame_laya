@@ -4,6 +4,7 @@ import Debug from "../../Common/Debug";
 import UIViewController from "../../Common/UIKit/ViewController/UIViewController";
 import UIGameBase from "./UIGameBase";
 import Config from "../../Common/Config/Config";
+import UI from "../../Common/UIKit/ViewController/UI";
 
 
 
@@ -36,7 +37,7 @@ export default class GameViewController extends UIViewController {
 
 
     LoadUI() {
-        var node = this.uiPrefab.create();
+        var node = UI.Instantiate(this.uiPrefab);
         this.ui = node.getComponent(UIGameBase);
     }
 

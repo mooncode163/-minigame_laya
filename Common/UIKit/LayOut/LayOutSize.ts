@@ -100,7 +100,7 @@ export default class LayOutSize extends LayOutBase {
     } 
  
     private _typeX = SizeType.PARENT;
-     /** @prop {name:typeX,type:Option,option:"MATCH_CONTENT,PARENT,MATCH_TARGET,PARENT_MIN,PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"PARENT"}*/
+     /** @prop {name:typeX,type:Option,option:"CONTENT,PARENT,TARGET,PARENT_MIN,PARENT_MAX,WIDTH,HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,VALUE,VALUE_Canvas",default:"PARENT"}*/
     get typeX() {
         return this._typeX;
     }
@@ -111,7 +111,7 @@ export default class LayOutSize extends LayOutBase {
     
  
     private _typeY = SizeType.PARENT; 
-    /** @prop {name:typeY,type:Option,option:"MATCH_CONTENT,PARENT,MATCH_TARGET,PARENT_MIN,PARENT_MAX,MATCH_WIDTH,MATCH_HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,MATCH_VALUE,MATCH_VALUE_Canvas",default:"PARENT"}*/
+    /** @prop {name:typeY,type:Option,option:"CONTENT,PARENT,TARGET,PARENT_MIN,PARENT_MAX,WIDTH,HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,VALUE,VALUE_Canvas",default:"PARENT"}*/
     get typeY() {
         return this._typeY;
     }
@@ -168,17 +168,17 @@ export default class LayOutSize extends LayOutBase {
         
         // return;
         switch (this.typeX) {
-            case SizeType.MATCH_CONTENT:
+            case SizeType.CONTENT:
                 {
                     w = size.width;
                 }
                 break;
-            case SizeType.MATCH_VALUE:
+            case SizeType.VALUE:
                 {
                     w = this.width;
                 }
                 break;
-            case SizeType.MATCH_VALUE_Canvas:
+            case SizeType.VALUE_Canvas:
                 {
                     w = this.width;
                     //  if (IsSprite())
@@ -205,7 +205,7 @@ export default class LayOutSize extends LayOutBase {
                     w = Math.max(w_parent, h_parent) * this.ratioW;
                 }
                 break;
-            case SizeType.MATCH_TARGET:
+            case SizeType.TARGET:
                 {
                     if (this.target != null) { 
                         w = UI.GetNodeContentSize(this.target).width * this.ratioW;
@@ -214,7 +214,7 @@ export default class LayOutSize extends LayOutBase {
 
                 }
                 break;
-            case SizeType.MATCH_HEIGHT:
+            case SizeType.HEIGHT:
                 {
                     w = size.height;
                 }
@@ -265,17 +265,17 @@ export default class LayOutSize extends LayOutBase {
 
         Debug.Log("GetBetweenSideAndTargetSize this.sideType="+this.sideType);
         switch (this.typeY) {
-            case SizeType.MATCH_CONTENT:
+            case SizeType.CONTENT:
                 {
                     h = size.height;
                 }
                 break;
-            case SizeType.MATCH_VALUE:
+            case SizeType.VALUE:
                 {
                     h = this.height;
                 }
                 break;
-            case SizeType.MATCH_VALUE_Canvas:
+            case SizeType.VALUE_Canvas:
                 {
                     h = this.height;
                     //  if (IsSprite())
@@ -302,7 +302,7 @@ export default class LayOutSize extends LayOutBase {
                     h = Math.max(w_parent, h_parent) * this.ratioH;
                 }
                 break;
-            case SizeType.MATCH_TARGET:
+            case SizeType.TARGET:
                 {
                     if (this.target != null) {
                         h = UI.GetNodeContentSize(this.target).height * this.ratioH;
@@ -311,7 +311,7 @@ export default class LayOutSize extends LayOutBase {
 
                 }
                 break;
-            case SizeType.MATCH_WIDTH:
+            case SizeType.WIDTH:
                 {
                     h = size.width;
                 }

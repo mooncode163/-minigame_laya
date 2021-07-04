@@ -1,3 +1,4 @@
+import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
 import GameBase from "../../../../AppBase/Game/GameBase";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import Common from "../../../../Common/Common";
@@ -286,14 +287,17 @@ export default class GameMerge extends GameBase {
         // keyid ="juzi";
 
         var x, y, w, h;
-        var node = this.prefabItem.create();
+        var node = UI.Instantiate(this.prefabItem);
         var ui = node.getComponent(UIMergeItem);
         ui.hasGoDownDeadLine = false;
         ui.isNew = true;
         ui.keyid = keyid;
         // ui.index = indexItem++; 
         // AppSceneBase.main.AddObjToMainWorld(ui.gameObject);
-        ui.SetParent(this);
+        // ui.SetParent(this);
+        // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
+        AppSceneUtil.main.rootNode.addChild(ui.node);
+
         ui.name = keyid;
         // ui.node.name = keyid;
 

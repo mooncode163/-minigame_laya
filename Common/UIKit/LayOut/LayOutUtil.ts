@@ -68,21 +68,21 @@ export enum Direction {
 
 
 export enum SizeType {
-    MATCH_CONTENT = "MATCH_CONTENT",//按内容设置
+    CONTENT = "CONTENT",//按内容设置
     PARENT = "PARENT",//与父窗口等大或者按比例 
-    MATCH_TARGET = "MATCH_TARGET",//与目标等大或者按比例 
+    TARGET = "TARGET",//与目标等大或者按比例 
     PARENT_MIN = "PARENT_MIN",//父窗口width 和 height 的 min
     PARENT_MAX = "PARENT_MAX",//父窗口width 和 height 的 max
-    MATCH_WIDTH = "MATCH_WIDTH",//width 和 height 相等
-    MATCH_HEIGHT = "MATCH_HEIGHT",//width 和 height相等
+    WIDTH = "WIDTH",//width 和 height 相等
+    HEIGHT = "HEIGHT",//width 和 height相等
     BETWEEN_SIDE_TARGET = "BETWEEN_SIDE_TARGET",//夹在边界和target之间
     BETWEEN_TWO_TARGET = "BETWEEN_TWO_TARGET",//夹在两个target之间
 
     // 和widht height同步
-    MATCH_VALUE = "MATCH_VALUE",
+    VALUE = "VALUE",
 
     // 和widht height同步 canvas大小
-    MATCH_VALUE_Canvas = "MATCH_VALUE_Canvas",
+    VALUE_Canvas = "VALUE_Canvas",
 }
 
 

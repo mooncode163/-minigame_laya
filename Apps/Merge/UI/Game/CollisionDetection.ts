@@ -2,18 +2,18 @@ import AudioPlay from "../../../../Common/Audio/AudioPlay";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import GameData from "../../Data/GameData"; 
- 
+import GameData from "../../Data/GameData";
 
- 
-export default class CollisionDetection extends Laya.Script{
+
+
+export default class CollisionDetection extends Laya.Script {
 
     isItDetected = true;//定义是否进行碰撞检测后逻辑判断
     playFallingSound = false;//定义是否播放过下落声音 
 
     isNewItem = false;
     otherCollider;
-    keyNext="";
+    keyNext = "";
 
     onAwake() {
         this.isItDetected = true;
@@ -28,12 +28,12 @@ export default class CollisionDetection extends Laya.Script{
         //     collider.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
         // }
 
-     
+
 
     }
     onStart() {
         super.onStart();
-    } 
+    }
 
     CreateNewItem() {
         /*
@@ -67,10 +67,10 @@ export default class CollisionDetection extends Laya.Script{
         */
     }
 
-    public updateCulling () {
+    public updateCulling() {
     }
 
-    CheckCollision(other) { 
+    CheckCollision(other) {
         // var uiNext = GameMerge.main.CreateItem("putao");
         // return;
 
@@ -123,15 +123,15 @@ export default class CollisionDetection extends Laya.Script{
             if (Common.BlankString(keynext)) {
                 Debug.Log("OnCollisionEnter2D keynext blank");
                 return;
-            } 
+            }
             {
                 // Debug.Log("OnCollisionEnter2D keynext=" + keynext + " this.name=" + this.owner.name + " other.name=" + other.node.name + " this.position=" + this.owner.position + " other.position=" + other.node.position);
-             
+
                 this.keyNext = keynext;
-                this.otherCollider=other;
+                this.otherCollider = other;
                 // 创建新的物体需要在主线程里执行
                 // this.scheduleOnce(this.CreateNewItem.bind(this));  
-                Laya.timer.once(0,this,this.CreateNewItem);  
+                Laya.timer.once(0, this, this.CreateNewItem);
             }
         }
 
@@ -150,31 +150,36 @@ export default class CollisionDetection extends Laya.Script{
         return this.isItDetected;
     }
 
-     
-    OnCollisionEnter(collision){
-        console.log("CollisionDetection 开始碰撞",collision.other.owner.name);
+
+    OnCollisionEnter(collision) {
+        console.log("CollisionDetection 开始碰撞", collision.other.owner.name);
     }
 
-    onCollisionStay(collision){
-        console.log("CollisionDetection 持续碰撞",collision.other.owner.name);
+    onCollisionStay(collision) {
+        console.log("CollisionDetection 持续碰撞", collision.other.owner.name);
     }
 
-    onCollisionExit(collision){
-        console.log("CollisionDetection 结束碰撞",collision.other.owner.name);
+    onCollisionExit(collision) {
+        console.log("CollisionDetection 结束碰撞", collision.other.owner.name);
     }
 
-    onTriggerEnter(other){
-        console.log("开始触发",other.owner.name);
+    onTriggerEnter(other) {
+        if (other.owner != null) {
+            console.log("开始触发", other.owner.name);
+        }
     }
 
-    onTriggerStay(other){
-        console.log("CollisionDetection 持续触发",other.owner.name);
+    onTriggerStay(other) {
+        console.log("CollisionDetection 持续触发", other.owner.name);
     }
 
-    onTriggerExit(other){
-        console.log("CollisionDetection 结束触发",other.owner.name);
+    onTriggerExit(other) {
+        if (other.owner != null) {
+            console.log("CollisionDetection 结束触发",other.owner.name);
+        }
+
     }
-    
+
 
     // 只在两个碰撞体开始接触时被调用一次
     // onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {

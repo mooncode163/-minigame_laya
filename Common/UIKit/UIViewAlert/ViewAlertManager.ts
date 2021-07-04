@@ -3,6 +3,7 @@ import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import PrefabCache from "../../Cache/PrefabCache";
 import ConfigPrefab from "../../Config/ConfigPrefab";
 import PopUpManager from "../PopUp/PopUpManager";
+import UI from "../ViewController/UI";
 import UIViewAlert from "./UIViewAlert";
  
 
@@ -54,7 +55,7 @@ export default class ViewAlertManager  {
 
     ShowInternal(title, msg, yes, no) {
         //Debug.Log("ShowInternal SetText title ="+title+" msg="+msg);
-        var node = this.uiPrefab.create();
+        var node =UI.Instantiate(this.uiPrefab);// this.uiPrefab.create();
         this.ui = node.getComponent(UIViewAlert);
         // this.ui.callback = this.OnUIViewAlertFinished.bind(this);
 

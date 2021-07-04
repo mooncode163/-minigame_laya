@@ -9,6 +9,7 @@ import UIHomeBase from "./UIHomeBase";
 import Config from "../../Common/Config/Config";
 import ResManager from "../../Common/Res/ResManager";
 import AppSceneUtil from "../Common/AppSceneUtil";
+import UI from "../../Common/UIKit/ViewController/UI";
 
 
 
@@ -84,7 +85,7 @@ export default class HomeViewController extends UIViewController {
     CreateUI() {
         Debug.Log("HomeViewController CreateUI");
 
-        var node = this.uiPrefab.create();
+        var node = UI.Instantiate(this.uiPrefab);
         this.ui = node.getComponent(UIHomeBase);
         this.ui.SetController(this);
 

@@ -14,15 +14,21 @@ strict设置false状态
     */
 
 import Debug from "../../Debug";
+// import UIButton from "../UIButton/UIButton";
+// import UIImage from "../UIImage/UIImage";
+// import UIText from "../UIText/UIText";
 
 
 
 // Laya UI坐标系原点在屏幕左上角
 
 export default class UI {
+    public static PhysicBodyTypeDynamic = "dynamic";
+    public static PhysicBodyTypeStatic = "static";
+    public static PhysicBodyTypeKinematic = "kinematic";
 
     static SetPosition(node: Laya.Node, pt: Laya.Vector3) {
-        UI.SetNodePosition(node,pt.x,pt.y);
+        UI.SetNodePosition(node, pt.x, pt.y);
     }
     static GetPosition(node: Laya.Node) {
         var sp = node as Laya.Sprite;
@@ -34,8 +40,8 @@ export default class UI {
             y = sp.y;
             // z = sp.z;
         }
-        return new Laya.Vector3(x, y,z);
-    }  
+        return new Laya.Vector3(x, y, z);
+    }
     static GetNodePosition(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         var x = 0;
@@ -46,7 +52,7 @@ export default class UI {
         }
         return new Laya.Vector2(x, y);
     }
-   
+
     static SetNodePosition(node: Laya.Node, x: any, y: any) {
         var sp = node as Laya.Sprite;
         if (sp != null) {
@@ -59,8 +65,8 @@ export default class UI {
     static SetNodePivotCenter(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         if (sp != null) {
-            sp.pivotX = sp.width/2;
-            sp.pivotY = sp.height/2;
+            sp.pivotX = sp.width / 2;
+            sp.pivotY = sp.height / 2;
         }
     }
 
@@ -81,11 +87,11 @@ export default class UI {
         if (sp != null) {
             sp.width = w;
             sp.height = h;
-        }else{
+        } else {
             Debug.Log("SetNodeContentSize sp null");
         }
     }
-    static GetNodeContentSize(node:Laya.Node) {
+    static GetNodeContentSize(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         var w = 0;
         var h = 0;
@@ -113,38 +119,38 @@ export default class UI {
         }
         return h;
     }
-    static SetScaleXY(node: Laya.Node,scale) {
-        var sp = node as Laya.Sprite; 
-        if (sp != null) { 
-            sp.scaleX = scale; 
-            sp.scaleY = scale; 
-        } 
+    static SetScaleXY(node: Laya.Node, scale) {
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            sp.scaleX = scale;
+            sp.scaleY = scale;
+        }
     }
-    static SetScaleX(node: Laya.Node,scale) {
-        var sp = node as Laya.Sprite; 
-        if (sp != null) { 
-            sp.scaleX = scale; 
-        } 
+    static SetScaleX(node: Laya.Node, scale) {
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            sp.scaleX = scale;
+        }
     }
 
-    static SetScaleY(node: Laya.Node,scale) {
-        var sp = node as Laya.Sprite; 
-        if (sp != null) { 
-            sp.scaleY = scale; 
-        } 
+    static SetScaleY(node: Laya.Node, scale) {
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            sp.scaleY = scale;
+        }
     }
     static GetScaleX(node: Laya.Node) {
-        var sp = node as Laya.Sprite; 
-        if (sp != null) { 
-            return sp.scaleX; 
-        } 
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            return sp.scaleX;
+        }
         return 1;
     }
     static GetScaleY(node: Laya.Node) {
-        var sp = node as Laya.Sprite; 
-        if (sp != null) { 
-            return sp.scaleY; 
-        } 
+        var sp = node as Laya.Sprite;
+        if (sp != null) {
+            return sp.scaleY;
+        }
         return 1;
     }
 
@@ -163,7 +169,7 @@ export default class UI {
             x = sp.pivotY;
         }
         return x;
-    } 
+    }
     static SetNodeWidth(node: Laya.Node, w: number) {
         var sp = node as Laya.Sprite;
         if (sp != null) {
@@ -177,16 +183,14 @@ export default class UI {
         }
     }
 
-// 实例化
-    static Instantiate(prefab: Laya.Prefab):Laya.Node {
+    // 实例化
+    static Instantiate(prefab: Laya.Prefab): Laya.Node {
         var node = prefab.create();
         return node;
-    } 
-   
-    // 按名字查找子对象
-    static FindChild(parent:Laya.Node,name:string):Laya.Node {
-        return parent.getChildByName(name); 
-    } 
+    }
+ 
+
+    
 }
 
 
