@@ -249,8 +249,14 @@ export default class UIView extends Laya.Script {
     GetParent() {
         return this.owner.parent.getComponent(UIView);
     }
+
+    // 是否隐藏
     SetActive(active: boolean) {
-        this.owner.active = active;
+        var sp = this.owner as Laya.Sprite; 
+        var z = 0;
+        if (sp != null) {
+            sp.visible = active;
+        }
     }
 
     OnUIDidFinish() {

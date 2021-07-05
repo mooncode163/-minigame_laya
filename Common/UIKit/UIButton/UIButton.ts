@@ -16,10 +16,10 @@ import UI from "../ViewController/UI";
 
 enum ButtonType {
     IMAGE = "IMAGE",//一张背景  
-    IMAGE_TEXT= "IMAGE_TEXT",
-    IMAGE_ICON= "IMAGE_ICON",//一张背景 一张Icon 叠加
-    IMAGE_SWITCH= "IMAGE_SWITCH",//一张背景
-    IMAGE_ICON_SWITCH= "IMAGE_ICON_SWITCH",//一张背景 一张Icon 叠加
+    IMAGE_TEXT = "IMAGE_TEXT",
+    IMAGE_ICON = "IMAGE_ICON",//一张背景 一张Icon 叠加
+    IMAGE_SWITCH = "IMAGE_SWITCH",//一张背景
+    IMAGE_ICON_SWITCH = "IMAGE_ICON_SWITCH",//一张背景 一张Icon 叠加
 }
 
 // UIView
@@ -38,8 +38,8 @@ export default class UIButton extends UIView {
     enableFitTextSize: boolean = false;
     isSwicthSelect: boolean = false;
 
-  
- 
+
+
 
     duration = 200;//0.2 //ms
     scale1 = 1.2;
@@ -54,41 +54,7 @@ export default class UIButton extends UIView {
     // set 的用法
     set type(value) {
         this._type = value;
-        if (this.btnBg == null) {
-            return;
-        }
-        if (this.textTitle == null) {
-            return;
-        }
-        if (this.imageIcon == null) {
-            return;
-        }
-        this.imageBg.SetActive(true);
-        
-        switch (this._type) {
-            case ButtonType.IMAGE:
-            case ButtonType.IMAGE_SWITCH:
-                {
-                    this.imageIcon.SetActive(false);
-                    this.textTitle.SetActive(false);
-                }
-                break;
-            case ButtonType.IMAGE_TEXT:
-                {
-                    this.imageIcon.SetActive(false);
-                    this.textTitle.SetActive(true); 
-                }
-                break;
-            case ButtonType.IMAGE_ICON:
-            case ButtonType.IMAGE_ICON_SWITCH:
-                {
-                    this.imageIcon.SetActive(true);
-                    this.textTitle.SetActive(false);  
-                }
-                break;
-
-        } 
-
+        // this.UpdateType(this._type);
     }
 
 
@@ -140,13 +106,13 @@ export default class UIButton extends UIView {
         //只用来点击事件  不显示
         this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
         // this.content = this.owner.getChildByName("Content") as Laya.Image;
-        
-        
+
+
 
         this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
         this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
         this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
- 
+
         // this.type = this._type;
         this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
 
@@ -162,11 +128,47 @@ export default class UIButton extends UIView {
 
     onStart() {
         // [3]
-        super.onStart();
-
+        super.onStart(); 
         this.LayOut();
     }
 
+    UpdateType(ty) {
+        if (this.btnBg == null) {
+            return;
+        }
+        if (this.textTitle == null) {
+            return;
+        }
+        if (this.imageIcon == null) {
+            return;
+        }
+        this.imageBg.SetActive(true);
+        Debug.Log("UIButton UpdateType ty="+ty);
+        // this.textTitle.SetActive(false);
+        switch (ty) {
+            case ButtonType.IMAGE:
+            case ButtonType.IMAGE_SWITCH:
+                {
+                    this.imageIcon.SetActive(false);
+                    this.textTitle.SetActive(false);
+                }
+                break;
+            case ButtonType.IMAGE_TEXT:
+                {
+                    this.imageIcon.SetActive(false);
+                    this.textTitle.SetActive(true);
+                }
+                break;
+            case ButtonType.IMAGE_ICON:
+            case ButtonType.IMAGE_ICON_SWITCH:
+                {
+                    this.imageIcon.SetActive(true);
+                    this.textTitle.SetActive(false);
+                }
+                break;
+
+        }
+    }
 
 
 
@@ -181,10 +183,10 @@ export default class UIButton extends UIView {
         this.DoClickItem();
     }
     OnBtnClick() {
-        Debug.Log("UIButton OnBtnClick"); 
+        Debug.Log("UIButton OnBtnClick");
         Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
         //.to(this.owner, { scaleX: scale2, scaleY: scale2 }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.DoClickItem.bind(this), [this], false));
-       
+
         var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
         if (ret) {
             //play sound click
@@ -230,6 +232,7 @@ export default class UIButton extends UIView {
 
     LayOut() {
         super.LayOut();
+        this.UpdateType(this.type);
         UI.SetNodePivotCenter(this.owner);
         super.LayOut();
 
