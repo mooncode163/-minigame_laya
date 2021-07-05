@@ -46,7 +46,7 @@ export default class CollisionDetection extends Laya.Script {
         UI.SetPosition(uiNext.node, v2);
         uiNext.EnableGravity(true);
         uiNext.hasGoDownDeadLine = true;
-        GameData.main.game.ShowMergeParticle(v2, _tag);
+        GameData.main.game.ShowMergeParticle(v2,_tag);
         //播放合成声音 
         // AudioPlay.main.PlayFile(AppRes.AUDIO_Merge);
         AudioPlay.main.PlayByKey("Merge");

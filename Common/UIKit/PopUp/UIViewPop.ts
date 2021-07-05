@@ -27,6 +27,10 @@ export default class UIViewPop extends UIView {
 
         // ms
         Laya.timer.once(100,this,this.ShowInitAnimate);
+
+        // Laya.timer.once(100, this, function():void {
+        //     this.addBox();
+        // });
     }
    
 

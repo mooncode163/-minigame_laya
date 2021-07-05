@@ -49,29 +49,39 @@ export default class AudioPlay extends Laya.Script {
     }
 
     PlayUrl(url: string) {
-        ResManager.LoadUrlAudio(
-            {
-                url: url,
-                success: (p: any, clip: any) => {
-                    this.PlayAudioClip(clip);
-                },
-                fail: (p: any) => {
+        // ResManager.LoadUrlAudio(
+        //     {
+        //         url: url,
+        //         success: (p: any, clip: any) => {
+        //             this.PlayAudioClip(clip);
+        //         },
+        //         fail: (p: any) => {
 
-                },
-            });
+        //         },
+        //     });
+        Laya.SoundManager.playSound(url);
     }
     PlayFile(filepath: string) {
         console.log("  LoadAudio PlayFile=" + filepath);
-        ResManager.LoadAudio(
-            {
-                filepath: filepath,
-                success: (p: any, clip: any) => {
-                    this.PlayAudioClip(clip);
-                },
-                fail: (p: any) => {
-                    //this.PlayUrl(filepath);
-                },
-            });
+        // ResManager.LoadAudio(
+        //     {
+        //         filepath: filepath,
+        //         success: (p: any, clip: any) => {
+        //             this.PlayAudioClip(clip);
+        //         },
+        //         fail: (p: any) => {
+        //             //this.PlayUrl(filepath);
+        //         },
+        //     });
+
+
+        //playSound播放音效，可以同时支持播放多个，可以是网络文件，也可以本地文件，如果是播放本地音频，则需要确保音频文件在输出目录 bin 目录下
+        // Laya.SoundManager.playSound("https://layaair.ldc.layabox.com/demo/h5/res/sounds/btn.mp3");
+        //sound/hit.wav 必须在 bin 目录下，否则找不到文件:ERR_FILE_NOT_FOUND，联系播放3次
+        // Laya.SoundManager.playSound("sound/hit.wav",3);
+        Laya.SoundManager.playSound(filepath);
+ 
+
     }
     PlayByKey(key: string) {
         // var dir = "";
@@ -84,16 +94,17 @@ export default class AudioPlay extends Laya.Script {
         // }
         var filepath = ConfigAudio.main.GetAudio(key);
         Debug.Log("AudioPlay PlayByKey filepath="+filepath+" key="+key);
-        ResManager.LoadAudio(
-            {
-                filepath: filepath,
-                success: (p: any, clip: any) => {
-                    this.PlayAudioClip(clip);
-                },
-                fail: (p: any) => {
-                    this.PlayUrl(filepath);
-                },
-            });
+        // ResManager.LoadAudio(
+        //     {
+        //         filepath: filepath,
+        //         success: (p: any, clip: any) => {
+        //             this.PlayAudioClip(clip);
+        //         },
+        //         fail: (p: any) => {
+        //             this.PlayUrl(filepath);
+        //         },
+        //     });
+        this.PlayFile(filepath);
     } 
     Stop() {
         Debug.Log("AudioPlay Stop");

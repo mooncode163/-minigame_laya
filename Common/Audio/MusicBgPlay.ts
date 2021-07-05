@@ -1,8 +1,12 @@
+import ConfigAudio from "../Config/ConfigAudio";
 import AudioPlay from "./AudioPlay";
- 
 
- 
-export default class MusicBgPlay extends AudioPlay {  
+
+
+export default class MusicBgPlay extends AudioPlay {
+
+    player:Laya.Sound;
+
     static _main: MusicBgPlay;
     //静态方法
     static get main() {
@@ -15,17 +19,28 @@ export default class MusicBgPlay extends AudioPlay {
 
     onAwake() {
         super.onAwake();
-        MusicBgPlay._main = this; 
+        MusicBgPlay._main = this;
 
     }
     onStart() {
         super.onStart();
-    } 
-   
-    PlayBgMusic() { 
+    }
+    private loadcom(e: Laya.Event): void {
+        console.log("PlayBgMusic loadcom");
+    }
+    PlayBgMusic() {
         // this.audioSource.loop= true;
         // this.PlayByKey("Bg");
- 
+        this.player = new Laya.Sound();
+        var filepath = ConfigAudio.main.GetAudio("Bg");
+        this.player.load(filepath);
+
+        this.player.on(Laya.Event.COMPLETE, this, this.loadcom);
+        this.player.on(Laya.Event.PROGRESS, this, this.loadcom);
+        this.player.on(Laya.Event.ERROR, this, this.loadcom);
+
+        this.player.play(0, 0);
+
     }
 
     OnDidFinish() {
@@ -40,4 +55,4 @@ export default class MusicBgPlay extends AudioPlay {
     }
 }
 
- 
+

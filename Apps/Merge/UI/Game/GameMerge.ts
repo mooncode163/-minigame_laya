@@ -3,6 +3,7 @@ import GameBase from "../../../../AppBase/Game/GameBase";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
+import ResManager from "../../../../Common/Res/ResManager";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
@@ -33,7 +34,7 @@ export default class GameMerge extends GameBase {
     isMouseUp = false;
     isAutoClick = false;
     posYInit: 0;
-
+    particleMerge: Laya.Particle2D;
 
     static _main: GameMerge;
     //静态方法
@@ -241,7 +242,7 @@ export default class GameMerge extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist == ui) {
-                this.ShowMergeParticle(ui.node.position, ui.id);
+                this.ShowMergeParticle(UI.GetNodePosition(ui.node), ui.id);
                 uilist.owner.destroy();
                 this.listItem.splice(i, 1);
                 break;
@@ -268,7 +269,7 @@ export default class GameMerge extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist.id == id) {
-                this.ShowMergeParticle(UI.GetNodePosition(this.owner), uilist.id);
+                this.ShowMergeParticle(UI.GetNodePosition(uilist.node), uilist.id);
                 uilist.owner.destroy();
             }
         }
@@ -302,12 +303,12 @@ export default class GameMerge extends GameBase {
         ui.node.name = keyid;
 
 
-       
+
         this.ScaleStart = 0.2;
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
 
-        UI.SetScaleXY(ui.owner,scale);  
+        UI.SetScaleXY(ui.owner, scale);
 
         var rectParent = this.GetBoundingBox();
         x = rectParent.width / 2;
@@ -330,7 +331,23 @@ export default class GameMerge extends GameBase {
         return ui;
     }
     ShowMergeParticle(pos, id) {
+        ResManager.LoadParticle(
+            {
+                filepath: "Resources/AppCommon/Particle/Merge.part",
+                success: (p: any, data: any) => {
+                    this.particleMerge = data;
+                    AppSceneUtil.main.rootNode.addChild(this.particleMerge);
+                    this.particleMerge.x = pos.x;
+                    this.particleMerge.y = pos.y;
+                    this.particleMerge.play();
 
+                    Laya.timer.once(600, this, function():void {
+                        this.particleMerge.destroy();
+                    });
+                },
+                fail: () => {
+                },
+            });
 
     }
     ShowProp(isShow: boolean) {
@@ -355,17 +372,17 @@ export default class GameMerge extends GameBase {
         // this.imageProp.node.setPosition(posnew);
 
         // console.log("按下");
-        console.log("GameMerge onMouseDown " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
-        this.UpdateEvent(UITouchEvent.TOUCH_DOWN, new Laya.Vector2(e.stageX,e.stageY));
+        console.log("GameMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
+        this.UpdateEvent(UITouchEvent.TOUCH_DOWN, new Laya.Vector2(e.stageX, e.stageY));
     }
     onMouseMove(e) {
         // console.log("GameMerge onMouseMove");
-        this.UpdateEvent(UITouchEvent.TOUCH_MOVE, new Laya.Vector2(e.stageX,e.stageY));
+        this.UpdateEvent(UITouchEvent.TOUCH_MOVE, new Laya.Vector2(e.stageX, e.stageY));
     }
     onMouseUp(e) {
         // console.log("抬起");
-        console.log("GameMerge onMouseUp " + this.owner.name); 
-        this.UpdateEvent(UITouchEvent.TOUCH_UP, new Laya.Vector2(e.stageX,e.stageY));
+        console.log("GameMerge onMouseUp " + this.owner.name);
+        this.UpdateEvent(UITouchEvent.TOUCH_UP, new Laya.Vector2(e.stageX, e.stageY));
     }
     onClick(e) {
         //e.stopPropagation();//阻止事件冒泡/上报

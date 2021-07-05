@@ -88,6 +88,28 @@ export default class ResManager {
 
     }
 
+
+     /*
+        {
+            filepath:"", 
+            success: function (p,tex:Texture2D) {
+            },
+            fail: function (p) {
+            }, 
+        }
+        */
+        public static LoadParticle(obj: any) {
+            console.log("ResManager LoadParticle obj.filepath=" + obj.filepath);  
+            Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
+                var setting = Laya.loader.getRes(obj.filepath);
+                var particle:Laya.Particle2D = new Laya.Particle2D(setting); 
+                if (obj.success != null) {
+                    obj.success(this, particle);
+                }
+    
+            }));
+        }
+
     /*
       {
           filepath:"", 
