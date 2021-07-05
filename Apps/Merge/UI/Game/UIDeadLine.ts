@@ -1,32 +1,71 @@
+import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
-import UIView from "../../../../Common/UIKit/ViewController/UIView"; 
-import GameData from "../../Data/GameData"; 
+import UIView from "../../../../Common/UIKit/ViewController/UIView";
+import GameData from "../../Data/GameData";
+import UIMergeItem from "./UIMergeItem";
 
- 
+
 export default class UIDeadLine extends UIView {
     t = 0;
     isGameFail = false;
-
+    tickStart = -1;
     onAwake() {
         super.onAwake();
         this.owner.name = GameData.NameDeadLine;
         this.t = 0;
         this.isGameFail = false;
 
-        // 还需要body勾选回调接口 cocos 的碰撞区检测必须同时有刚体 和unity不一样
-        // let collider = this.owner.getComponent(Collider2D);
-        // if (collider) {
-        //     collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        //     collider.on(Contact2DType.END_CONTACT, this.onEndContact, this);
-        //     collider.on(Contact2DType.PRE_SOLVE, this.onPreSolve, this);
-        //     collider.on(Contact2DType.POST_SOLVE, this.onPostSolve, this);
-        // }
-
     }
     onStart() {
         super.onStart();
     }
- 
+
+
+    onTriggerEnter(other) {
+        if (other.owner != null) {
+            console.log("CollisionDetection 开始触发", other.owner.name);
+            if (this.tickStart < 0) {
+                this.t = 0;
+                this.tickStart = Common.GetCurrentTime();
+            }
+        }
+    }
+
+
+    onTriggerStay(other) {
+        this.t += Common.GetCurrentTime() - this.tickStart;
+        console.log("UIDeadLine onTriggerStay 持续触发", other.owner.name + " t=" + this.t);
+        if (other.owner.name != GameData.NameDeadLine) {
+            Debug.Log("UIDeadLine  enter other.name=" + other.owner.name);
+
+            var ui = other.owner.getComponent(UIMergeItem);
+            if (ui != null) {
+                if (ui.isNew) {
+                    this.t = 0;
+                    
+                }
+                if (this.t >= 2.0) {
+                    // GameObject.Find("CodeControl").GetComponent<ScoreControl>().SaveScore();//保存分数
+                    // SceneManager.LoadScene("Over");//切换场景
+                    this.t = 0;
+                    this.tickStart = -1;
+                    Debug.Log("UIDeadLine  GameFail other.name=" + other.owner.name);
+                    if (!this.isGameFail) {
+                        this.isGameFail = true;
+                        GameData.main.uiGame.OnGameFinish(true);
+                    }
+                }
+            }
+        }
+    }
+
+    onTriggerExit(other) {
+        if (other.owner != null) {
+            console.log("UIDeadLine onTriggerExit 结束触发", other.owner.name);
+        }
+
+    }
+
     // 只在两个碰撞体开始接触时被调用一次
     // onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
     //     // will be called once when two colliders begin to contact

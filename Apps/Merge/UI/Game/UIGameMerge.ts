@@ -161,6 +161,7 @@ export default class UIGameMerge extends UIGameBase {
 
     OnGameFinish(isFail: boolean) {
         // var info = GameLevelParse.main.GetLevelItemInfo(LevelData.main.gameLevel);  
+        Debug.Log("OnGameFinish enter isFail="+isFail);
         var key = "UIGameWin";
         var strPrefab = "";
         //show game win
@@ -171,16 +172,16 @@ export default class UIGameMerge extends UIGameBase {
         }
 
         strPrefab = ConfigPrefab.main.GetPrefab(key);
-
-        PopUpManager.main.Show(
-            {
-                prefab: strPrefab,
-                open: (ui: any) => {
-                    // AudioPlay.main.PlayByKey("Fail");
-                },
-                close: (ui: any) => {
-                },
-            });
+    
+        // PopUpManager.main.Show(
+        //     {
+        //         prefab: strPrefab,
+        //         open: (ui: any) => {
+        //             // AudioPlay.main.PlayByKey("Fail");
+        //         },
+        //         close: (ui: any) => {
+        //         },
+        //     });
     }
 
     ShowProp() {

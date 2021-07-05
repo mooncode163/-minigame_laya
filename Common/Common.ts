@@ -19,6 +19,7 @@ export default class Common {
         return this.GetCurrentTimeMs() / 1000;
     }
 
+    // tick 1625466231.306
     static GetCurrentTimeMs() {
         //获取Laya引擎运行的时间(毫秒)
         return Laya.systemTimer.currTimer;

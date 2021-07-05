@@ -299,7 +299,7 @@ export default class GameMerge extends GameBase {
         AppSceneUtil.main.rootNode.addChild(ui.node);
 
         ui.name = keyid;
-        // ui.node.name = keyid;
+        ui.node.name = keyid;
 
 
        
@@ -307,7 +307,7 @@ export default class GameMerge extends GameBase {
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
         var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
 
-        // UI.SetScaleXY(ui.owner,scale);  
+        UI.SetScaleXY(ui.owner,scale);  
 
         var rectParent = this.GetBoundingBox();
         x = rectParent.width / 2;

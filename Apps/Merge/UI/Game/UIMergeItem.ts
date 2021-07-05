@@ -116,6 +116,10 @@ export default class UIMergeItem extends UIView {
 
     }
     EnableGravity(isEnable) {
+        if(this.node==null)
+        {
+            return;
+        }
         var bd = this.node.getComponent(Laya.RigidBody);
         bd.type = isEnable ? UI.PhysicBodyTypeDynamic : UI.PhysicBodyTypeStatic;
     }

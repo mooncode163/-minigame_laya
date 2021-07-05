@@ -23,74 +23,88 @@ export default class UIText extends UIView {
     /** @prop {name:keyColor,type:string}*/
     keyColor: string = "";
 
+
     //get 的用法
     get text() {
-        // this.Init();
+        this.Init();
         return this.label.text;
     }
     // set 的用法
     set text(value) {
-        // this.Init();
+        this.Init();
         this.label.text = value;
         this.LayOut();
 
     }
 
 
+    private _fontSize: number = 64;
     //get 的用法
+    /** @prop {name:fontSize,type:number}*/
     get fontSize() {
+        return this._fontSize;
         // this.Init();
-        return this.label.fontSize;
+        // return this.label.fontSize;
     }
     // set 的用法
     set fontSize(value) {
-        // this.Init();
-        this.label.fontSize = value;
-        // this.label.lineHeight = value;
-        this.LayOut();
+        this._fontSize = value;
+        // if (this.owner != null) {
+        //     this.Init();
+        //     this.label.fontSize = value;
+        //     this.LayOut();
+        // }
 
     }
 
     //get 的用法
     get color() {
+        this.Init();
         return this.label.color;
     }
     // set 的用法
     set color(value) {
+        this.Init();
         this.label.color = value;
         this.LayOut();
 
     }
     onAwake() {
         super.onAwake();
-   
-        Debug.Log("UIText this.keyColor =" + this.keyColor);
         UI.SetNodePivotCenter(this.owner);
         this.Init();
+        this.label.fontSize = this.fontSize;
 
-        if (!Common.BlankString(this.keyColor)) {
-            Debug.Log("UIText this.color");
-            var ret = this.GetKeyColor(Laya.Color.YELLOW);
-            Debug.Log("UIText this.color =" + ret);
-            // this.color = ret;
-        }
-        if (!Common.BlankString(this.keyText)) {
-            this.text = this.GetKeyText();
-        }
     }
 
     onStart() {
         // [3]
         super.onStart();
+        Debug.Log("UIText this.keyColor =" + this.keyColor);
+        if (!Common.BlankString(this.keyColor)) {
+            Debug.Log("UIText this.color");
+            var ret = this.GetKeyColor();
+            Debug.Log("UIText this.color =" + ret);
+            this.color = ret;
+        }
+
+        Debug.Log("UIText this.keyText =" + this.keyText);
+        if (!Common.BlankString(this.keyText)) {
+            this.text = this.GetKeyText();
+        }
+
+        this.LayOut();
     }
 
+    onUpdate() {
+
+    }
     Init() {
-        if(this.label!=null)
-        {
+        if (this.label != null) {
             return;
         }
         this.label = this.owner.getChildByName("Label") as Laya.Label;
-         
+
     }
 
     LayOut() {
@@ -111,8 +125,8 @@ export default class UIText extends UIView {
     }
 
     //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
-    GetKeyColor(def: Laya.Color) {
-        var ret = Laya.Color.BLACK;
+    GetKeyColor(def: string = "0, 0, 0, 255") {
+        var ret = "0, 0, 0, 255";
         if (def) {
             ret = def;
         }

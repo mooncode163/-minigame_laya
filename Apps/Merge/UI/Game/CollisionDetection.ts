@@ -1,6 +1,8 @@
+import { ui } from "../../../../../ui/layaMaxUI";
 import AudioPlay from "../../../../Common/Audio/AudioPlay";
 import Common from "../../../../Common/Common";
 import Debug from "../../../../Common/Debug";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import GameData from "../../Data/GameData";
 
@@ -12,7 +14,7 @@ export default class CollisionDetection extends Laya.Script {
     playFallingSound = false;//定义是否播放过下落声音 
 
     isNewItem = false;
-    otherCollider;
+    otherCollider = null;
     keyNext = "";
 
     onAwake() {
@@ -36,54 +38,54 @@ export default class CollisionDetection extends Laya.Script {
     }
 
     CreateNewItem() {
-        /*
+
         var keynext = this.keyNext;
-        var v2 = this.otherCollider.node.position;//保存被碰撞物体的位置
-        var _tag = this.otherCollider.node.name;
-        var uiNext = GameMerge.main.CreateItem(keynext);
-        uiNext.node.setPosition(v2);
+        var v2 = UI.GetPosition(this.otherCollider.owner);//保存被碰撞物体的位置
+        var _tag = this.otherCollider.owner.name;
+        var uiNext = GameData.main.game.CreateItem(keynext);
+        UI.SetPosition(uiNext.node, v2);
         uiNext.EnableGravity(true);
         uiNext.hasGoDownDeadLine = true;
-        GameMerge.main.ShowMergeParticle(v2, _tag);
+        GameData.main.game.ShowMergeParticle(v2, _tag);
         //播放合成声音 
         // AudioPlay.main.PlayFile(AppRes.AUDIO_Merge);
         AudioPlay.main.PlayByKey("Merge");
         //增加分数
 
-        GameData.main.score += 10 * GameMerge.main.GetIndexOfItem(keynext);
-        UIGameMerge.main.UpdateScore();
+        GameData.main.score += 10 * GameData.main.game.GetIndexOfItem(keynext);
+        GameData.main.uiGame.UpdateScore();
 
-        GameMerge.main.RemoveItemFromList(this.node);
-        GameMerge.main.RemoveItemFromList(this.otherCollider.node);
+        GameData.main.game.RemoveItemFromList(this.owner);
+        GameData.main.game.RemoveItemFromList(this.otherCollider.owner);
         Debug.Log("OnCollisionEnter2D destroy ");
-        this.node.destroy();
-        this.otherCollider.node.destroy();
+        this.owner.destroy();
+        this.otherCollider.owner.destroy();
 
-        if (keynext == GameMerge.main.GetLastItem()) {
+        if (keynext == GameData.main.game.GetLastItem()) {
             //game win 合成了大西瓜
-            //  UIGameMerge.main.OnGameFinish(false);
+            GameData.main.game.OnGameFinish(false);
         }
 
-        */
+
     }
 
     public updateCulling() {
     }
 
     CheckCollision(other) {
-        // var uiNext = GameMerge.main.CreateItem("putao");
+        // var uiNext = GameData.main.game.CreateItem("putao");
         // return;
 
-        var _tag = other.node.name;//获取被碰撞物体的Tag 
+        var _tag = other.owner.name;//获取被碰撞物体的Tag 
 
         //播放下落声音
-        if (other.node.name == GameData.NameDeadLine && this.playFallingSound == false) {
+        if (other.owner.name == GameData.NameDeadLine && this.playFallingSound == false) {
             //播放下落声音
             this.playFallingSound = true;
             // AudioPlay.main.PlayFile(AppRes.AUDIO_Down);
             AudioPlay.main.PlayByKey("Down");
         }
-        if (other.node.name != this.owner.name) {
+        if (other.owner.name != this.owner.name) {
             // Debug.Log("OnCollisionEnter2D other.node.name != this.node.name"+_tag);
             return;
         }
@@ -92,28 +94,29 @@ export default class CollisionDetection extends Laya.Script {
         // 在出生地方不检测
         var enable = false;
         var limity = 10;
-        var stepy = 0;
-        stepy = Math.abs((this.owner as Laya.Sprite).y - GameData.main.game.posYInit);
-        if (stepy < limity) {
-            Debug.Log("OnCollisionEnter2D stepy 1=" + stepy);
-            return;
-        }
-        stepy = Math.abs(other.node.position.y - GameData.main.game.posYInit);
-        if (stepy < limity) {
-            Debug.Log("OnCollisionEnter2D stepy 2=" + stepy);
-            return;
-        }
+        // var stepy = 0;
+        // stepy = Math.abs((this.owner as Laya.Sprite).y - GameData.main.game.posYInit);
+        // if (stepy < limity) {
+        //     Debug.Log("OnCollisionEnter2D stepy 1=" + stepy);
+        //     return;
+        // }
+        // stepy = Math.abs(other.node.position.y - GameData.main.game.posYInit);
+        // if (stepy < limity) {
+        //     Debug.Log("OnCollisionEnter2D stepy 2=" + stepy);
+        //     return;
+        // }
 
 
 
         // 检测是否产生新的
-        var otherDetect = other.node.getComponent(CollisionDetection).HasTheDeliveryBeenDetected();
+        var otherDetect = other.owner.getComponent(CollisionDetection).HasTheDeliveryBeenDetected();
         Debug.Log("OnCollisionEnter2D otherDetect=" + otherDetect);
         if (this.isItDetected == true && otherDetect) //判断碰撞物体的tag是否与自身一致和是否应该检测
         {
             this.isItDetected = false;//不进行检测
-            other.node.getComponent(CollisionDetection).IgnoreDetection();//停止对方检测
-            var v2 = other.node.position;//保存被碰撞物体的位置
+            other.owner.getComponent(CollisionDetection).IgnoreDetection();//停止对方检测
+
+            var v2 = UI.GetPosition(other.owner);//保存被碰撞物体的位置
             //   _tag = other.transform.tag;//获取被碰撞物体的Tag
             Debug.Log("OnCollisionEnter2D other=" + _tag);
             //判断是否超出最大水果限制
@@ -151,63 +154,40 @@ export default class CollisionDetection extends Laya.Script {
     }
 
 
-    OnCollisionEnter(collision) {
-        console.log("CollisionDetection 开始碰撞", collision.other.owner.name);
-    }
 
-    onCollisionStay(collision) {
-        console.log("CollisionDetection 持续碰撞", collision.other.owner.name);
-    }
-
-    onCollisionExit(collision) {
-        console.log("CollisionDetection 结束碰撞", collision.other.owner.name);
-    }
+    // onCollisionEnter(collision: Laya.Collision): void {
+    //     console.log("CollisionDetection OnCollisionEnter", collision.other.owner.name);
+    //     // this.CheckCollision(collision.other);
+    // }
+    // onCollisionStay(collision: Laya.Collision): void {
+    //     console.log("CollisionDetection onCollisionStay 持续碰撞", collision.other.owner.name);
+    // }
+    // onCollisionExit(collision: Laya.Collision): void {
+    //     console.log("CollisionDetection onCollisionExit 结束碰撞", collision.other.owner.name);
+    // }
 
     onTriggerEnter(other) {
         if (other.owner != null) {
-            console.log("开始触发", other.owner.name);
+            console.log("CollisionDetection 开始触发", other.owner.name);
+            this.CheckCollision(other);
         }
     }
 
+    // onTriggerEnter2(other: any, self: any, contact: any): void {
+    //     console.log("CollisionDetection onTriggerEnter", other.owner.name);
+    // }
+
     onTriggerStay(other) {
-        console.log("CollisionDetection 持续触发", other.owner.name);
+        console.log("CollisionDetection onTriggerStay 持续触发", other.owner.name);
     }
 
     onTriggerExit(other) {
         if (other.owner != null) {
-            console.log("CollisionDetection 结束触发",other.owner.name);
+            console.log("CollisionDetection onTriggerExit 结束触发", other.owner.name);
         }
 
     }
-
-
-    // 只在两个碰撞体开始接触时被调用一次
-    // onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-    //     // will be called once when two colliders begin to contact
-    //     Debug.Log('CollisionDetection OnCollisionEnter2D on collision enter onBeginContact otherCollider.name=' + otherCollider.node.name + " this.name=" + this.node.name);
-    //     this.CheckCollision(otherCollider);
-    // }
-
-    // // 只在两个碰撞体结束接触时被调用一次
-    // onEndContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-    //     // will be called once when the contact between two colliders just about to end.
-    //     // Debug.Log('onEndContact');
-    // }
-
-    // // 每次将要处理碰撞体接触逻辑时被调用
-    // onPreSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-    //     // will be called every time collider contact should be resolved
-    //     if (otherCollider.node.name == GameData.NameDeadLine) {
-    //         Debug.Log("CollisionDetection onPreSolve enter other.name=" + otherCollider.node.name);
-    //     }
-    // }
-
-    // // 每次处理完碰撞体接触逻辑时被调用
-    // onPostSolve(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
-    //     // will be called every time collider contact should be resolved
-    //     // Debug.Log('onPostSolve');
-    // }
-
+ 
 }
 
 

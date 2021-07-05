@@ -195,6 +195,10 @@ export default class UIView extends Laya.Script {
     LayOutInternalChild() {
         //child
         // var children = this.owner.children;
+        if(this.owner==null)
+        {
+            return;
+        }
         for (var i = 0; i < this.owner.numChildren; i++) {
             var child = this.owner.getChildAt[i];
             this.LayOutNode(child);
