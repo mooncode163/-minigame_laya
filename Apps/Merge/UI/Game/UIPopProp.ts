@@ -84,7 +84,8 @@ export default class UIPopProp extends UIViewPop {
         {
             // var head = UIFind.Find(this.node, "Head");
             // this.btnClose = UIFind.FindButton(head, "BtnClose");
-            this.btnClose = UIFind.FindButtonByPath(this.node, "Head/BtnClose");
+            // this.btnClose = UIFind.FindUIByPath(this.node, "Head/BtnClose",UIButton);
+            this.btnClose = UIFind.FindUI(this.node,"BtnClose",UIButton)
             this.btnClose.SetClick(this, this.OnClickBtnClose.bind(this));
         }
         this.LayOut();

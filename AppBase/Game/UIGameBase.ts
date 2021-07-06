@@ -41,7 +41,7 @@ export default class UIGameBase extends UIView {
         super.onAwake();
 
         // var nodeTopbar = UIFind.Find(this.node, "TopBar");
-        // this.btnBack = UIFind.FindButton(nodeTopbar, "BtnBack");
+        // this.btnBack = UIFind.FindUI(this.node, "BtnBack",UIButton);
         // this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
         this.LayOut();

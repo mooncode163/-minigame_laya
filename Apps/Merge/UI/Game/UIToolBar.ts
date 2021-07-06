@@ -24,17 +24,17 @@ export default class UIToolBar extends UIView {
     onAwake() {
         super.onAwake();
         {
-            this.btnHammer = UIFind.FindButton(this.node, "BtnHammer");
+            this.btnHammer = UIFind.FindUI(this.node, "BtnHammer",UIButton);
             this.btnHammer.SetClick(this, this.OnClickBtnHammer.bind(this));
         }
 
         {
-            this.btnMagic = UIFind.FindButton(this.node, "BtnMagic");
+            this.btnMagic = UIFind.FindUI(this.node, "BtnMagic",UIButton);
             this.btnMagic.SetClick(this, this.OnClickBtnMagic.bind(this));
         }
 
         {
-            this.btnBomb = UIFind.FindButton(this.node, "BtnBomb");
+            this.btnBomb = UIFind.FindUI(this.node, "BtnBomb",UIButton);
             this.btnBomb.SetClick(this, this.OnClickBtnBomb.bind(this));
         }
 

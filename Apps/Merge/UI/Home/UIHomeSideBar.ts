@@ -27,24 +27,24 @@ export default class UIHomeSideBar extends UIView {
         // var button = UIFind.Find(this.node,"Button");
 
         {
-            this.btnMusic = UIFind.FindButton(this.node, "BtnMusic");
+            this.btnMusic = UIFind.FindUI(this.node, "BtnMusic",UIButton);
             this.btnMusic.SetClick(this, this.OnBtnClickMusic.bind(this));
         }
 
         {
-            this.btnSound = UIFind.FindButton(this.node, "BtnSound");
+            this.btnSound = UIFind.FindUI(this.node, "BtnSound",UIButton);
             this.btnSound.SetClick(this, this.OnBtnClickSound.bind(this));
         }
         {
-            this.btnSetting = UIFind.FindButton(this.node, "BtnSetting");
+            this.btnSetting = UIFind.FindUI(this.node, "BtnSetting",UIButton);
             this.btnSetting.SetClick(this, this.OnBtnClickSetting.bind(this));
         }
         {
-            this.btnMore = UIFind.FindButton(this.node, "BtnMore");
+            this.btnMore = UIFind.FindUI(this.node, "BtnMore",UIButton);
             this.btnMore.SetClick(this, this.OnBtnClickMore.bind(this));
         }
         {
-            this.btnShare = UIFind.FindButton(this.node, "BtnShare");
+            this.btnShare = UIFind.FindUI(this.node, "BtnShare",UIButton);
             this.btnShare.SetClick(this, this.OnBtnClickShare.bind(this));
         }
 

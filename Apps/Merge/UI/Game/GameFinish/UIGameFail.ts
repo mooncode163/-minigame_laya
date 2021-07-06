@@ -25,16 +25,16 @@ export default class UIGameFail extends UIViewPop {
         // UI.SetNodePivotCenter(this.node);
         var button = UIFind.Find(this.node, "Button");
         {
-            this.btnRevive = UIFind.FindButton(button, "BtnRevive");
+            this.btnRevive = UIFind.FindUI(button, "BtnRevive",UIButton);
             this.btnRevive.SetClick(this, this.OnClickBtnRevive.bind(this));
         }
         {
-            this.btnRestart = UIFind.FindButton(button, "BtnRestart");
+            this.btnRestart = UIFind.FindUI(button, "BtnRestart",UIButton);
             this.btnRestart.SetClick(this, this.OnClickBtnRestart.bind(this));
         }
 
         {
-            this.btnClose = UIFind.FindButton(this.node, "BtnClose");
+            this.btnClose = UIFind.FindUI(this.node, "BtnClose",UIButton);
             this.btnClose.SetClick(this, this.OnClickBtnClose.bind(this));
         }
 

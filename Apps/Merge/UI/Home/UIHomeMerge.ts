@@ -38,7 +38,7 @@ export default class UIHomeMerge extends UIHomeBase {
         var button = UIFind.Find(this.node, "Button");
         // if(button!=null)
         {
-            this.btnPlay = UIFind.FindButton(button, "BtnPlay");
+            this.btnPlay = UIFind.FindUI(button, "BtnPlay",UIButton);
             this.btnPlay.SetClick(this, this.OnBtnClickPlay.bind(this));
         }
 

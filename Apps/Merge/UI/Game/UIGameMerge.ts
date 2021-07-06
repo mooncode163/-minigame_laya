@@ -48,8 +48,8 @@ export default class UIGameMerge extends UIGameBase {
         this.LayOut();
         // this.LoadLanguageGame(); 
         // this.textTitle.node.active = false; 
-        var nodeTopbar = UIFind.Find(this.node, "TopBar");
-        this.btnBack = UIFind.FindButton(nodeTopbar, "BtnBack");
+        // var nodeTopbar = UIFind.Find(this.node, "TopBar");
+        this.btnBack = UIFind.FindUI(this.node, "BtnBack",UIButton);
         this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
         // var image = new Laya.Image();
@@ -185,7 +185,7 @@ export default class UIGameMerge extends UIGameBase {
     }
 
     ShowProp() {
-        this.uiToolBar.OnClickBtnBomb(null, null);
+        this.uiToolBar.OnClickBtnBomb();
         this.OnUIDidFinish();
     }
 

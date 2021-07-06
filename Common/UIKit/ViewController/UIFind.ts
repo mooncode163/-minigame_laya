@@ -13,9 +13,9 @@ export default class UIFind {
         return UIFind.FindAll(parent, name);
     }
 
-     // 按名字查找子对象
+    // 按名字查找子对象
     static FindChild(parent: Laya.Node, name: string): Laya.Node {
-        return parent.getChildByName(name); 
+        return parent.getChildByName(name);
     }
 
     // 嵌套查询所有的子节点
@@ -90,16 +90,10 @@ export default class UIFind {
         }
         return null;
     }
- 
+
 
     // 按名字查找子对象中的uibutton
-    static FindButton(parent: Laya.Node, name: string): UIButton {
-        var node = UIFind.Find(parent, name);
-        if (node != null) {
-            return node.getComponent(UIButton);
-        }
-        return null;
-    }
+  
     static FindImage(parent: Laya.Node, name: string): UIImage {
         var node = UIFind.Find(parent, name);
         if (node != null) {
@@ -115,31 +109,23 @@ export default class UIFind {
         return null;
     }
 
+ 
 
-    // path
-    static FindButtonByPath(parent: Laya.Node, path: string): UIButton {
-        var node = UIFind.FindByPath(parent, path);
+    // 
+    static FindUI(parent: Laya.Node, name: string, componentType: typeof Laya.Component): any {
+        var node = UIFind.Find(parent, name);
         if (node != null) {
-            return node.getComponent(UIButton);
+            return node.getComponent(componentType);
         }
         return null;
     }
-    static FindImageByPath(parent: Laya.Node, path: string): UIImage {
+    static FindUIByPath(parent: Laya.Node, path: string, componentType: typeof Laya.Component): any {
         var node = UIFind.FindByPath(parent, path);
         if (node != null) {
-            return node.getComponent(UIImage);
+            return node.getComponent(componentType);
         }
         return null;
     }
-
-    static FindTextByPath(parent: Laya.Node, path: string): UIText {
-        var node = UIFind.FindByPath(parent, path);
-        if (node != null) {
-            return node.getComponent(UIText);
-        }
-        return null;
-    }
-
 }
 
 
