@@ -21,12 +21,12 @@ export default class UIHomeMerge extends UIHomeBase {
 
     /** @prop {name:nodeImageLogo,type:Node}*/
     nodeImageLogo: Laya.Node;
-    
-    /** @prop {name:nodeTextTitle,type:Node}*/ 
+
+    /** @prop {name:nodeTextTitle,type:Node}*/
 
     imageLogo: UIImage;
 
-    btnPlay: UIButton;  
+    btnPlay: UIButton;
 
     onAwake() {
         super.onAwake();
@@ -35,18 +35,18 @@ export default class UIHomeMerge extends UIHomeBase {
         this.LoadSideBar();
         this.LoadCenterBar();
 
-        var button = UIFind.Find(this.node,"Button");
+        var button = UIFind.Find(this.node, "Button");
         // if(button!=null)
         {
-            this.btnPlay = UIFind.FindButton(button,"BtnPlay");
+            this.btnPlay = UIFind.FindButton(button, "BtnPlay");
             this.btnPlay.SetClick(this, this.OnBtnClickPlay.bind(this));
         }
 
- 
+
 
         this.imageLogo = this.nodeImageLogo.getComponent(UIImage);
 
-          
+
         var info = GameLevelParse.main.GetLastItemInfo();
         var pic = GameLevelParse.main.GetImagePath(info.id);
         Debug.Log("UIHomeMerge pic=" + pic);
@@ -56,8 +56,8 @@ export default class UIHomeMerge extends UIHomeBase {
         if (Device.main.isLandscape) {
             name = Language.main.GetString("APP_NAME_HD");
         }
-        Debug.Log("UIHomeMerge  appname="+name);
-     
+        Debug.Log("UIHomeMerge  appname=" + name);
+
         this.textTitle.text = name;
         // //    var ret = ImageRes.main.GetImageBoard("ScoreBg");
         // //         Debug.Log("UIHomeMerge onLoad ScoreBg ret="+ret);
@@ -79,7 +79,7 @@ export default class UIHomeMerge extends UIHomeBase {
         // moosnow.ad.getAd((res) => {
         //     console.log('moosnow 广告数据 ', res)
         // })
-  
+
     }
 
 
@@ -87,6 +87,18 @@ export default class UIHomeMerge extends UIHomeBase {
     onStart() {
         super.onStart();
         this.LayOut();
+
+        // var key = "UIPopProp";
+        // var strPrefab = ConfigPrefab.main.GetPrefab(key);
+
+        // PopUpManager.main.Show(
+        //     {
+        //         prefab: strPrefab,
+        //         open: (ui: any) => {
+        //         },
+        //         close: (ui: any) => {
+        //         },
+        //     });
     }
 
     OnBtnClickHome() {
@@ -105,14 +117,14 @@ export default class UIHomeMerge extends UIHomeBase {
         //     {
         //         prefab: "Resources/AppCommon/Prefab/Home/PopTest.prefab",
         //         open: (ui: any) => {
-                    
+
         //         },
         //         close: (ui: any) => {
         //         },
         //     });
 
     }
- 
+
 
     GotoGame() {
         if (this.controller != null) {
@@ -126,20 +138,20 @@ export default class UIHomeMerge extends UIHomeBase {
 
 
 
-    onMouseDown(e) { 
-        console.log("UIHomeMerge onMouseDown " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+    onMouseDown(e) {
+        console.log("UIHomeMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
     }
     onMouseMove(e) {
-        console.log("UIHomeMerge onMouseMove"); 
+        console.log("UIHomeMerge onMouseMove");
     }
     onMouseUp(e) {
         // console.log("抬起");
-        console.log("UIHomeMerge onMouseUp " + this.owner.name);  
+        console.log("UIHomeMerge onMouseUp " + this.owner.name);
     }
-    onMouseOut(e){
+    onMouseOut(e) {
         console.log("UIHomeMerge onMouseOut 移出");
     }
-    onMouseOver(e){
+    onMouseOver(e) {
         console.log("UIHomeMerge onMouseOver 进入");
     }
 

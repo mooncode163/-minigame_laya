@@ -1,23 +1,22 @@
-import { ItemInfo } from "../../../Common/ItemInfo";
+import ItemInfo from "../../../Common/ItemInfo";
 import { SysLanguage } from "../../../Common/Language/LanguageUtil";
 import UIImage from "../../../Common/UIKit/UIImage/UIImage";
-import { UITableView } from "../../../Common/UIKit/UITableView/UITableView";
+import UITableView from "../../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../../Common/UIKit/UIText/UIText";
 import UIView from "../../../Common/UIKit/ViewController/UIView";
+
+ 
 
  
 export default class UILanguage extends UIView { 
     oneCellNum = 1;
     heightCell = 160;
     listItem: ItemInfo[] = [];
-
-    @type(UIText)
+ 
     textTitle: UIText = null;
-
-    @type(UIImage)
+ 
     imageBg: UIImage = null;
-
-    @type(UITableView)
+ 
     uiTableView: UITableView = null;
 
     static _main: UILanguage;
@@ -65,10 +64,10 @@ export default class UILanguage extends UIView {
     }
 
     InitList() {
-        this.uiTableView.tableView.oneCellNum = this.oneCellNum;
-        this.uiTableView.tableView.cellHeight = 256;
-        this.uiTableView.tableView.uiViewParent = this;
-        this.uiTableView.tableView.initTableView(this.listItem.length, { array: this.listItem, target: this });
+        // this.uiTableView.tableView.oneCellNum = this.oneCellNum;
+        // this.uiTableView.tableView.cellHeight = 256;
+        // this.uiTableView.tableView.uiViewParent = this;
+        // this.uiTableView.tableView.initTableView(this.listItem.length, { array: this.listItem, target: this });
     }
     //下一页(pageview下有效)
     nextPage() {

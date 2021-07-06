@@ -1,12 +1,15 @@
-import { PrefabCache } from "../../../Common/Cache/PrefabCache";
+import PrefabCache from "../../../Common/Cache/PrefabCache";
 import Debug from "../../../Common/Debug";
-import { UIViewController } from "../../../Common/UIKit/ViewController/UIViewController";
-import { UILanguage } from "./UILanguage";
+import UI from "../../../Common/UIKit/ViewController/UI";
+import UIViewController from "../../../Common/UIKit/ViewController/UIViewController";
+import UILanguage from "./UILanguage";
+
+ 
 
  
 export default class LanguageViewController extends UIViewController {
 
-    uiPrefab: Prefab;
+    uiPrefab: Laya.Prefab;
     ui: UILanguage;
     runCount = 0;
 
@@ -43,17 +46,11 @@ export default class LanguageViewController extends UIViewController {
 
                 },
             });
-    }
- 
-
-    CreateUI() { 
-        this.CreateUIInternal();
-         
-    }
-    CreateUIInternal() { 
-        // return;
-        const newNode = instantiate(this.uiPrefab);
-        this.ui = newNode.getComponent(UILanguage);
+    } 
+    CreateUI() {  
+        var node = UI.Instantiate(this.uiPrefab);
+        this.ui = node.getComponent(UILanguage);
+        this.ui.SetController(this);
         this.ui.SetController(this); 
     }
 

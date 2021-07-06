@@ -26,7 +26,7 @@ export default class UIGameWin extends UIViewPop {
 
     listItem: UIImage[] = [];
 
-    onLoad() {
+    onAwake() {
         super.onAwake();
 
         this.listItem.push(this.imageItem0);
@@ -38,7 +38,7 @@ export default class UIGameWin extends UIViewPop {
             var pic = GameLevelParse.main.GetImagePath(info.id);
             var ui = this.listItem[i];
             ui.index = i;
-            ui.id = info.id;
+            ui.keyId = info.id;
             ui.UpdateImage(pic);
         }
 
@@ -49,7 +49,7 @@ export default class UIGameWin extends UIViewPop {
         }
         this.LayOut();
     }
-    start() {
+    onStart() {
         super.onStart();
         this.LayOut();
     }

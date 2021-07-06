@@ -125,10 +125,10 @@ export default class UISetting extends UIView {
     }
 
     InitList() {
-        this.uiTableView.tableView.oneCellNum = this.oneCellNum;
-        this.uiTableView.tableView.cellHeight = 256;
-        this.uiTableView.tableView.uiViewParent = this;
-        this.uiTableView.tableView.initTableView(this.listItem.length, { array: this.listItem, target: this });
+        // this.uiTableView.tableView.oneCellNum = this.oneCellNum;
+        // this.uiTableView.tableView.cellHeight = 256;
+        // this.uiTableView.tableView.uiViewParent = this;
+        // this.uiTableView.tableView.initTableView(this.listItem.length, { array: this.listItem, target: this });
     }
     //下一页(pageview下有效)
     nextPage() {

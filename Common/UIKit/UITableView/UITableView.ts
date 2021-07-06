@@ -1,11 +1,31 @@
+import UI from "../ViewController/UI";
 import UIView from "../ViewController/UIView";
-import { TableView } from "./TableView";
 
- 
 export default class UITableView extends UIView {
-    @type(TableView)
-    tableView: TableView | null = null;
- 
+
+    tableView: Laya.List;
+    onAwake() {
+        super.onAwake();
+        UI.SetNodePivotCenter(this.owner);
+
+
+        this.LayOut();
+
+    }
+
+    onStart() {
+        // [3]
+        super.onStart();
+        this.LayOut();
+    }
+
+    LayOut() {
+        super.LayOut();
+        UI.SetNodePivotCenter(this.owner);
+
+
+
+    }
 }
 
 

@@ -7,21 +7,23 @@ import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
+import PopUpData from "./PopUpData";
 import UIViewPop from "./UIViewPop";
 
  
 export default class PopUpManager  {
-
-    static ANIMATE_DURATION = 0.8;
+    // UIViewPop
     listItem: UIViewPop[] = [];
+    static ANIMATE_DURATION = 0.8; 
     nodePannel: Laya.Node = null;
     objPop = null;
 
-    static _main: PopUpManager;
+    static _main: PopUpManager; 
     //静态方法
     static get main() {
         if (this._main == null) {
             this._main = new PopUpManager();
+            PopUpData.main.manager = this._main;
             // this._main.Init();
         }
         return this._main;

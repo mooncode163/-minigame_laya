@@ -1,7 +1,11 @@
 import UIHomeCenterBar from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
 import UIHomeSideBar from "../../Apps/Merge/UI/Home/UIHomeSideBar";
 import PrefabCache from "../../Common/Cache/PrefabCache";
+import Common from "../../Common/Common";
+import CommonRes from "../../Common/CommonRes";
+import ImageRes from "../../Common/Config/ImageRes";
 import Debug from "../../Common/Debug";
+import UIButton from "../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
 import UIView from "../../Common/UIKit/ViewController/UIView";
@@ -98,6 +102,23 @@ export default class UIHomeBase extends UIView {
                 },
             });
     }
+
+
+
+    static UpdateBtnMusic(btn: UIButton) {
+        var ret = Common.GetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC, false);
+
+        if (btn != null) {
+            btn.UpdateSwitch(ret);
+        }
+    }
+    static UpdateBtnSound(btn: UIButton) { 
+        var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
+        if (btn != null) {
+            btn.UpdateSwitch(ret);
+        }
+    }
+
 }
 
 

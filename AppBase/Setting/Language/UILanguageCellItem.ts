@@ -1,23 +1,23 @@
-import { Common } from "../../../Common/Common";
-import { CommonRes } from "../../../Common/CommonRes";
+import Common from "../../../Common/Common";
+import CommonRes from "../../../Common/CommonRes";
 import Debug from "../../../Common/Debug";
-import { ItemInfo } from "../../../Common/ItemInfo";
-import { Language } from "../../../Common/Language/Language";
+import ItemInfo from "../../../Common/ItemInfo";
+import Language from "../../../Common/Language/Language";
 import UIImage from "../../../Common/UIKit/UIImage/UIImage";
-import { UICellItemBase } from "../../../Common/UIKit/UITableView/UICellItemBase";
+import UICellItemBase from "../../../Common/UIKit/UITableView/UICellItemBase";
 import UIText from "../../../Common/UIKit/UIText/UIText";
-import AppSceneBase from "../../Common/AppSceneBase";
-import { UILanguage } from "./UILanguage";
+import AppSceneUtil from "../../Common/AppSceneUtil";
+import UILanguage from "./UILanguage";
+
+ 
 
  
 export default class UILanguageCellItem extends UICellItemBase {
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];
-
-    @type(UIText)
+ 
     textTitle: UIText = null;
-
-    @type(UIImage)
+ 
     imageBg: UIImage = null; 
 
     info: ItemInfo;

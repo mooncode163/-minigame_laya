@@ -1,26 +1,27 @@
-import { MusicBgPlay } from "../../Common/Audio/MusicBgPlay";
-import { Common } from "../../Common/Common";
-import { CommonRes } from "../../Common/CommonRes";
+import MusicBgPlay from "../../Common/Audio/MusicBgPlay";
+import Common from "../../Common/Common";
+import CommonRes from "../../Common/CommonRes";
 import Debug from "../../Common/Debug";
-import { ItemInfo } from "../../Common/ItemInfo";
+import ItemInfo from "../../Common/ItemInfo";
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
-import { UICellItemBase } from "../../Common/UIKit/UITableView/UICellItemBase";
+import UICellItemBase from "../../Common/UIKit/UITableView/UICellItemBase";
 import UIText from "../../Common/UIKit/UIText/UIText";
-import { LanguageViewController } from "./Language/LanguageViewController";
+import LanguageViewController from "./Language/LanguageViewController";
 import { SettingType } from "./UISetting";
+
+ 
 
  
 export default class UISettingCellItem extends UICellItemBase { 
 
     listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];
-
-    @type(UIText)
+ 
     textTitle: UIText = null;
 
-    @type(UIImage)
+  
     imageBg: UIImage = null;
-    @type(UIButton)
+   
     btnSwitch: UIButton = null;
 
     info: ItemInfo;

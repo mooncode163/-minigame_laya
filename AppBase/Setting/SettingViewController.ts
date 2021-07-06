@@ -23,12 +23,12 @@ export default class SettingViewController extends UIViewController {
     }
 
     ViewDidLoad() {
-        Debug.Log("HomeViewController ViewDidLoad");
+        Debug.Log("SettingViewController ViewDidLoad");
         super.ViewDidLoad(); 
         this.LoadPrefab();
     }
     ViewDidUnLoad() {
-        Debug.Log("HomeViewController ViewDidUnLoad");
+        Debug.Log("SettingViewController ViewDidUnLoad");
         super.ViewDidUnLoad();
 
     }
@@ -47,13 +47,8 @@ export default class SettingViewController extends UIViewController {
                 },
             });
     }
- 
-
+  
     CreateUI() { 
-        this.CreateUIInternal();
-         
-    }
-    CreateUIInternal() { 
         // return;
         const newNode = UI.Instantiate(this.uiPrefab);//UI.I(this.uiPrefab);
         this.ui = newNode.getComponent(UISetting);

@@ -1,15 +1,16 @@
+import UIView from "../ViewController/UIView";
 
- 
-export default class UIPopUpBgPannel extends UIView {  
-    onLoad () {
+
+export default class UIPopUpBgPannel extends UIView {
+    onAwake() {
         super.onAwake();
         this.LayOut();
     }
-    start () {
+    onStart() {
         super.onStart();
-        this.LayOut(); 
-    } 
-  
+        this.LayOut();
+    }
+
 }
 
 

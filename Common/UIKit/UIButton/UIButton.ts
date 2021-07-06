@@ -295,10 +295,10 @@ export default class UIButton extends UIView {
     UpdateSwitch(isSel: boolean) {
         this.isSwicthSelect = isSel;
         if (this.isSwicthSelect) {
-            // this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
+            this.imageBg.UpdateImageByKey(this.imageBg.keyImage);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage);
         } else {
-            // this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
+            this.imageBg.UpdateImageByKey(this.imageBg.keyImage2);
             this.imageIcon.UpdateImageByKey(this.imageIcon.keyImage2);
         }
     }

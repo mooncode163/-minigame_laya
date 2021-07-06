@@ -51,7 +51,11 @@ export default class MusicBgPlay extends AudioPlay {
     StopBgMusic() {
         // this.audioSource.loop= false;
         // this.audioSource.play();
-        this.Stop();
+        if(this.player!=null)
+        {
+            this.player.dispose();
+        }
+        // this.Stop();
     }
 }
 

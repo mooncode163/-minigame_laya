@@ -6,20 +6,38 @@ import LayOutVertical from "../../../../Common/UIKit/LayOut/LayOutVertical";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameMerge from "./GameMerge";
 import { PropType } from "./UIPopProp";
 
- 
- 
+
+
 export default class UIToolBar extends UIView {
-   
+
     imageBg: UIImage | null = null;
- 
+    btnHammer: UIButton;
+    btnMagic: UIButton;
+    btnBomb: UIButton;
     btnImageSelect: UIButton | null = null;
     onAwake() {
         super.onAwake();
+        {
+            this.btnHammer = UIFind.FindButton(this.node, "BtnHammer");
+            this.btnHammer.SetClick(this, this.OnClickBtnHammer.bind(this));
+        }
+
+        {
+            this.btnMagic = UIFind.FindButton(this.node, "BtnMagic");
+            this.btnMagic.SetClick(this, this.OnClickBtnMagic.bind(this));
+        }
+
+        {
+            this.btnBomb = UIFind.FindButton(this.node, "BtnBomb");
+            this.btnBomb.SetClick(this, this.OnClickBtnBomb.bind(this));
+        }
+
     }
     onStart() {
         super.onStart();
@@ -36,34 +54,34 @@ export default class UIToolBar extends UIView {
     LayOut() {
         super.LayOut();
 
-        var rctran = this.GetContentSize();
-        var w = rctran.width;
-        var h = rctran.height;
-        var child = this.owner.getChildAt(0);
-        // var btn = this.owner.getComponentInChildren(UIButton);
-        var btn = child.getComponent(UIButton);
-        var rctranBtn = btn.GetContentSize();
+        // var rctran = this.GetContentSize();
+        // var w = rctran.width;
+        // var h = rctran.height;
+        // var child = this.owner.getChildAt(0);
+        // // var btn = this.owner.getComponentInChildren(UIButton);
+        // var btn = child.getComponent(UIButton);
+        // var rctranBtn = btn.GetContentSize();
 
-        var count = LayOutUtil.main.GetChildCount(this.owner, false);
-        var ly = this.owner.getComponent(LayOutVertical);
-        // count =10;
-        var oft =  ly.offsetY*2;
-        // oft = 32;
-        h = count * (rctranBtn.height +oft);
-        // h = 512;
-        this.SetContentSize(w, h);
+        // var count = LayOutUtil.main.GetChildCount(this.owner, false);
+        // var ly = this.owner.getComponent(LayOutVertical);
+        // // count =10;
+        // var oft = ly.offsetY * 2;
+        // // oft = 32;
+        // h = count * (rctranBtn.height + oft);
+        // // h = 512;
+        // this.SetContentSize(w, h);
 
         // super.LayOut();
 
 
-        this.imageBg.LayOut();
+        // this.imageBg.LayOut();
     }
     ShowPop(type: PropType) {
         if (!GameMerge.main.IsHasFalledBall()) {
             return;
         }
         GameData.main.status = GameStatus.Prop;
- 
+
         var key = "UIPopProp";
         var strPrefab = ConfigPrefab.main.GetPrefab(key);
 
@@ -80,7 +98,7 @@ export default class UIToolBar extends UIView {
 
     }
 
-    ShowImageSelect( isAd:boolean) { 
+    ShowImageSelect(isAd: boolean) {
         GameData.main.status = GameStatus.Prop;
         var strPrefab = ConfigPrefab.main.GetPrefab("UIOptionImageSelect");
 
@@ -98,27 +116,27 @@ export default class UIToolBar extends UIView {
     }
 
     // 锤子 摧毁指定球兵获得积分
-    OnClickBtnHammer(event: Event, customEventData: string) {
+    OnClickBtnHammer() {
         Debug.Log("PopUpManager OnClickBtnHammer");
         this.ShowPop(PropType.Hammer);
     }
 
 
     //  万能球 将下落的球变为指定类型球
-    OnClickBtnMagic(event: Event, customEventData: string) { 
+    OnClickBtnMagic() {
         this.ShowPop(PropType.Magic);
     }
 
 
     // 大木zhui  摧毁所有的同类球并获得积分
-    OnClickBtnBomb(event: Event, customEventData: string) { 
+    OnClickBtnBomb() {
         this.ShowPop(PropType.Bomb);
     }
-    OnClickBtnOptionImageSelect(event: Event, customEventData: string) {
+    OnClickBtnOptionImageSelect() {
         this.ShowImageSelect(true);
     }
 
-    OnClickBtnOptiongGame(event: Event, customEventData: string) { 
+    OnClickBtnOptiongGame() {
         GameData.main.status = GameStatus.Prop;
         var strPrefab = ConfigPrefab.main.GetPrefab("UIOptionGame");
 
@@ -126,7 +144,7 @@ export default class UIToolBar extends UIView {
             {
                 prefab: strPrefab,
                 open: (ui: any) => {
-                  
+
                 },
                 close: (ui: any) => {
                 },

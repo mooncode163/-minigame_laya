@@ -1,45 +1,51 @@
-import AudioPlay from "../../Audio/AudioPlay";
-import Common from "../../Common";
-import CommonRes from "../../CommonRes";
-import Debug from "../../Debug";
-import UIView from "../ViewController/UIView";
-import UI from "../ViewController/UI";
 
- 
-export default class UIViewPop extends UIView {  
+import Debug from "../../Debug";
+import UI from "../ViewController/UI";
+import UIView from "../ViewController/UIView";
+import PopUpData from "./PopUpData";
+
+
+export default class UIViewPop extends UIView {
 
     duration = 800;//0.2 //ms
     scale1 = 1.2;
     scale2 = 1;
 
-    onAwake () {
+    onAwake() {
         super.onAwake();
         this.LayOut();
-
-        // UI.SetNodePosition(this.owner,0,0);
+        
+ 
     }
-    onStart () {
+    onStart() {
         super.onStart();
         this.LayOut();
-        this.owner.active = false;
+        // this.owner.active = false;
         // this.scheduleOnce(this.ShowInitAnimate, 0.1); 
         // Laya.timer.callLater(this, this.ShowInitAnimate);
 
         // ms
-        Laya.timer.once(100,this,this.ShowInitAnimate);
+        Laya.timer.once(100, this, this.ShowInitAnimate);
 
         // Laya.timer.once(100, this, function():void {
         //     this.addBox();
         // });
     }
-   
 
-    OnAnimateFinish() { 
-        // var nodePannel =PopUpManager.main.nodePannel;
-        // if(nodePannel!=null)
-        // {
-        //     nodePannel.active = true;
-        // }
+  
+
+
+    
+    LayOut() {
+        super.LayOut();
+        UI.SetNodePivotCenter(this.node);
+    }
+    OnAnimateFinish() {
+        var nodePannel =PopUpData.main.manager.nodePannel;
+        if(nodePannel!=null)
+        {
+            nodePannel.active = true;
+        }
 
         this.LayOut();
     }
@@ -52,24 +58,23 @@ export default class UIViewPop extends UIView {
     onTween2Finish() {
         Laya.Tween.clearTween(this.onTween2Finish);
 
-        if(this.scale2==0)
-        {
+        if (this.scale2 == 0) {
             this.DoClose();
         }
-        
+
     }
     ShowInitAnimate() {
-        Debug.Log("UIButton OnBtnClick"); 
+        Debug.Log("UIButton OnBtnClick");
         this.scale2 = 1;
         Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
         //.to(this.owner, { scaleX: scale2, scaleY: scale2 }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.DoClickItem.bind(this), [this], false));
-       
-       
+
+
 
 
     }
 
-    ShowInitAnimate2 () { 
+    ShowInitAnimate2() {
         // var nodePop = this.node;
         // this.node.active = true; 
         // nodePop.scale = new Vec3(0,0,1); 
@@ -90,18 +95,18 @@ export default class UIViewPop extends UIView {
     }
 
     Close() {
-       
-      //  PopUpManager.main.ClosePopup();
-      this.scale2 = 0;
-      Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
-      
+
+        PopUpData.main.manager.ClosePopup();
+        this.scale2 = 0;
+        Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
+
     }
 
 
-    DoClose() { 
-       this.owner.destroy();
+    DoClose() {
+        this.owner.destroy();
     }
- 
+
 }
 
 

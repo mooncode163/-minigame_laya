@@ -1,6 +1,8 @@
-import { Platform } from "../Platform";
-import { SharePlatformWrapper } from "./SharePlatformWrapper";
-import { ShareWeiXin } from "./ShareWeiXin";
+import Platform from "../Platform";
+import SharePlatformWrapper from "./SharePlatformWrapper";
+import ShareWeiXin from "./ShareWeiXin";
+
+ 
 
  
 export default class Share  {

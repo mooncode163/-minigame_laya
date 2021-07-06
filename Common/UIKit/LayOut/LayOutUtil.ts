@@ -13,6 +13,7 @@ import LayOutElement from "./LayOutElement";
 
 // Laya 编辑器会截取"_" 字符所以不带"_"
 export enum Align {
+    None ="None",
     UP = "UP",//0
     DOWN = "DOWN",//1
     LEFT = "LEFT",//2

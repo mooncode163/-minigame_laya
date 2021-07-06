@@ -1,85 +1,105 @@
+import Debug from "../../../../Common/Debug";
 import Language from "../../../../Common/Language/Language";
 import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
+import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
 // import UIGameMerge from "./UIGameMerge";
 
- 
+
 export enum PropType {
     Hammer,// 
     Magic,
     Bomb,
 
-} 
- 
+}
+
 export default class UIPopProp extends UIViewPop {
-    
+
     textTitle: UIText | null = null;
-    
+
     textGuide0: UIText | null = null;
 
-    
+
     textGuide1: UIText | null = null;
-    
+
     textGuideSelect: UIText | null = null;
-    
+
     imageIcon: UIImage | null = null;
 
-    
+
     imageItem0: UIImage | null = null;
-    
+
     imageItem1: UIImage | null = null;
-    
+
     imageItem2: UIImage | null = null;
-    
+
     imageItem3: UIImage | null = null;
-    
+
     imageItem4: UIImage | null = null;
-    
+
     imageSelect: UIImage | null = null;
 
     listItem: UIImage[] = [];
 
-    
+
     objItemList: Laya.Node | null = null;
- 
+
+
+    btnClose: UIButton;
 
     type: PropType;
     indexSelect = 0;
     idChangeTo = "";
     onAwake() {
         super.onAwake();
-        // return;
-        this.listItem.push(this.imageItem0);
-        this.listItem.push(this.imageItem1);
-        this.listItem.push(this.imageItem2);
-        this.listItem.push(this.imageItem3);
-        this.listItem.push(this.imageItem4);
+        // this.listItem.push(this.imageItem0);
+        // this.listItem.push(this.imageItem1);
+        // this.listItem.push(this.imageItem2);
+        // this.listItem.push(this.imageItem3);
+        // this.listItem.push(this.imageItem4);
 
-        for (var i = 0; i < this.listItem.length; i++) {
-            {
-                var info = GameLevelParse.main.GetLevelItemInfo(i);
-                var pic = GameLevelParse.main.GetImagePath(info.id);
-                var ui = this.listItem[i];
-                ui.index = i;
-                ui.keyId = info.id;
-                var ev = ui.owner.addComponent(UITouchEvent);
-                ev.callBackTouch = this.OnUITouchEvent.bind(this);
-                ui.UpdateImage(pic);
-            }
+        // for (var i = 0; i < this.listItem.length; i++) {
+        //     {
+        //         var info = GameLevelParse.main.GetLevelItemInfo(i);
+        //         var pic = GameLevelParse.main.GetImagePath(info.id);
+        //         var ui = this.listItem[i];
+        //         ui.index = i;
+        //         ui.keyId = info.id;
+        //         var ev = ui.owner.addComponent(UITouchEvent);
+        //         ev.callBackTouch = this.OnUITouchEvent.bind(this);
+        //         ui.UpdateImage(pic);
+        //     }
+        // }
+
+        
+        var nodeFind = UIFind.FindAll(this.node, "BtnClose");
+        Debug.Log("nodeFind name="+nodeFind.name);
+
+        {
+            // var head = UIFind.Find(this.node, "Head");
+            // this.btnClose = UIFind.FindButton(head, "BtnClose");
+            this.btnClose = UIFind.FindButtonByPath(this.node, "Head/BtnClose");
+            this.btnClose.SetClick(this, this.OnClickBtnClose.bind(this));
         }
         this.LayOut();
     }
     onStart() {
         super.onStart();
         this.LayOut();
+
+
     }
 
+
+
     UpdateType(ty: PropType) {
+        return;
         this.type = ty;
         this.objItemList.active = false;
         this.textGuideSelect.SetActive(false);
@@ -144,18 +164,17 @@ export default class UIPopProp extends UIViewPop {
 
     SetSelectImage(ui: UIImage) {
         this.idChangeTo = ui.keyId;
-        UI.SetPosition(this.imageSelect.owner,UI.GetPosition(ui.owner.parent)); 
-        var scale =  1.15;
+        UI.SetPosition(this.imageSelect.owner, UI.GetPosition(ui.owner.parent));
+        var scale = 1.15;
         // this.imageSelect.owner.scalex = new Vec3(scale, scale, 1); 
         var sp = this.imageSelect.owner as Laya.Sprite;
-        if(sp!=null)
-        {
+        if (sp != null) {
             sp.scaleX = scale;
             sp.scaleY = scale;
-        } 
+        }
     }
     LayOut() {
-        super.LayOut(); 
+        super.LayOut();
     }
 
 
@@ -163,18 +182,18 @@ export default class UIPopProp extends UIViewPop {
         this.Close();
 
     }
-    OnClickBtnClose(event: Event, customEventData: string) {
+    OnClickBtnClose() {
         GameData.main.status = GameStatus.Play;
         this.OnClose();
     }
-    OnClickBtnYes(event: Event, customEventData: string) {
+    OnClickBtnYes() {
         this.OnClose();
         // UIGameMerge.main.game.ShowProp(true);
         // UIGameMerge.main.OnGameProp(this, this.type);
 
     }
-    OnClickBtnNo(event: Event, customEventData: string) {
-        this.OnClickBtnClose(event, customEventData);
+    OnClickBtnNo() {
+        this.OnClickBtnClose();
     }
 
 }
