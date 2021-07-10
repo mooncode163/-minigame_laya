@@ -14,6 +14,8 @@ export default class Common {
     public static TOUCH_MOVE_STEP_MIN = 3.0;//6.0f
 
     public static sizeCanvas: Laya.Size;
+
+    // tick
     // return second
     static GetCurrentTime() {
         return this.GetCurrentTimeMs() / 1000;

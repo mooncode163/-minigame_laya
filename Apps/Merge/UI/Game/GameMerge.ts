@@ -20,14 +20,16 @@ export default class GameMerge extends GameBase {
     nodeDeadline: Laya.Node | null = null;
 
     imageProp: UIImage | null = null;
-    static TimeStep = 0.8;
+
+    // second
+    TimeStep = 1.5;
 
     ScaleStart = 0.4;
     isFirstRun = false;
     prefabItem = null;
     uiItem = null;
     listItem: UIMergeItem[] = [];
-
+    tickStart=0;//second
     time = 1.0;
     hasItBeenGenerated = false;
     isMouseDown = false;
@@ -108,7 +110,8 @@ export default class GameMerge extends GameBase {
     StartGame() {
         // var ev = this.owner.addComponent(UITouchEvent);
         // ev.callBackTouch = this.OnUITouchEvent.bind(this);
-        this.time = GameMerge.TimeStep;
+        this.time = this.TimeStep;
+        this.tickStart = Common.GetCurrentTime();
     }
 
 
@@ -118,10 +121,11 @@ export default class GameMerge extends GameBase {
         {
             return;
         }
-        if (this.time < GameMerge.TimeStep) {
-            var tick = Common.GetCurrentTime();
-            // Debug.Log("update tick="+tick);
+        if (this.time < this.TimeStep) {
+            var tick = Common.GetCurrentTime()-this.tickStart;
+          
             this.time += tick;
+            Debug.Log("update tick="+tick+ " this.time="+this.time);
         }
         else {
             //判断场景中没有生成物体
@@ -131,6 +135,7 @@ export default class GameMerge extends GameBase {
                 var key = this.RandomFruitImageKey();
                 // key ="juzi";
                 this.uiItem = this.CreateItem(key);
+                this.tickStart = Common.GetCurrentTime();
                 // this.GetComponent<SizeChange>().GettingBigger(fruitInTheScene);//使物体缓慢变大
 
 
@@ -342,6 +347,7 @@ export default class GameMerge extends GameBase {
                 success: (p: any, data: any) => {
                     this.particleMerge = data;
                     AppSceneUtil.main.rootNode.addChild(this.particleMerge);
+                    this.particleMerge.zOrder = 2;
                     this.particleMerge.x = pos.x;
                     this.particleMerge.y = pos.y;
                     this.particleMerge.play();
@@ -486,6 +492,7 @@ export default class GameMerge extends GameBase {
                 this.hasItBeenGenerated = false;//更改hasItBeenGenerated状态
 
                 this.time = 0;
+                this.tickStart = Common.GetCurrentTime();
 
             }
         }
