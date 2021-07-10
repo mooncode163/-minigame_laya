@@ -14,19 +14,8 @@ export default class Common {
     public static TOUCH_MOVE_STEP_MIN = 3.0;//6.0f
 
     public static sizeCanvas: Laya.Size;
-
-    // tick
-    // return second
-    static GetCurrentTime() {
-        return this.GetCurrentTimeMs() / 1000;
-    }
-
-    // tick 1625466231.306
-    static GetCurrentTimeMs() {
-        //获取Laya引擎运行的时间(毫秒)
-        return Laya.systemTimer.currTimer;
-    }
-
+ 
+    
     static get noad() {
         var key = "APP_NO_AD";
         var ret = Common.GetBoolOfKey(key, false);

@@ -2,6 +2,7 @@
     https://www.jianshu.com/p/ee65ee9a1d90
     open -n /Applications/Google\ Chrome.app/ --args --disable-web-security  --user-data-dir=/Users/moon/Documents/MyChromeDevUserData/
 
+    电脑开机运行该命令 再打开laya ide
 
 
 2.    // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象

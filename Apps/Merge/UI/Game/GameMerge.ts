@@ -2,6 +2,7 @@ import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
 import GameBase from "../../../../AppBase/Game/GameBase";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import Common from "../../../../Common/Common";
+import Timer from "../../../../Common/Core/Timer";
 import Debug from "../../../../Common/Debug";
 import ResManager from "../../../../Common/Res/ResManager";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
@@ -22,14 +23,13 @@ export default class GameMerge extends GameBase {
     imageProp: UIImage | null = null;
 
     // second
-    TimeStep = 1.5;
+    TimeStep = 1.2;
 
     ScaleStart = 0.4;
     isFirstRun = false;
     prefabItem = null;
     uiItem = null;
-    listItem: UIMergeItem[] = [];
-    tickStart=0;//second
+    listItem: UIMergeItem[] = []; 
     time = 1.0;
     hasItBeenGenerated = false;
     isMouseDown = false;
@@ -110,8 +110,7 @@ export default class GameMerge extends GameBase {
     StartGame() {
         // var ev = this.owner.addComponent(UITouchEvent);
         // ev.callBackTouch = this.OnUITouchEvent.bind(this);
-        this.time = this.TimeStep;
-        this.tickStart = Common.GetCurrentTime();
+        this.time = this.TimeStep; 
     }
 
 
@@ -122,8 +121,7 @@ export default class GameMerge extends GameBase {
             return;
         }
         if (this.time < this.TimeStep) {
-            var tick = Common.GetCurrentTime()-this.tickStart;
-          
+            var tick = Timer.delta/1000;
             this.time += tick;
             Debug.Log("update tick="+tick+ " this.time="+this.time);
         }
@@ -134,8 +132,7 @@ export default class GameMerge extends GameBase {
             {
                 var key = this.RandomFruitImageKey();
                 // key ="juzi";
-                this.uiItem = this.CreateItem(key);
-                this.tickStart = Common.GetCurrentTime();
+                this.uiItem = this.CreateItem(key); 
                 // this.GetComponent<SizeChange>().GettingBigger(fruitInTheScene);//使物体缓慢变大
 
 
@@ -491,8 +488,7 @@ export default class GameMerge extends GameBase {
                 }
                 this.hasItBeenGenerated = false;//更改hasItBeenGenerated状态
 
-                this.time = 0;
-                this.tickStart = Common.GetCurrentTime();
+                this.time = 0; 
 
             }
         }

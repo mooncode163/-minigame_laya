@@ -1,4 +1,5 @@
 import Common from "../../../../Common/Common";
+import Timer from "../../../../Common/Core/Timer";
 import Debug from "../../../../Common/Debug";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import GameData from "../../Data/GameData";
@@ -6,9 +7,10 @@ import UIMergeItem from "./UIMergeItem";
 
 
 export default class UIDeadLine extends UIView {
+    timeFailMax = 2.0;//seconde
     t = 0;
     isGameFail = false;
-    tickStart = -1;
+    isEnterTrigger = false;
     onAwake() {
         super.onAwake();
         this.owner.name = GameData.NameDeadLine;
@@ -24,16 +26,16 @@ export default class UIDeadLine extends UIView {
     onTriggerEnter(other) {
         if (other.owner != null) {
             console.log("CollisionDetection 开始触发", other.owner.name);
-            if (this.tickStart < 0) {
-                this.t = 0;
-                this.tickStart = Common.GetCurrentTime();
+            if (!this.isEnterTrigger) {
+                this.t = 0; 
+                this.isEnterTrigger = true;
             }
         }
     }
 
 
     onTriggerStay(other) {
-        this.t += Common.GetCurrentTime() - this.tickStart;
+        this.t += Timer.deltaSecond;
         console.log("UIDeadLine onTriggerStay 持续触发", other.owner.name + " t=" + this.t);
         if (other.owner.name != GameData.NameDeadLine) {
             Debug.Log("UIDeadLine  enter other.name=" + other.owner.name);
@@ -44,11 +46,11 @@ export default class UIDeadLine extends UIView {
                     this.t = 0;
                     
                 }
-                if (this.t >= 2.0) {
+                if (this.t >= this.timeFailMax) {
                     // GameObject.Find("CodeControl").GetComponent<ScoreControl>().SaveScore();//保存分数
                     // SceneManager.LoadScene("Over");//切换场景
-                    this.t = 0;
-                    this.tickStart = -1;
+                    this.t = 0; 
+                    this.isEnterTrigger = false;
                     Debug.Log("UIDeadLine  GameFail other.name=" + other.owner.name);
                     if (!this.isGameFail) {
                         this.isGameFail = true;
