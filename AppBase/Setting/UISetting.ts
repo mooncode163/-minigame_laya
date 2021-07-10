@@ -77,7 +77,10 @@ export default class UISetting extends UIView {
 
     UpdateItem() {
         // SettingData.main.listItem.length = 0;
-
+        if(SettingData.main.listItem.length!=0)
+        {
+            return;
+        }
         {
             var info = new SettingInfo();
             info.keyTitle = "STR_SETTING_LANGUAGE";//Language.main.GetString("STR_SETTING_LANGUAGE");

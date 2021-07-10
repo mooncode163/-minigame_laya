@@ -88,6 +88,16 @@ export default class UIView extends Laya.Script {
         return this.owner;
     }
 
+    public get visible(): boolean {
+        var sp = this.owner as Laya.Sprite; 
+        var z = 0;
+        if (sp != null) {
+           return sp.visible;
+        }
+        return false
+    }
+     
+    
     private _controller: UIViewController | null = null;
     // @type(UIViewController)
     //get 的用法

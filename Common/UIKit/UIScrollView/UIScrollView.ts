@@ -1,5 +1,6 @@
-import { ui } from "../../../../ui/layaMaxUI"; 
+import { ui } from "../../../../ui/layaMaxUI";
 import ImageRes from "../../Config/ImageRes";
+import Debug from "../../Debug";
 import ItemInfo from "../../ItemInfo";
 import Language from "../../Language/Language";
 import UI from "../ViewController/UI";
@@ -31,7 +32,9 @@ export default class UIScrollView extends UIView {
     private _mouseStartPosY: number = 0;
     private _mouseX: number = 0;
     private _mouseY: number = 0;
+    private _curMoveFrame: number = 0;
 
+    private isShowMoveAnimate:boolean=false;
 
     // 单元格渲染处理器 
     private _renderHandler: Laya.Handler;
@@ -93,6 +96,33 @@ export default class UIScrollView extends UIView {
         // [3]
         super.onStart();
         this.LayOut();
+    }
+    onUpdate() {
+        if (!this.visible) {
+            return;
+        }
+
+
+        if (this.isShowMoveAnimate) {
+            this.UpdateScrollViewPosMouseUp();
+        }
+        // if (!this._mouseDown && this._mouseSpeed != 0) {
+        //     var direction = Math.abs(this._mouseSpeed) / this._mouseSpeed;
+        //     var absSpeed = Math.sqrt(Math.abs(this._mouseSpeed));
+        //     var moveDis = this._mouseSpeed;
+        //     this.UpdateScrollViewPos(moveDis);
+        //     // this.updateScale();
+        //     absSpeed = absSpeed - 0.3;
+        //     if (absSpeed < 1) {
+        //         absSpeed = 0;
+        //         this._mouseSpeed = 0;
+        //         // 居中显示 
+        //         // this.centeringControl();
+        //     } else {
+        //         this._mouseSpeed = absSpeed * absSpeed * direction;
+        //     }
+        // }
+
     }
 
     LayOut() {
@@ -187,33 +217,70 @@ export default class UIScrollView extends UIView {
         return h + pivot;
     }
 
+    UpdateScrollViewPosMouseUp() {
 
+        Debug.Log("UpdateScrollViewPosMouseUp endter _mouseDown="+this._mouseDown);
+        if (this.direction == ScrollViewDirection.Horizontal) {
+            var posX: number = this.content.x;
+            // this.content.pos(posX, this.content.y);
+            if (posX > 0) {
+                // posX = 0;
+                var toPos = 0;
+                // 滑到左边
+                if (!this._mouseDown) {
+                    // 左边反弹动画
+                    Laya.Tween.to(this.content, { x: toPos }, 500, Laya.Ease.cubicOut);
+                    this.isShowMoveAnimate=false;
+                }
+            }
+            else if (posX < -this.content.width + Laya.stage.width) {
+                var toPos = -this.content.width + Laya.stage.width;
+                // 滑到右边
+                if (!this._mouseDown) {
+                    // 右边反弹动画
+                    Laya.Tween.to(this.content, { x: toPos }, 500, Laya.Ease.cubicOut);
+                    this.isShowMoveAnimate=false;
+                }
+            }
+        }
+        if (this.direction == ScrollViewDirection.Vertical) {
+            var posY: number = this.content.y;
+            // this.content.pos(this.content.x, posY);
+            if (posY > 0) {
+                // 滑到顶部
+                var toPos = 0;
+                if (!this._mouseDown) {
+                    Laya.Tween.to(this.content, { y: toPos }, 500, Laya.Ease.cubicOut);
+                    this.isShowMoveAnimate=false;
+                }
+            }
+            else if (posY < -this.content.height + Laya.stage.height) {
+                // 滑到底部
+                var toPos = -this.content.height + Laya.stage.height;
+                if (!this._mouseDown) {
+                    Laya.Tween.to(this.content, { y: toPos }, 500, Laya.Ease.cubicOut);
+                    this.isShowMoveAnimate=false;
+                }
+            } else {
+
+            }
+
+
+        }
+
+    }
     /**
      * 更新ScrollView位置 
      * @param dis 
      */
-    private updateScrollViewPos(dis: number) {
+    private UpdateScrollViewPos(dis: number) {
 
         if (this.direction == ScrollViewDirection.Horizontal) {
             var posX: number = dis + this.content.x;
-            if (posX > 0) {
-                posX = 0;
-            }
-            if (posX < -this.content.width + Laya.stage.width) {
-                posX = -this.content.width + Laya.stage.width;
-            }
             this.content.pos(posX, this.content.y);
         }
         if (this.direction == ScrollViewDirection.Vertical) {
             var posY: number = dis + this.content.y;
-            if (posY > 0) {
-                // 滑到顶部
-                // posY = 0;
-            }
-            if (posY < -this.content.height + Laya.stage.height) {
-                // 滑到底部
-                // posY = -this.content.height + Laya.stage.height;
-            }
             this.content.pos(this.content.x, posY);
         }
     }
@@ -222,7 +289,7 @@ export default class UIScrollView extends UIView {
         // console.log("按下");
         console.log("按下 " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
 
-
+        this.isShowMoveAnimate = false;
         if (this._mouseDown) {
             console.error("mouse had down");
         }
@@ -241,6 +308,7 @@ export default class UIScrollView extends UIView {
     }
     onMouseMove(e) {
         console.log("移动");
+        this.isShowMoveAnimate = false;
         if (this._mouseDown) {
             var dis = 0;
             if (this.direction == ScrollViewDirection.Horizontal) {
@@ -253,10 +321,10 @@ export default class UIScrollView extends UIView {
                 this._mouseY = Laya.MouseManager.instance.mouseY;
             }
 
-            this.updateScrollViewPos(dis);
+            this.UpdateScrollViewPos(dis);
             // this.updateScale();
 
-            // this._curMoveFrame = Laya.timer.currFrame;
+            this._curMoveFrame = Laya.timer.currFrame;
             this._mouseSpeed = dis;
         }
 
@@ -264,17 +332,17 @@ export default class UIScrollView extends UIView {
     onMouseUp(e) {
         // console.log("抬起");
         console.log("抬起 " + this.owner.name);
-
+        this.isShowMoveAnimate = true;
         if (!this._mouseDown) {
             return;
         }
 
-        // var stableFrame = Laya.timer.currFrame - this._curMoveFrame;
-        // // 滑动
-        // if (stableFrame > 2) {
-        //     this._mouseSpeed = 0;
-        //     this.centeringControl();
-        // }
+        var stableFrame = Laya.timer.currFrame - this._curMoveFrame;
+        // 滑动
+        if (stableFrame > 2) {
+            this._mouseSpeed = 0;
+            // this.centeringControl();
+        }
         this._mouseDown = false;
 
     }

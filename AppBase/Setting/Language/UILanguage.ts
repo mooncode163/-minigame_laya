@@ -58,7 +58,11 @@ export default class UILanguage extends UIView {
         this.LayOut();
     }
     UpdateItem() {
-        // SettingData.main.listItem.length = 0;
+        // SettingData.main.listItemLan.length = 0;
+        if(SettingData.main.listItemLan.length!=0)
+        {
+            return;
+        }
         {
             var info = new ItemInfo();
             info.title = "中文";
