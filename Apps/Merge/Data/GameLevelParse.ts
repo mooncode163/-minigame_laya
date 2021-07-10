@@ -98,6 +98,7 @@ export default class GameLevelParse extends LevelParseBase {
     GetImagePathPlace(id, idx) {
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
         return CloudRes.main.rootPath + "/Image/" + infoPlace.id + "/" + id + ".png";
+        // return Common.CLOUD_RES_DIR + "/Image/" + infoPlace.id + "/" + id + ".png";
     }
 
     ParseGameItemJson(json) {

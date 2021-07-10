@@ -21,18 +21,20 @@ export default class ConfigInternalBase  {
       */
     Load(obj: any) {
         if (this.isCloud) {
-            ResManager.LoadUrl(
+            ResManager.LoadJson(
                 {
-                    url: this.fileJson,
+                    filepath: this.fileJson,
                     success: (p: any, data: any) => {
                         this.rootJson = data;
                         this.ParseData();
                         if (obj.success != null) {
+                            Debug.Log("ConfigInternalBase LoadUrl success this.fileJson=" + this.fileJson);
                             obj.success(this);
                         }
                     },
                     fail: () => {
                         if (obj.fail != null) {
+                            Debug.Log("ConfigInternalBase LoadUrl success this.fileJson=" + this.fileJson);
                             obj.fail(this);
                         }
                     },

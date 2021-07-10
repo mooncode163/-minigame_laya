@@ -14,6 +14,7 @@ import Platform from "../../Platform";
 import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
+import ImageResCloudRes from "../../CloundRes/ImageResCloudRes";
 
 
 enum ENUM_Effect {
@@ -61,6 +62,7 @@ export default class UIImage extends UIView {
 
     onAwake() {
         Debug.Log("UIImage onAwake");
+        // this.Init();
         super.onAwake();
    
         this.LayOut();
@@ -69,9 +71,9 @@ export default class UIImage extends UIView {
     onStart() {
         // [3]
         super.onStart();
-
+        // this.image = this.owner.getChildByName("Image") as Laya.Image;
         var keyPic = this.keyImage;
-        this.image = this.owner.getChildByName("Image") as Laya.Image;
+        this.Init();
 
         if (this.image == null) {
             Debug.Log("UIImage image==null");
@@ -125,11 +127,13 @@ export default class UIImage extends UIView {
         this.LayOut();
     }
 
-    onUpdate() {
-        // Debug.Log("UIImage onUpdate");
-        // this.LayOut();
-    }
+    Init() {
+        // if((this.image==null)||(this.image==undefined))
+        {
+            this.image = this.owner.getChildByName("Image") as Laya.Image;
+        }
 
+    }
     GetKeyImage() {
         var ret = "";
         if (!Common.BlankString(this.keyImage)) {
@@ -153,7 +157,7 @@ export default class UIImage extends UIView {
         }
     }
 
-    UpdateImageTexture(tex: Laya.Texture) {
+    UpdateTexture(tex: Laya.Texture) {
 
         TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
         if (this.isSizeFitTexture) {
@@ -165,6 +169,7 @@ export default class UIImage extends UIView {
     // 绝对路径
     UpdateImage(pic: string, key: string = "") {
         var strKey = key;
+        this.Init();
         if (Common.BlankString(key)) {
             strKey = this.keyImage;
         }
@@ -219,6 +224,66 @@ export default class UIImage extends UIView {
         this.LayOut();
     }
 
+
+      // 绝对路径
+      UpdateImageUICloudRes(pic: string, key: string = "") {
+        var strKey = key;
+        this.Init();
+        if (Common.BlankString(key)) {
+            strKey = this.keyImage;
+        }
+        if (Common.BlankString(pic)) {
+            return;
+        }
+        var isBoard = ImageResCloudRes.main.IsHasBoard(strKey);
+        var board = Laya.Vector4.ZERO;
+        // if (isBoard) 
+        {
+            board = ImageResCloudRes.main.GetImageBoard(strKey);
+        }
+        if (board != Laya.Vector4.ZERO) {
+            //  image.imagety
+        }
+        // RectTransform rctranOrigin = this.GetComponent<RectTransform>();
+        // Vector2 offsetMin = rctranOrigin.offsetMin;
+        // Vector2 offsetMax = rctranOrigin.offsetMax;
+
+        var isCloud = false;
+        if (Platform.isCloudRes) {
+            isCloud = true;
+        }
+        Debug.Log("UpdateImageUICloudRes board.x="+board.x);
+        TextureCache.main.Load(
+            {
+                filepath: pic,
+                isCloud: isCloud,
+                success: (p: any, tex: Laya.Texture) => {
+                    TextureUtil.UpdateImageTexture(this.image, tex, false, board);
+                    if (this.isSizeFitTexture) {
+                        this.SetContentSize(tex.width, tex.height); 
+                    }
+                    this.LayOut();
+                },
+                fail: (p: any) => {
+
+                },
+            });
+
+
+        // RectTransform rctan = this.GetComponent<RectTransform>();
+        // rctan.sizeDelta = new Vector2(tex.width, tex.height);
+        // Debug.Log("UpdateImage pic=" + pic + "isBoard=" + isBoard + " keyImage=" + strKey + " tex.width=" + tex.width);
+        // if ((rctan.anchorMin == new Vector2(0.5f, 0.5f)) && (rctan.anchorMax == new Vector2(0.5f, 0.5f))) {
+        // }
+        // else {
+        //     //sizeDelta 会自动修改offsetMin和offsetMax 所以需要还原
+        //     rctan.offsetMin = offsetMin;
+        //     rctan.offsetMax = offsetMax;
+        // }
+        this.LayOut();
+    }
+
+
     LayOut() {
         super.LayOut();
 
@@ -233,6 +298,10 @@ export default class UIImage extends UIView {
         super.LayOut();
     }
 
+    // SetContentSize(w, h) {
+    //     super.SetContentSize(w,h);
+    //     this.LayOut();
+    // }
 }
 
 

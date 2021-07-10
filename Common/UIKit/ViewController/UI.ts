@@ -190,6 +190,14 @@ export default class UI {
     }
  
 
+        // 是否隐藏
+        static   SetActive(node:Laya.Node,active: boolean) {
+            var sp = node as Laya.Sprite; 
+            var z = 0;
+            if (sp != null) {
+                sp.visible = active;
+            }
+        }
     
 }
 

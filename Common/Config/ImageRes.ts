@@ -44,7 +44,7 @@ export default class ImageRes extends ConfigBase {
         }
 
         // strDir = Common.RES_CONFIG_DATA_COMMON + "/Image";
-        strDir = "/Common/UI"
+        strDir = "Resources/Common/UI"
         fileName = "ImageRes.json";
         {
             this.imageResCommon = new ImageResInternal();
@@ -56,7 +56,7 @@ export default class ImageRes extends ConfigBase {
         // if (!Platform.isCloudRes) 
         {
 
-            // strDir = Common.CLOUD_RES_DIR;
+            strDir = Common.CLOUD_RES_DIR;
             strDir = CloudRes.main.rootPath;
             fileName = "ImageResCloudRes.json";
             {
@@ -292,6 +292,7 @@ export default class ImageRes extends ConfigBase {
                         if (Platform.isCloudRes) {
                             // 从CloudRes缓存目录读取
                             ret = CloudRes.main.rootPath + "/" + ret;
+                            // ret = Common.CLOUD_RES_DIR + "/" + ret;
                         } else {
                             // 在resoureces目录
                             ret = Common.CLOUD_RES_DIR + "/" + ret;

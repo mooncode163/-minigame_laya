@@ -33,7 +33,7 @@ export default class CloudResVersion {
             {
                 url: ConfigCloudRes.main.cloudResVersionUrl,
                 success: (p: any, data: any) => {
-                    this.versionNet = data.json["version"]; 
+                    this.versionNet = data["version"]; 
                     if (obj.success != null) {
                         obj.success(this);
                     }

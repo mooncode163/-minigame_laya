@@ -2,9 +2,9 @@ import Common from "../Common";
 import ConfigBase from "../Config/ConfigBase";
 import LanguageInternal from "./LanguageInternal";
 
- 
 
- 
+
+
 export default class Language extends ConfigBase {
     languageApp: LanguageInternal = null;
     languageAppCommon: LanguageInternal = null;
@@ -98,7 +98,7 @@ export default class Language extends ConfigBase {
             return this.languageApp.GetLanguage();
         }
     }
-    GetString(key: string) { 
+    GetString(key: string) {
         var str = "";
         if (this.languageApp != null) {
             str = this.languageApp.GetString(key);
@@ -127,12 +127,12 @@ export default class Language extends ConfigBase {
         // return str;
     }
 
-    IsContainsKey(key: string) { 
+    IsContainsKey(key: string) {
         var ret = true;
         if (this.languageApp != null) {
-             ret = this.languageApp.IsContainsKey(key);
+            ret = this.languageApp.IsContainsKey(key);
         }
-        
+
         if (!ret) {
             if (this.languageAppCommon != null) {
                 ret = this.languageAppCommon.IsContainsKey(key);
@@ -148,4 +148,3 @@ export default class Language extends ConfigBase {
     }
 
 }
- 

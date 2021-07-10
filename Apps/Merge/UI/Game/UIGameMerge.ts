@@ -16,7 +16,7 @@ import UIPopProp, { PropType } from "./UIPopProp";
 import UIToolBar from "./UIToolBar";
 
 
-
+// 微信小程序 wx3e44af039aee1b96
 export default class UIGameMerge extends UIGameBase {
     /** @prop {name:btnBack,type:Node}*/
 

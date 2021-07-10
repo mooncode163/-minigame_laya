@@ -1,4 +1,5 @@
  
+import Common from "../Common";
 import ConfigAudio from "../Config/ConfigAudio";
 import Debug from "../Debug";
 import ResManager from "../Res/ResManager";
@@ -93,6 +94,10 @@ export default class AudioPlay extends Laya.Script {
         //     dir = Common.CLOUD_RES_DIR;
         // }
         var filepath = ConfigAudio.main.GetAudio(key);
+        if(Common.BlankString(filepath))
+        {
+            return;
+        }
         Debug.Log("AudioPlay PlayByKey filepath="+filepath+" key="+key);
         // ResManager.LoadAudio(
         //     {

@@ -1,10 +1,10 @@
- 
- 
+
+
 // import { serializable } from 'cc.decorator';
- 
+
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
-import UI from "../ViewController/UI"; 
+import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
 import LayOutUtil, { SideType, SizeType } from "./LayOutUtil";
 
@@ -13,7 +13,7 @@ import LayOutUtil, { SideType, SizeType } from "./LayOutUtil";
 // VS Code的插件-TypeScript Importer
 // const Align = LayOutUtil.Align;
 // const SideType = LayOutUtil.SideType;
- 
+
 
 // export const NetURL = cc.Enum({
 //     eLAN : 1,//内网
@@ -22,7 +22,7 @@ import LayOutUtil, { SideType, SizeType } from "./LayOutUtil";
 
 const layerList = {
     NONE: 0,
-    DEFAULT:2,
+    DEFAULT: 2,
     ALL: 0xffffffff,
 };
 
@@ -31,9 +31,9 @@ enum TestEum {
     RIGHT,
     UP,
     DOWN,
-} 
+}
 export default class LayOutSize extends LayOutBase {
- 
+
     // @prop 在基类定义
     /** @prop {name:enableLayout,type:Bool}*/
     /** @prop {name:enableHide,type:Bool}*/
@@ -41,31 +41,29 @@ export default class LayOutSize extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-    
-    /** @prop {name:target,type:Node}*/
-    /** @prop {name:target2,type:Node}*/ 
+ 
     /** @prop {name:offsetXLeft,type:Number}*/
     /** @prop {name:offsetXRight,type:Number}*/
     /** @prop {name:offsetYUp,type:Number}*/
     /** @prop {name:offsetYDown,type:Number}*/
-     
+
     // @prop 在基类定义
-   
+
 
     /** @prop {name:ratio,type:number}*/
     ratio = 1.0;
     /** @prop {name:ratioW,type:number}*/
     ratioW = 1.0;
-   /** @prop {name:ratioH,type:number}*/
+    /** @prop {name:ratioH,type:number}*/
     ratioH = 1.0;
-   /** @prop {name:widthH,type:number}*/
+    /** @prop {name:widthH,type:number}*/
     widthH = 1.0;//宽
-   /** @prop {name:heightH,type:number}*/
+    /** @prop {name:heightH,type:number}*/
     heightH = 1.0;//高  
- 
-        
+
+
     _sideType = SideType.LEFT;
-    /** @prop {name:sideType,type:Option,option:"LEFT,RIGHT,UP,UDOWNP",default:"LEFT"}*/
+    /** @prop {name:sideType,type:Option,option:"LEFT,RIGHT,UP,DOWN",default:"LEFT"}*/
     // @type(SideType) 
     get sideType() {
         return this._sideType;
@@ -88,7 +86,7 @@ export default class LayOutSize extends LayOutBase {
     }
 
     private _height = 1.0;
-   
+
     //get 的用法
     get height(): number {
         return this._height;
@@ -97,10 +95,10 @@ export default class LayOutSize extends LayOutBase {
     set height(value: number) {
         this._height = value;
         this.LayOut();
-    } 
- 
+    }
+
     private _typeX = SizeType.PARENT;
-     /** @prop {name:typeX,type:Option,option:"CONTENT,PARENT,TARGET,PARENT_MIN,PARENT_MAX,WIDTH,HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,VALUE,VALUE_Canvas",default:"PARENT"}*/
+    /** @prop {name:typeX,type:Option,option:"CONTENT,PARENT,TARGET,PARENT_MIN,PARENT_MAX,WIDTH,HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,VALUE,VALUE_Canvas",default:"PARENT"}*/
     get typeX() {
         return this._typeX;
     }
@@ -108,9 +106,9 @@ export default class LayOutSize extends LayOutBase {
         this._typeX = value;
         this.LayOut();
     }
-    
- 
-    private _typeY = SizeType.PARENT; 
+
+
+    private _typeY = SizeType.PARENT;
     /** @prop {name:typeY,type:Option,option:"CONTENT,PARENT,TARGET,PARENT_MIN,PARENT_MAX,WIDTH,HEIGHT,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET,VALUE,VALUE_Canvas",default:"PARENT"}*/
     get typeY() {
         return this._typeY;
@@ -119,19 +117,30 @@ export default class LayOutSize extends LayOutBase {
         this._typeY = value;
         this.LayOut();
     }
- 
+
+
+    /** @prop {name:targetX,type:Node}*/
+    targetX: Laya.Node;
+    /** @prop {name:targetY,type:Node}*/
+    targetY: Laya.Node;
+
+    /** @prop {name:targetX2,type:Node}*/
+    targetX2: Laya.Node;
+    /** @prop {name:targetY2,type:Node}*/
+    targetY2: Laya.Node;
+
 
     onAwake() {
-        super.onAwake(); 
+        super.onAwake();
         this.LayOut();
     }
     onStart() {
-        
+
         // [3] super.LayOut();
         super.onStart();
         this.LayOut();
     }
-    LayOut () { 
+    LayOut() {
         super.LayOut();
         var x, y, w, h;
         w = 1024;
@@ -147,12 +156,11 @@ export default class LayOutSize extends LayOutBase {
 
     UpdateSizeX() {
         var x, y, w, h;
-        if(this.owner==null)
-        {
+        if (this.owner == null) {
             return;
         }
         var size = UI.GetNodeContentSize(this.owner);
-        var sizeParent = UI.GetNodeContentSize(this.owner.parent); 
+        var sizeParent = UI.GetNodeContentSize(this.owner.parent);
         w = size.width;
         h = size.height;
         var w_parent = sizeParent.width;
@@ -161,11 +169,11 @@ export default class LayOutSize extends LayOutBase {
         // h_parent -= (this.offsetMin.y + this.offsetMax.y);
         w_parent -= (this.offsetXLeft + this.offsetXRight);
         h_parent -= (this.offsetYUp + this.offsetYDown);
-        
-        
-         Debug.Log("UpdateSizeX this.typeX=" + this.typeX+ " sizeParent.width="+sizeParent.width+ " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w+" name="+this.owner.name+" this.ratioW="+this.ratioW);
+
+
+        Debug.Log("UpdateSizeX this.typeX=" + this.typeX + " sizeParent.width=" + sizeParent.width + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " name=" + this.owner.name + " this.ratioW=" + this.ratioW);
         // Debug.Log("w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w);
-        
+
         // return;
         switch (this.typeX) {
             case SizeType.CONTENT:
@@ -207,8 +215,8 @@ export default class LayOutSize extends LayOutBase {
                 break;
             case SizeType.TARGET:
                 {
-                    if (this.target != null) { 
-                        w = UI.GetNodeContentSize(this.target).width * this.ratioW;
+                    if (this.targetX != null) {
+                        w = UI.GetNodeContentSize(this.targetX).width * this.ratioW;
 
                     }
 
@@ -224,35 +232,34 @@ export default class LayOutSize extends LayOutBase {
                 {
 
                     if ((this.sideType == SideType.LEFT) || (this.sideType == SideType.RIGHT)) {
-                        w = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target as Laya.Sprite, this.sideType) * this.ratioW;
+                        w = LayOutUtil.main.GetBetweenSideAndTargetSize(this.targetX as Laya.Sprite, this.sideType) * this.ratioW;
                     }
 
                 }
                 break;
             case SizeType.BETWEEN_TWO_TARGET:
                 {
-                    w = LayOutUtil.main.GetBetweenTwoTargetSize(this.target as Laya.Sprite, this.target2 as Laya.Sprite, false);
+                    w = LayOutUtil.main.GetBetweenTwoTargetSize(this.targetX as Laya.Sprite, this.targetX2 as Laya.Sprite, false);
 
                 }
                 break;
         }
         // w = w_parent;
         // h = h_parent;
-        Debug.Log("UpdateSizeX w=" + w + " h=" + h+" name="+this.owner.name); 
-        UI.SetNodeContentSize(this.owner,w,h);
+        Debug.Log("UpdateSizeX w=" + w + " h=" + h + " name=" + this.owner.name);
+        UI.SetNodeContentSize(this.owner, w, h);
 
-        
+
     }
 
 
     UpdateSizeY() {
         var x, y, w, h;
-        if(this.owner==null)
-        {
+        if (this.owner == null) {
             return;
         }
         var size = UI.GetNodeContentSize(this.owner);
-        var sizeParent = UI.GetNodeContentSize(this.owner.parent); 
+        var sizeParent = UI.GetNodeContentSize(this.owner.parent);
         w = size.width;
         h = size.height;
 
@@ -263,7 +270,7 @@ export default class LayOutSize extends LayOutBase {
         w_parent -= (this.offsetXLeft + this.offsetXRight);
         h_parent -= (this.offsetYUp + this.offsetYDown);
 
-        Debug.Log("GetBetweenSideAndTargetSize this.sideType="+this.sideType);
+        Debug.Log("GetBetweenSideAndTargetSize this.sideType=" + this.sideType);
         switch (this.typeY) {
             case SizeType.CONTENT:
                 {
@@ -305,7 +312,7 @@ export default class LayOutSize extends LayOutBase {
             case SizeType.TARGET:
                 {
                     if (this.target != null) {
-                        h = UI.GetNodeContentSize(this.target).height * this.ratioH;
+                        h = UI.GetNodeContentSize(this.targetY).height * this.ratioH;
 
                     }
 
@@ -319,27 +326,27 @@ export default class LayOutSize extends LayOutBase {
 
             case SizeType.BETWEEN_SIDE_TARGET:
                 {
-                   
+
                     if ((this.sideType == SideType.UP) || (this.sideType == SideType.DOWN)) {
-                        h = LayOutUtil.main.GetBetweenSideAndTargetSize(this.target as Laya.Sprite, this.sideType) * this.ratioH;
+                        h = LayOutUtil.main.GetBetweenSideAndTargetSize(this.targetY as Laya.Sprite, this.sideType) * this.ratioH;
                     }
 
                 }
                 break;
             case SizeType.BETWEEN_TWO_TARGET:
                 {
-                    h = LayOutUtil.main.GetBetweenTwoTargetSize(this.target as Laya.Sprite, this.target2 as Laya.Sprite, true);
+                    h = LayOutUtil.main.GetBetweenTwoTargetSize(this.targetY as Laya.Sprite, this.targetY2 as Laya.Sprite, true);
 
                 }
                 break;
         }
 
-        if (this.enableOffsetAdBanner) { 
+        if (this.enableOffsetAdBanner) {
             h -= AdKitCommon.main.heightCanvasAdBanner;
-        } 
-        Debug.Log("UpdateSizeY w=" + w + " h=" + h); 
-        UI.SetNodeContentSize(this.owner,w,h);
-        
+        }
+        Debug.Log("UpdateSizeY w=" + w + " h=" + h);
+        UI.SetNodeContentSize(this.owner, w, h);
+
     }
     UpdateSize() {
         this.UpdateSizeX();
@@ -347,4 +354,4 @@ export default class LayOutSize extends LayOutBase {
     }
 }
 
-  
+

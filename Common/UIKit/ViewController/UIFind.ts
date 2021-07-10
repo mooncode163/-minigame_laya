@@ -8,14 +8,21 @@ import UI from "./UI";
 
 export default class UIFind {
 
-    static Find(parent: Laya.Node, name: string): Laya.Node {
+   // isAll = false 只查找当前子节点  true 嵌套查找所以子节点
+    static Find(parent: Laya.Node, name: string,isAll:boolean=true): Laya.Node {
         // var node = parent.getChildByName(name);
-        return UIFind.FindAll(parent, name);
+        if(isAll)
+        {
+            return UIFind.FindAll(parent, name);
+        }else{
+        return UIFind.FindChild(parent, name);
+        }
     }
 
     // 按名字查找子对象
     static FindChild(parent: Laya.Node, name: string): Laya.Node {
-        return parent.getChildByName(name);
+        // return parent.getChildByName(name);
+        return UIFind.FindByName(parent,name);
     }
 
     // 嵌套查询所有的子节点
@@ -111,9 +118,9 @@ export default class UIFind {
 
  
 
-    // 
-    static FindUI(parent: Laya.Node, name: string, componentType: typeof Laya.Component): any {
-        var node = UIFind.Find(parent, name);
+    // isAll = false 只查找当前子节点  true 嵌套查找所以子节点
+    static FindUI(parent: Laya.Node, name: string, componentType: typeof Laya.Component ,isAll:boolean=true): any {
+        var node = UIFind.Find(parent, name,isAll);
         if (node != null) {
             return node.getComponent(componentType);
         }

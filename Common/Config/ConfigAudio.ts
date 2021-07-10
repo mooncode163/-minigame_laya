@@ -58,6 +58,7 @@ export default class ConfigAudio extends ConfigBase {
                         if (Platform.isCloudRes) {
                             // 从CloudRes缓存目录读取
                             ret = CloudRes.main.rootPath+"/" + ret;
+                            // ret = Common.CLOUD_RES_DIR + "/" + ret;
                         }else{
                             // 在resoureces目录
                             ret = Common.CLOUD_RES_DIR + "/" + ret;

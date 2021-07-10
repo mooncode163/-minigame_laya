@@ -207,31 +207,13 @@ export default class ResManager {
     //   weixin http://usr/moonma/CloudRes/Image/Star/Earth.png
     public static LoadUrl(obj: any) {
         Debug.Log("ResManager LoadUrl obj.url=" + obj.url);
+        Laya.loader.load(obj.url, Laya.Handler.create(this, function (data: any): void {
+            var ret = Laya.loader.getRes(obj.url);
+            if (obj.success != null) {
+                obj.success(this, ret);
+            }
 
-
-        // assetManager.loadRemote(obj.url, function (err: any, data: any) {
-        //     if (data == null) {
-        //         console.log("ResManager LoadUrl is null err=", err);
-        //         if (obj.fail != null) {
-        //             obj.fail(this);
-        //         }
-        //         if (obj.finish != null) {
-        //             obj.finish(this);
-        //         }
-
-        //     } else {
-        //         console.log("ResManager LoadUrl is not null");
-        //         if (obj.success != null) {
-        //             obj.success(this, data);
-        //         }
-        //         if (obj.finish != null) {
-        //             obj.finish(this);
-        //         }
-        //         // const spriteFrame = new SpriteFrame();
-        //         // spriteFrame.texture = texture;
-        //         // p.nodeBg.getComponent(Sprite).spriteFrame = spriteFrame;
-        //     }
-        // });
+        }));
     }
 
 

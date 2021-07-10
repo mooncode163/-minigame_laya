@@ -95,9 +95,10 @@ export default class UIView extends Laya.Script {
         if (this._controller == null) {
             var max = 100;
             var i = 0;
+            var nodefind = this.owner;
             while (i < max) {
                 i++;
-                var par = this.owner.parent;
+                var par = nodefind.parent;
                 // Debug.Log("UIHomeCenterBar controller ");
                 if (par == null) {
                     Debug.Log("UIView controller par is null");
@@ -112,10 +113,15 @@ export default class UIView extends Laya.Script {
                     Debug.Log("UIView type=" + type);
                     this._controller = view._controller;
                     if (this._controller != null) {
+                        Debug.Log("UIView find _controller");
                         break;
+                    }else
+                    {
+                        nodefind = view.node;
                     }
                 } else {
                     break;
+                    // continue;
                 }
 
             }
@@ -218,7 +224,18 @@ export default class UIView extends Laya.Script {
     }
 
     SetContentSize(w, h) {
-        UIView.SetNodeContentSize(this.owner, w, h);
+        var w_real =w;
+        var h_real =h;
+        // laya w,h 为0时 会自动显示成图片大小
+        if(w<=0)
+        {
+            w_real = 0.0001;
+        }
+        if(h<=0)
+        {
+            h_real = 0.0001;
+        }
+        UIView.SetNodeContentSize(this.owner, w_real, h_real);
         // this.owner?.getComponent(UITransform)?.setContentSize(new Size(w, h));
         this.LayOutInternalChild();
     }

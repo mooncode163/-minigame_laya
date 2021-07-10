@@ -5,37 +5,53 @@ import UIImage from "../UIKit/UIImage/UIImage";
 import UIProgress from "../UIKit/UIProgress/UIProgress";
 import UIText from "../UIKit/UIText/UIText";
 import PopViewController from "../UIKit/ViewController/PopViewController";
+import UIFind from "../UIKit/ViewController/UIFind";
 import UIView from "../UIKit/ViewController/UIView";
 import CloudRes from "./CloudRes";
 import ConfigCloudRes from "./ConfigCloudRes";
 import ImageResCloudRes from "./ImageResCloudRes";
 import LanguageCloudRes from "./LanguageCloudRes";
 
- 
 
- 
+
+
 export default class UICloudRes extends UIView {
-    
+
     imageBg: UIImage | null = null;
-    
+
     textTitle: UIText | null = null;
-  
+
     textStatus: UIText | null = null;
- 
+
     uiProgress: UIProgress | null = null;
 
 
     onAwake() {
         super.onAwake();
         // this.textTitle.text ="dddd";
+        this.imageBg = UIFind.FindUI(this.node, "imageBg", UIImage);
+        this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText);
+        this.textStatus = UIFind.FindUI(this.node, "textStatus", UIText);
+        this.uiProgress = UIFind.FindUI(this.node, "uiProgress", UIProgress);
+
         this.textTitle.text = LanguageCloudRes.main.GetString("STR_CLOUDRES_TITLE");
+
+        this.LayOut();
+    }
+
+
+    onStart() {
+        super.onStart();
+
         {
-            var pic = ImageResCloudRes.main.GetImage("CloudProgressBg");
-            this.uiProgress.imageBg.UpdateImage(pic);
+            var key = "CloudProgressBg"
+            var pic = ImageResCloudRes.main.GetImage(key);
+            this.uiProgress.imageBg.UpdateImageUICloudRes(pic,key);
         }
         {
-            var pic = ImageResCloudRes.main.GetImage("CloudProgressFt");
-            this.uiProgress.imageFt.UpdateImage(pic);
+            var key = "CloudProgressFt"
+            var pic = ImageResCloudRes.main.GetImage(key);
+            this.uiProgress.imageFt.UpdateImageUICloudRes(pic,key); 
         }
         this.UpdateProgress(0);
 
@@ -46,14 +62,21 @@ export default class UICloudRes extends UIView {
                     this.UpdateProgress(res.progress / 100.0);
                 },
                 unzipSuccess: () => {
-                    Debug.Log(" unzipSuccess ");
-                 //   this.scheduleOnce(this.OnCloudResDidFinish, 0.25);
+                    Debug.Log("UICloudRes unzipSuccess "); 
+                    //   this.scheduleOnce(this.OnCloudResDidFinish, 0.25);
+                    Laya.timer.once(250, this, function():void {
+                        Debug.Log("UICloudRes Laya.timer.once "); 
+                        this.OnCloudResDidFinish();
+                    });
                 },
             });
+
         this.LayOut();
     }
 
+
     UpdateProgress(value) {
+
         var progress = value;
         if (progress < 0) {
             progress = 0;
@@ -71,8 +94,11 @@ export default class UICloudRes extends UIView {
         this.textStatus.text = str;
     }
     OnCloudResDidFinish() {
+        Debug.Log("UICloudRes OnCloudResDidFinish"); 
         Common.SetBoolOfKey(CommonRes.KEY_DOWNLOAD_CLOUNDRES, true);
+        Debug.Log("UICloudRes OnCloudResDidFinish 2"); 
         if (this.controller != null) {
+            Debug.Log("UICloudRes OnCloudResDidFinish 3"); 
             var p = this.controller as PopViewController;
             p.Close();
         }

@@ -81,13 +81,13 @@ fail: (p:any) => {
                     }
                 },
                 fail: (p: any) => {
-                    // if (obj.fail != null) {
-                    //     obj.fail(this);
-                    // }
-                    if(obj.isCloud)
-                    {
-                        this.LoadWithCloud(obj);
+                    if (obj.fail != null) {
+                        obj.fail(this);
                     }
+                    // if(obj.isCloud)
+                    // {
+                    //     this.LoadWithCloud(obj);
+                    // }
                 },
             });
     }
@@ -108,9 +108,9 @@ fail: (p:any) => {
     LoadWithCloud(obj: any) {
 
         if (obj.isCloud) {
-            ResManager.LoadUrlTexture(
+            ResManager.LoadTexture(
                 {
-                    url: obj.filepath,
+                    filepath: obj.filepath,
                     success: (p: any, tex: any) => {
                         var key = obj.filepath;
                         this.dicItem.Add(key, tex);

@@ -2,161 +2,100 @@ import AudioPlay from "../../Audio/AudioPlay";
 import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
+import LayOutSize from "../LayOut/LayOutSize";
 
 
-// /**@private */
-// class EventHandler extends Laya.Handler {
 
-//     /**@private handler对象池*/
-//     protected static _pool: any[] = [];
+export default class AnimateButton extends Laya.Script {
+    btnBg: Laya.Button;
+    /** @prop {name:clickHandler,type:Handler}*/
+    public clickHandler: Handler;
 
-//     constructor(caller: any, method: Function, args: any[], once: boolean) {
-//         super(caller, method, args, once);
-//     }
-// 	/**
-// 	 * @override
-// 	 */
-//     recover(): void {
-//         if (this._id > 0) {
-//             this._id = 0;
-//             EventHandler._pool.push(this.clear());
-//         }
-//     }
-
-// 	/**
-// 	 * 从对象池内创建一个Handler，默认会执行一次回收，如果不需要自动回收，设置once参数为false。
-// 	 * @param caller	执行域(this)。
-// 	 * @param method	回调方法。
-// 	 * @param args		（可选）携带的参数。
-// 	 * @param once		（可选）是否只执行一次，如果为true，回调后执行recover()进行回收，默认为true。
-// 	 * @return 返回创建的handler实例。
-// 	 */
-//     static create(caller: any, method: Function, args: any[] = null, once: boolean = true): Handler {
-//         if (EventHandler._pool.length) return EventHandler._pool.pop().setTo(caller, method, args, once);
-//         return new EventHandler(caller, method, args, once);
-//     }
-// }
-
-// Laya.Node
-export default class AnimateButton extends Laya.Button {
-
-   
-    private _events2: any;
-
-
-    /**
-  * @private
-  * 按钮的点击事件函数。
-  */
-    protected _clickHandler: Handler;
-    /**
-     * 对象的点击事件处理器函数（无默认参数）。
-     * @implements
-     */
-
-     /** @prop {name:clickHandler,type:Handler}*/
-    get clickHandler(): Handler {
-        return this._clickHandler;
-    }
-
-    set clickHandler(value: Handler) {
-        this._clickHandler = value;
-    }
+    duration = 200;//0.2 //ms
+    scale1 = 1.2;
+    scale2 = 1;
 
     onAwake() {
         super.onAwake();
-        // this.on(Laya.Event.CLICK, this, this.OnBtnClick);
+        // this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+        this.btnBg = new Laya.Button;
+        this.owner.addChild(this.btnBg);
+        // this.btnBg.zOrder = 0;
+        // 修改层级
+        // this.owner.setChildIndex(this.btnBg,0);
 
-        // this._createListener(Laya.Event.MOUSE_OVER, this, this.onMouse, null, false, false);
-        // this._createListener(Laya.Event.MOUSE_OUT, this, this.onMouse, null, false, false);
-        // this._createListener(Laya.Event.MOUSE_DOWN, this, this.onMouse, null, false, false);
-        // this._createListener(Laya.Event.MOUSE_UP, this, this.onMouse, null, false, false);
-        // this._createListener(Laya.Event.CLICK, this, this.onMouse, null, false, false);
+        this.btnBg.addComponent(LayOutSize);
+        this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
+
+        this.LayOut();
     }
-    
-    // onStart() { 
-    //     // super.onStart();
-    // }
-   
 
- 
-    
-    
-
-    // _createListener(type: string, caller: any, listener: Function, args: any[], once: boolean, offBefore: boolean = true): EventDispatcher {
-    //     //移除之前相同的监听
-    //     offBefore && this.off(type, caller, listener, once);
-
-    //     //使用对象池进行创建回收
-    //     var handler: Handler = EventHandler.create(caller || this, listener, args, once);
-    //     this._events2 || (this._events2 = {});
-
-    //     var events: any = this._events2;
-    //     //默认单个，每个对象只有多个监听才用数组，节省一个数组的消耗
-    //     if (!events[type]) events[type] = handler;
-    //     else {
-    //         if (!events[type].run) events[type].push(handler);
-    //         else events[type] = [events[type], handler];
-    //     }
-    //     return this;
-    // }
-
-    // /**
-    //  * 对象的 <code>Event.MOUSE_OVER、Event.MOUSE_OUT、Event.MOUSE_DOWN、Event.MOUSE_UP、Event.CLICK</code> 事件侦听处理函数。
-    //  * @param e Event 对象。
-    //  */
-    // protected onMouse(e: Laya.Event): void {
-    //     // if (this.toggle === false && this._selected) return;
-    //     if (e.type === Laya.Event.CLICK) {
-    //         // this.toggle && (this.selected = !this._selected);
-    //         this._clickHandler && this._clickHandler.run();
-    //         return;
-    //     }
-    //     // !this._selected && (this.state = Button.stateMap[e.type]);
-    // }
-
-    // OnClickItem(event: Event, customEventData: string) {
-    //     // The event here is a Touch object, and you can get the send node of the event by event.target
-    //     // const node = event.target as Node;
-    //     //  const button = node.getComponent(Button);
-    //     //  console.log(customEventData); // foobar
-
-    //     Debug.Log("AnimateButton OnClickItem");
-    //     var duration = 0.2;
-
-    //     // var actionTo1 = cc.scaleTo(duration / 2, 1.2);
-    //     // var actionTo2 = cc.scaleTo(duration / 2, 1);
-    //     // //delay延时
-    //     // var time = cc.delayTime(0.01);
-    //     // var seq = cc.sequence([time, actionTo1, actionTo2, cc.callFunc(function () {
-    //     //     this.DoClickItem(event, customEventData);
-    //     // }.bind(this))]);
-    //     // this.node.runAction(seq);
+    onStart() {
+        // [3]
+        super.onStart();
 
 
-    //     var scale1 = 1.2;
-    //     var scale2 = 1;
+        this.LayOut();
+    }
 
-    //     // tween(this.node)
-    //     //     .delay(0.01)
-    //     //     .to(duration / 2, { scale: new Vec3(scale1, scale1, 1) })
-    //     //     .to(duration / 2, { scale: new Vec3(scale2, scale2, 1) })
-    //     //     .call(() => {
-    //     //         console.log('AnimateButton scale animate finish');
-    //     //         this.DoClickItem(event, customEventData);
-    //     //     })
-    //     //     .onStart()
-    //     var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
-    //     if (ret) {
-    //         //play sound click
-    //         AudioPlay.main.PlayByKey("BtnClick");
-    //     }
-    // }
 
-    // DoClickItem(event: Event, customEventData: string) {
-    //     Debug.Log("AnimateButton DoClickItem"); 
-    //     // EventHandler.emitEvents(this.clickAnimateEvents, event); 
-    // }
- 
+    LayOut() {
+        // super.LayOut();
+
+    }
+
+    /*
+       // 用法
+               uibtn.SetClick(this,function (btn:UIButton): void {
+               if(btn!=null)
+               {
+                   
+               } 
+           }.bind(this));
+       */
+    // 动画点击回调
+    SetClick(caller: any, method: Function | null) {
+        // this.clickHandler = Laya.Handler.create(this, function (): void {
+
+        //     Debug.Log("UIHomeMerge UIButton  on click");
+
+        // },null,false);
+        this.clickHandler = Laya.Handler.create(this, method, [this], false);
+    }
+
+    onTween1Finish() {
+
+        Laya.Tween.clearTween(this.onTween1Finish);
+        Laya.Tween.to(this.owner, { scaleX: this.scale2, scaleY: this.scale2 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween2Finish));
+    }
+
+    onTween2Finish() {
+        Laya.Tween.clearTween(this.onTween2Finish);
+        this.DoClickItem();
+    }
+    OnBtnClick() {
+        Debug.Log("UIButton OnBtnClick");
+        Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
+        //.to(this.owner, { scaleX: scale2, scaleY: scale2 }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.DoClickItem.bind(this), [this], false));
+
+        var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
+        if (ret) {
+            //play sound click
+            AudioPlay.main.PlayByKey("BtnClick");
+        }
+
+
+    }
+
+
+    DoClickItem() {
+        Debug.Log("UIButton DoClickItem");
+        if (this.clickHandler) {
+            Debug.Log("UIButton run");
+            this.clickHandler.run();
+        }
+    }
+
 }
+
 

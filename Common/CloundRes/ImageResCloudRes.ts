@@ -1,6 +1,7 @@
 import Common from "../Common";
 import ConfigBase from "../Config/ConfigBase";
 import ImageResInternal from "../Config/ImageResInternal";
+import Debug from "../Debug";
 
  
  
@@ -125,7 +126,7 @@ export default class ImageResCloudRes extends ConfigBase {
 
     GetImageBoard(key: string) {
         var ret = Laya.Vector4.ZERO;
-
+        Debug.Log("GetImageBoard enter key="+key);
         if (Common.BlankString(key)) {
             return ret;
         }
@@ -135,7 +136,7 @@ export default class ImageResCloudRes extends ConfigBase {
             if ((ret.x == 0)&&(ret.y == 0)&&(ret.z == 0)&&(ret.w == 0)) {
                 if (p != null) {
                     ret = p.GetImageBoard(key);
-                    // Debug.Log("GetImageBoard ScoreBg 2 ret="+ret);
+                    Debug.Log("GetImageBoard key="+key+" ret="+ret);
                 }
             } else {
                 // Debug.Log("GetImageBoard ScoreBg 1 ret="+ret);

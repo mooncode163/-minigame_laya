@@ -1,3 +1,4 @@
+import Common from "../Common";
 import ConfigAudio from "../Config/ConfigAudio";
 import AudioPlay from "./AudioPlay";
 
@@ -33,6 +34,10 @@ export default class MusicBgPlay extends AudioPlay {
         // this.PlayByKey("Bg");
         this.player = new Laya.Sound();
         var filepath = ConfigAudio.main.GetAudio("Bg");
+        if(Common.BlankString(filepath))
+        {
+            return;
+        }
         this.player.load(filepath);
 
         this.player.on(Laya.Event.COMPLETE, this, this.loadcom);

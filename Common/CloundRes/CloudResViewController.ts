@@ -1,6 +1,8 @@
 import PrefabCache from "../Cache/PrefabCache";
+import ConfigPrefab from "../Config/ConfigPrefab";
 import Debug from "../Debug";
 import PopViewController from "../UIKit/ViewController/PopViewController";
+import UI from "../UIKit/ViewController/UI";
 import UICloudRes from "./UICloudRes";
 
  
@@ -22,30 +24,35 @@ export default class CloudResViewController extends PopViewController {
         Debug.Log("CloudResViewController Init");
         //  this.LoadPrefab();
     }
-    CreateUI() {
-        Debug.Log("CloudResViewController CreateUI");
-        // var node = instantiate(this.uiPrefab);
-        // this.ui = node.getComponent(UICloudRes);
-        // this.ui.SetController(this);
-    }
+   
+    LoadPrefab() { 
+        var key = "UICloudRes"
 
-    LoadPrefab() {
-        var key = "UICloudRes";
-        var filepath = "Common/Prefab/CloudRes/UICloudRes.prefab";
-        //  ConfigPrefab 还没下载完成
+        // ConfigPrefab 还没有预先加载 不能用 LoadByKey 直接用路径 filepath
+        // var filepath = ConfigPrefab.main.GetPrefab(key);
+        // Debug.Log("CloudResViewController filepath="+filepath);
         PrefabCache.main.Load(
             {
-                filepath: filepath,
+                key: key,
+                filepath: "Resources/Common/Prefab/CloudRes/UICloudRes.prefab",
                 success: (p: any, data: any) => {
                     this.uiPrefab = data;
                     this.CreateUI();
-
                 },
                 fail: () => {
 
                 },
             });
     }
+
+
+    CreateUI() { 
+        var node = UI.Instantiate(this.uiPrefab);
+        this.ui = node.getComponent(UICloudRes);
+        this.ui.SetController(this);
+ 
+    }
+    
 
     ViewDidLoad() {
         Debug.Log("CloudResViewController ViewDidLoad");
@@ -62,17 +69,7 @@ export default class CloudResViewController extends PopViewController {
 
     }
 
-    Close() {
-
-        // ImageRes.main.LoadCloudConfig(
-        //     {
-        //         success: (p: any) => {
-        //             super.Close();
-        //         },
-        //         fail: () => {
-        //             super.Close();
-        //         },
-        //     }); 
+    Close() { 
         super.Close();
     }
 

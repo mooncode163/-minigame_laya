@@ -1,62 +1,70 @@
 import Common from "../../../Common/Common";
 import CommonRes from "../../../Common/CommonRes";
-import Debug from "../../../Common/Debug";
-import ItemInfo from "../../../Common/ItemInfo";
+import Debug from "../../../Common/Debug"; 
 import Language from "../../../Common/Language/Language";
-import UIImage from "../../../Common/UIKit/UIImage/UIImage";
-import UICellItemBase from "../../../Common/UIKit/UITableView/UICellItemBase";
+import AnimateButton from "../../../Common/UIKit/UIButton/AnimateButton"; 
+import UIImage from "../../../Common/UIKit/UIImage/UIImage"; 
 import UIText from "../../../Common/UIKit/UIText/UIText";
-import AppSceneUtil from "../../Common/AppSceneUtil";
-import UILanguage from "./UILanguage";
-
+import UIFind from "../../../Common/UIKit/ViewController/UIFind";
+import UIView from "../../../Common/UIKit/ViewController/UIView";
+import AppSceneUtil from "../../Common/AppSceneUtil"; 
+import SettingData from "../SettingData";
  
 
- 
-export default class UILanguageCellItem extends UICellItemBase {
 
-    listImage: string[] = ["IMAGE_CELL_BG_BLUE", "IMAGE_CELL_BG_ORINGE", "IMAGE_CELL_BG_YELLOW"];
- 
+
+
+export default class UILanguageCellItem extends UIView {
     textTitle: UIText = null;
- 
-    imageBg: UIImage = null; 
-
-    info: ItemInfo;
+    imageBg: UIImage = null;
 
     onAwake() {
         super.onAwake();
+        this.imageBg = UIFind.FindUI(this.node, "ImageBg", UIImage, false);
+        this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText, false);
+ 
+        var animateButton = this.node.addComponent(AnimateButton);
+        animateButton.SetClick(this, this.OnClickItem.bind(this));
+
+        this.LayOut();
+
     }
 
-    init(index, data, reload, group) {
-        this.node.active = true;
-        this.index = index;
-        if (index >= data.array.length) {
-            // this.index.string = '越界';
-            // this.group.string = group.toString();
-            this.node.active = false;
-            return;
-        }
-        this.target = data.target;
-        this.info = data.array[index];
-        this.UpdateItem(this.info);
-        //KEY_BACKGROUND_MUSIC
+    onStart() {
+        super.onStart();
+        this.UpdateItem();
     }
 
+
+    UpdateItem() {
+
+        var key = SettingData.main.listImage[this.index % 3];
+        this.imageBg.UpdateImageByKey(key);
+
+        var info = SettingData.main.listItemLan[this.index];
+        this.textTitle.text = info.title;
+
+
+    }
     OnClickItem() {
-        var uiViewParent = this.GetUIViewParent();// 
-        var lan =Language.main;
-       Debug.Log("language id= " + this.info.id);
-        lan.SetLanguage(this.info.id);
+      
+        var lan = Language.main;
+        var info = SettingData.main.listItemLan[this.index];
+        Debug.Log("language id= " + info.id);
+        lan.SetLanguage(info.id);
         AppSceneUtil.main.UpdateLanguage();
 
-       Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, this.info.id); 
-       UILanguage.main.OnClickBtnBack(null,null);
+        Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, info.id);
+        this.OnClickBtnBack();
     }
-    UpdateItem(info) {
-        Debug.Log("UISettingCellItem UpdateItem info.title=" + info.title);
-        this.textTitle.text = info.title; 
-
+    OnClickBtnBack() {
+        if (this.controller != null) {
+            var navi = this.controller.naviController;
+            if (navi != null) {
+                navi.Pop();
+            }
+        }
     }
- 
 
 
 }

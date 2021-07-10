@@ -13,6 +13,7 @@ import UIImage from "../UIImage/UIImage";
 import UIText from "../UIText/UIText";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
+import AnimateButton from "./AnimateButton";
 
 enum ButtonType {
     IMAGE = "IMAGE",//一张背景  
@@ -28,7 +29,7 @@ export default class UIButton extends UIView {
 
     /** @prop {name:clickHandler,type:Handler}*/
     public clickHandler: Handler;
-    btnBg: Laya.Button;
+    // btnBg: Laya.Button;
 
     // content: Laya.Image;
     imageBg: UIImage | null = null;
@@ -38,12 +39,7 @@ export default class UIButton extends UIView {
     enableFitTextSize: boolean = false;
     isSwicthSelect: boolean = false;
 
-
-
-
-    duration = 200;//0.2 //ms
-    scale1 = 1.2;
-    scale2 = 1;
+ 
 
     private _type = ButtonType.IMAGE;
     /** @prop {name:type,type:Option,option:"IMAGE,IMAGE_TEXT,IMAGE_ICON,IMAGE_SWITCH,IMAGE_ICON_SWITCH", default:"IMAGE"}*/
@@ -104,7 +100,7 @@ export default class UIButton extends UIView {
         super.onAwake();
         UI.SetNodePivotCenter(this.owner);
         //只用来点击事件  不显示
-        this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+        // this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
         // this.content = this.owner.getChildByName("Content") as Laya.Image;
 
 
@@ -114,7 +110,9 @@ export default class UIButton extends UIView {
         this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
 
         // this.type = this._type;
-        this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
+        // this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
+        var animateButton = this.node.addComponent(AnimateButton);
+        animateButton.SetClick(this, this.DoClickItem.bind(this));
 
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
@@ -133,9 +131,9 @@ export default class UIButton extends UIView {
     }
 
     UpdateType(ty) {
-        if (this.btnBg == null) {
-            return;
-        }
+        // if (this.btnBg == null) {
+        //     return;
+        // }
         if (this.textTitle == null) {
             return;
         }
@@ -169,34 +167,7 @@ export default class UIButton extends UIView {
 
         }
     }
-
-
-
-    onTween1Finish() {
-
-        Laya.Tween.clearTween(this.onTween1Finish);
-        Laya.Tween.to(this.owner, { scaleX: this.scale2, scaleY: this.scale2 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween2Finish));
-    }
-
-    onTween2Finish() {
-        Laya.Tween.clearTween(this.onTween2Finish);
-        this.DoClickItem();
-    }
-    OnBtnClick() {
-        Debug.Log("UIButton OnBtnClick");
-        Laya.Tween.to(this.owner, { scaleX: this.scale1, scaleY: this.scale1 }, this.duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.onTween1Finish));
-        //.to(this.owner, { scaleX: scale2, scaleY: scale2 }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.DoClickItem.bind(this), [this], false));
-
-        var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
-        if (ret) {
-            //play sound click
-            AudioPlay.main.PlayByKey("BtnClick");
-        }
-
-
-    }
-
-
+ 
     DoClickItem() {
         Debug.Log("UIButton DoClickItem");
         if (this.clickHandler) {
@@ -204,11 +175,7 @@ export default class UIButton extends UIView {
             this.clickHandler.run();
         }
     }
-
-    DidClickFinish() {
-        Debug.Log("UIButton DidClickFinish");
-
-    }
+ 
 
     /*
     // 用法

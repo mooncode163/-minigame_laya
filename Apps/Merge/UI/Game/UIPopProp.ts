@@ -58,40 +58,61 @@ export default class UIPopProp extends UIViewPop {
     idChangeTo = "";
     onAwake() {
         super.onAwake();
-        // this.listItem.push(this.imageItem0);
-        // this.listItem.push(this.imageItem1);
-        // this.listItem.push(this.imageItem2);
-        // this.listItem.push(this.imageItem3);
-        // this.listItem.push(this.imageItem4);
 
-        // for (var i = 0; i < this.listItem.length; i++) {
-        //     {
-        //         var info = GameLevelParse.main.GetLevelItemInfo(i);
-        //         var pic = GameLevelParse.main.GetImagePath(info.id);
-        //         var ui = this.listItem[i];
-        //         ui.index = i;
-        //         ui.keyId = info.id;
-        //         var ev = ui.owner.addComponent(UITouchEvent);
-        //         ev.callBackTouch = this.OnUITouchEvent.bind(this);
-        //         ui.UpdateImage(pic);
-        //     }
-        // }
+        this.objItemList = UIFind.Find(this.node, "ItemList");
 
-        
-        var nodeFind = UIFind.FindAll(this.node, "BtnClose");
-        Debug.Log("nodeFind name="+nodeFind.name);
+        this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText);
+        this.textGuide0 = UIFind.FindUI(this.node, "textGuide0", UIText);
+        this.textGuide1 = UIFind.FindUI(this.node, "textGuide1", UIText);
+        this.textGuideSelect = UIFind.FindUI(this.node, "textGuideSelect", UIText);
+
+        this.imageIcon = UIFind.FindUI(this.node, "imageIcon", UIImage);
+        this.imageItem0 = UIFind.FindUI(this.node, "imageItem0", UIImage);
+        this.imageItem1 = UIFind.FindUI(this.node, "imageItem1", UIImage);
+        this.imageItem2 = UIFind.FindUI(this.node, "imageItem2", UIImage);
+        this.imageItem3 = UIFind.FindUI(this.node, "imageItem3", UIImage);
+        this.imageItem4 = UIFind.FindUI(this.node, "imageItem4", UIImage);
+        this.imageSelect = UIFind.FindUI(this.node, "imageSelect", UIImage);
+
+
+
+
+        this.listItem.push(this.imageItem0);
+        this.listItem.push(this.imageItem1);
+        this.listItem.push(this.imageItem2);
+        this.listItem.push(this.imageItem3);
+        this.listItem.push(this.imageItem4);
+
+       
+
+        // var nodeFind = UIFind.FindAll(this.node, "BtnClose");
+        // Debug.Log("nodeFind name="+nodeFind.name);
 
         {
-            // var head = UIFind.Find(this.node, "Head");
-            // this.btnClose = UIFind.FindButton(head, "BtnClose");
-            // this.btnClose = UIFind.FindUIByPath(this.node, "Head/BtnClose",UIButton);
-            this.btnClose = UIFind.FindUI(this.node,"BtnClose",UIButton)
+            this.btnClose = UIFind.FindUI(this.node, "BtnClose", UIButton)
             this.btnClose.SetClick(this, this.OnClickBtnClose.bind(this));
         }
         this.LayOut();
     }
     onStart() {
         super.onStart();
+
+
+        for (var i = 0; i < this.listItem.length; i++) {
+            {
+                var info = GameLevelParse.main.GetLevelItemInfo(i);
+                var pic = GameLevelParse.main.GetImagePath(info.id);
+                var ui = this.listItem[i];
+                ui.index = i;
+                ui.keyId = info.id;
+                var ev = ui.owner.addComponent(UITouchEvent);
+                ev.callBackTouch = this.OnUITouchEvent.bind(this);
+                Debug.Log("UIPopProp i = "+i+" pic="+pic);
+                ui.UpdateImage(pic);
+            }
+        }
+
+        
         this.LayOut();
 
 
@@ -99,10 +120,9 @@ export default class UIPopProp extends UIViewPop {
 
 
 
-    UpdateType(ty: PropType) {
-        return;
-        this.type = ty;
-        this.objItemList.active = false;
+    UpdateType(ty: PropType) { 
+        this.type = ty; 
+        UI.SetActive(this.objItemList,false);
         this.textGuideSelect.SetActive(false);
         this.textGuide1.SetActive(true);
         this.imageSelect.SetActive(false);
@@ -120,7 +140,8 @@ export default class UIPopProp extends UIViewPop {
             case PropType.Magic:
                 {
                     keyImageIcon = "Magic";
-                    this.objItemList.active = true;
+                    // this.objItemList.active = true;
+                    UI.SetActive(this.objItemList,true);
                     this.textGuideSelect.SetActive(true);
                     this.textGuide1.SetActive(false);
                     this.imageSelect.SetActive(true);
@@ -142,7 +163,7 @@ export default class UIPopProp extends UIViewPop {
                 }
                 break;
         }
-        this.imageIcon.UpdateImageByKey(keyImageIcon);
+        // this.imageIcon.UpdateImageByKey(keyImageIcon);
 
         // UIGameMerge.main.game.UpdateProp(keyImageIcon);
         this.LayOut();
@@ -189,8 +210,8 @@ export default class UIPopProp extends UIViewPop {
     }
     OnClickBtnYes() {
         this.OnClose();
-        // UIGameMerge.main.game.ShowProp(true);
-        // UIGameMerge.main.OnGameProp(this, this.type);
+        GameData.main.game.ShowProp(true); 
+        GameData.main.game.OnGameProp(this, this.type);
 
     }
     OnClickBtnNo() {

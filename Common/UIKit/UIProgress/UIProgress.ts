@@ -1,6 +1,8 @@
 import UIImage from "../UIImage/UIImage";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
+import UIFind from "../ViewController/UIFind";
+import Debug from "../../Debug";
 
  
 export default class UIProgress extends UIView {
@@ -13,13 +15,15 @@ export default class UIProgress extends UIView {
  
     onAwake() {
         super.onAwake();
+        this.imageBg = UIFind.FindUI(this.node,"imageBg",UIImage);
+        this.imageFt = UIFind.FindUI(this.node,"imageFt",UIImage);
         this.LayOut();
     }
-    LayOutDidFinish () {
-        this.UpdateProgressInternal(this.progress);
-    }
+    
+    //0-1f
     UpdateProgress (value) {
         this.progress = value;
+        // this.progress = 0.5;
         this.UpdateProgressInternal(this.progress);
     }
     //0-1f
@@ -28,12 +32,14 @@ export default class UIProgress extends UIView {
         var size = this.GetContentSize();
         w = size.width * value;
         h = size.height;
-        // cc.Debug.Log("UpdateProgress w=" + w + " h=" + h + " size.width=" + size.width);
+        Debug.Log("UpdateProgress w=" + w + " h=" + h + " size.width=" + size.width+" value="+value);
  
         this.imageFt.SetContentSize(w,h);
+        this.imageFt.LayOut();
         x = -size.width / 2 + w / 2;
         y = 0; 
         UI.SetNodePosition(this.imageFt.owner,x,y);
+
     }
     LayOut() {
         super.LayOut();

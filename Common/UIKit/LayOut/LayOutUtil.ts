@@ -28,12 +28,15 @@ export enum Align {
     Horizontal = "Horizontal",
     Vertical = "Vertical",
     SAMEPOSTION = "SAMEPOSTION",
+ 
 }
 
 export enum RelationType {
-    NONE = "NONE",// 
+    None = "None",// 
     PARENT = "PARENT",//相对父窗口 
     TARGET = "TARGET",//相对目标  
+    BETWEEN_SIDE_TARGET = "BETWEEN_SIDE_TARGET",//夹在边界和target之间
+    BETWEEN_TWO_TARGET = "BETWEEN_TWO_TARGET",//夹在两个target之间
 }
 
 
@@ -206,7 +209,7 @@ export default class LayOutUtil {
 
         if (isHeight) {
             // 上下
-            if (node1.y < node2.y) {
+            if (node1.y > node2.y) {
                 objDown = node1;
                 objUp = node2;
             }

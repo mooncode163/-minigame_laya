@@ -153,6 +153,7 @@ export default class InitViewController extends NaviViewController {
             {
                 controller:this, 
                 close: (p: any) => { 
+                    Debug.Log("CloudResViewController GotoCloundRes close");
                     this.RunGame();
                 }, 
             });

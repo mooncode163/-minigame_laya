@@ -1,4 +1,5 @@
 import Common from "../Common";
+import Debug from "../Debug";
 import ConfigBase from "./ConfigBase";
 import ConfigPrefabInternal from "./ConfigPrefabInternal";
 
@@ -71,15 +72,18 @@ export default class ConfigPrefab extends ConfigBase {
         var ret = "";
         if (this.configPrefabApp != null) {
             ret = this.configPrefabApp.GetPrefabSync(key);
+            Debug.Log("GetPrefab configPrefabApp key="+key+" ret="+ret);
         }
         if (!ret) {
             if (this.configPrefabAppCommon != null) {
                 ret = this.configPrefabAppCommon.GetPrefabSync(key);
+                Debug.Log("GetPrefab configPrefabAppCommon key="+key+" ret="+ret);
             }
         }
         if (!ret) {
             if (this.configPrefabCommon != null) {
                 ret = this.configPrefabCommon.GetPrefabSync(key);
+                Debug.Log("GetPrefab configPrefabCommon key="+key+" ret="+ret);
             }
         }
         return ret;

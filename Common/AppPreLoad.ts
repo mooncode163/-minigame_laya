@@ -52,7 +52,7 @@ export default class AppPreLoad  {
                 {
                     isCloud:false,
                     success: (p: any) => {
-                        Debug.Log("AppPreLoad success this.countLoad="+this.countLoad);
+                        Debug.Log("AppPreLoad success this.countLoad="+this.countLoad+" this.listItem="+this.listItem.length);
                         this.OnFinish(obj,false);
                         
                     },

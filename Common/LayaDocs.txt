@@ -6,3 +6,8 @@
 
 2.    // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
         AppSceneUtil.main.rootNode.addChild(image);
+
+
+3,命令行打包 layaair-cmd
+
+    https://ldc.layabox.com/doc/?nav=zh-ts-3-4-2

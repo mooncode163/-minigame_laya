@@ -32,6 +32,7 @@ export default class UIText extends UIView {
     // set 的用法
     set text(value) {
         this.Init();
+        Debug.Log("UIText set text value=" + value);
         this.label.text = value;
         this.LayOut();
 

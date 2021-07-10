@@ -1,70 +1,88 @@
+import PrefabCache from "../../Common/Cache/PrefabCache";
 import Common from "../../Common/Common";
+import ImageRes from "../../Common/Config/ImageRes";
 import ItemInfo from "../../Common/ItemInfo";
-import Language from "../../Common/Language/Language";
-import Platform from "../../Common/Platform";
-import UIImage from "../../Common/UIKit/UIImage/UIImage";
+ 
+import UIButton from "../../Common/UIKit/UIButton/UIButton";
+import UIImage from "../../Common/UIKit/UIImage/UIImage"; 
+import UIScrollView from "../../Common/UIKit/UIScrollView/UIScrollView";
 import UITableView from "../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../Common/UIKit/UIText/UIText";
+import UI from "../../Common/UIKit/ViewController/UI";
+import UIFind from "../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../Common/UIKit/ViewController/UIView";
+import SettingData, { SettingInfo, SettingType } from "./SettingData";
+import UISettingCellItem from "./UISettingCellItem";
+
+
+
 
  
  
-export enum SettingType {
-    COMMENT =0,//0
-    VERSION,//1
-    LANGUAGE,//2
-    BACKGROUND_MUSIC,//3
-    BTN_SOUND,
-    NOAD,
-    RESTORE_IAP,
-    LAST,
-} 
-
- 
-export default class UISetting extends UIView { 
+export default class UISetting extends UIView {
     oneCellNum = 1;
     heightCell = 160;
-    listItem: ItemInfo[] = [];
- 
+    btnBack: UIButton = null;
     textTitle: UIText = null;
- 
+    uiScrollView: UIScrollView = null;
     imageBg: UIImage = null;
- 
+
     uiTableView: UITableView = null;
 
+    uiPrefabCell: Laya.Prefab;
 
 
     onAwake() {
         super.onAwake();
+        SettingData.main.uiSetting = this;
+
+        this.btnBack = UIFind.FindUI(this.node, "BtnBack", UIButton);
+        this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
+
+        this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
 
         this.UpdateItem();
+        this.LoadPrefab();
+    }
 
+
+    onStart() {
+        // [3]
+        super.onStart();
+
+ 
+        // this.uiScrollView.Reload();
+        this.LayOut();
+    }
+    LoadPrefab() {
+        var key = "UISettingCellItem";
+        PrefabCache.main.LoadByKey(
+            {
+                key: key,
+                success: (p: any, data: any) => {
+                    this.uiPrefabCell = data;
+                    for (var i = 0; i < SettingData.main.listItem.length; i++) {
+                        var node = UI.Instantiate(this.uiPrefabCell);
+                        var ui = node.getComponent(UISettingCellItem);
+                        ui.index = i;
+                        this.uiScrollView.Add(ui);
+                    }
+
+                },
+                fail: () => {
+
+                },
+            });
     }
 
     UpdateItem() {
-        this.listItem.length = 0;
-        //if (AppVersion.main().appCheckHasFinished)
-        // if (sys.isNative) {
-        //     var info = new ItemInfo();
-        //     info.title = Language.main.GetString("STR_SETTING_COMMENT");
-        //     info.tag = SettingType.COMMENT;
-        //     this.listItem.push(info);
-        // }
-        //if (AppVersion.main().appCheckHasFinished)
-        // if (sys.isNative) {
-        //     var info = new ItemInfo();
-        //     var strversin = Common.GetAppVersion();
-        //     var str = Language.main.GetString("STR_SETTING_VERSION") + "(" + strversin + ")";
-        //     info.title = str;
-        //     info.tag = SettingType.VERSION;
-        //     this.listItem.push(info);
-        // }
+        // SettingData.main.listItem.length = 0;
 
         {
-            var info = new ItemInfo();
-            info.title = Language.main.GetString("STR_SETTING_LANGUAGE");
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_LANGUAGE";//Language.main.GetString("STR_SETTING_LANGUAGE");
             info.tag = SettingType.LANGUAGE;
-            this.listItem.push(info);
+            SettingData.main.listItem.push(info);
         }
 
         var isHasBgMusic = true;
@@ -72,50 +90,32 @@ export default class UISetting extends UIView {
         //     isHasBgMusic = false;
         // }
         if (isHasBgMusic) {
-            var info = new ItemInfo();
-            info.title = Language.main.GetString("STR_SETTING_BACKGROUND_MUSIC");
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_BACKGROUND_MUSIC";
             info.tag = SettingType.BACKGROUND_MUSIC;
-            this.listItem.push(info);
+            SettingData.main.listItem.push(info);
         }
 
         {
-            var info = new ItemInfo();
-            info.title = Language.main.GetString("STR_SETTING_BTN_SOUND");
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_SOUND";
             info.tag = SettingType.BTN_SOUND;
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-            // this.listItem.push(info);
-
-            this.listItem.push(info);
+            SettingData.main.listItem.push(info);
         }
 
-        // if (sys.isNative) {
+        // this.uiScrollView.listItem = this.listItem;
 
 
-        //     if (Config.main.isHaveRemoveAd) {
-        //         var info = new ItemInfo();
-        //         info.title = Language.main.GetString("STR_BTN_NOAD");
-        //         info.tag = SettingType.NOAD;
-        //         this.listItem.push(info);
-        //     }
-        //     if (Platform.isiOS && Config.main.isHaveRemoveAd) {
-        //         var info = new ItemInfo();
-        //         info.title = Language.main.GetString("STR_BTN_RESTORE_NOAD");
-        //         info.tag = SettingType.RESTORE_IAP;
-        //         this.listItem.push(info);
-        //     }
-        // }
-        this.InitList();
-    } 
+    }
+
+
     LayOut() {
         super.LayOut();
     }
-    OnBtnClickBack(event: Event, customEventData: string) {
+ 
+
+
+    OnClickBtnBack() {
         if (this.controller != null) {
             var navi = this.controller.naviController;
             if (navi != null) {
@@ -123,21 +123,8 @@ export default class UISetting extends UIView {
             }
         }
     }
+ 
 
-    InitList() {
-        // this.uiTableView.tableView.oneCellNum = this.oneCellNum;
-        // this.uiTableView.tableView.cellHeight = 256;
-        // this.uiTableView.tableView.uiViewParent = this;
-        // this.uiTableView.tableView.initTableView(this.listItem.length, { array: this.listItem, target: this });
-    }
-    //下一页(pageview下有效)
-    nextPage() {
-        //this.tableView.getComponent(tableView).scrollToNextPage();
-    }
-    //上一页(pageview下有效)
-    lastPage() {
-        // this.tableView.getComponent(tableView).scrollToLastPage();
-    }
 
 }
 

@@ -4,7 +4,7 @@ import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
 import LayOutBase from "./LayOutBase";
-import { RelationType, Align } from "./LayOutUtil";
+import LayOutUtil, { RelationType, Align } from "./LayOutUtil";
 
 
 
@@ -20,33 +20,36 @@ export default class LayOutRelation extends LayOutBase {
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
 
 
-    /** @prop {name:target,type:Node}*/
-    /** @prop {name:target2,type:Node}*/
+
 
     /** @prop {name:offsetX,type:Number}*/
     /** @prop {name:offsetY,type:Number}*/
     // @prop 在基类定义
 
-    /** @prop {name:align,type:Option,option:"None,UP,DOWN,LEFT,RIGHT,CENTER,CENTERX,CENTERY,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"CENTER"}*/
-    
-    /** @prop {name:alignX,type:Option,option:"None,LEFT,RIGHT,CENTER,SAMEPOSTION", default:"None"}*/
-    alignX: Align = Align.None;
 
-    
-    /** @prop {name:alignY,type:Option,option:"None,UP,DOWN,CENTER,SAMEPOSTION", default:"None"}*/
-    alignY: Align = Align.None;
+    /** @prop {name:alignX,type:Option,option:"None,LEFT,RIGHT,CENTER,SAMEPOSTION", default:"CENTER"}*/
+    alignX: Align = Align.CENTER;
+    /** @prop {name:alignY,type:Option,option:"None,UP,DOWN,CENTER,SAMEPOSTION", default:"CENTER"}*/
+    alignY: Align = Align.CENTER;
 
-    // @type(RelationType)
-    private _type = RelationType.PARENT;
-    /** @prop {name:type,type:Option,option:"None,PARENT,TARGET", default:"PARENT"}*/
-    //get 的用法
-    get type() {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
-        return this._type;
-    }
-    // set 的用法
-    set type(value) {
-        this._type = value;
-    }
+    type: RelationType = RelationType.PARENT;
+
+    /** @prop {name:typeX,type:Option,option:"None,PARENT,TARGET,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET", default:"PARENT"}*/
+    typeX: RelationType = RelationType.PARENT;
+    /** @prop {name:typeY,type:Option,option:"None,PARENT,TARGET,BETWEEN_SIDE_TARGET,BETWEEN_TWO_TARGET", default:"PARENT"}*/
+    typeY: RelationType = RelationType.PARENT;
+
+
+    /** @prop {name:targetX,type:Node}*/
+    targetX: Laya.Node;
+    /** @prop {name:targetY,type:Node}*/
+    targetY: Laya.Node;
+
+    /** @prop {name:targetX2,type:Node}*/
+    targetX2: Laya.Node;
+    /** @prop {name:targetY2,type:Node}*/
+    targetY2: Laya.Node;
+
 
     onAwake() {
         super.onAwake();
@@ -86,9 +89,13 @@ export default class LayOutRelation extends LayOutBase {
         }
 
         var x, y, w, h;
+        if (this.type == RelationType.None) {
+            return;
+        }
         if (this.align == Align.None) {
             return;
         }
+
         var pt = UI.GetNodePosition(this.owner);
         x = pt.x;
         y = pt.y;
@@ -106,7 +113,7 @@ export default class LayOutRelation extends LayOutBase {
 
         var pivotX = UI.GetPivotX(this.owner);//*UI.GetScaleX(this.owner);
         var pivotY = UI.GetPivotY(this.owner);
-        Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
+        // Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
         switch (this.type) {
             case RelationType.PARENT:
                 {
@@ -164,7 +171,7 @@ export default class LayOutRelation extends LayOutBase {
                         y = h_parent / 2 - h / 2 + this.offsetY;
                         x += pivotX;
                         y += pivotY;
-                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+                        // Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
 
                     }
                     if (this.align == Align.CENTERX) {
@@ -178,7 +185,7 @@ export default class LayOutRelation extends LayOutBase {
                         x = w_parent / 2 - w / 2 + this.offsetX;
                         x += pivotX;
 
-                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+                        // Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
 
                     }
 
@@ -193,7 +200,7 @@ export default class LayOutRelation extends LayOutBase {
 
                         y = h_parent / 2 - h / 2 + this.offsetY;
                         y += pivotY;
-                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+                        // Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
 
                     }
 
@@ -239,6 +246,8 @@ export default class LayOutRelation extends LayOutBase {
                 }
                 break;
 
+
+
         }
 
 
@@ -251,6 +260,9 @@ export default class LayOutRelation extends LayOutBase {
             return;
         }
         var x, y, w, h;
+        if (this.typeX == RelationType.None) {
+            return;
+        }
         if (this.alignX == Align.None) {
             return;
         }
@@ -271,8 +283,8 @@ export default class LayOutRelation extends LayOutBase {
 
         var pivotX = UI.GetPivotX(this.owner);//*UI.GetScaleX(this.owner);
         var pivotY = UI.GetPivotY(this.owner);
-        Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
-        switch (this.type) {
+        // Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
+        switch (this.typeX) {
             case RelationType.PARENT:
                 {
 
@@ -298,7 +310,7 @@ export default class LayOutRelation extends LayOutBase {
                         x = w_parent / 2 - w / 2 + this.offsetX;
                         x += pivotX;
 
-                        Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
+                        // Debug.Log("LayOutRelation CENTER=" + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX + " name=" + this.owner.name);
 
                     }
 
@@ -309,14 +321,14 @@ export default class LayOutRelation extends LayOutBase {
                 break;
             case RelationType.TARGET:
                 {
-                    if (this.target == null) {
+                    if (this.targetX == null) {
                         break;
                     }
-                    var sizeTarget = UI.GetNodeBoundingBox(this.target);
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetX);
                     if (sizeTarget == null) {
                         break;
                     }
-                    var ptTarget = UI.GetNodePosition(this.target);
+                    var ptTarget = UI.GetNodePosition(this.targetX);
                     // 位于target的左边
                     if (this.alignX == Align.LEFT) {
                         x = ptTarget.x - w - this.offsetX;
@@ -336,7 +348,47 @@ export default class LayOutRelation extends LayOutBase {
 
                 }
                 break;
+            case RelationType.BETWEEN_SIDE_TARGET:
+                {
+                    if (this.targetX == null) {
+                        break;
+                    }
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetX);
+                    if (sizeTarget == null) {
+                        break;
+                    }
+                    var ptTarget = UI.GetNodePosition(this.targetX);
 
+                    // 左边界
+                    if (this.alignX == Align.LEFT) {
+                        x = LayOutUtil.main.GetBetweenScreenCenter(this.targetX as Laya.Sprite, this.alignX) - w / 2 + this.offsetX;
+                        x += pivotX;
+
+                    }
+                    // 右边界
+                    if (this.alignX == Align.RIGHT) {
+                        x = LayOutUtil.main.GetBetweenScreenCenter(this.targetX as Laya.Sprite, this.alignX) - w / 2 + this.offsetX;
+                        x += pivotX;
+
+                    }
+                }
+                break;
+
+            case RelationType.BETWEEN_TWO_TARGET:
+                {
+                    if (this.targetX == null) {
+                        break;
+                    }
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetX);
+                    if (sizeTarget == null) {
+                        break;
+                    }
+                    var ptTarget = UI.GetNodePosition(this.targetX);
+
+                    x = LayOutUtil.main.GetBetweenCenterX(this.targetX as Laya.Sprite, this.targetX2 as Laya.Sprite) - w / 2 + this.offsetX;
+                    x += pivotX;
+                }
+                break;
         }
 
         // if (this.enableOffsetAdBanner) {
@@ -352,6 +404,9 @@ export default class LayOutRelation extends LayOutBase {
             return;
         }
         var x, y, w, h;
+        if (this.typeY == RelationType.None) {
+            return;
+        }
         if (this.alignY == Align.None) {
             return;
         }
@@ -373,7 +428,7 @@ export default class LayOutRelation extends LayOutBase {
         var pivotX = UI.GetPivotX(this.owner);//*UI.GetScaleX(this.owner);
         var pivotY = UI.GetPivotY(this.owner);
         Debug.Log("LayOutRelation this.align=" + this.align + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " x=" + x + " pivotX=" + pivotX);
-        switch (this.type) {
+        switch (this.typeY) {
             case RelationType.PARENT:
                 {
 
@@ -409,14 +464,14 @@ export default class LayOutRelation extends LayOutBase {
                 break;
             case RelationType.TARGET:
                 {
-                    if (this.target == null) {
+                    if (this.targetY == null) {
                         break;
                     }
-                    var sizeTarget = UI.GetNodeBoundingBox(this.target);
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetY);
                     if (sizeTarget == null) {
                         break;
                     }
-                    var ptTarget = UI.GetNodePosition(this.target);
+                    var ptTarget = UI.GetNodePosition(this.targetY);
 
                     if (this.alignY == Align.UP) {
                         y = ptTarget.y - h - this.offsetY;
@@ -435,6 +490,50 @@ export default class LayOutRelation extends LayOutBase {
 
                 }
                 break;
+
+
+            case RelationType.BETWEEN_SIDE_TARGET:
+                {
+                    if (this.targetY == null) {
+                        break;
+                    }
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetY);
+                    if (sizeTarget == null) {
+                        break;
+                    }
+                    var ptTarget = UI.GetNodePosition(this.targetY);
+
+                    // 上边界
+                    if (this.alignY == Align.UP) {
+                        y = LayOutUtil.main.GetBetweenScreenCenter(this.targetY as Laya.Sprite, this.alignY) - h / 2 + this.offsetY;
+                        y += pivotY;
+
+                    }
+
+                    // 下边界
+                    if (this.alignY == Align.DOWN) {
+                        y = LayOutUtil.main.GetBetweenScreenCenter(this.targetY as Laya.Sprite, this.alignY, this.enableOffsetAdBanner) - h / 2 + this.offsetY;
+                        y += pivotY;
+                    }
+                }
+                break;
+
+            case RelationType.BETWEEN_TWO_TARGET:
+                {
+                    if (this.targetY == null) {
+                        break;
+                    }
+                    var sizeTarget = UI.GetNodeBoundingBox(this.targetY);
+                    if (sizeTarget == null) {
+                        break;
+                    }
+                    var ptTarget = UI.GetNodePosition(this.targetY);
+
+                    y = LayOutUtil.main.GetBetweenCenterY(this.targetY as Laya.Sprite, this.targetY2 as Laya.Sprite) - h / 2 + this.offsetY;
+                    y += pivotY;
+                }
+                break;
+
 
         }
 

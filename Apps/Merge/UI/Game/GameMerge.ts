@@ -113,6 +113,11 @@ export default class GameMerge extends GameBase {
 
 
     onUpdate() {         //用作延迟生成物体
+
+        if(this.prefabItem==null)
+        {
+            return;
+        }
         if (this.time < GameMerge.TimeStep) {
             var tick = Common.GetCurrentTime();
             // Debug.Log("update tick="+tick);

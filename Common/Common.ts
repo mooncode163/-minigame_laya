@@ -6,7 +6,7 @@ export default class Common {
     public static GAME_DATA_DIR = "Resources/GameData";//streamingAssetsPath下的游戏配置等数据
     public static GAME_DATA_DIR_COMMON = "Resources/GameData/common";
     public static GAME_RES_DIR = "Resources/GameRes";//streamingAssetsPath 下的游戏图片等资源
-    public static CLOUD_RES_DIR_NAME = "Resources/CloudRes";//放在云端的资源
+    public static CLOUD_RES_DIR_NAME = "CloudRes";//放在云端的资源
     public static CLOUD_RES_DIR = "Resources/GameRes/CloudRes";//放在云端的资源
     public static RES_CONFIG_DATA = "Resources/ConfigData";
     public static RES_CONFIG_DATA_COMMON = "Resources/ConfigDataCommon";
