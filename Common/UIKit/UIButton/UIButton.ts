@@ -39,7 +39,7 @@ export default class UIButton extends UIView {
     enableFitTextSize: boolean = false;
     isSwicthSelect: boolean = false;
 
- 
+
 
     private _type = ButtonType.IMAGE;
     /** @prop {name:type,type:Option,option:"IMAGE,IMAGE_TEXT,IMAGE_ICON,IMAGE_SWITCH,IMAGE_ICON_SWITCH", default:"IMAGE"}*/
@@ -112,7 +112,7 @@ export default class UIButton extends UIView {
         // this.type = this._type;
         // this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
         var animateButton = this.node.addComponent(AnimateButton);
-        animateButton.SetClick(this, this.DoClickItem.bind(this));
+        animateButton.SetClick(this, this.OnClickAnimateButton.bind(this));
 
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
@@ -126,7 +126,7 @@ export default class UIButton extends UIView {
 
     onStart() {
         // [3]
-        super.onStart(); 
+        super.onStart();
         this.LayOut();
     }
 
@@ -141,7 +141,7 @@ export default class UIButton extends UIView {
             return;
         }
         this.imageBg.SetActive(true);
-        Debug.Log("UIButton UpdateType ty="+ty);
+        Debug.Log("UIButton UpdateType ty=" + ty);
         // this.textTitle.SetActive(false);
         switch (ty) {
             case ButtonType.IMAGE:
@@ -167,15 +167,15 @@ export default class UIButton extends UIView {
 
         }
     }
- 
-    DoClickItem() {
+
+    OnClickAnimateButton(btn:AnimateButton) {
         Debug.Log("UIButton DoClickItem");
         if (this.clickHandler) {
             Debug.Log("UIButton run");
             this.clickHandler.run();
         }
     }
- 
+
 
     /*
     // 用法
@@ -185,6 +185,10 @@ export default class UIButton extends UIView {
                 
             } 
         }.bind(this));
+
+          OnClickItem(btn:UIButton) {
+            }
+    
     */
     // 动画点击回调
     SetClick(caller: any, method: Function | null) {

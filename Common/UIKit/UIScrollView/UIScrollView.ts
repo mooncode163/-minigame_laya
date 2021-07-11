@@ -3,8 +3,12 @@ import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
 import ItemInfo from "../../ItemInfo";
 import Language from "../../Language/Language";
+import AnimateButton from "../UIButton/AnimateButton";
+import UIImage from "../UIImage/UIImage";
+import UITouchEvent from "../UITouchEvent";
 import UI from "../ViewController/UI";
-import UIView from "../ViewController/UIView";
+import UIView from "../ViewController/UIView"; 
+import IUIScrollView from "./IUIScrollView";
 import ScrollView from "./ScrollView";
 import { ScrollViewDirection } from "./ScrollViewUtil";
 
@@ -23,6 +27,7 @@ export default class UIScrollView extends UIView {
 
     mask: Laya.Sprite;
 
+    delegate:IUIScrollView;
 
     // 鼠标按下
     private _mouseDown: boolean = false;
@@ -34,7 +39,9 @@ export default class UIScrollView extends UIView {
     private _mouseY: number = 0;
     private _curMoveFrame: number = 0;
 
-    private isShowMoveAnimate:boolean=false;
+    isScroll = false;
+
+    private isShowMoveAnimate: boolean = false;
 
     // 单元格渲染处理器 
     private _renderHandler: Laya.Handler;
@@ -170,11 +177,98 @@ export default class UIScrollView extends UIView {
 
     Add(child: UIView) {
         this.Init();
-        this.content.addChild(child.owner);
+        var node = child.node;
+        this.content.addChild(node);
+
+        // var ev = node.addComponent(UITouchEvent);
+        // ev.callBackTouch = this.OnUITouchEvent.bind(this);
+        // node.on(Laya.Event.CLICK, this, this.onCellMouse);
+        // node.on(Laya.Event.RIGHT_CLICK, this, this.onCellMouse);
+        // node.on(Laya.Event.MOUSE_OVER, this, this.onCellMouse);
+        // node.on(Laya.Event.MOUSE_OUT, this, this.onCellMouse);
+        // node.on(Laya.Event.MOUSE_DOWN, this, this.onCellMouse);
+        // node.on(Laya.Event.MOUSE_UP, this, this.onCellMouse);
+
+
+        var animateButton = node.addComponent(AnimateButton);
+        animateButton.SetClick(this, this.OnClickItem.bind(this));
+
         this.LayOut();
     }
 
+    OnClickItem(btn:AnimateButton) {
+        Debug.Log("UIScrollView OnClickItem  name=" + btn.owner.name);
+        var uiview = btn.owner.getComponent(UIView); 
+        if (uiview!=null) {
+            Debug.Log("UIScrollView OnClickItem name=" + btn.owner.name + " index=" + uiview.index);
+            if(!this.isScroll)
+            {
+                if(this.delegate!=null)
+                {
+                    this.delegate.OnScrollViewDidClickItem(this,uiview);
+                }
+            }
+        }
+    }
 
+    OnUITouchEvent(ui: UITouchEvent, status: number) {
+        switch (status) {
+
+            case UITouchEvent.TOUCH_DOWN:
+                {
+                    var uiview = ui.owner.getComponent(UIView);
+                    // Debug.Log("UIScrollView OnUITouchEvent TOUCH_DOWN name=" + ui.owner.name);
+                    if (uiview!=null) {
+                        Debug.Log("UIScrollView OnUITouchEvent TOUCH_DOWN name=" + ui.owner.name + " index=" + uiview.index);
+                    }
+                }
+                break;
+            case UITouchEvent.TOUCH_MOVE:
+                {
+                    var uiview = ui.owner.getComponent(UIView);
+                    if (uiview!=null) {
+                        Debug.Log("UIScrollView OnUITouchEvent TOUCH_MOVE name=" + ui.owner.name + " index=" + uiview.index);
+                    }
+                }
+
+                break;
+            case UITouchEvent.TOUCH_UP:
+                {
+                    var uiview = ui.owner.getComponent(UIView);
+                    if (uiview!=null) {
+                        Debug.Log("UIScrollView OnUITouchEvent TOUCH_UP name=" + ui.owner.name + " index=" + uiview.index);
+                    }
+                }
+                break;
+        }
+    }
+
+
+    protected onCellMouse(e: Event): void {
+        // var cell = e.target.;
+        if (e.type === Laya.Event.MOUSE_DOWN) {
+            Debug.Log("UIScrollView onCellMouse MOUSE_DOWN name=");
+        }
+        if (e.type === Laya.Event.MOUSE_MOVE) {
+            Debug.Log("UIScrollView onCellMouse MOUSE_MOVE");
+        }
+
+        if (e.type === Laya.Event.MOUSE_UP) {
+            Debug.Log("UIScrollView onCellMouse MOUSE_UP");
+        }
+
+        //  this._isMoved = false;
+        // var cell = (<Box>e.currentTarget);
+        // var index = this._startIndex + this._cells.indexOf(cell);
+        // if (index < 0) return;
+        // if (e.type === Laya.Event.CLICK || e.type === Laya.Event.RIGHT_CLICK) {
+        // 	if (this.selectEnable && !this._isMoved) this.selectedIndex = index;
+        // 	else this.changeCellState(cell, true, 0);
+        // } else if ((e.type === Laya.Event.MOUSE_OVER || e.type === Laya.Event.MOUSE_OUT) && this._selectedIndex !== index) {
+        // 	this.changeCellState(cell, e.type === Laya.Event.MOUSE_OVER, 0);
+        // }
+        // this.mouseHandler && this.mouseHandler.runWith([e, index]);
+    }
 
     GetChildItemWidth(i: number) {
         var child = this.content.getChildAt(i);
@@ -218,8 +312,10 @@ export default class UIScrollView extends UIView {
     }
 
     UpdateScrollViewPosMouseUp() {
-
-        Debug.Log("UpdateScrollViewPosMouseUp endter _mouseDown="+this._mouseDown);
+        var size = UI.GetNodeContentSize(this.node);
+        Debug.Log("UpdateScrollViewPosMouseUp endter _mouseDown=" + this._mouseDown);
+        var height =Math.min(this.content.height,size.height);  
+        var width =Math.min(this.content.width,size.width);  
         if (this.direction == ScrollViewDirection.Horizontal) {
             var posX: number = this.content.x;
             // this.content.pos(posX, this.content.y);
@@ -230,16 +326,17 @@ export default class UIScrollView extends UIView {
                 if (!this._mouseDown) {
                     // 左边反弹动画
                     Laya.Tween.to(this.content, { x: toPos }, 500, Laya.Ease.cubicOut);
-                    this.isShowMoveAnimate=false;
+                    this.isShowMoveAnimate = false;
                 }
             }
-            else if (posX < -this.content.width + Laya.stage.width) {
-                var toPos = -this.content.width + Laya.stage.width;
+            else if (posX < -this.content.width + size.width) {
+               
+                var toPos = -this.content.width + width;
                 // 滑到右边
                 if (!this._mouseDown) {
                     // 右边反弹动画
                     Laya.Tween.to(this.content, { x: toPos }, 500, Laya.Ease.cubicOut);
-                    this.isShowMoveAnimate=false;
+                    this.isShowMoveAnimate = false;
                 }
             }
         }
@@ -251,15 +348,15 @@ export default class UIScrollView extends UIView {
                 var toPos = 0;
                 if (!this._mouseDown) {
                     Laya.Tween.to(this.content, { y: toPos }, 500, Laya.Ease.cubicOut);
-                    this.isShowMoveAnimate=false;
+                    this.isShowMoveAnimate = false;
                 }
             }
-            else if (posY < -this.content.height + Laya.stage.height) {
+            else if (posY < -this.content.height + size.height) {
                 // 滑到底部
-                var toPos = -this.content.height + Laya.stage.height;
+                var toPos = -this.content.height + height;
                 if (!this._mouseDown) {
                     Laya.Tween.to(this.content, { y: toPos }, 500, Laya.Ease.cubicOut);
-                    this.isShowMoveAnimate=false;
+                    this.isShowMoveAnimate = false;
                 }
             } else {
 
@@ -274,7 +371,11 @@ export default class UIScrollView extends UIView {
      * @param dis 
      */
     private UpdateScrollViewPos(dis: number) {
-
+        Debug.Log("UpdateScrollViewPos dis=" + dis);
+        if(dis>5)
+        {
+            this.isScroll = true;
+        }
         if (this.direction == ScrollViewDirection.Horizontal) {
             var posX: number = dis + this.content.x;
             this.content.pos(posX, this.content.y);
@@ -289,6 +390,7 @@ export default class UIScrollView extends UIView {
         // console.log("按下");
         console.log("按下 " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
 
+        this.isScroll = false;
         this.isShowMoveAnimate = false;
         if (this._mouseDown) {
             console.error("mouse had down");
@@ -351,8 +453,13 @@ export default class UIScrollView extends UIView {
         console.log("点击" + this.owner.name);
     }
 
+
+    // PC 鼠标移出显示区域
     onMouseOut(e) {
         console.log("移出");
+        this.isShowMoveAnimate = true;
+        this._mouseDown = false;
+        this.UpdateScrollViewPosMouseUp();
     }
     onMouseOver(e) {
         console.log("进入");

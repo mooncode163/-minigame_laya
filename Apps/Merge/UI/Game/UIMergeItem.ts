@@ -3,12 +3,12 @@ import Debug from "../../../../Common/Debug";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
-import UI from "../../../../Common/UIKit/ViewController/UI";
-import TextureUtil from "../../../../Common/Image/TextureUtil";
-import Platform from "../../../../Common/Platform";
-import TextureCache from "../../../../Common/Cache/TextureCache"; 
+import UI from "../../../../Common/UIKit/ViewController/UI"; 
+import Platform from "../../../../Common/Platform"; 
 import CollisionDetection from "./CollisionDetection";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
+import GameData, { GameStatus } from "../../Data/GameData"; 
+import { PropType } from "./UIPopProp";
 
 
 
@@ -24,7 +24,7 @@ export default class UIMergeItem extends UIView {
         this.t = 0;
 
 
-        this.imageItem = UIFind.FindImage(this.node,"ImgeItem"); 
+        this.imageItem = UIFind.FindImage(this.node, "ImgeItem");
         // this.image = this.Find("Image") as Laya.Image;
 
         // this.node.zIndex = 100;
@@ -106,7 +106,7 @@ export default class UIMergeItem extends UIView {
         var isCloud = false;
         if (Platform.isCloudRes) {
             isCloud = true;
-        } 
+        }
 
         this.LayOut();
 
@@ -116,31 +116,57 @@ export default class UIMergeItem extends UIView {
 
     }
     EnableGravity(isEnable) {
-        if(this.node==null)
-        {
+        if (this.node == null) {
             return;
         }
         var bd = this.node.getComponent(Laya.RigidBody);
         bd.type = isEnable ? UI.PhysicBodyTypeDynamic : UI.PhysicBodyTypeStatic;
     }
 
-    OnTouchDown(pos) {
+    onMouseDown(e) {
+        // console.log("按下"); 
     }
-    OnTouchMove(pos) {
-    }
-    OnTouchUp(pos) {
-
-
+    onMouseMove(e) {
 
     }
+    onMouseUp(e) {
+        var imageProp = GameData.main.game.imageProp;
+        var duration = 0.5;
+        var toPos =UI.GetNodePosition(this.node);
+        if (GameData.main.status == GameStatus.Prop) {
+            if (GameData.main.uiGame.typeProp == PropType.Hammer) {
+                Laya.Tween.to(imageProp.node, { x: toPos.x, y: toPos.y }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.OnTweenFinish));
+            }
+
+            if (GameData.main.uiGame.typeProp == PropType.Bomb) {
+                Laya.Tween.to(imageProp.node, { x: toPos.x, y: toPos.y }, duration / 2, Laya.Ease.sineInOut, Laya.Handler.create(this, this.OnTweenFinish));
+            }
+        }
+
+    }
+
+    OnTweenFinish() {
+        if (GameData.main.status == GameStatus.Prop) {
+            if (GameData.main.uiGame.typeProp == PropType.Hammer) {
+
+                GameData.main.game.DeleteItem(this);
+             
+            }
+
+            if (GameData.main.uiGame.typeProp == PropType.Bomb) {
+                GameData.main.game.DeleteAllItemsOfId(this.keyId);
+
+            }
+        }
+    }
+
     OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
 
         // var pos = ui.GetPosition(event);
         // var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
         // var posui = ui.GetUIPosition(event);
 
-        // var imageProp = UIGameMerge.main.game.imageProp;
-        // var duration = 0.5; 
+
 
         // // var uiTrans = GameMerge.main.node.getComponent(UITransform);
         // // var toPos = uiTrans.convertToNodeSpaceAR(new Vec3(posui.x, posui.y, 0)); 

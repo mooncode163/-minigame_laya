@@ -22,10 +22,7 @@ export default class UILanguageCellItem extends UIView {
         super.onAwake();
         this.imageBg = UIFind.FindUI(this.node, "ImageBg", UIImage, false);
         this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText, false);
- 
-        var animateButton = this.node.addComponent(AnimateButton);
-        animateButton.SetClick(this, this.OnClickItem.bind(this));
-
+  
         this.LayOut();
 
     }

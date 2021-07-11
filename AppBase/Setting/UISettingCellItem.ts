@@ -37,8 +37,8 @@ export default class UISettingCellItem extends UIView {
         this.btnSwitch = UIFind.FindUI(this.node, "btnSwitch", UIButton);
         this.btnSwitch.SetClick(this, this.OnClickBtnSwitch.bind(this));
        
-        var animateButton = this.node.addComponent(AnimateButton);
-        animateButton.SetClick(this, this.OnClickItem.bind(this));
+        // var animateButton = this.node.addComponent(AnimateButton);
+        // animateButton.SetClick(this, this.OnClickItem.bind(this));
 
         this.LayOut();
         

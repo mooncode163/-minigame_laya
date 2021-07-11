@@ -1,8 +1,10 @@
 import PrefabCache from "../../../Common/Cache/PrefabCache";
+import Debug from "../../../Common/Debug";
 import ItemInfo from "../../../Common/ItemInfo";
 import { SysLanguage } from "../../../Common/Language/LanguageUtil";
 import UIButton from "../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../Common/UIKit/UIImage/UIImage";
+import IUIScrollView from "../../../Common/UIKit/UIScrollView/IUIScrollView";
 import UIScrollView from "../../../Common/UIKit/UIScrollView/UIScrollView";
 import UITableView from "../../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../../Common/UIKit/UIText/UIText";
@@ -10,12 +12,13 @@ import UI from "../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../Common/UIKit/ViewController/UIView";
 import SettingData from "../SettingData"; 
+import UISettingCellItem from "../UISettingCellItem";
 import UILanguageCellItem from "./UILanguageCellItem";
 
  
 
  
-export default class UILanguage extends UIView { 
+export default class UILanguage extends UIView implements IUIScrollView{ 
     oneCellNum = 1;
     heightCell = 160;
     btnBack: UIButton = null;
@@ -44,6 +47,7 @@ export default class UILanguage extends UIView {
         this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
         this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
+        this.uiScrollView.delegate = this;
 
         this.UpdateItem();
         this.LoadPrefab();
@@ -114,7 +118,15 @@ export default class UILanguage extends UIView {
         }
     }
  
+    OnScrollViewDidClickItem(uiScroll:any,uiItem:any) {
+        Debug.Log("UILanguage OnScrollViewDidClickItem name=" + uiItem.owner.name  + " index=" + uiItem.index);
 
+        var uiCell = uiItem as UILanguageCellItem;
+        if(uiCell!=null)
+        {
+            uiCell.OnClickItem();
+        }
+    }
 }
 
  

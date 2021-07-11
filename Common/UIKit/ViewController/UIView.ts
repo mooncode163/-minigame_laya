@@ -96,7 +96,28 @@ export default class UIView extends Laya.Script {
         }
         return false
     }
-     
+    public set visible(value: boolean) {
+        var sp = this.owner as Laya.Sprite; 
+        var z = 0;
+        if (sp != null) {
+             sp.visible = value;
+        } 
+    }
+    public get zOrder(): number {
+        var sp = this.owner as Laya.Sprite; 
+        var z = 0;
+        if (sp != null) {
+           return sp.zOrder;
+        }
+        return 0;
+    }
+    public set zOrder(value: number) {
+        var sp = this.owner as Laya.Sprite; 
+        var z = 0;
+        if (sp != null) {
+             sp.zOrder = value;
+        } 
+    }
     
     private _controller: UIViewController | null = null;
     // @type(UIViewController)

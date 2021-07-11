@@ -8,10 +8,12 @@ import ResManager from "../../../../Common/Res/ResManager";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameData, { GameStatus } from "../../Data/GameData";
 import GameLevelParse from "../../Data/GameLevelParse";
 // import UIGameMerge from "./UIGameMerge";
 import UIMergeItem from "./UIMergeItem";
+import { PropType } from "./UIPopProp";
 
 
 
@@ -23,7 +25,7 @@ export default class GameMerge extends GameBase {
     imageProp: UIImage | null = null;
 
     // second
-    TimeStep = 1.2;
+    TimeStep = 1.0;//1.2
 
     ScaleStart = 0.4;
     isFirstRun = false;
@@ -47,6 +49,11 @@ export default class GameMerge extends GameBase {
         super.onAwake();
         GameMerge._main = this;
         GameData.main.game = this;
+
+        this.imageProp = UIFind.FindUI(this.node, "imageProp", UIImage);
+        this.imageProp.visible = false;
+        this.imageProp.zOrder = 10;
+        AppSceneUtil.main.rootNode.addChild(this.imageProp.node);
         this.time = 0;
         this.LoadPrefab();
         this.LayOut();
@@ -123,7 +130,7 @@ export default class GameMerge extends GameBase {
         if (this.time < this.TimeStep) {
             var tick = Timer.delta/1000;
             this.time += tick;
-            Debug.Log("update tick="+tick+ " this.time="+this.time);
+            // Debug.Log("update tick="+tick+ " this.time="+this.time);
         }
         else {
             //判断场景中没有生成物体
@@ -230,12 +237,13 @@ export default class GameMerge extends GameBase {
 
     OnRestPlayInternal() {
         GameData.main.status = GameStatus.Play;
-        // UIGameMerge.main.game.ShowProp(false);
+        this.ShowProp(false);
     }
     // 改变类型为  string toId
     ChangeItem(toId) {
         if (this.uiItem != null) {
-            this.uiItem.id = toId;
+            Debug.Log("ChangeItem toId="+toId);
+            this.uiItem.keyId = toId;
             this.uiItem.name = toId;
             var pic = GameLevelParse.main.GetImagePath(toId);
             this.uiItem.UpdateImage(pic);
@@ -249,7 +257,7 @@ export default class GameMerge extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist == ui) {
-                this.ShowMergeParticle(UI.GetNodePosition(ui.node), ui.id);
+                this.ShowMergeParticle(UI.GetNodePosition(ui.node), ui.keyId);
                 uilist.owner.destroy();
                 this.listItem.splice(i, 1);
                 break;
@@ -273,16 +281,19 @@ export default class GameMerge extends GameBase {
 
     // 摧毁所有的同类 string
     DeleteAllItemsOfId(id) {
+        Debug.Log("DeleteAllItemsOfId id="+id);
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
-            if (uilist.id == id) {
-                this.ShowMergeParticle(UI.GetNodePosition(uilist.node), uilist.id);
+            Debug.Log("DeleteAllItemsOfId 1 id="+id+ " uilist.keyId="+uilist.keyId);
+            if (uilist.keyId == id) {
+                this.ShowMergeParticle(UI.GetNodePosition(uilist.node), uilist.keyId);
                 uilist.owner.destroy();
             }
         }
         for (var i = 0; i < this.listItem.length; i++) {
             var ui = this.listItem[i];
-            if (ui.id == id) {
+            Debug.Log("DeleteAllItemsOfId 2 id="+id+ " ui.keyId="+ui.keyId);
+            if (ui.keyId == id) {
                 this.listItem.splice(i, 1);
             }
         }
@@ -291,23 +302,23 @@ export default class GameMerge extends GameBase {
 
     // string return UIMergeItem
     CreateItem(key: string) {
-        var keyid = key;
-        // keyid ="juzi";
+        var keyId = key;
+        // keyId ="juzi";
 
         var x, y, w, h;
         var node = UI.Instantiate(this.prefabItem);
         var ui = node.getComponent(UIMergeItem);
         ui.hasGoDownDeadLine = false;
         ui.isNew = true;
-        ui.keyid = keyid;
+        ui.keyId = keyId;
         // ui.index = indexItem++; 
         // AppSceneBase.main.AddObjToMainWorld(ui.gameObject);
         // ui.SetParent(this);
         // laya 物理引擎bug  刚体只能显示全屏的对象上 不然 碰撞体和对象会发生错位的现象
         AppSceneUtil.main.rootNode.addChild(ui.node);
 
-        ui.name = keyid;
-        ui.node.name = keyid;
+        ui.name = keyId;
+        ui.node.name = keyId;
 
 
 
@@ -358,11 +369,16 @@ export default class GameMerge extends GameBase {
             });
 
     }
-    ShowProp(isShow: boolean) {
-        this.imageProp.SetActive(isShow);
+    ShowProp(isShow: boolean) { 
+        this.imageProp.visible = isShow;
+        if (GameData.main.uiGame.typeProp == PropType.Magic) 
+        {
+            this.imageProp.visible = false;
+        }
         if (isShow) {
+            var size = UI.GetNodeContentSize(this.node);
             var z = UI.GetPosition(this.imageProp.owner).z;//   this.imageProp.owner.getPosition().z;
-            var pos = new Laya.Vector3(0, 0, 0);
+            var pos = new Laya.Vector3(size.width/2, size.height/4, 0);
             pos.z = z;
             UI.SetPosition(this.imageProp.owner, pos);
         }
@@ -373,11 +389,7 @@ export default class GameMerge extends GameBase {
 
 
     onMouseDown(e) {
-        // Debug.Log("GameMerge down id=" + this.id);
-        // var z = this.imageProp.node.getPosition().z;
-        // var posnew = new Vec3(pos.x,pos.y,0);
-        // posnew.z = z;
-        // this.imageProp.node.setPosition(posnew);
+        // Debug.Log("GameMerge down id=" + this.id); 
 
         // console.log("按下");
         console.log("GameMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
@@ -474,6 +486,7 @@ export default class GameMerge extends GameBase {
             // if (Input.GetMouseButtonUp(0))
             if (UITouchEvent.TOUCH_UP == status) {
                 this.isMouseUp = true;
+                this.isMouseDown = false;
             }
 
             if (this.isMouseUp && (GameData.main.status == GameStatus.Play)) {

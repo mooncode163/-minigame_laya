@@ -1,10 +1,12 @@
 import PrefabCache from "../../Common/Cache/PrefabCache";
 import Common from "../../Common/Common";
 import ImageRes from "../../Common/Config/ImageRes";
+import Debug from "../../Common/Debug";
 import ItemInfo from "../../Common/ItemInfo";
  
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
-import UIImage from "../../Common/UIKit/UIImage/UIImage"; 
+import UIImage from "../../Common/UIKit/UIImage/UIImage";  
+import IUIScrollView from "../../Common/UIKit/UIScrollView/IUIScrollView";
 import UIScrollView from "../../Common/UIKit/UIScrollView/UIScrollView";
 import UITableView from "../../Common/UIKit/UITableView/UITableView";
 import UIText from "../../Common/UIKit/UIText/UIText";
@@ -19,7 +21,7 @@ import UISettingCellItem from "./UISettingCellItem";
 
  
  
-export default class UISetting extends UIView {
+export default class UISetting extends UIView implements IUIScrollView {
     oneCellNum = 1;
     heightCell = 160;
     btnBack: UIButton = null;
@@ -40,6 +42,7 @@ export default class UISetting extends UIView {
         this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
         this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
+        this.uiScrollView.delegate = this;
 
         this.UpdateItem();
         this.LoadPrefab();
@@ -115,7 +118,15 @@ export default class UISetting extends UIView {
     LayOut() {
         super.LayOut();
     }
- 
+    OnScrollViewDidClickItem(uiScroll:any,uiItem:any) {
+        Debug.Log("UISetting OnScrollViewDidClickItem name=" + uiItem.owner.name  + " index=" + uiItem.index);
+
+        var uiCell = uiItem as UISettingCellItem;
+        if(uiCell!=null)
+        {
+            uiCell.OnClickItem();
+        }
+    }
 
 
     OnClickBtnBack() {

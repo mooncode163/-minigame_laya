@@ -52,6 +52,8 @@ export default class UIPopProp extends UIViewPop {
 
 
     btnClose: UIButton;
+    btnYes: UIButton;
+    btnNo: UIButton;
 
     type: PropType;
     indexSelect = 0;
@@ -92,12 +94,16 @@ export default class UIPopProp extends UIViewPop {
             this.btnClose = UIFind.FindUI(this.node, "BtnClose", UIButton)
             this.btnClose.SetClick(this, this.OnClickBtnClose.bind(this));
         }
-        this.LayOut();
-    }
-    onStart() {
-        super.onStart();
 
+        {
+            this.btnYes = UIFind.FindUI(this.node, "btnYes", UIButton)
+            this.btnYes.SetClick(this, this.OnClickBtnYes.bind(this));
+        }
 
+        {
+            this.btnNo = UIFind.FindUI(this.node, "btnNo", UIButton)
+            this.btnNo.SetClick(this, this.OnClickBtnNo.bind(this));
+        }
         for (var i = 0; i < this.listItem.length; i++) {
             {
                 var info = GameLevelParse.main.GetLevelItemInfo(i);
@@ -111,10 +117,12 @@ export default class UIPopProp extends UIViewPop {
                 ui.UpdateImage(pic);
             }
         }
-
+        this.LayOut();
+    }
+    onStart() {
+        super.onStart(); 
         
         this.LayOut();
-
 
     }
 
@@ -163,15 +171,14 @@ export default class UIPopProp extends UIViewPop {
                 }
                 break;
         }
-        // this.imageIcon.UpdateImageByKey(keyImageIcon);
-
-        // UIGameMerge.main.game.UpdateProp(keyImageIcon);
+        this.imageIcon.UpdateImageByKey(keyImageIcon); 
+        GameData.main.game.UpdateProp(keyImageIcon);
         this.LayOut();
 
         this.SetSelectImage(this.imageItem0);
     }
 
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
+    OnUITouchEvent(ui: UITouchEvent, status: number) {
         switch (status) {
 
             case UITouchEvent.STATUS_Click:
@@ -186,8 +193,14 @@ export default class UIPopProp extends UIViewPop {
 
     SetSelectImage(ui: UIImage) {
         this.idChangeTo = ui.keyId;
-        UI.SetPosition(this.imageSelect.owner, UI.GetPosition(ui.owner.parent));
-        var scale = 1.15;
+        Debug.Log("SetSelectImage toId="+this.idChangeTo);
+        var pos = UI.GetPosition(ui.node);
+        UI.SetPosition(this.imageSelect.node, pos);
+
+        Debug.Log("SetSelectImage pos.x=" + pos.x+" y="+pos.y);
+        ui.node.parent.addChild(this.imageSelect.node);
+        this.imageSelect.zOrder = -1;
+        var scale = 1.2;
         // this.imageSelect.owner.scalex = new Vec3(scale, scale, 1); 
         var sp = this.imageSelect.owner as Laya.Sprite;
         if (sp != null) {
@@ -211,7 +224,7 @@ export default class UIPopProp extends UIViewPop {
     OnClickBtnYes() {
         this.OnClose();
         GameData.main.game.ShowProp(true); 
-        GameData.main.game.OnGameProp(this, this.type);
+        GameData.main.uiGame.OnGameProp(this, this.type);
 
     }
     OnClickBtnNo() {

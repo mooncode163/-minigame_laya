@@ -3,11 +3,13 @@ import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import LayOutSize from "../LayOut/LayOutSize";
+import UITouchEvent from "../UITouchEvent";
+import UIView from "../ViewController/UIView";
 
 
 
 export default class AnimateButton extends Laya.Script {
-    btnBg: Laya.Button;
+    // btnBg: Laya.Button;
     /** @prop {name:clickHandler,type:Handler}*/
     public clickHandler: Handler;
 
@@ -17,7 +19,8 @@ export default class AnimateButton extends Laya.Script {
 
     onAwake() {
         super.onAwake();
-        // this.btnBg = this.owner.getChildByName("BtnImageBg") as Laya.Button;
+
+        /*
         this.btnBg = new Laya.Button;
         this.owner.addChild(this.btnBg);
         // this.btnBg.zOrder = 0;
@@ -26,6 +29,9 @@ export default class AnimateButton extends Laya.Script {
 
         this.btnBg.addComponent(LayOutSize);
         this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
+*/
+        var ev = this.owner.addComponent(UITouchEvent);
+        ev.callBackTouch = this.OnUITouchEvent.bind(this);
 
         this.LayOut();
     }
@@ -44,14 +50,48 @@ export default class AnimateButton extends Laya.Script {
 
     }
 
+
+
+    OnUITouchEvent(ui: UITouchEvent, status: number) {
+        switch (status) {
+
+            case UITouchEvent.TOUCH_DOWN:
+                {
+                }
+                break;
+            case UITouchEvent.TOUCH_MOVE:
+                {
+                }
+
+                break;
+            case UITouchEvent.TOUCH_UP:
+                {
+
+                }
+                break;
+            case UITouchEvent.STATUS_Click:
+                {
+                    this.OnBtnClick();
+                }
+                break;
+
+        }
+    }
+
     /*
        // 用法
-               uibtn.SetClick(this,function (btn:UIButton): void {
+               uibtn.SetClick(this,function (btn:AnimateButton): void {
                if(btn!=null)
                {
                    
                } 
            }.bind(this));
+
+
+
+    OnClickItem(ui:AnimateButton) {
+    }
+
        */
     // 动画点击回调
     SetClick(caller: any, method: Function | null) {

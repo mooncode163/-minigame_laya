@@ -1,4 +1,6 @@
- 
+import Timer from "../Core/Timer";
+
+
 export default class UITouchEvent extends Laya.Script {
     public static TOUCH_DOWN = 0;
     public static TOUCH_MOVE = 1;
@@ -12,7 +14,7 @@ export default class UITouchEvent extends Laya.Script {
     callBackTouch = null;
     isTouchDown = false;
 
-   
+
     enableLongPress = false;
 
     onAwake() {
@@ -23,42 +25,75 @@ export default class UITouchEvent extends Laya.Script {
 
         // node layer 需要设置为UI_2D
         // this.on(Laya.Event.CLICK, this, this.OnClick);
-        
-   
+
+
 
     }
 
-    OnClick() { 
-        
-   
+    OnClick() {
+
+
 
     }
 
 
-    onMouseDown(e){
+    onMouseDown(e) {
         // console.log("按下");
-        console.log("按下 " + this.owner.name +" mouseX="+e.mouseX+" stageX="+e.stageX+" stageY="+e.stageY);
+        console.log("按下 " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
+
+        // var pos = event.getLocation();//canvas坐标原点在屏幕左下角 
+        // var posnode = this.node.convertToNodeSpace(pos);//坐标原点在node左下角
+        // var posnodeAR = this.node.getComponent(UITransform).convertToNodeSpaceAR(pos);//坐标原点在node的锚点
+        this.isTouchDown = true;
+        this.tickPress = Timer.curTimeSecond;
+        if (this.callBackTouch != null) {
+            this.callBackTouch(this, UITouchEvent.TOUCH_DOWN);
+        }
     }
-    onMouseMove(e){
-        console.log("移动");
+    onMouseMove(e) {
+        // console.log("移动");
+        if (this.callBackTouch != null) {
+            this.callBackTouch(this, UITouchEvent.TOUCH_MOVE);
+        }
     }
-    onMouseUp(e){
+    onMouseUp(e) {
         // console.log("抬起");
         console.log("抬起 " + this.owner.name);
+        if (this.callBackTouch != null) {
+            this.callBackTouch(this, UITouchEvent.TOUCH_UP);
+        }
+        this.tickPress = Timer.curTimeSecond - this.tickPress;
+        if (this.isTouchDown && this.enableLongPress) {
+
+            if (this.tickPress > this.Time_LongPress) {
+                if (this.callBackTouch != null) {
+                    this.callBackTouch(this, UITouchEvent.STATUS_LongPress);
+                }
+                this.tickPress = 0;
+                return;
+            }
+        }
+
+        if (this.isTouchDown) {
+            if (this.callBackTouch != null) {
+                this.callBackTouch(this, UITouchEvent.STATUS_Click);
+            }
+        }
+
+        this.isTouchDown = false;
     }
-    onClick(e)
-    {
+    onClick(e) {
         //e.stopPropagation();//阻止事件冒泡/上报
         console.log("点击" + this.owner.name);
     }
-    
-    onMouseOut(e){
+
+    onMouseOut(e) {
         console.log("移出");
     }
-    onMouseOver(e){
+    onMouseOver(e) {
         console.log("进入");
     }
-   
+
     // onStageMouseDown(e){
     //     console.log("舞台中按下");
     // }
@@ -93,49 +128,9 @@ export default class UITouchEvent extends Laya.Script {
     // }
 
 
-    // // touch event handler
-    // protected _onTouchBegan(event?: EventTouch) {
 
-    //     var pos = event.getLocation();//canvas坐标原点在屏幕左下角 
-    //     // var posnode = this.node.convertToNodeSpace(pos);//坐标原点在node左下角
-    //     // var posnodeAR = this.node.getComponent(UITransform).convertToNodeSpaceAR(pos);//坐标原点在node的锚点
-    //     this.isTouchDown = true;
-    //     this.tickPress = Common.GetCurrentTime();
-    //     if (this.callBackTouch != null) {
-    //         this.callBackTouch(this, UITouchEvent.TOUCH_DOWN, event);
-    //     }
-    // }
 
-    // protected _onTouchMove(event?: EventTouch) {
-    //     if (this.callBackTouch != null) {
-    //         this.callBackTouch(this, UITouchEvent.TOUCH_MOVE, event);
-    //     }
-    // }
-
-    // protected _onTouchEnded(event?: EventTouch) {
-    //     if (this.callBackTouch != null) {
-    //         this.callBackTouch(this, UITouchEvent.TOUCH_UP, event);
-    //     }
-    //     this.tickPress =Common.GetCurrentTime() - this.tickPress;
-    //     if (this.isTouchDown && this.enableLongPress) {
-
-    //         if (this.tickPress > this.Time_LongPress) {
-    //             if (this.callBackTouch != null) {
-    //                 this.callBackTouch(this, UITouchEvent.STATUS_LongPress, event);
-    //             }
-    //             this.tickPress = 0;
-    //             return;
-    //         }
-    //     }
-
-    //     if (this.isTouchDown) {
-    //         if (this.callBackTouch != null) {
-    //             this.callBackTouch(this, UITouchEvent.STATUS_Click, event);
-    //         }
-    //     }
-
-    //     this.isTouchDown = false;
-    // }
+   
 
     // protected _onTouchCancel(event?: EventTouch) {
 
