@@ -141,7 +141,11 @@ export default class LayOutSize extends LayOutBase {
         this.LayOut();
     }
     LayOut() {
+        if (!this.Enable()) {
+            return;
+        }
         super.LayOut();
+        
         var x, y, w, h;
         w = 1024;
         h = 512;

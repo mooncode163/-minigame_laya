@@ -104,32 +104,12 @@ export default class Common {
 
     //字符串显示大小
     static GetTextSize(text: string, fontsize: number) {
-        // var node = new Laya.Node();
-        // var labelTmp = node.addComponent(Label);
-        // labelTmp.fontSize = fontsize;
-        // labelTmp.string = text;
-        // //labelTmp.overflow = cc.Label.Overflow.NONE; 
-        // director.getScene().addChild(node);
-
-        // node.active = false;
-
-        // var size = labelTmp.node.getComponent(UITransform)?.contentSize;
-
-        // //Debug.Log("labelTmp size= " + size + " bd=" + labelTmp.node.getBoundingBox());
-
-
-
-        // //labelTmp.string = "A我";
-        // // labelTmp.overflow = cc.Label.Overflow.RESIZE_HEIGHT;
-
-        // //active 从false变成true 会重新刷新
-        // node.active = true;
-        // size = labelTmp.node.getComponent(UITransform)?.contentSize;
-        // //Debug.Log("labelTmp2 size= " + size + " bd=" + labelTmp.node.getBoundingBox());
-
-        // node.removeFromParent();
-        // //Common.GetTextHeight(text, fontsize);
-        // return size;
+        var labelTmp = new Laya.Label(); 
+        labelTmp.fontSize = fontsize;
+        labelTmp.text = text; 
+        var size = new Laya.Size(labelTmp.width,labelTmp.height);
+        labelTmp.destroy();
+        return size;
     }
 
     //判断微信getStorage key是否存在

@@ -31,6 +31,7 @@ export default class UIButton extends UIView {
     public clickHandler: Handler;
     // btnBg: Laya.Button;
 
+
     // content: Laya.Image;
     imageBg: UIImage | null = null;
     imageIcon: UIImage | null = null;
@@ -40,6 +41,8 @@ export default class UIButton extends UIView {
     isSwicthSelect: boolean = false;
 
 
+    /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
+    isStopTouchOther: boolean = false;
 
     private _type = ButtonType.IMAGE;
     /** @prop {name:type,type:Option,option:"IMAGE,IMAGE_TEXT,IMAGE_ICON,IMAGE_SWITCH,IMAGE_ICON_SWITCH", default:"IMAGE"}*/
@@ -63,12 +66,7 @@ export default class UIButton extends UIView {
     }
     set text(value) {
         this.textTitle.text = value;
-        if (this.enableFitTextSize) {
-            // var w = Common.GetTextSize(value, this.fontSize).width + this.fontSize;
-            // var size = this.node.getComponent(UITransform)?.contentSize;
-            // var h = size.height; 
-            // this.node?.getComponent(UITransform)?.setContentSize(new Size(w, h));
-        }
+
         this.LayOut();
     }
 
@@ -84,6 +82,21 @@ export default class UIButton extends UIView {
         // this.textTitle.color = value;
     }
 
+
+    //fontSize
+    get fontSize() {
+        if (this.textTitle == null) {
+            return 12;
+        }
+        return this.textTitle.fontSize;
+    }
+    set fontSize(value) {
+        if (this.textTitle == null) {
+            return;
+        }
+        this.textTitle.fontSize = value;
+        this.LayOut();
+    }
     /*
     用法
      UIButton.SetClickByNode(this.uiButton,this, function (btn:UIButton): void {
@@ -113,7 +126,8 @@ export default class UIButton extends UIView {
         // this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
         var animateButton = this.node.addComponent(AnimateButton);
         animateButton.SetClick(this, this.OnClickAnimateButton.bind(this));
-
+        animateButton.isStopTouchOther = this.isStopTouchOther;
+        
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
         //     Debug.Log("UIButton _clickHandler on click");
@@ -168,7 +182,7 @@ export default class UIButton extends UIView {
         }
     }
 
-    OnClickAnimateButton(btn:AnimateButton) {
+    OnClickAnimateButton(btn: AnimateButton) {
         Debug.Log("UIButton DoClickItem");
         if (this.clickHandler) {
             Debug.Log("UIButton run");
@@ -205,6 +219,21 @@ export default class UIButton extends UIView {
         super.LayOut();
         this.UpdateType(this.type);
         UI.SetNodePivotCenter(this.owner);
+
+        this.enableFitTextSize = this.textTitle.enableFitTextSize;
+        if (this.enableFitTextSize) {
+            // var w = Common.GetTextSize(this.text, this.fontSize).width + this.fontSize;
+            var sizeText = this.textTitle.GetTextSize();
+            if (sizeText != null) {
+                var size = UI.GetNodeContentSize(this.node);
+                var h = size.height;
+                var w = sizeText.width + this.fontSize * 2;
+
+                Debug.Log("uibutton enableFitTextSize w=" + w + " h=" + h);
+                UI.SetNodeContentSize(this.node, w, h);
+                this.textTitle.LayOut();
+            }
+        }
         super.LayOut();
 
     }

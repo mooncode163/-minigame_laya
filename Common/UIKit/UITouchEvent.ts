@@ -1,6 +1,20 @@
 import Timer from "../Core/Timer";
 
 
+
+
+/*
+// LayaBox 不让子节点的鼠标事件穿透到父节点
+A是父节点，B是子节点
+A和B都添加了鼠标监听
+当点击子节点B的时候，不让鼠标事件穿透到A，那么在B的监听回调函数参数调用stopPropagation函数
+ 
+this.on(Laya.Event.CLICK, this, (e: Laya.Event)=>{
+    e.stopPropagation();
+  
+}
+*/
+
 export default class UITouchEvent extends Laya.Script {
     public static TOUCH_DOWN = 0;
     public static TOUCH_MOVE = 1;
@@ -17,16 +31,22 @@ export default class UITouchEvent extends Laya.Script {
 
     enableLongPress = false;
 
+
+    // 不让子节点的鼠标事件穿透到父节点
+    /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
+    isStopTouchOther: boolean = false;
+
     onAwake() {
         this.Init();
     }
 
     Init() {
 
-        // node layer 需要设置为UI_2D
         // this.on(Laya.Event.CLICK, this, this.OnClick);
-
-
+        // var node = this.owner;
+        // node.on(Laya.Event.MOUSE_MOVE, this, this.onMouseMove1);
+        // node.on(Laya.Event.MOUSE_DOWN, this, this.onMouseDown1);
+        // node.on(Laya.Event.MOUSE_UP, this, this.onMouseUp1);
 
     }
 
@@ -49,11 +69,19 @@ export default class UITouchEvent extends Laya.Script {
         if (this.callBackTouch != null) {
             this.callBackTouch(this, UITouchEvent.TOUCH_DOWN);
         }
+
+        if (this.isStopTouchOther) {
+            e.stopPropagation();
+        }
+
     }
     onMouseMove(e) {
         // console.log("移动");
         if (this.callBackTouch != null) {
             this.callBackTouch(this, UITouchEvent.TOUCH_MOVE);
+        }
+        if (this.isStopTouchOther) {
+            e.stopPropagation();
         }
     }
     onMouseUp(e) {
@@ -81,18 +109,22 @@ export default class UITouchEvent extends Laya.Script {
         }
 
         this.isTouchDown = false;
-    }
-    onClick(e) {
-        //e.stopPropagation();//阻止事件冒泡/上报
-        console.log("点击" + this.owner.name);
-    }
 
-    onMouseOut(e) {
-        console.log("移出");
+        if (this.isStopTouchOther) {
+            e.stopPropagation();
+        }
     }
-    onMouseOver(e) {
-        console.log("进入");
-    }
+    // onClick(e) {
+    //     //e.stopPropagation();//阻止事件冒泡/上报
+    //     console.log("点击" + this.owner.name);
+    // }
+
+    // onMouseOut(e) {
+    //     console.log("移出");
+    // }
+    // onMouseOver(e) {
+    //     console.log("进入");
+    // }
 
     // onStageMouseDown(e){
     //     console.log("舞台中按下");
@@ -130,7 +162,7 @@ export default class UITouchEvent extends Laya.Script {
 
 
 
-   
+
 
     // protected _onTouchCancel(event?: EventTouch) {
 

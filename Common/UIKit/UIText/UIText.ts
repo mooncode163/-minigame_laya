@@ -11,19 +11,22 @@ import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
+import LayOutSize from "../LayOut/LayOutSize";
+import { SizeType } from "../LayOut/LayOutUtil";
 
 // Laya.Label 自动换行 wordWrap = true
 export default class UIText extends UIView {
 
     // /** @prop {name:label,type:Node}*/
-    public label: Laya.Label=null;
+    public label: Laya.Label = null;
 
     /** @prop {name:keyText,type:string}*/
     keyText: string = "";
     /** @prop {name:keyColor,type:string}*/
     keyColor: string = "";
 
-
+    /** @prop {name:enableFitTextSize,type:Bool}*/
+    enableFitTextSize: boolean = false;
     //get 的用法
     get text() {
         this.Init();
@@ -109,13 +112,34 @@ export default class UIText extends UIView {
     }
 
     LayOut() {
+        if (this.label == null) {
+            return;
+        }
+
+        if (this.enableFitTextSize) {
+            var ly = this.label.getComponent(LayOutSize);
+            if (ly != null) {
+                ly.enableLayout = false;
+                // ly.typeX = SizeType.CONTENT;
+                // ly._typeY = SizeType.CONTENT;
+            }
+        }
+
         super.LayOut();
         // 同步大小
         var size = UI.GetNodeContentSize(this.owner);
-        UI.SetNodeContentSize(this.label, size.width, size.height);
+        if (this.label != null) {
+            if (!this.enableFitTextSize) {
+                UI.SetNodeContentSize(this.label, size.width, size.height);
+            } else {
+
+            }
+
+        }
+
         UI.SetNodePivotCenter(this.owner);
         super.LayOut();
-
+ 
     }
     UpdateLanguage() {
         super.UpdateLanguage();
@@ -146,6 +170,15 @@ export default class UIText extends UIView {
             ret = Language.main.GetString(this.keyText);
         }
         return ret;
+    }
+
+
+    GetTextSize() {
+        if (this.label == null) {
+            return null;
+        }
+        var size = new Laya.Size(this.label.width, this.label.height);
+        return size;
     }
 
 }

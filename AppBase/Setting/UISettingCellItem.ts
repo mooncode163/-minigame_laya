@@ -39,6 +39,9 @@ export default class UISettingCellItem extends UIView {
        
         // var animateButton = this.node.addComponent(AnimateButton);
         // animateButton.SetClick(this, this.OnClickItem.bind(this));
+        var sp = this.btnSwitch.node as Laya.Sprite;
+        Debug.Log("uibutton enableFitTextSize btnSwitch mouseThrough="+ sp.mouseThrough);
+        sp.mouseThrough = false;
 
         this.LayOut();
         

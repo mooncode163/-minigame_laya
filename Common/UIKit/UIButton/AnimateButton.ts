@@ -13,6 +13,9 @@ export default class AnimateButton extends Laya.Script {
     /** @prop {name:clickHandler,type:Handler}*/
     public clickHandler: Handler;
 
+    /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
+    isStopTouchOther: boolean = false;
+
     duration = 200;//0.2 //ms
     scale1 = 1.2;
     scale2 = 1;
@@ -31,7 +34,7 @@ export default class AnimateButton extends Laya.Script {
         this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
 */
         var ev = this.owner.addComponent(UITouchEvent);
-        ev.callBackTouch = this.OnUITouchEvent.bind(this);
+        ev.callBackTouch = this.OnUITouchEvent.bind(this); 
 
         this.LayOut();
     }
@@ -39,7 +42,8 @@ export default class AnimateButton extends Laya.Script {
     onStart() {
         // [3]
         super.onStart();
-
+        var ev = this.owner.getComponent(UITouchEvent);
+        ev.isStopTouchOther = this.isStopTouchOther;
 
         this.LayOut();
     }

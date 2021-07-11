@@ -25,7 +25,7 @@ export default class GameMerge extends GameBase {
     imageProp: UIImage | null = null;
 
     // second
-    TimeStep = 1.0;//1.2
+    TimeStep = 0.8;//1.2
 
     ScaleStart = 0.4;
     isFirstRun = false;
