@@ -178,6 +178,14 @@ export default class CollisionDetection extends Laya.Script {
     // }
 
     onTriggerStay(other) {
+        if(other!=null)
+        {
+            return;
+        }
+        if(other.owner!=null)
+        {
+            return;
+        }
         console.log("CollisionDetection onTriggerStay 持续触发", other.owner.name);
     }
 

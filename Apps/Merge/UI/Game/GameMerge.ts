@@ -347,6 +347,7 @@ export default class GameMerge extends GameBase {
         return ui;
     }
     ShowMergeParticle(pos, id) {
+        return;
         ResManager.LoadParticle(
             {
                 filepath: "Resources/AppCommon/Particle/Merge.part",

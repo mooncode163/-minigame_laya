@@ -20,8 +20,8 @@ import UIToolBar from "./UIToolBar";
 export default class UIGameMerge extends UIGameBase {
     /** @prop {name:btnBack,type:Node}*/
 
-    titleScore: UIText | null = null;
-
+    textScore: UIText | null = null;
+    
     game: GameMerge = null;
     // nodeImageBg:Node,
     isShowGame = false;
@@ -52,6 +52,8 @@ export default class UIGameMerge extends UIGameBase {
         this.btnBack = UIFind.FindUI(this.node, "BtnBack",UIButton);
         this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
+        this.textScore = UIFind.FindUI(this.node, "textScore",UIText);
+        
         // var image = new Laya.Image();
         // image.width = 256;
         // image.height = 256;
@@ -122,10 +124,10 @@ export default class UIGameMerge extends UIGameBase {
 
     }
     UpdateScore() {
-        // var str = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
-        // Debug.Log("UpdateScore str="+str);
-        // this.titleScore.text = str;
-        // this.LayOut();
+        var str = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
+        Debug.Log("UpdateScore str="+str);
+        this.textScore.text = str;
+        this.LayOut();
 
     }
 
