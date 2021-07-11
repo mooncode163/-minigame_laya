@@ -188,17 +188,39 @@ export default class UI {
         var node = prefab.create();
         return node;
     }
- 
 
-        // 是否隐藏
-        static   SetActive(node:Laya.Node,active: boolean) {
-            var sp = node as Laya.Sprite; 
-            var z = 0;
-            if (sp != null) {
-                sp.visible = active;
+
+    // 是否隐藏
+    static SetActive(node: Laya.Node, active: boolean) {
+        var sp = node as Laya.Sprite;
+        var z = 0;
+        if (sp != null) {
+            sp.visible = active;
+        }
+    }
+
+
+    static GetChild(node: Laya.Node, componentType: typeof Laya.Component, index: number) {
+        var idx = 0;
+        for (var i = 0; i < node.numChildren; i++) {
+            var child = node.getChildAt(i);
+            if (child == null) {
+                // 过滤已经销毁的嵌套子对象 
+                continue;
+            }
+
+            var le = child.getComponent(componentType);
+            if (le != null) {
+                if (idx == index) {
+                    return le;
+                }
+                idx++;
             }
         }
-    
+
+        return null;
+    }
+
 }
 
 

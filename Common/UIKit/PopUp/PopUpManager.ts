@@ -7,6 +7,7 @@ import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
+import UIView from "../ViewController/UIView";
 import PopUpData from "./PopUpData";
 import UIViewPop from "./UIViewPop";
 
@@ -15,7 +16,7 @@ export default class PopUpManager  {
     // UIViewPop
     listItem: UIViewPop[] = [];
     static ANIMATE_DURATION = 0.8; 
-    nodePannel: Laya.Node = null;
+    nodePannel: Laya.Sprite = null;
     objPop = null;
 
     static _main: PopUpManager; 
@@ -34,7 +35,7 @@ export default class PopUpManager  {
 
     Show(obj: any) {
         this.objPop = obj;
-        // this.LoadBg();
+        this.LoadBg();
 
         PrefabCache.main.Load(
             {
@@ -52,22 +53,29 @@ export default class PopUpManager  {
 
 
     LoadBg() {
-        Debug.Log("PopUpManager LoadBg");
-        // var strPrefab = "Common/Prefab/UIKit/UIPopUp/PopUpBgPannel"; 
-        PrefabCache.main.LoadByKey(
-            {
-                key: "PopUpBgPannel",
-                success: (p: any, data: any) => {
-                    Debug.Log("PopUpManager LoadBg success");
-                    this.LoadBgInternal(data);
+        // Debug.Log("PopUpManager LoadBg");
+        // // var strPrefab = "Common/Prefab/UIKit/UIPopUp/PopUpBgPannel"; 
+        // PrefabCache.main.LoadByKey(
+        //     {
+        //         key: "PopUpBgPannel",
+        //         success: (p: any, data: any) => {
+        //             Debug.Log("PopUpManager LoadBg success");
+        //             this.LoadBgInternal(data);
 
-                },
-                fail: () => {
-                    Debug.Log("PopUpManager LoadBg fail");
-                    this.LoadBgInternal(null);
-                },
-            });
-
+        //         },
+        //         fail: () => {
+        //             Debug.Log("PopUpManager LoadBg fail");
+        //             this.LoadBgInternal(null);
+        //         },
+        //     });
+        this.nodePannel = new Laya.Sprite();
+        this.nodePannel.addComponent(UIView);
+        // #343434
+        // this.nodePannel.color = new Color(52, 52, 52, 50);
+        var size = Common.sizeCanvas; 
+        // this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434");
+        this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434E0");
+        AppSceneUtil.main.rootNode.addChild(this.nodePannel);
     }
     LoadBgInternal(prefab) {
         var nodeRoot = AppSceneUtil.main.rootNode;
@@ -83,7 +91,7 @@ export default class PopUpManager  {
 
             //拦截点击
             //  panel.addComponent(BlockInputEvents);
-            this.nodePannel = node;
+            // this.nodePannel = node;
             // this.nodePannel.active = false;
         }
 
@@ -150,7 +158,7 @@ export default class PopUpManager  {
     ClosePopup() {
 
         if (this.nodePannel != null) {
-            // this.nodePannel.destroy();
+            this.nodePannel.destroy();
             this.nodePannel = null;
         }
         if (this.listItem.length == 0) {
@@ -242,6 +250,4 @@ export default class PopUpManager  {
     }
 
 }
-
-
-
+  

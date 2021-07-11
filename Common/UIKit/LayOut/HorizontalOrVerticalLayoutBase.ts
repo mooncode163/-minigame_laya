@@ -109,7 +109,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
         if (this.childControlHeight) {
             item_h = (h - (this.offsetY * (this.row - 1))) / this.row;
             // rctranItem.sizeDelta = new Vector2(rctranItem.sizeDelta.x, item_h);
-            nodeItem.height = item_w;
+            nodeItem.height = item_h;
         }
         else {
             item_h = nodeItem.height;

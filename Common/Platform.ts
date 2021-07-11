@@ -30,7 +30,7 @@ export default class Platform  {
 
     public static get isCloudRes(): boolean {
         // return false;
-        if(this.isWeiXin||this.isByte)
+        if(this.isWeiXin||this.isByte||this.isQQ)
         {
             return true;
         }

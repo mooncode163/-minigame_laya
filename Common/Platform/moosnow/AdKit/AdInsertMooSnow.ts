@@ -1,3 +1,4 @@
+import AdInsertPlatformWrapper from "../../../AdKit/Insert/AdInsertPlatformWrapper";
 
  
 export default class AdInsertMooSnow extends AdInsertPlatformWrapper {
@@ -29,6 +30,7 @@ export default class AdInsertMooSnow extends AdInsertPlatformWrapper {
     }
 
     ShowAd() {
+        // var moosnow = null;
         // 在适合的场景显示插屏广告
         // if (this.interstitialAd) {
         //     this.interstitialAd.show().catch((err) => {

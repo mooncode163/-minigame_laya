@@ -20,7 +20,7 @@ export default class CloudRes  {
 
     get rootPath() {
         var ret = Common.CLOUD_RES_DIR;
-        if (Platform.isWeiXin||Platform.isByte)  {
+        if (Platform.isWeiXin||Platform.isByte||Platform.isQQ)  {
             ret = FileSystem.main.GetRootDirPath() + "/" + Common.CLOUD_RES_DIR_NAME;
         }
  

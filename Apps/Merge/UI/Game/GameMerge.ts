@@ -320,11 +320,9 @@ export default class GameMerge extends GameBase {
         ui.name = keyId;
         ui.node.name = keyId;
 
-
-
-        this.ScaleStart = 0.2;
+ 
         // var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.8; 
-        var scale = (this.ScaleStart + 0.1 * this.GetIndexOfItem(key));
+        var scale = (this.ScaleStart + 0.2 * this.GetIndexOfItem(key));
 
         UI.SetScaleXY(ui.owner, scale);
 

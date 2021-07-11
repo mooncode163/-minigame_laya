@@ -6,6 +6,7 @@ import LayOutVertical from "../../../../Common/UIKit/LayOut/LayOutVertical";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
+import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import GameData, { GameStatus } from "../../Data/GameData";
@@ -54,24 +55,24 @@ export default class UIToolBar extends UIView {
     LayOut() {
         super.LayOut();
 
-        // var rctran = this.GetContentSize();
-        // var w = rctran.width;
-        // var h = rctran.height;
-        // var child = this.owner.getChildAt(0);
-        // // var btn = this.owner.getComponentInChildren(UIButton);
-        // var btn = child.getComponent(UIButton);
-        // var rctranBtn = btn.GetContentSize();
+        var size = this.GetContentSize();
+        var w = size.width;
+        var h = size.height;
+        var child = this.owner.getChildAt(0);
+        // var btn = this.owner.getComponentInChildren(UIButton);
+        var btn = UI.GetChild(this.node,UIButton,0);
+        var sizeBtn = btn.GetContentSize();
 
-        // var count = LayOutUtil.main.GetChildCount(this.owner, false);
-        // var ly = this.owner.getComponent(LayOutVertical);
-        // // count =10;
-        // var oft = ly.offsetY * 2;
-        // // oft = 32;
-        // h = count * (rctranBtn.height + oft);
-        // // h = 512;
-        // this.SetContentSize(w, h);
+        var count = LayOutUtil.main.GetChildCount(this.owner, false);
+        var ly = this.owner.getComponent(LayOutVertical);
+        // count =10;
+        var oft = ly.offsetY * 2;
+        // oft = 32;
+        h = count * (sizeBtn.height + oft);
+        // h = 512;
+        this.SetContentSize(w, h);
 
-        // super.LayOut();
+        super.LayOut();
 
 
         // this.imageBg.LayOut();

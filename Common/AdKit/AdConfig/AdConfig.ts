@@ -40,6 +40,9 @@ export default class AdConfig extends ConfigBase {
             if (Platform.isWeiXin) {
                 fileName = "ad_config_weixin";
             }
+            if (Platform.isQQ) {
+                fileName = "ad_config_qq";
+            }
             if (Device.main.isLandscape) {
                 fileName += "_hd";
             }

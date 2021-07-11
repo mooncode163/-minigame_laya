@@ -1,5 +1,6 @@
 import Debug from "../../../../Common/Debug";
 import Language from "../../../../Common/Language/Language";
+import LayOutScale from "../../../../Common/UIKit/LayOut/LayOutScale";
 import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
@@ -63,7 +64,7 @@ export default class UIPopProp extends UIViewPop {
 
         this.objItemList = UIFind.Find(this.node, "ItemList");
 
-        this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText);
+        this.textTitle = UIFind.FindUI(this.node, "TextTitleHead", UIText);
         this.textGuide0 = UIFind.FindUI(this.node, "textGuide0", UIText);
         this.textGuide1 = UIFind.FindUI(this.node, "textGuide1", UIText);
         this.textGuideSelect = UIFind.FindUI(this.node, "textGuideSelect", UIText);
@@ -120,8 +121,7 @@ export default class UIPopProp extends UIViewPop {
         this.LayOut();
     }
     onStart() {
-        super.onStart(); 
-        
+        super.onStart();  
         this.LayOut();
 
     }
@@ -200,7 +200,13 @@ export default class UIPopProp extends UIViewPop {
         Debug.Log("SetSelectImage pos.x=" + pos.x+" y="+pos.y);
         ui.node.parent.addChild(this.imageSelect.node);
         this.imageSelect.zOrder = -1;
-        var scale = 1.2;
+        var lyscale = this.imageSelect.node.getComponent(LayOutScale);
+        var ratio = 1;
+        if(lyscale!=null)
+        {
+            ratio = lyscale.ratio;
+        }
+        var scale = 1.15*ratio;
         // this.imageSelect.owner.scalex = new Vec3(scale, scale, 1); 
         var sp = this.imageSelect.owner as Laya.Sprite;
         if (sp != null) {

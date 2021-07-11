@@ -1,3 +1,4 @@
+import AppSceneUtil from "../../AppBase/Common/AppSceneUtil";
 import Common from "../Common";
 import CommonRes from "../CommonRes";
 import Debug from "../Debug";
@@ -24,11 +25,12 @@ export default class UICloudRes extends UIView {
     textStatus: UIText | null = null;
 
     uiProgress: UIProgress | null = null;
-
+    nodePannel:Laya.Sprite;
 
     onAwake() {
         super.onAwake();
         // this.textTitle.text ="dddd";
+        this.LoadBg();
         this.imageBg = UIFind.FindUI(this.node, "imageBg", UIImage);
         this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText);
         this.textStatus = UIFind.FindUI(this.node, "textStatus", UIText);
@@ -73,7 +75,19 @@ export default class UICloudRes extends UIView {
 
         this.LayOut();
     }
-
+    LoadBg() {
+       
+        this.nodePannel = new Laya.Sprite();
+        this.nodePannel.addComponent(UIView);
+        // #343434
+        // this.nodePannel.color = new Color(52, 52, 52, 50);
+        var size = Common.sizeCanvas; 
+        // this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434");
+        this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434");
+        // AppSceneUtil.main.rootNode.addChild(this.nodePannel);
+        this.node.addChild(this.nodePannel);
+        this.nodePannel.zOrder = -1;
+    }
 
     UpdateProgress(value) {
 

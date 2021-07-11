@@ -21,7 +21,7 @@ export default class Share  {
 
     GetPlatform() {
         var p = null;
-        if (Platform.isWeiXin||Platform.isByte)  {
+        if (Platform.isWeiXin||Platform.isByte||Platform.isQQ)  {
             //显示分享
             //  wx.showShareMenu();
             p = new ShareWeiXin();

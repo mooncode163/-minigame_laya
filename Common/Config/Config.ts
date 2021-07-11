@@ -54,6 +54,9 @@ export default class Config extends ConfigBase {
         if (Platform.isWeiXin) {
             key_store = Source.WEIXIN;
         }
+        if (Platform.isQQ) {
+            key_store = Source.QQ;
+        }
         Debug.Log("GetAppIdOfStore key_store=" + key_store);
         var strid = this.configApp.GetAppIdOfStore(key_store);
         return strid;

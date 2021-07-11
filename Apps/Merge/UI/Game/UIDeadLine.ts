@@ -11,10 +11,13 @@ export default class UIDeadLine extends UIView {
     t = 0;
     isGameFail = false;
     isEnterTrigger = false;
+    count=0;//碰撞个数
+    maxCount = 2;
     onAwake() {
         super.onAwake();
         this.owner.name = GameData.NameDeadLine;
         this.t = 0;
+        this.count = 0;
         this.isGameFail = false;
 
     }
@@ -28,6 +31,7 @@ export default class UIDeadLine extends UIView {
             console.log("CollisionDetection 开始触发", other.owner.name);
             if (!this.isEnterTrigger) {
                 this.t = 0; 
+                this.count = 0;
                 this.isEnterTrigger = true;
             }
         }
@@ -36,6 +40,15 @@ export default class UIDeadLine extends UIView {
 
     onTriggerStay(other) {
         this.t += Timer.deltaSecond;
+        if(other!=null)
+        {
+            return;
+        }
+        if(other.owner!=null)
+        {
+            return;
+        }
+
         console.log("UIDeadLine onTriggerStay 持续触发", other.owner.name + " t=" + this.t);
         if (other.owner.name != GameData.NameDeadLine) {
             Debug.Log("UIDeadLine  enter other.name=" + other.owner.name);
@@ -43,13 +56,19 @@ export default class UIDeadLine extends UIView {
             var ui = other.owner.getComponent(UIMergeItem);
             if (ui != null) {
                 if (ui.isNew) {
-                    this.t = 0;
-                    
+                    // this.t = 0;
+                    Debug.Log("UIDeadLine isNew this.t=" + this.t);
+                    return;
                 }
-                if (this.t >= this.timeFailMax) {
+                this.count++;
+                Debug.Log("UIDeadLine  this.t=" + this.t+" this.count="+this.count);
+                // if (this.t >= this.timeFailMax)
+                if (this.count >= this.maxCount)
+                 {
                     // GameObject.Find("CodeControl").GetComponent<ScoreControl>().SaveScore();//保存分数
                     // SceneManager.LoadScene("Over");//切换场景
                     this.t = 0; 
+                    this.count = 0; 
                     this.isEnterTrigger = false;
                     Debug.Log("UIDeadLine  GameFail other.name=" + other.owner.name);
                     if (!this.isGameFail) {

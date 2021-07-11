@@ -1,4 +1,5 @@
 import Platform from "../../Platform";
+import AdInsertMooSnow from "../../Platform/moosnow/AdKit/AdInsertMooSnow";
 import AdInsertWeiXin from "../../Platform/weixin/AdKit/AdInsertWeiXin";
 import AdInsertPlatformWrapper from "./AdInsertPlatformWrapper";
 
@@ -27,6 +28,9 @@ export default class AdInsert  {
 		if (Platform.isWeiXin||Platform.isByte)  {
             // p = new AdInsertMooSnow();
         }
+		if (Platform.isQQ) {
+            p = new AdInsertMooSnow();
+        } 
         return p;
     }
     Init () { 

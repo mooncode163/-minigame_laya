@@ -25,6 +25,9 @@ export default class FileSystem  {
         if (Platform.isByte) {
             p = new FileSystemWeixin();
         }
+        if (Platform.isQQ) {
+            p = new FileSystemWeixin();
+        } 
         return p;
     }
     Init () { 

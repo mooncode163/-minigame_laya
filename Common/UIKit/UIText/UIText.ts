@@ -12,11 +12,11 @@ import Language from "../../Language/Language";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
 
-
+// Laya.Label 自动换行 wordWrap = true
 export default class UIText extends UIView {
 
     // /** @prop {name:label,type:Node}*/
-    public label: Laya.Label;
+    public label: Laya.Label=null;
 
     /** @prop {name:keyText,type:string}*/
     keyText: string = "";
@@ -102,7 +102,7 @@ export default class UIText extends UIView {
     }
     Init() {
         if (this.label != null) {
-            return;
+            // return;
         }
         this.label = this.owner.getChildByName("Label") as Laya.Label;
 

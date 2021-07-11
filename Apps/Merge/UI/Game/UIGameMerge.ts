@@ -69,7 +69,7 @@ export default class UIGameMerge extends UIGameBase {
         this.LayOut();
 
         // this.ShowGameWinAlert();
-        this.OnGameFinish(true);
+        // this.OnGameFinish(true);
         // this.LoadUIPopProp();
     }
 

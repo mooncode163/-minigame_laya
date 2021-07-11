@@ -1,3 +1,5 @@
+import AdVideoPlatformWrapper from "../../../AdKit/Video/AdVideoPlatformWrapper";
+
  
 export default class AdVideoMooSnow extends AdVideoPlatformWrapper {
     videoAd = null;
@@ -17,7 +19,7 @@ export default class AdVideoMooSnow extends AdVideoPlatformWrapper {
     }
 
     ShowAd() {
-
+        // var moosnow = null;
         // 用户触发广告后，显示激励视频广告
         // if (this.videoAd) {
         //     this.videoAd.show().catch(() => {
