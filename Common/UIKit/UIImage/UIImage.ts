@@ -290,6 +290,8 @@ export default class UIImage extends UIView {
         // image 和uiimage同步大小
         var size = UI.GetNodeContentSize(this.owner);
         UI.SetNodeContentSize(this.image,size.width,size.height);
+        // this.image.x = 0;
+        // this.image.y = 0;
         Debug.Log("UIImage  w=" + size.width + " h=" + size.height+" name="+this.owner.name); 
         if(this.isPivotCenter)
         {

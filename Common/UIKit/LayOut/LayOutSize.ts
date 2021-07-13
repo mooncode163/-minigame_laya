@@ -171,9 +171,7 @@ export default class LayOutSize extends LayOutBase {
         var h_parent = sizeParent.height;
         // w_parent -= (this.offsetMin.x + this.offsetMax.x);
         // h_parent -= (this.offsetMin.y + this.offsetMax.y);
-        w_parent -= (this.offsetXLeft + this.offsetXRight);
-        h_parent -= (this.offsetYUp + this.offsetYDown);
-
+      
 
         Debug.Log("UpdateSizeX this.typeX=" + this.typeX + " sizeParent.width=" + sizeParent.width + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " name=" + this.owner.name + " this.ratioW=" + this.ratioW);
         // Debug.Log("w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w);
@@ -250,6 +248,9 @@ export default class LayOutSize extends LayOutBase {
         }
         // w = w_parent;
         // h = h_parent;
+
+        w -= (this.offsetXLeft + this.offsetXRight); 
+
         Debug.Log("UpdateSizeX w=" + w + " h=" + h + " name=" + this.owner.name);
         UI.SetNodeContentSize(this.owner, w, h);
 
@@ -271,8 +272,7 @@ export default class LayOutSize extends LayOutBase {
         var h_parent = sizeParent.height;
         // w_parent -= (this.offsetMin.x + this.offsetMax.x);
         // h_parent -= (this.offsetMin.y + this.offsetMax.y);
-        w_parent -= (this.offsetXLeft + this.offsetXRight);
-        h_parent -= (this.offsetYUp + this.offsetYDown);
+      
 
         Debug.Log("GetBetweenSideAndTargetSize this.sideType=" + this.sideType);
         switch (this.typeY) {
@@ -344,7 +344,8 @@ export default class LayOutSize extends LayOutBase {
                 }
                 break;
         }
-
+ 
+        h -= (this.offsetYUp + this.offsetYDown);
         if (this.enableOffsetAdBanner) {
             h -= AdKitCommon.main.heightCanvasAdBanner;
         }

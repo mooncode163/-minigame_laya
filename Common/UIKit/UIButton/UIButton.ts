@@ -14,6 +14,7 @@ import UIText from "../UIText/UIText";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
 import AnimateButton from "./AnimateButton";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 
 enum ButtonType {
     IMAGE = "IMAGE",//一张背景  
@@ -42,7 +43,7 @@ export default class UIButton extends UIView {
 
 
     /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
-    isStopTouchOther: boolean = false;
+    isStopTouchOther: boolean = true;
 
     private _type = ButtonType.IMAGE;
     /** @prop {name:type,type:Option,option:"IMAGE,IMAGE_TEXT,IMAGE_ICON,IMAGE_SWITCH,IMAGE_ICON_SWITCH", default:"IMAGE"}*/
@@ -232,6 +233,7 @@ export default class UIButton extends UIView {
                 Debug.Log("uibutton enableFitTextSize w=" + w + " h=" + h);
                 UI.SetNodeContentSize(this.node, w, h);
                 this.textTitle.LayOut();
+                AppSceneUtil.isNeedLayout = true;
             }
         }
         super.LayOut();

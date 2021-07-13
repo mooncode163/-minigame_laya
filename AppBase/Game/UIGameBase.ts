@@ -129,7 +129,7 @@ export default class UIGameBase extends UIView {
         var idx = level;
         Debug.Log("UIGameBase::UpdateLevel idx=" + idx);
         if (idx >= 3) {
-            var isLock = Common.GetBoolOfKey(AppRes.KEY_GAME_LOCK, true);
+            var isLock = Common.GetBoolOfKey("KEY_GAME_LOCK", true);
             if (isLock) {
                 //AlertLockViewController.main.Show(null, null);
             }

@@ -12,6 +12,7 @@ import UIViewController from '../../Common/UIKit/ViewController/UIViewController
 import UI from '../../Common/UIKit/ViewController/UI';
 import AppSceneUtil from './AppSceneUtil';
 import InitViewController from './InitViewController';
+import PopUpData from '../../Common/UIKit/PopUp/PopUpData';
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -95,6 +96,15 @@ export default class AppSceneBase extends Laya.Script {
     // update (deltaTime: number) {
     //     // [4]
     // }
+
+    onUpdate()
+    {
+        if(AppSceneUtil.isNeedLayout)
+        {
+            this.LayOut();
+            AppSceneUtil.isNeedLayout = false;
+        }
+    }
 
     RunApp() {
         Debug.Log("AppSceneBase RunApp");
@@ -220,6 +230,18 @@ export default class AppSceneBase extends Laya.Script {
             }
 
         }
+
+        var list = PopUpManager.main.listItem; 
+        for (var i = 0; i < list.length; i++)
+        {
+            var uipop = list[i];
+            if (uipop != null)
+            {
+                uipop.LayOut();
+            }
+        }
+
+        
     }
 
 }

@@ -59,6 +59,7 @@ export default class Common {
         return ret;
     }
 
+    // min-max 不包括max
     static RandomRange(min: any, max: any) {
         var count = max - min;
         //floor() 方法执行的是向下取整计算，它返回的是小于或等于函数参数，并且与之最接近的整数 

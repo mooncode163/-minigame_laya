@@ -104,7 +104,7 @@ export default class UISetting extends UIView implements IUIScrollView {
 
         {
             var info = new SettingInfo();
-            info.keyTitle = "STR_SETTING_SOUND";
+            info.keyTitle = "STR_SETTING_BTN_SOUND";
             info.tag = SettingType.BTN_SOUND;
             SettingData.main.listItem.push(info);
         }

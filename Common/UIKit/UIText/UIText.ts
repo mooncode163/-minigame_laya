@@ -117,12 +117,10 @@ export default class UIText extends UIView {
         }
 
         if (this.enableFitTextSize) {
-            var ly = this.label.getComponent(LayOutSize);
-            if (ly != null) {
-                ly.enableLayout = false;
-                // ly.typeX = SizeType.CONTENT;
-                // ly._typeY = SizeType.CONTENT;
-            }
+            // var ly = this.label.getComponent(LayOutSize);
+            // if (ly != null) {
+            //     ly.enableLayout = false; 
+            // }
         }
 
         super.LayOut();
@@ -130,9 +128,9 @@ export default class UIText extends UIView {
         var size = UI.GetNodeContentSize(this.owner);
         if (this.label != null) {
             if (!this.enableFitTextSize) {
-                UI.SetNodeContentSize(this.label, size.width, size.height);
+                // UI.SetNodeContentSize(this.label, size.width, size.height);
             } else {
-
+                UI.SetNodeContentSize(this.node, this.label.width, this.label.height);
             }
 
         }

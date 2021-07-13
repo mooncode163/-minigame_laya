@@ -16,6 +16,8 @@ export default class UIProgress extends UIView {
     onAwake() {
         super.onAwake();
         this.imageBg = UIFind.FindUI(this.node,"imageBg",UIImage);
+
+        // imageFt 关闭 isPivotCenter 动态刷新会显示异常
         this.imageFt = UIFind.FindUI(this.node,"imageFt",UIImage);
         this.LayOut();
     }
@@ -32,6 +34,8 @@ export default class UIProgress extends UIView {
         var size = this.GetContentSize();
         w = size.width * value;
         h = size.height;
+        // w = 768;
+        // w = 337.92;
         Debug.Log("UpdateProgress w=" + w + " h=" + h + " size.width=" + size.width+" value="+value);
  
         this.imageFt.SetContentSize(w,h);

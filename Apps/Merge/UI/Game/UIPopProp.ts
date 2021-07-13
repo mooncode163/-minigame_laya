@@ -1,3 +1,4 @@
+import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
 import Debug from "../../../../Common/Debug";
 import Language from "../../../../Common/Language/Language";
 import LayOutScale from "../../../../Common/UIKit/LayOut/LayOutScale";
@@ -123,10 +124,26 @@ export default class UIPopProp extends UIViewPop {
     onStart() {
         super.onStart();  
         this.LayOut();
-
     }
 
+     
+    onUpdate()
+    {
+        // if(AppSceneUtil.isNeedLayout)
+        // {
+           
+        //     this.LayOut();
+        //     // Laya.timer.once(1000, this, function():void {
+        //     //     this.LayOut();
+           
+		// 	// });
+        //     AppSceneUtil.isNeedLayout = false;
+        //     Debug.Log("UIPopProp isNeedLayout end");
+        // }
 
+        // this.LayOut();
+
+    }
 
     UpdateType(ty: PropType) { 
         this.type = ty; 

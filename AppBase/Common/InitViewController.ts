@@ -67,16 +67,7 @@ export default class InitViewController extends NaviViewController {
         } else {
             this.RunGame();
         }
-
-        // ImageRes.main.LoadCloudConfig(
-        //     {
-        //         success: (p: any) => {
-        //             this.StartParsePlace();
-        //         },
-        //         fail: () => {
-        //             this.StartParsePlace();
-        //         },
-        //     });
+ 
 
     }
 

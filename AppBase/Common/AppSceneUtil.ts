@@ -13,5 +13,6 @@ export default class AppSceneUtil
     // AppSceneBase
     static main: any;
     // public static rootNode: Laya.Node;
+    static isNeedLayout=false;
 }
 
