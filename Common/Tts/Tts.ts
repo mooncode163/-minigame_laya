@@ -70,7 +70,7 @@ export default class Tts  {
  
 
         var httpReq = new HttpRequest();
-        httpReq.Get(url, function (err, data) {
+        httpReq.Get2(url, function (err, data) {
             if (err) {
                 Debug.Log("GetBaiDuAccessToken err=" + err);
                 Debug.Log(err);

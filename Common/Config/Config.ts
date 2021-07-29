@@ -8,9 +8,9 @@ import Source from "../Source";
 import ConfigBase from "./ConfigBase";
 import ConfigInternal from "./ConfigInternal";
 
- 
 
- 
+
+
 export default class Config extends ConfigBase {
     configApp: ConfigInternal = null;
     configCommon: ConfigInternal = null;
@@ -24,7 +24,7 @@ export default class Config extends ConfigBase {
             this._main.Init();
         }
         return this._main;
-    } 
+    }
 
     get appKeyName() {
         return this.configCommon.GetString("APP_NAME_KEYWORD", "");
@@ -33,7 +33,7 @@ export default class Config extends ConfigBase {
         return this.configCommon.GetString("APP_TYPE", "");
     }
 
-  
+
     get shareUrl() {
         return this.configCommon.GetShareUrl();
     }
@@ -93,7 +93,18 @@ export default class Config extends ConfigBase {
     get APP_FOR_KIDS() {
         return this.configCommon.GetString("APP_FOR_KIDS", "");
     }
+    GetAppStoreAcount(store: string) {
+        var key = "appstore_acount";
+        var acount_default = "chyfemail163@163.com";
+        var ishave = JsonUtil.ContainsKey(this.configCommon, key);
+        if (!ishave) {
+            return acount_default;
+        }
+        var json = this.configCommon[key];
+        return JsonUtil.GetString(json, store, acount_default);
 
+
+    }
 
     Init() {
 
@@ -123,8 +134,8 @@ export default class Config extends ConfigBase {
             filepath = strDir + "/" + fileName;
             this.configApp = new ConfigInternal();
             this.configApp.fileJson = filepath;
-            this.listItem.push(this.configApp); 
-                
+            this.listItem.push(this.configApp);
+
         }
         {
             this.configCommon = new ConfigInternal();
@@ -149,22 +160,22 @@ export default class Config extends ConfigBase {
     InitValue() {
 
     }
- /*
-     { 
-       success: (p:any) => {
-           
-       }, 
-       fail: (p:any) => {
-           
-       },
-     }
-     */
-     LoadCloudConfig(obj: any) {
-        if (Platform.isCloudRes) { 
+    /*
+        { 
+          success: (p:any) => {
+              
+          }, 
+          fail: (p:any) => {
+              
+          },
+        }
+        */
+    LoadCloudConfig(obj: any) {
+        if (Platform.isCloudRes) {
             var strDir = Common.RES_CONFIG_DATA + "/config";
             var fileName = "config_common.json";
-            { 
-                this.configCommon.fileJson = strDir + "/" + fileName; 
+            {
+                this.configCommon.fileJson = strDir + "/" + fileName;
                 this.configCommon.Load(
                     {
                         isCloud: false,
@@ -191,12 +202,12 @@ export default class Config extends ConfigBase {
             }
         }
     }
-    
+
 
     IsHaveKey(key) {
         return JsonUtil.ContainsKey(this.rootJson, key);
     }
-  
+
 
 }
 
