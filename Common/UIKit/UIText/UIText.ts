@@ -20,8 +20,7 @@ export default class UIText extends UIView {
     // /** @prop {name:label,type:Node}*/
     public label: Laya.Label = null;
 
-    /** @prop {name:keyText,type:string}*/
-    keyText: string = "";
+
     /** @prop {name:keyColor,type:string}*/
     keyColor: string = "";
 
@@ -30,16 +29,44 @@ export default class UIText extends UIView {
     //get 的用法
     get text() {
         this.Init();
+        if (this.label == null) {
+            return "UIText";
+        }
         return this.label.text;
     }
     // set 的用法
     set text(value) {
         this.Init();
         Debug.Log("UIText set text value=" + value);
+        if (this.label == null) {
+            return ;
+        }
         this.label.text = value;
         this.LayOut();
 
     }
+
+
+    _keyText: string = "";
+
+    //keyText
+    get keyText() {
+        return this._keyText;
+    }
+
+    /** @prop {name:keyText,type:string}*/
+    set keyText(value) {
+        this._keyText = value;
+        if(this.text==null)
+        {
+            return;
+        }
+        if (!Common.BlankString(this._keyText)) {
+            this.text = this.GetKeyText();
+        }
+        this.LayOut();
+    }
+
 
 
     private _fontSize: number = 64;
@@ -77,7 +104,10 @@ export default class UIText extends UIView {
         super.onAwake();
         UI.SetNodePivotCenter(this.owner);
         this.Init();
-        this.label.fontSize = this.fontSize;
+        if(this.label!=null)
+        {
+            this.label.fontSize = this.fontSize;
+        }
 
     }
 
@@ -104,9 +134,13 @@ export default class UIText extends UIView {
 
     }
     Init() {
+        if (this.owner == null) {
+            return;
+        }
         if (this.label != null) {
             // return;
         }
+
         this.label = this.owner.getChildByName("Label") as Laya.Label;
 
     }
@@ -137,7 +171,7 @@ export default class UIText extends UIView {
 
         UI.SetNodePivotCenter(this.owner);
         super.LayOut();
- 
+
     }
     UpdateLanguage() {
         super.UpdateLanguage();
@@ -164,8 +198,8 @@ export default class UIText extends UIView {
     }
     GetKeyText() {
         var ret = "";
-        if (!Common.BlankString(this.keyText)) {
-            ret = Language.main.GetString(this.keyText);
+        if (!Common.BlankString(this._keyText)) {
+            ret = Language.main.GetString(this._keyText);
         }
         return ret;
     }

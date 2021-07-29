@@ -162,7 +162,7 @@ export default class GameLevelParse extends LevelParseBase {
 
         var idx = LevelData.main.placeLevel;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json"; 
+        var filepath = CloudRes.main.rootPath + "/Level/" + infoPlace.id + ".json"; 
         ResManager.LoadJson(
             {
                 filepath: filepath,
@@ -199,7 +199,7 @@ export default class GameLevelParse extends LevelParseBase {
 
         var idx = 0;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json";
+        var filepath = CloudRes.main.rootPath + "/Level/" + infoPlace.id + ".json";
 
         ResManager.LoadJson(
             {

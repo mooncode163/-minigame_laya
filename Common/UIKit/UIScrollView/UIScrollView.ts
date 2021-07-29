@@ -16,8 +16,7 @@ import { ScrollViewDirection } from "./ScrollViewUtil";
 
 
 export default class UIScrollView extends UIView {
-
-    /** @prop {name:direction,type:Option,option:"Horizontal,Vertical", default:"Vertical"}*/
+ 
     content: Laya.View;
 
     /** @prop {name:direction,type:Option,option:"Horizontal,Vertical", default:"Vertical"}*/

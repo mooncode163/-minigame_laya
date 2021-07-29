@@ -2,6 +2,7 @@
 import GameViewController from "../../../../AppBase/Game/GameViewController";
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
 import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
+import AppVersion from "../../../../Common/AppVersion/AppVersion";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
@@ -12,6 +13,7 @@ import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameLevelParse from "../../Data/GameLevelParse";
+import GameLearnViewController from "../Game/Learn/GameLearnViewController";
 
 
 
@@ -26,7 +28,10 @@ export default class UIHomeMerge extends UIHomeBase {
 
     imageLogo: UIImage;
 
-    btnPlay: UIButton;
+    btnMerge: UIButton;
+
+    btnLearn: UIButton;
+ 
 
     onAwake() {
         super.onAwake();
@@ -35,13 +40,16 @@ export default class UIHomeMerge extends UIHomeBase {
         this.LoadSideBar();
         this.LoadCenterBar();
 
-        var button = UIFind.Find(this.node, "Button");
+        // var button = UIFind.Find(this.node, "Button");
         // if(button!=null)
         {
-            this.btnPlay = UIFind.FindUI(button, "BtnPlay",UIButton);
-            this.btnPlay.SetClick(this, this.OnBtnClickPlay.bind(this));
+            this.btnMerge = UIFind.FindUI(this.node, "BtnMerge",UIButton);
+            this.btnMerge.SetClick(this, this.OnBtnClickPlay.bind(this));
         }
-
+        {
+            this.btnLearn = UIFind.FindUI(this.node, "btnLearn",UIButton);
+            this.btnLearn.SetClick(this, this.OnBtnClickLearn.bind(this));
+        }
 
 
         this.imageLogo = this.nodeImageLogo.getComponent(UIImage);
@@ -80,6 +88,8 @@ export default class UIHomeMerge extends UIHomeBase {
         //     console.log('moosnow 广告数据 ', res)
         // })
 
+
+       
     }
 
 
@@ -99,6 +109,18 @@ export default class UIHomeMerge extends UIHomeBase {
         //         close: (ui: any) => {
         //         },
         //     });
+
+        this.btnLearn.visible = true;  
+
+        this.btnLearn.keyText = "HomeBtnLearn";
+        this.btnMerge.keyText = "HomeBtnMerge";
+        if (AppVersion.appCheckHasFinished)
+        {
+            this.btnLearn.visible = false;
+            this.btnMerge.keyText = "BtnStartGame";
+        }
+
+
     }
 
     OnBtnClickHome() {
@@ -123,6 +145,14 @@ export default class UIHomeMerge extends UIHomeBase {
         //         },
         //     });
 
+    }
+
+    OnBtnClickLearn() { 
+        if (this.controller != null) {
+            var navi = this.controller.naviController; 
+            navi.Push(GameLearnViewController.main);
+        } else { 
+        }
     }
 
 

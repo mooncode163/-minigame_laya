@@ -20,16 +20,11 @@ export default class UIViewPop extends UIView {
     onStart() {
         super.onStart();
         this.LayOut();
-        // this.owner.active = false;
-        // this.scheduleOnce(this.ShowInitAnimate, 0.1); 
-        // Laya.timer.callLater(this, this.ShowInitAnimate);
+        // this.owner.active = false; 
 
         // ms
         Laya.timer.once(100, this, this.ShowInitAnimate);
-
-        // Laya.timer.once(100, this, function():void {
-        //     this.addBox();
-        // });
+ 
     }
 
   

@@ -1,25 +1,26 @@
- 
+
 import AppSceneBase from "../../../AppBase/Common/AppSceneBase";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import AudioPlay from "../../Audio/AudioPlay";
 import PrefabCache from "../../Cache/PrefabCache";
 import Common from "../../Common";
 import CommonRes from "../../CommonRes";
+import ConfigPrefab from "../../Config/ConfigPrefab";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
 import UIView from "../ViewController/UIView";
 import PopUpData from "./PopUpData";
 import UIViewPop from "./UIViewPop";
 
- 
-export default class PopUpManager  {
+
+export default class PopUpManager {
     // UIViewPop
     listItem: UIViewPop[] = [];
-    static ANIMATE_DURATION = 0.8; 
+    static ANIMATE_DURATION = 0.8;
     nodePannel: Laya.Sprite = null;
     objPop = null;
 
-    static _main: PopUpManager; 
+    static _main: PopUpManager;
     //静态方法
     static get main() {
         if (this._main == null) {
@@ -31,8 +32,17 @@ export default class PopUpManager  {
     }
 
 
-
-
+    /*
+   { 
+    prefab:"" 
+    open: (p:any) => {
+       
+   }, 
+   close: (p:any) => {
+       
+   }, 
+   }
+   */
     Show(obj: any) {
         this.objPop = obj;
         this.LoadBg();
@@ -50,6 +60,39 @@ export default class PopUpManager  {
             });
 
     }
+ 
+      /*
+   { 
+    key:"" 
+    open: (p:any) => {
+       
+   }, 
+   close: (p:any) => {
+       
+   }, 
+   }
+   */
+    ShowByKey(obj: any) { 
+        var strPrefab = ConfigPrefab.main.GetPrefab(obj.key);
+        this.Show(
+            {
+                prefab: strPrefab,
+                open: (ui: any) => { 
+                    if (obj.open != null) {
+                        obj.open(ui);
+                    }
+                },
+                close: (ui: any) => {
+                    if (obj.close != null) {
+                        obj.close(ui);
+                    }
+                },
+            });
+
+      
+
+    }
+
 
 
     LoadBg() {
@@ -72,7 +115,7 @@ export default class PopUpManager  {
         this.nodePannel.addComponent(UIView);
         // #343434
         // this.nodePannel.color = new Color(52, 52, 52, 50);
-        var size = Common.sizeCanvas; 
+        var size = Common.sizeCanvas;
         // this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434");
         this.nodePannel.graphics.drawRect(0, 0, size.width, size.height, "#343434E0");
         AppSceneUtil.main.rootNode.addChild(this.nodePannel);
@@ -85,7 +128,7 @@ export default class PopUpManager  {
         // var uitran = this.nodePannel.addComponent(UITransform);
         // this.nodePannel.color = new Color(52, 52, 52, 50);
         if (prefab != null) {
-            var node = UI.Instantiate(prefab);  
+            var node = UI.Instantiate(prefab);
             nodeRoot.addChild(node);
             // node.setContentSize(Common.sizeCanvas);
 
@@ -111,8 +154,8 @@ export default class PopUpManager  {
 
     OpenPopup(prefab: any) {
         Debug.Log("OpenPopup");
-        var nodeRoot = AppSceneUtil.main.rootNode; 
-        var nodePop =UI.Instantiate(prefab);  
+        var nodeRoot = AppSceneUtil.main.rootNode;
+        var nodePop = UI.Instantiate(prefab);
         nodeRoot.addChild(nodePop);
         var ui = nodePop.getComponent(UIViewPop);
         if (nodePop == null) {
@@ -127,7 +170,7 @@ export default class PopUpManager  {
         if (this.objPop.open != null) {
             this.objPop.open(ui);
         }
-       
+
         var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
         if (ret) {
             //play sound click
@@ -207,6 +250,10 @@ export default class PopUpManager  {
         //     })
         //     .onStart()
 
+        if (this.objPop.close != null) {
+            this.objPop.close(ui);
+        }
+
     }
 
 
@@ -250,4 +297,4 @@ export default class PopUpManager  {
     }
 
 }
-  
+

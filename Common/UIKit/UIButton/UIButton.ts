@@ -57,7 +57,6 @@ export default class UIButton extends UIView {
         // this.UpdateType(this._type);
     }
 
-
     //text
     get text() {
         if (this.textTitle == null) {
@@ -66,7 +65,27 @@ export default class UIButton extends UIView {
         return this.textTitle.text;
     }
     set text(value) {
+        if (this.textTitle == null) {
+            return;
+        }
         this.textTitle.text = value;
+
+        this.LayOut();
+    }
+
+
+    //keyText
+    get keyText() {
+        if (this.textTitle == null) {
+            return "keyText";
+        }
+        return this.textTitle.keyText;
+    }
+    set keyText(value) {
+        if (this.textTitle == null) {
+            return;
+        }
+        this.textTitle.keyText = value;
 
         this.LayOut();
     }
@@ -128,7 +147,7 @@ export default class UIButton extends UIView {
         var animateButton = this.node.addComponent(AnimateButton);
         animateButton.SetClick(this, this.OnClickAnimateButton.bind(this));
         animateButton.isStopTouchOther = this.isStopTouchOther;
-        
+
         // this.clickHandler = Laya.Handler.create(this, function (): void {
 
         //     Debug.Log("UIButton _clickHandler on click");

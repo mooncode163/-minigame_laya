@@ -43,8 +43,7 @@ export default class UISetting extends UIView implements IUIScrollView {
 
         this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
         this.uiScrollView.delegate = this;
-
-        this.UpdateItem();
+ 
         this.LoadPrefab();
     }
 
@@ -77,42 +76,7 @@ export default class UISetting extends UIView implements IUIScrollView {
                 },
             });
     }
-
-    UpdateItem() {
-        // SettingData.main.listItem.length = 0;
-        if(SettingData.main.listItem.length!=0)
-        {
-            return;
-        }
-        {
-            var info = new SettingInfo();
-            info.keyTitle = "STR_SETTING_LANGUAGE";//Language.main.GetString("STR_SETTING_LANGUAGE");
-            info.tag = SettingType.LANGUAGE;
-            SettingData.main.listItem.push(info);
-        }
-
-        var isHasBgMusic = true;
-        // if (Config.main.appType == AppType.SHAPECOLOR) {
-        //     isHasBgMusic = false;
-        // }
-        if (isHasBgMusic) {
-            var info = new SettingInfo();
-            info.keyTitle = "STR_SETTING_BACKGROUND_MUSIC";
-            info.tag = SettingType.BACKGROUND_MUSIC;
-            SettingData.main.listItem.push(info);
-        }
-
-        {
-            var info = new SettingInfo();
-            info.keyTitle = "STR_SETTING_BTN_SOUND";
-            info.tag = SettingType.BTN_SOUND;
-            SettingData.main.listItem.push(info);
-        }
-
-        // this.uiScrollView.listItem = this.listItem;
-
-
-    }
+ 
 
 
     LayOut() {

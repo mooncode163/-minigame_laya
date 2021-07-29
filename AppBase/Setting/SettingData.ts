@@ -13,9 +13,9 @@ export enum SettingType {
     LAST,
 }
 
-export class SettingInfo { 
-    tag:number;
-    keyTitle = ''; 
+export class SettingInfo {
+    tag: number;
+    keyTitle = '';
 }
 
 export default class SettingData {
@@ -33,10 +33,40 @@ export default class SettingData {
     static get main() {
         if (this._main == null) {
             this._main = new SettingData();
+            this._main.UpdateItem();
         }
         return this._main;
     }
+    UpdateItem() { 
+        {
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_LANGUAGE";//Language.main.GetString("STR_SETTING_LANGUAGE");
+            info.tag = SettingType.LANGUAGE;
+            this.listItem.push(info);
+        }
 
+        var isHasBgMusic = true;
+        // if (Config.main.appType == AppType.SHAPECOLOR) {
+        //     isHasBgMusic = false;
+        // }
+        if (isHasBgMusic) {
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_BACKGROUND_MUSIC";
+            info.tag = SettingType.BACKGROUND_MUSIC;
+            this.listItem.push(info);
+        }
+
+        {
+            var info = new SettingInfo();
+            info.keyTitle = "STR_SETTING_BTN_SOUND";
+            info.tag = SettingType.BTN_SOUND;
+            this.listItem.push(info);
+        }
+
+        // this.uiScrollView.listItem = this.listItem;
+
+
+    }
 }
 
 
