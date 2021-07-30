@@ -10,7 +10,9 @@ export default class AppVersionBase {
     strUpdateNote = "";
     strVersionStore = "";
     isFirstCreat = false;
-    StartParseVersion() {
+    objApp: any;
+    
+    StartParseVersion(obj: any)  {
         // isNetWorkOk = true; 
         // if (this.callbackFinished != null)
         // {

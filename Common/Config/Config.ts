@@ -105,6 +105,10 @@ export default class Config extends ConfigBase {
 
 
     }
+    GetAppIdOfStore(store) {
+        var strid = this.configApp.GetAppIdOfStore(store);
+        return strid;
+    }
 
     Init() {
 

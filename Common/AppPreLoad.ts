@@ -7,6 +7,7 @@ import ImageRes from "./Config/ImageRes";
 import Debug from "./Debug";
 import Language from "./Language/Language";
 import Config from "./Config/Config";
+import ConfigAppStoreAcount from "./Config/ConfigAppStoreAcount";
 
  
 export default class AppPreLoad  {
@@ -33,6 +34,7 @@ export default class AppPreLoad  {
         this.listItem.push(ConfigPrefab.main);
         this.listItem.push(ConfigAudio.main);
         this.listItem.push(AdConfig.main);
+        this.listItem.push(ConfigAppStoreAcount.main);
 
     }
     /*

@@ -3,6 +3,7 @@ import GameViewController from "../../../../AppBase/Game/GameViewController";
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
 import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
 import AppVersion from "../../../../Common/AppVersion/AppVersion";
+import HuaweiAppGalleryApi from "../../../../Common/AppVersion/HuaweiAppGalleryApi";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
@@ -31,7 +32,7 @@ export default class UIHomeMerge extends UIHomeBase {
     btnMerge: UIButton;
 
     btnLearn: UIButton;
- 
+
 
     onAwake() {
         super.onAwake();
@@ -43,11 +44,11 @@ export default class UIHomeMerge extends UIHomeBase {
         // var button = UIFind.Find(this.node, "Button");
         // if(button!=null)
         {
-            this.btnMerge = UIFind.FindUI(this.node, "BtnMerge",UIButton);
+            this.btnMerge = UIFind.FindUI(this.node, "BtnMerge", UIButton);
             this.btnMerge.SetClick(this, this.OnBtnClickPlay.bind(this));
         }
         {
-            this.btnLearn = UIFind.FindUI(this.node, "btnLearn",UIButton);
+            this.btnLearn = UIFind.FindUI(this.node, "btnLearn", UIButton);
             this.btnLearn.SetClick(this, this.OnBtnClickLearn.bind(this));
         }
 
@@ -88,8 +89,19 @@ export default class UIHomeMerge extends UIHomeBase {
         //     console.log('moosnow 广告数据 ', res)
         // })
 
+        HuaweiAppGalleryApi.main.StartParseVersion(
+            {
+                appid: "104557503",
+                success: (p: any, version: string) => {
+                    Debug.Log("appversion = "+version);
 
-       
+                },
+                fail: (p: any) => {
+
+                },
+            }
+        );
+
     }
 
 
@@ -110,12 +122,11 @@ export default class UIHomeMerge extends UIHomeBase {
         //         },
         //     });
 
-        this.btnLearn.visible = true;  
+        this.btnLearn.visible = true;
 
         this.btnLearn.keyText = "HomeBtnLearn";
         this.btnMerge.keyText = "HomeBtnMerge";
-        if (AppVersion.appCheckHasFinished)
-        {
+        if (AppVersion.appCheckHasFinished) {
             this.btnLearn.visible = false;
             this.btnMerge.keyText = "BtnStartGame";
         }
@@ -147,11 +158,11 @@ export default class UIHomeMerge extends UIHomeBase {
 
     }
 
-    OnBtnClickLearn() { 
+    OnBtnClickLearn() {
         if (this.controller != null) {
-            var navi = this.controller.naviController; 
+            var navi = this.controller.naviController;
             navi.Push(GameLearnViewController.main);
-        } else { 
+        } else {
         }
     }
 
