@@ -173,29 +173,30 @@ export default class UIButton extends UIView {
         }
         if (this.imageIcon == null) {
             return;
-        }
-        this.imageBg.SetActive(true);
-        Debug.Log("UIButton UpdateType ty=" + ty);
-        // this.textTitle.SetActive(false);
+        } 
+        this.imageBg.visible = true; 
+        Debug.Log("UIButton UpdateType ty=" + ty); 
         switch (ty) {
             case ButtonType.IMAGE:
             case ButtonType.IMAGE_SWITCH:
-                {
-                    this.imageIcon.SetActive(false);
-                    this.textTitle.SetActive(false);
+                { 
+
+                    this.imageIcon.visible = false; 
+                    this.textTitle.visible = false; 
+
                 }
                 break;
             case ButtonType.IMAGE_TEXT:
-                {
-                    this.imageIcon.SetActive(false);
-                    this.textTitle.SetActive(true);
+                { 
+                    this.imageIcon.visible = false; 
+                    this.textTitle.visible = true; 
                 }
                 break;
             case ButtonType.IMAGE_ICON:
             case ButtonType.IMAGE_ICON_SWITCH:
-                {
-                    this.imageIcon.SetActive(true);
-                    this.textTitle.SetActive(false);
+                { 
+                    this.imageIcon.visible = true; 
+                    this.textTitle.visible = false; 
                 }
                 break;
 

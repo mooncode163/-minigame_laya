@@ -13,6 +13,7 @@ strict设置false状态
 
     */
 
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import Debug from "../../Debug";
 // import UIButton from "../UIButton/UIButton";
 // import UIImage from "../UIImage/UIImage";
@@ -196,6 +197,7 @@ export default class UI {
         var z = 0;
         if (sp != null) {
             sp.visible = active;
+            AppSceneUtil.isNeedLayout = true;
         }
     }
 

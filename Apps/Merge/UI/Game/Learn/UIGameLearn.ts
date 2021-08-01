@@ -61,10 +61,13 @@ export default class UIGameLearn extends UIView {
         }
 
         
-        this.UpdateItem();
+       
     }
     onStart() {
         super.onStart();
+
+        this.UpdateItem();
+        
         this.LayOut();
     }
 

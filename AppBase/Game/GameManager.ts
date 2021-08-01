@@ -1,10 +1,13 @@
 // import GameViewController from "./GameViewController";
+import LocalStorage from "../../Common/Core/LocalStorage";
 import LevelData from "./LevelData";
 
- 
-export default class GameManager  {
+
+export default class GameManager {
+    public static KEY_DISABLE_UIPRIVACY: string = "KEY_DISABLE_UIPRIVACY";
+
     static gameMode = 0;
-    uiPrefab:Laya.Prefab=null; 
+    uiPrefab: Laya.Prefab = null;
 
     static _main: GameManager;
     //静态方法
@@ -16,25 +19,27 @@ export default class GameManager  {
         return this._main;
     }
 
-    Init () {
+    Init() {
         //this.ParseGuanka();
     }
-    LoadPrefab () {
+    LoadPrefab() {
 
     }
- 
+
 
     //UIViewController
-    GotoGame (fromController) {
+    GotoGame(fromController) {
         var navi = fromController.naviController;
         if (navi != null) {
             // navi.Push(GameViewController.main);
         }
-    }  
- 
-    GotoPlayAgain () {
+    }
+
+    GotoPlayAgain() {
         // GameViewController.main.gameBase.UpdateLevel(LevelData.main.gameLevel);
     }
+   
+
 
 }
 

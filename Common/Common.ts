@@ -14,6 +14,9 @@ export default class Common {
     public static TOUCH_MOVE_STEP_MIN = 3.0;//6.0f
 
     public static sizeCanvas: Laya.Size;
+    static isAndroid: any;
+    static isiOS: any;
+    static isWinUWP: any;
  
     
     static get noad() {
@@ -169,8 +172,11 @@ export default class Common {
         return v_int;
     }
 
-    static GetAppVersion() {
-        return "1.0.0";
+    
+
+    static GetAppPackage() {
+        return "com.moonma.app";
     }
+    
 }
  

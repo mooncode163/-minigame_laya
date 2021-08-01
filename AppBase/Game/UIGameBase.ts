@@ -151,7 +151,7 @@ export default class UIGameBase extends UIView {
     }
 
     ShowUserGuide() {
-        var key = CommonRes.KEY_USER_GUIDE + Common.GetAppVersion();
+        var key = CommonRes.KEY_USER_GUIDE + Config.main.version;
         var isshowplay = Common.GetBoolOfKey(key, false);
         if (isshowplay == true) {
             return;

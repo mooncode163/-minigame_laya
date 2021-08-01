@@ -2,6 +2,7 @@ import Common from "../Common";
 import Debug from "../Debug";
 import Device from "../Device";
 import JsonUtil from "../File/JsonUtil";
+import Language from "../Language/Language";
 import Platform from "../Platform";
 import ResManager from "../Res/ResManager";
 import Source from "../Source";
@@ -43,7 +44,15 @@ export default class Config extends ConfigBase {
     get version() {
         return this.configCommon.GetString("version", "");
     }
+    get PrivacyPolicy() {
+        if (Language.main.IsChinese()) { 
+            return this.configCommon.GetString("PrivacyPolicy", "PrivacyPolicy_chyfemail163@163.com.txt");
+        }
+        else {
+            return this.configCommon.GetString("PrivacyPolicy", "PrivacyPolicy_chyfemail163@163.com_en.txt");
 
+        }
+    }
 
     get appId() {
         Debug.Log("GetAppIdOfStore get=");

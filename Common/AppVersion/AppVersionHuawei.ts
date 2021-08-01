@@ -35,20 +35,20 @@ export default class AppVersionHuawei extends AppVersionBase {
         // StartParseVersionOld();
         // return; 
         var strappid = Config.main.GetAppIdOfStore(Source.HUAWEI);
-
+        // strappid = "104557503";
         var url = "https://appgallery1.huawei.com/#/app/C" + strappid;
-        Debug.Log("version huawei url=" + url);
+       
         this.strUrlAppstore = url;
-
-        Debug.Log("version huawei url2=" + url);
+ 
         // HttpRequest http = new HttpRequest(OnHttpRequestFinished);
         // http.Get(url);
 
 
-        if (Common.GetAppVersion() == "1.0.0") {
+        if (Config.main.version == "1.0.0") {
             this.isFirstCreat = true;
         }
 
+        Debug.Log("version huawei url=" + url+" this.isFirstCreat="+this.isFirstCreat+" version="+Config.main.version);
 
 
         HuaweiAppGalleryApi.main.StartParseVersion(

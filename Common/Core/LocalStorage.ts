@@ -9,7 +9,7 @@ export default class LocalStorage {
 
   }
 
-  static GetBool(key: string, default_value: boolean) {
+  static GetBool(key: string, default_value: boolean = false) {
     var v = Laya.LocalStorage.getItem(key);
     if (Common.BlankString(v)) {
       //Debug.Log("key is null:" + key);

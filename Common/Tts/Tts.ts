@@ -5,10 +5,10 @@ import HttpRequest from "../Http/HttpRequest";
 import Platform from "../Platform";
 import TtsWeiXin from "../Platform/weixin/Tts/TtsWeiXin";
 
- 
-export default class Tts  {
-    accessToken="";
-    textSpeak=""; 
+
+export default class Tts {
+    accessToken = "";
+    textSpeak = "";
 
     static _main: Tts;
     //静态方法
@@ -19,7 +19,7 @@ export default class Tts  {
         return this._main;
     }
 
-    GetTextUrl (str:string) {
+    GetTextUrl(str: string) {
         //百度语音官方文档 http://yuyin.baidu.com/docs/tts/133
         //https://www.cnblogs.com/kasher/p/8483274.html
         //MP3:https://blog.csdn.net/zhang_ruiqiang/article/details/50774570
@@ -44,7 +44,7 @@ export default class Tts  {
 
 
 
-    AnsiToStr (array) {
+    AnsiToStr(array) {
         var out, i, len, c;
         var char2, char3;
 
@@ -61,13 +61,13 @@ export default class Tts  {
 
 
     //认证权限access_token 
-    GetBaiDuAccessToken () {
+    GetBaiDuAccessToken() {
 
         //app: 儿童游戏
         var url = "https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=5kkNuRq7npqTCEUMojvyoyX3&client_secret=rod6yBGG7HobkYVKUci2Z1GQ0zGkzwnZ";
         // var url = "https://7368-shapecolor-4f2a07-1258767259.tcb.qcloud.la/ConfigData/config/config_android.json";//?sign=091a9466897a9f8ad7ab08ce048ada7f&t=1551928854
         //var url = "https://7368-shapecolor-4f2a07-1258767259.tcb.qcloud.la/ConfigData/language/language.csv?sign=bba03f0107d858fb133c429d0db8f713&t=1551933465";
- 
+
 
         var httpReq = new HttpRequest();
         httpReq.Get2(url, function (err, data) {
@@ -106,7 +106,7 @@ export default class Tts  {
         }.bind(this));
     }
 
-    ParseData (json) {
+    ParseData(json) {
         if (json == null) {
             Debug.Log("ParseData=null");
             return;
@@ -118,11 +118,10 @@ export default class Tts  {
 
 
     }
-    Speak (str) {
+    Speak(str) {
         this.textSpeak = str;
 
-        if (Platform.isWin|| Platform.isWeiXin) 
-        {
+        if (Platform.isWin || Platform.isWeiXin) {
             this.accessToken = "24.b79c9ea129a4009fc20b0b542d1aa8e4.2592000.1554471263.282335-15699370";
         }
 
@@ -134,7 +133,7 @@ export default class Tts  {
         }
 
     }
-    SpeakInternal (str) {
+    SpeakInternal(str) {
         var url = this.GetTextUrl(str);
 
         if (Platform.isWeiXin) {
@@ -143,8 +142,8 @@ export default class Tts  {
         } else if (Platform.isWin) {
             this.SpeakWeb(url);
         }
-
-        else { 
+        else {
+            this.SpeakWeb(url);
             // if (cc.sys.isNative) {
             //     cc.AudioPlay.main().PlayUrlByDownload(url);
             // }
@@ -153,7 +152,7 @@ export default class Tts  {
     }
 
 
-    SpeakWeb (url) {
+    SpeakWeb(url) {
         //添加mp3后缀 让cc.loader.load认为加载声音资源
         var ext = "&1.mp3";
         var url_new = url + ext;

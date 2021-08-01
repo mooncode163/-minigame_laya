@@ -147,10 +147,11 @@ export default class UIPopProp extends UIViewPop {
 
     UpdateType(ty: PropType) { 
         this.type = ty; 
-        UI.SetActive(this.objItemList,false);
-        this.textGuideSelect.SetActive(false);
-        this.textGuide1.SetActive(true);
-        this.imageSelect.SetActive(false);
+        UI.SetActive(this.objItemList,false);   
+
+        this.textGuideSelect.visible = false; 
+        this.textGuide1.visible = true; 
+        this.imageSelect.visible = false; 
 
         var keyImageIcon = "";
         switch (this.type) {
@@ -167,9 +168,10 @@ export default class UIPopProp extends UIViewPop {
                     keyImageIcon = "Magic";
                     // this.objItemList.active = true;
                     UI.SetActive(this.objItemList,true);
-                    this.textGuideSelect.SetActive(true);
-                    this.textGuide1.SetActive(false);
-                    this.imageSelect.SetActive(true);
+
+                    this.textGuideSelect.visible = true; 
+                    this.textGuide1.visible = false; 
+                    this.imageSelect.visible = true;  
 
                     this.textTitle.text = Language.main.GetString("Prop") + ":" + Language.main.GetString("Prop_Magic");
 

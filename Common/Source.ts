@@ -20,6 +20,8 @@ export default class Source  {
     public static XIAOMI: string = "xiaomi";
     public static TAPTAP: string = "taptap";
     public static HUAWEI: string = "huawei";
+    public static OPPO: string = "oppo";
+    public static VIVO: string = "vivo";
     public static GP: string = "gp";//google play
     public static FACEBOOK: string = "fb";
     //ad
@@ -30,7 +32,7 @@ export default class Source  {
     public static WAPS: string = "waps";
     public static ADVIEW: string = "adview";
     public static MICROSOFT: string = "microsoft";
-    public static MOBVISTA: string = "mobvista";
+    public static MOBVISTA: string = "mobvista"; 
 
 }
 

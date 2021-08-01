@@ -6,6 +6,7 @@ import Debug from "../../../../../Common/Debug";
 import UIViewPop from "../../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../../Common/UIKit/UIImage/UIImage";
+import IUIScrollView from "../../../../../Common/UIKit/UIScrollView/IUIScrollView";
 import UIScrollView from "../../../../../Common/UIKit/UIScrollView/UIScrollView";
 import TableView from "../../../../../Common/UIKit/UITableView/TableView";
 import UICellItemBase from "../../../../../Common/UIKit/UITableView/UICellItemBase";
@@ -16,7 +17,7 @@ import UIFind from "../../../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../../../Common/UIKit/ViewController/UIView";
 import GameLearnData from "./GameLearnData";
 import UIGameItemListCell from "./UIGameItemListCell";
-export default class UIGameItemList extends UIViewPop {
+export default class UIGameItemList extends UIViewPop implements IUIScrollView {
 
 
     btnClose: UIButton;
@@ -45,6 +46,8 @@ export default class UIGameItemList extends UIViewPop {
         this.textTitle = UIFind.FindUI(this.node, "textTitle", UIText);
         this.uiTableView = UIFind.FindUI(this.node, "UITableView", UITableView);
         // this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
+
+
         {
             this.btnClose = UIFind.FindUI(this.node, "btnClose", UIButton);
             this.btnClose.SetClick(this, this.OnClickBtnBack.bind(this));
@@ -54,7 +57,7 @@ export default class UIGameItemList extends UIViewPop {
     }
     onStart() {
         super.onStart();
-
+        this.uiTableView.uiScrollView.delegate = this;
         this.LoadPrefab();
     }
 
@@ -72,17 +75,26 @@ export default class UIGameItemList extends UIViewPop {
                         ui.index = i;
                         this.uiTableView.uiScrollView.Add(ui);
                     }
- 
+
                 },
                 fail: () => {
 
                 },
             });
-    } 
+    }
     LayOut() {
         super.LayOut();
     }
+    OnScrollViewDidClickItem(uiScroll: any, uiItem: any) {
+        Debug.Log("UIGameItemList OnScrollViewDidClickItem name=" + uiItem.owner.name + " index=" + uiItem.index);
 
+        var uiCell = uiItem as UIGameItemListCell;
+        if (uiCell != null) {
+            // uiCell.OnClickItem();
+        }
+        this.GotoGame(uiItem.index);
+        this.Close();
+    }
 
     OnClickBtnBack() {
         this.Close();
@@ -91,10 +103,10 @@ export default class UIGameItemList extends UIViewPop {
         GameLearnData.main.indexItem = idx;
         // this.Close();
     }
-    OnCellItemDidClick(item) {
+    // OnCellItemDidClick(item) {
 
-        this.GotoGame(item.index);
-    }
+    //     this.GotoGame(item.index);
+    // }
     UpdateTable(isLoad) {
         // Vector2 sizeCanvas = AppSceneBase.main.sizeCanvas;
 

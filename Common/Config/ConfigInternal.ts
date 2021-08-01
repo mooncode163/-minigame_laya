@@ -9,10 +9,10 @@ export default class ConfigInternal extends ConfigInternalBase {
         Debug.Log("GetAppIdOfStore store=" + store);
         var appid = this.rootJson.APPID;
         var strid = "0";
-        if (appid.store != null) {
-            strid = appid.store;
+        if (appid[store] != null) {
+            strid = appid[store];
         }
-        Debug.Log("GetAppIdOfStore appid= " + strid + "store=" + store);
+        Debug.Log("GetAppIdOfStore appid= " + strid + " store=" + store);
         return strid;
     }
 

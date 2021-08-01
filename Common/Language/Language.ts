@@ -1,6 +1,7 @@
 import Common from "../Common";
 import ConfigBase from "../Config/ConfigBase";
 import LanguageInternal from "./LanguageInternal";
+import { SysLanguage } from "./LanguageUtil";
 
 
 
@@ -145,6 +146,17 @@ export default class Language extends ConfigBase {
             }
         }
         return ret;
+    }
+
+
+     IsChinese()
+    {
+        var lan = this.GetLanguage();
+        if (lan == SysLanguage.CN)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

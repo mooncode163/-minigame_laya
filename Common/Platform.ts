@@ -27,7 +27,11 @@ export default class Platform  {
     public static get isByte(): boolean {
         return Laya.Browser.onTTMiniGame ;
     }
+    public static get isHuawei(): boolean {
+        return Laya.Browser.onHWMiniGame ;
+    }
 
+    
     public static get isCloudRes(): boolean {
         // return false;
         if(this.isWeiXin||this.isByte||this.isQQ)

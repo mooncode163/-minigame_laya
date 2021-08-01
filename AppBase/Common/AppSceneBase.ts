@@ -110,9 +110,7 @@ export default class AppSceneBase extends Laya.Script {
         Debug.Log("AppSceneBase RunApp");
  
         var p = InitViewController.main; 
-        this.SetRootViewController(p);
-
-
+        this.SetRootViewController(p); 
     }
     InitValue() {
         Debug.Log("AppSceneBase InitValue");

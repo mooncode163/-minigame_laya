@@ -89,26 +89,27 @@ export default class UIHomeMerge extends UIHomeBase {
         //     console.log('moosnow 广告数据 ', res)
         // })
 
-        HuaweiAppGalleryApi.main.StartParseVersion(
-            {
-                appid: "104557503",
-                success: (p: any, version: string) => {
-                    Debug.Log("appversion = "+version);
+        // HuaweiAppGalleryApi.main.StartParseVersion(
+        //     {
+        //         appid: "104557503",
+        //         success: (p: any, version: string) => {
+        //             Debug.Log("appversion = "+version);
 
-                },
-                fail: (p: any) => {
+        //         },
+        //         fail: (p: any) => {
 
-                },
-            }
-        );
+        //         },
+        //     }
+        // );
+
+
 
     }
 
 
 
     onStart() {
-        super.onStart();
-        this.LayOut();
+        super.onStart(); 
 
         // var key = "UIPopProp";
         // var strPrefab = ConfigPrefab.main.GetPrefab(key);
@@ -121,18 +122,26 @@ export default class UIHomeMerge extends UIHomeBase {
         //         close: (ui: any) => {
         //         },
         //     });
-
-        this.btnLearn.visible = true;
+ 
 
         this.btnLearn.keyText = "HomeBtnLearn";
         this.btnMerge.keyText = "HomeBtnMerge";
-        if (AppVersion.appCheckHasFinished) {
+
+        this.btnLearn.visible = true;
+        if (AppVersion.main.appCheckHasFinished) {
             this.btnLearn.visible = false;
+
+            this.btnMerge.visible = true;
             this.btnMerge.keyText = "BtnStartGame";
         }
 
 
+        this.LayOut();
     }
+
+    // onUpdate() {
+    //     this.LayOut(); 
+    // }
 
     OnBtnClickHome() {
         Debug.Log("OnBtnClickHome");

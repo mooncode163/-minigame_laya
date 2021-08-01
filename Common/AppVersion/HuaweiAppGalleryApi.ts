@@ -168,7 +168,7 @@ JSON.parse()：方法是将一个JSON字符串转换为对象。
 
                 }
 
-                if ((Common.GetAppVersion() == versionApi) && (releaseState != 0)) {
+                if ((Config.main.version== versionApi) && (releaseState != 0)) {
                     //提交版本 审核中等或者审核不通过等
                     // releaseState = 0;
                     versionApi = "0.0.0";

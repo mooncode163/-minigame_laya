@@ -13,7 +13,7 @@ import LayOutElement from "./LayOutElement";
 
 // Laya 编辑器会截取"_" 字符所以不带"_"
 export enum Align {
-    None ="None",
+    None = "None",
     UP = "UP",//0
     DOWN = "DOWN",//1
     LEFT = "LEFT",//2
@@ -28,7 +28,7 @@ export enum Align {
     Horizontal = "Horizontal",
     Vertical = "Vertical",
     SAMEPOSTION = "SAMEPOSTION",
- 
+
 }
 
 export enum RelationType {
@@ -125,11 +125,11 @@ export default class LayOutUtil {
             noderight = node1;
         }
         var pivotXLeft = UI.GetPivotX(nodeleft);
-        var pivotXRight = UI.GetPivotX(noderight);  
+        var pivotXRight = UI.GetPivotX(noderight);
         // var rctran = nodeleft.getComponent(UITransform).contentSize;
-        var v1 = nodeleft.x + (nodeleft.width-pivotXLeft);
+        var v1 = nodeleft.x + (nodeleft.width - pivotXLeft);
         // rctran = noderight.getComponent(UITransform).contentSize;
-        var v2 = noderight.x-pivotXRight;
+        var v2 = noderight.x - pivotXRight;
         return (v1 + v2) / 2;
 
     }
@@ -143,10 +143,10 @@ export default class LayOutUtil {
             nodeDown = node2;
             nodeUp = node1;
         }
-        var pivotXDown= UI.GetPivotY(nodeDown);
-        var pivotXUp = UI.GetPivotY(nodeUp);  
-        var v1 = nodeDown.y-pivotXDown;
-        var v2 = nodeUp.y + nodeUp.height-pivotXUp;
+        var pivotXDown = UI.GetPivotY(nodeDown);
+        var pivotXUp = UI.GetPivotY(nodeUp);
+        var v1 = nodeDown.y - pivotXDown;
+        var v2 = nodeUp.y + nodeUp.height - pivotXUp;
         return (v1 + v2) / 2;
 
     }
@@ -156,8 +156,8 @@ export default class LayOutUtil {
         var v1 = 0, v2 = 0;
 
         var sizeCanvas = Common.sizeCanvas;
-        var pivotX= UI.GetPivotX(node);
-        var pivotY= UI.GetPivotY(node);
+        var pivotX = UI.GetPivotX(node);
+        var pivotY = UI.GetPivotY(node);
         // var rctran = node.getComponent(UITransform).contentSize;
         // var rctran = node.getComponent(cc.RectTransform);
         switch (align) {
@@ -165,21 +165,21 @@ export default class LayOutUtil {
                 {
                     //左边界
                     v1 = 0;// -sizeCanvas.width / 2;
-                    v2 = node.x-pivotX;// - node.width / 2;
+                    v2 = node.x - pivotX;// - node.width / 2;
                 }
                 break;
             case Align.RIGHT:
                 {
                     //右边界
                     v1 = sizeCanvas.width;
-                    v2 = node.x + node.width-pivotX;
+                    v2 = node.x + node.width - pivotX;
                 }
                 break;
             case Align.UP:
                 {
                     //上边界
                     v1 = 0;//sizeCanvas.height / 2;
-                    v2 = node.y-pivotY;//+ node.height / 2;
+                    v2 = node.y - pivotY;//+ node.height / 2;
                 }
                 break;
             case Align.DOWN:
@@ -190,7 +190,7 @@ export default class LayOutUtil {
                         // AdKitCommon.main.heightCanvasAdBanner = 256;
                         v1 -= AdKitCommon.main.heightCanvasAdBanner;
                     }
-                    v2 = node.y + node.height-pivotY;
+                    v2 = node.y + node.height - pivotY;
                 }
                 break;
         }
@@ -228,24 +228,24 @@ export default class LayOutUtil {
                 objUp = node1;
             }
         }
-        var pivotXDown= UI.GetPivotX(objDown);
-        var pivotYDown= UI.GetPivotY(objDown);
-        var pivotXUp= UI.GetPivotX(objUp);
-        var pivotYUp= UI.GetPivotY(objUp);
+        var pivotXDown = UI.GetPivotX(objDown);
+        var pivotYDown = UI.GetPivotY(objDown);
+        var pivotXUp = UI.GetPivotX(objUp);
+        var pivotYUp = UI.GetPivotY(objUp);
         // var pos = objDown.getPosition();
         var size = UI.GetNodeBoundingBox(objDown); //objDown.getBoundingBox();
-        var y1 = objDown.y-pivotYDown;// + size.height / 2;
+        var y1 = objDown.y - pivotYDown;// + size.height / 2;
 
         // 左
-        var x1 = objDown.x+size.width-pivotXDown;
+        var x1 = objDown.x + size.width - pivotXDown;
 
         // objUp
         // pos = objUp.getPosition();
         size = UI.GetNodeBoundingBox(objUp);
-        var y2 = objUp.y + size.height-pivotYUp;
+        var y2 = objUp.y + size.height - pivotYUp;
 
         // 右
-        var x2 = objUp.x-pivotXUp;
+        var x2 = objUp.x - pivotXUp;
 
         var ret = 0;
         if (isHeight) {
@@ -264,8 +264,8 @@ export default class LayOutUtil {
     //边界和对象之间的宽度或者高度 type SizeType
     GetBetweenSideAndTargetSize(node: Laya.Sprite, type) {
         var v1 = 0, v2 = 0;
-        var pivotX= UI.GetPivotX(node);
-        var pivotY= UI.GetPivotY(node);
+        var pivotX = UI.GetPivotX(node);
+        var pivotY = UI.GetPivotY(node);
         var size = UI.GetNodeBoundingBox(node);// node.getBoundingBox();
         // var pos = node.getPosition();
         // var sizeParent = node.parent.getBoundingBox();
@@ -278,21 +278,21 @@ export default class LayOutUtil {
                 {
                     //左边界
                     v1 = 0;// -w_parent / 2;
-                    v2 = node.x-pivotX;//- size.width / 2;
+                    v2 = node.x - pivotX;//- size.width / 2;
                 }
                 break;
             case SideType.RIGHT:
                 {
                     //右边界
                     v1 = w_parent;
-                    v2 = node.x + size.width-pivotX;
+                    v2 = node.x + size.width - pivotX;
                 }
                 break;
             case SideType.UP:
                 {
                     //上边界
                     v1 = 0;
-                    v2 = node.y-pivotY;
+                    v2 = node.y - pivotY;
                     Debug.Log("GetBetweenSideAndTargetSize h_parent=" + h_parent + " pos.y=" + node.y + " size.height=" + size.height)
                 }
                 break;
@@ -300,7 +300,7 @@ export default class LayOutUtil {
                 {
                     //下边界
                     v1 = h_parent;
-                    v2 = node.y + size.height-pivotY;
+                    v2 = node.y + size.height - pivotY;
                 }
                 break;
         }
@@ -328,11 +328,18 @@ export default class LayOutUtil {
             //     }
 
             if (!includeHide) {
-                if (!child.active) {
-                    //过虑隐藏的
-                    continue;
+                var sp = child as Laya.Sprite;
+                if (sp != null) {
+                    if (!sp.visible) {
+                        //过虑隐藏的
+                        continue;
+                    }
                 }
+
+
             }
+
+
 
             var le = child.getComponent(LayOutElement);
             if (le != null && le.ignoreLayout) {

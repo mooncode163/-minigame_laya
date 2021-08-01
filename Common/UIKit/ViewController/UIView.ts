@@ -23,6 +23,7 @@ import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
 import UI from "./UI"; 
 import UIFind from "./UIFind";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
@@ -101,6 +102,7 @@ export default class UIView extends Laya.Script {
         var z = 0;
         if (sp != null) {
              sp.visible = value;
+             AppSceneUtil.isNeedLayout = true;
         } 
     }
     public get zOrder(): number {
@@ -298,14 +300,7 @@ export default class UIView extends Laya.Script {
         return this.owner.parent.getComponent(UIView);
     }
 
-    // 是否隐藏
-    SetActive(active: boolean) {
-        var sp = this.owner as Laya.Sprite; 
-        var z = 0;
-        if (sp != null) {
-            sp.visible = active;
-        }
-    }
+   
 
     OnUIDidFinish() {
 

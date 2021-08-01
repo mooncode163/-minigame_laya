@@ -112,15 +112,15 @@ export default class UISettingCellItem extends UIView {
         var str = Language.main.GetString(info.keyTitle);
         Debug.Log("UISettingCellItem str="+str+" info.keyTitle="+info.keyTitle);
         this.textTitle.text=str;
-        this.btnSwitch.SetActive(false); 
-        if (info.tag == SettingType.BACKGROUND_MUSIC) { 
-            this.btnSwitch.SetActive(true); 
+        this.btnSwitch.visible = false; 
+        if (info.tag == SettingType.BACKGROUND_MUSIC) {  
+            this.btnSwitch.visible = true; 
             var ret = Common.GetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC, false);
             this.UpdateBtnSwitch(ret);
         }
 
         if (info.tag == SettingType.BTN_SOUND) {
-            this.btnSwitch.SetActive(true);
+            this.btnSwitch.visible = true; 
             var ret = Common.GetBoolOfKey(CommonRes.KEY_BTN_SOUND, false);
             this.UpdateBtnSwitch(ret);
         }

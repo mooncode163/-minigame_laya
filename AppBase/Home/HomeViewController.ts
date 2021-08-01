@@ -10,6 +10,10 @@ import Config from "../../Common/Config/Config";
 import ResManager from "../../Common/Res/ResManager";
 import AppSceneUtil from "../Common/AppSceneUtil";
 import UI from "../../Common/UIKit/ViewController/UI";
+import GameManager from "../Game/GameManager";
+import LocalStorage from "../../Common/Core/LocalStorage";
+import PopUpManager from "../../Common/UIKit/PopUp/PopUpManager";
+import Platform from "../../Common/Platform";
 
 
 
@@ -90,6 +94,15 @@ export default class HomeViewController extends UIViewController {
         this.ui.SetController(this);
 
         // CloudResViewController.main().Show(null, null);
+
+        if (this.runCount == 0) {
+            this.ShowPrivacy();
+        }
+
+        this.runCount++;
+    }
+
+    ShowAd() {
         if (this.runCount == 0) {
             //至少在home界面显示一次视频广告
             // AdKitCommon.main.callbackAdVideoFinish = OnAdKitAdVideoFinish;
@@ -104,7 +117,33 @@ export default class HomeViewController extends UIViewController {
             AdKitCommon.main.ShowAdInsert(100);
 
         }
-        this.runCount++;
+    }
+
+    ShowPrivacy() {
+        // if (GameManager.main.isLoadGameScreenShot)
+        // {
+        //     return;
+        // }
+
+        if (!Platform.isHuawei) {
+            this.ShowAd();
+            return;
+        }
+
+        if (LocalStorage.GetBool(GameManager.KEY_DISABLE_UIPRIVACY)) {
+            this.ShowAd();
+            return;
+        }
+
+        PopUpManager.main.ShowByKey(
+            {
+                key: "UIPrivacy",
+                open: (ui: any) => {
+                },
+                close: (ui: any) => {
+                    this.ShowAd();
+                },
+            });
     }
 
 }

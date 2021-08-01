@@ -1,12 +1,13 @@
 import MainViewController from "../../Apps/Main/MainViewController";
 import AppPreLoad from "../../Common/AppPreLoad";
+import AppVersion from "../../Common/AppVersion/AppVersion";
 import MusicBgPlay from "../../Common/Audio/MusicBgPlay";
 import CloudResVersion from "../../Common/CloundRes/CloudResVersion";
 import CloudResViewController from "../../Common/CloundRes/CloudResViewController";
 import Common from "../../Common/Common";
 import CommonRes from "../../Common/CommonRes";
 import Debug from "../../Common/Debug";
-import Language from "../../Common/Language/Language"; 
+import Language from "../../Common/Language/Language";
 import { SysLanguage } from "../../Common/Language/LanguageUtil";
 import Platform from "../../Common/Platform";
 import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
@@ -14,8 +15,8 @@ import LevelManager from "../Game/LevelManager";
 import AppSceneBase from "./AppSceneBase";
 import AppSceneUtil from "./AppSceneUtil";
 
- 
- 
+
+
 export default class InitViewController extends NaviViewController {
     static _main: InitViewController;
     //静态方法
@@ -27,12 +28,12 @@ export default class InitViewController extends NaviViewController {
         return this._main;
     }
     ViewDidLoad() {
-        super.ViewDidLoad(); 
-        this.InitLoad(); 
+        super.ViewDidLoad();
+        this.InitLoad();
     }
 
 
-    InitLoad() {  
+    InitLoad() {
         var isShowClound = false;
         if (Platform.isCloudRes) {
             Debug.Log("InitViewController 1");
@@ -65,29 +66,44 @@ export default class InitViewController extends NaviViewController {
         if (isShowClound) {
             this.GotoCloundRes();
         } else {
-            this.RunGame();
+            this.OnAppPreLoad();
         }
- 
+
 
     }
 
-    RunGame() { 
+    OnAppPreLoad() {
         AppPreLoad.main.Load(
             {
                 success: (p: any) => {
                     this.OnAppPreLoadFinish();
                 },
-                fail: (p: any) => { 
+                fail: (p: any) => {
                     this.OnAppPreLoadFinish();
                 },
             });
     }
 
-    OnAppPreLoadFinish()
-    {
-        var isFirstRun = !Common.GetBoolOfKey(CommonRes.STR_KEY_NOT_FIRST_RUN,false); 
-        if (isFirstRun)
-        {
+    OnAppPreLoadFinish() {
+        AppVersion.main.StartParseVersion(
+            { 
+                success: (p: any) => {
+                   
+                },
+                fail: (p: any) => {
+
+                },
+                finish: (p: any) => {
+                    this.OnStartApp();
+                },
+                
+            }
+        );
+        this.OnStartApp();
+    }
+    OnStartApp() {
+        var isFirstRun = !Common.GetBoolOfKey(CommonRes.STR_KEY_NOT_FIRST_RUN, false);
+        if (isFirstRun) {
             // Common.gold = AppRes.GOLD_INIT_VALUE;
             //第一次安装
             Common.SetBoolOfKey(CommonRes.STR_KEY_NOT_FIRST_RUN, true);
@@ -96,12 +112,11 @@ export default class InitViewController extends NaviViewController {
             Common.SetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC, true);
 
             //languageCode
-            var lan = SysLanguage.CN; 
-            Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, lan);  
+            var lan = SysLanguage.CN;
+            Common.SetItemOfKey(CommonRes.KEY_LANGUAGE, lan);
             // Language.main.SetLanguage(lan);
         }
-        else
-        {
+        else {
 
             // var lan = Common.GetItemOfKey(CommonRes.KEY_LANGUAGE,SysLanguage.CN); 
             // Language.main.SetLanguage(lan);
@@ -111,7 +126,7 @@ export default class InitViewController extends NaviViewController {
         this.StartParsePlace();
     }
 
-    StartParsePlace() { 
+    StartParsePlace() {
         Debug.Log("HomeViewController StartParsePlace");
         LevelManager.main.StartParsePlace(
             {
@@ -137,16 +152,16 @@ export default class InitViewController extends NaviViewController {
             });
     }
 
-    
 
-    GotoCloundRes() {  
+
+    GotoCloundRes() {
         CloudResViewController.main.Show(
             {
-                controller:this, 
-                close: (p: any) => { 
+                controller: this,
+                close: (p: any) => {
                     Debug.Log("CloudResViewController GotoCloundRes close");
-                    this.RunGame();
-                }, 
+                    this.OnAppPreLoad();
+                },
             });
     }
 
@@ -161,7 +176,7 @@ export default class InitViewController extends NaviViewController {
         //         },
         //     });
 
-           
+
     }
 
     OnConfigAudioFinish() {
@@ -181,7 +196,7 @@ export default class InitViewController extends NaviViewController {
         //             this.OnImageResFinish();
         //         },
         //     });
-      
+
     }
 
     GotoGame() {
@@ -191,10 +206,9 @@ export default class InitViewController extends NaviViewController {
         AppSceneUtil.main.SetRootViewController(p);
 
 
-        var ret = Common.GetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC,false);
+        var ret = Common.GetBoolOfKey(CommonRes.KEY_BACKGROUND_MUSIC, false);
         Debug.Log("MusicBgPlay Start");
-        if (ret)
-        {
+        if (ret) {
             MusicBgPlay.main.PlayBgMusic();
         }
 
