@@ -1,3 +1,4 @@
+import Debug from "../../Debug";
 import HorizontalOrVerticalLayoutBase from "./HorizontalOrVerticalLayoutBase";
 import LayOutUtil from "./LayOutUtil";
 
@@ -46,6 +47,8 @@ export default class LayOutVertical extends HorizontalOrVerticalLayoutBase {
             return;
         }
         this.row = LayOutUtil.main.GetChildCount(this.owner, this.enableHide);
+        Debug.Log("LayOutVertical this.row="+this.row+" enableHide="+this.enableHide+" name="+this.owner.name);
+        
         super.LayOut();
     }
 }

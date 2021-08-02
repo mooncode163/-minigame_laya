@@ -54,6 +54,7 @@ export default class UITextView extends UIView {
         this.Init();
         this.textContent.index = 0;
         // this.uiScrollView.Add(this.textContent);
+        // this.textContent.visible = false;
 
     }
 
@@ -80,20 +81,24 @@ export default class UITextView extends UIView {
         var size = this.GetContentSize();
         var h_real = h;
         h_real = size.height;
-        this.textContent.SetContentSize(size.width, h_real);
+        this.textContent.SetContentSize(size.width, h_real); 
     }
 
     LayOut() {
         super.LayOut();
         var fontsize = this.textContent.fontSize;
 
-
-        var str_h = (this.textWidth / this.GetContentSize().width + 1) * fontsize * 2;
+        var str_w = this.GetContentSize().width;
+        var str_h = (this.textWidth / str_w + 1) * fontsize * 400;
         this.SetContentHeight(str_h);
-        // Debug.Log("textView str_w =" + str_w + " str_h=" + str_h + " rctran.rect.size.x=" + rctran.rect.size.x);
-
+        Debug.Log("UITextView "  + " str_h=" + str_h+" str_w="+str_w+ " this.textWidth="+this.textWidth);
+       
         UI.SetNodePivotCenter(this.owner);
         super.LayOut();
+
+        this.uiScrollView.LayOut();
+
+        this.uiScrollView.UpdateContentSize(str_w,str_h);
     }
 
 }

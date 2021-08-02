@@ -8,6 +8,8 @@ import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../../Common/UIKit/ViewController/UIView";
 import Config from "../../../../Common/Config/Config";
+import AppVersion from "../../../../Common/AppVersion/AppVersion";
+import Platform from "../../../../Common/Platform";
 
 
 
@@ -42,10 +44,16 @@ export default class UIHomeSideBar extends UIView {
         {
             this.btnMore = UIFind.FindUI(this.node, "BtnMore",UIButton);
             this.btnMore.SetClick(this, this.OnBtnClickMore.bind(this));
+            this.btnMore.visible = AppVersion.main.appCheckHasFinished;
         }
         {
             this.btnShare = UIFind.FindUI(this.node, "BtnShare",UIButton);
             this.btnShare.SetClick(this, this.OnBtnClickShare.bind(this));
+        }
+
+        if(Platform.isHuawei)
+        {
+            this.btnShare.visible = false;
         }
 
         this.LayOut();

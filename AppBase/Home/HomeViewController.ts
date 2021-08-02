@@ -67,7 +67,7 @@ export default class HomeViewController extends UIViewController {
     }
     LoadPrefab() {
         var key = "UIHome" + Config.main.appType;
-        var key = "UIHomeMerge"
+        // var key = "UIHomeMerge"
         Debug.Log("HomeViewController LoadPrefab key=" + key);
         PrefabCache.main.LoadByKey(
             {
@@ -125,10 +125,10 @@ export default class HomeViewController extends UIViewController {
         //     return;
         // }
 
-        if (!Platform.isHuawei) {
-            this.ShowAd();
-            return;
-        }
+        // if (!Platform.isHuawei) {
+        //     this.ShowAd();
+        //     return;
+        // }
 
         if (LocalStorage.GetBool(GameManager.KEY_DISABLE_UIPRIVACY)) {
             this.ShowAd();

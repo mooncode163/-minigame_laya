@@ -9,6 +9,7 @@ export default class Common {
     public static CLOUD_RES_DIR_NAME = "CloudRes";//放在云端的资源
     public static CLOUD_RES_DIR = "Resources/GameRes/CloudRes";//放在云端的资源
     public static RES_CONFIG_DATA = "Resources/ConfigData";
+    public static RES_AppCommon = "Resources/AppCommon";
     public static RES_CONFIG_DATA_COMMON = "Resources/ConfigDataCommon";
     public static THUMB_SUFFIX = "_thumb";
     public static TOUCH_MOVE_STEP_MIN = 3.0;//6.0f

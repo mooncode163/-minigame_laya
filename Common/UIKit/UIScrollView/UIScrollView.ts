@@ -311,11 +311,19 @@ export default class UIScrollView extends UIView {
         return h + pivot;
     }
 
+
+    UpdateContentSize(w, h) { 
+        UIView.SetNodeContentSize(this.content, w, h); 
+    }
+
     UpdateScrollViewPosMouseUp() {
         var size = UI.GetNodeContentSize(this.node);
         Debug.Log("UpdateScrollViewPosMouseUp endter _mouseDown=" + this._mouseDown);
         var height =Math.min(this.content.height,size.height);  
         var width =Math.min(this.content.width,size.width);  
+
+        Debug.Log("UIScrollView this.content.height="+this.content.height+" size.height="+size.height);
+
         if (this.direction == ScrollViewDirection.Horizontal) {
             var posX: number = this.content.x;
             // this.content.pos(posX, this.content.y);
@@ -354,6 +362,7 @@ export default class UIScrollView extends UIView {
             else if (posY < -this.content.height + size.height) {
                 // 滑到底部
                 var toPos = -this.content.height + height;
+                // Debug.Log("UIScrollView this.content.height="+this.content.height+" size.height="+size.height);
                 if (!this._mouseDown) {
                     Laya.Tween.to(this.content, { y: toPos }, 500, Laya.Ease.cubicOut);
                     this.isShowMoveAnimate = false;

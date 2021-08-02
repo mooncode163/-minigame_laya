@@ -1,6 +1,8 @@
 import Platform from "../Platform";
+import ShareHuawei from "../Platform/huawei/ShareHuawei";
+import ShareWeiXin from "../Platform/weixin/Share/ShareWeiXin";
 import SharePlatformWrapper from "./SharePlatformWrapper";
-import ShareWeiXin from "./ShareWeiXin";
+ 
 
  
 
@@ -26,6 +28,11 @@ export default class Share  {
             //  wx.showShareMenu();
             p = new ShareWeiXin();
         }
+        if (Platform.isHuawei)  {
+            //显示分享 
+            p = new ShareHuawei();
+        }
+        
         return p;
     }
     Init() {

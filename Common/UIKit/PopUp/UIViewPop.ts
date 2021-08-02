@@ -7,7 +7,7 @@ import PopUpData from "./PopUpData";
 
 export default class UIViewPop extends UIView {
 
-    duration = 800;//0.2 //ms
+    duration = 800;//800ms
     scale1 = 1.2;
     scale2 = 1;
 

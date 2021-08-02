@@ -128,6 +128,8 @@ export default class UIHomeMerge extends UIHomeBase {
         this.btnMerge.keyText = "HomeBtnMerge";
 
         this.btnLearn.visible = true;
+        this.btnMerge.visible = false;
+        
         if (AppVersion.main.appCheckHasFinished) {
             this.btnLearn.visible = false;
 

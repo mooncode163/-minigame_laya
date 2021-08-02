@@ -47,7 +47,7 @@ export default class Language extends ConfigBase {
         }
 
         {
-            var strDir = Common.RES_CONFIG_DATA + "/language";
+            var strDir = Common.RES_AppCommon + "/language"; 
             var fileName = "language.csv";
             {
                 this.languageAppCommon = new LanguageInternal();
