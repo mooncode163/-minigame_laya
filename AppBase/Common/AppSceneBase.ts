@@ -13,6 +13,7 @@ import UI from '../../Common/UIKit/ViewController/UI';
 import AppSceneUtil from './AppSceneUtil';
 import InitViewController from './InitViewController';
 import PopUpData from '../../Common/UIKit/PopUp/PopUpData';
+import GameConfig from '../../../GameConfig';
 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
@@ -54,7 +55,7 @@ export default class AppSceneBase extends Laya.Script {
     constructor() {
         super();
 
-       
+
         AppSceneBase._main = this;
         AppSceneUtil.main = this;
         Debug.Log("AppSceneBase constructor");
@@ -97,10 +98,8 @@ export default class AppSceneBase extends Laya.Script {
     //     // [4]
     // }
 
-    onUpdate()
-    {
-        if(AppSceneUtil.isNeedLayout)
-        {
+    onUpdate() {
+        if (AppSceneUtil.isNeedLayout) {
             this.LayOut();
             AppSceneUtil.isNeedLayout = false;
         }
@@ -108,9 +107,9 @@ export default class AppSceneBase extends Laya.Script {
 
     RunApp() {
         Debug.Log("AppSceneBase RunApp");
- 
-        var p = InitViewController.main; 
-        this.SetRootViewController(p); 
+
+        var p = InitViewController.main;
+        this.SetRootViewController(p);
     }
     InitValue() {
         Debug.Log("AppSceneBase InitValue");
@@ -122,6 +121,13 @@ export default class AppSceneBase extends Laya.Script {
         var size = new Laya.Size(Laya.stage.width, Laya.stage.height);
         if (size != null) {
             this.sizeCanvas = size;
+            if (GameConfig.width == size.width && GameConfig.height == size.height) {
+                // ios 微信小程序 第一次安装 sizeCanvas和设计分辨率相同 需要重新计算
+                w = size.width;
+                h = Laya.Browser.height*w/Laya.Browser.width; 
+                Laya.stage.height = h;
+                this.sizeCanvas = new Laya.Size(w, h);
+            }
         }
         Common.sizeCanvas = this.sizeCanvas;
 
@@ -183,7 +189,7 @@ export default class AppSceneBase extends Laya.Script {
         UI.SetNodeContentSize(this.owner, this.sizeCanvas.width, this.sizeCanvas.height);
 
         UI.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
-         
+
         size = UI.GetNodeContentSize(this.rootNode);
         Debug.Log("this.rootNode size=" + size);
         Debug.Log("this.rootNode  width=" + size.width + ",height=" + size.height);
@@ -220,6 +226,12 @@ export default class AppSceneBase extends Laya.Script {
 
 
     LayOut() {
+
+        // 同步修改主Scene大小 不然触摸事件可能区域不完整
+        UI.SetNodeContentSize(this.owner, this.sizeCanvas.width, this.sizeCanvas.height);
+
+        UI.SetNodeContentSize(this.rootNode, this.sizeCanvas.width, this.sizeCanvas.height);
+
         if (this.rootViewController != null) {
             this.rootViewController.LayOut();
             var ui = this.rootViewController.view;
@@ -229,17 +241,15 @@ export default class AppSceneBase extends Laya.Script {
 
         }
 
-        var list = PopUpManager.main.listItem; 
-        for (var i = 0; i < list.length; i++)
-        {
+        var list = PopUpManager.main.listItem;
+        for (var i = 0; i < list.length; i++) {
             var uipop = list[i];
-            if (uipop != null)
-            {
+            if (uipop != null) {
                 uipop.LayOut();
             }
         }
 
-        
+
     }
 
 }

@@ -5,6 +5,7 @@ import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
 import AppVersion from "../../../../Common/AppVersion/AppVersion";
 import HuaweiAppGalleryApi from "../../../../Common/AppVersion/HuaweiAppGalleryApi";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
+import Common from "../../../../Common/Common";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
 import Device from "../../../../Common/Device";
@@ -12,8 +13,8 @@ import Language from "../../../../Common/Language/Language";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
-import GameLevelParse from "../../Data/GameLevelParse";
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind"; 
+import GameLevelParse from "../../../Main/GameLevelParse";
 import GameLearnViewController from "../Game/Learn/GameLearnViewController";
 
 
@@ -65,6 +66,7 @@ export default class UIHomeMerge extends UIHomeBase {
         if (Device.main.isLandscape) {
             name = Language.main.GetString("APP_NAME_HD");
         }
+        // name = "w="+Common.sizeCanvas.width+" h="+Common.sizeCanvas.height;
         Debug.Log("UIHomeMerge  appname=" + name);
 
         this.textTitle.text = name;
@@ -128,7 +130,7 @@ export default class UIHomeMerge extends UIHomeBase {
         this.btnMerge.keyText = "HomeBtnMerge";
 
         this.btnLearn.visible = true;
-        this.btnMerge.visible = false;
+        // this.btnMerge.visible = false;
         
         if (AppVersion.main.appCheckHasFinished) {
             this.btnLearn.visible = false;

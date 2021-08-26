@@ -18,6 +18,16 @@ export default class LevelParseBase  {
     listGuankaItemId:ItemInfo[]=[];
     autoGuankaOneGroupCount=5;
  
+    // static _main: LevelParseBase;
+    // //静态方法
+    // static get main() {
+    //     if (this._main == null) {
+    //         this._main = new LevelParseBase();
+    //     }
+    //     return this._main;
+    // }
+
+
     Init () {
     }
 
@@ -65,7 +75,7 @@ export default class LevelParseBase  {
       */
 
     StartParsePlaceList (obj:any) {
-        var filepath = Common.GAME_RES_DIR + "/place/place_list.json";
+        var filepath = CloudRes.main.rootPath + "/place/place_list.json";
         Debug.Log("StartParsePlaceList ");
         ResManager.LoadJson(
             {
@@ -137,28 +147,32 @@ export default class LevelParseBase  {
         //     this.callbackPlaceFinish();
         // }
     }
-    StartParseGuanka(obj:any) { 
-        var idx =  LevelData.main.placeLevel;
-        var infoPlace =  LevelData.main.GetPlaceItemInfo(idx);
-        //var filepath = cc.Common.GAME_RES_DIR + "/guanka/item_Bird" + ".json";//+ infoPlace.id 
-        var filepath = Common.GAME_RES_DIR + "/guanka/item_" + infoPlace.id;// + ".json";//
+    // StartParseGuanka(obj:any) { 
+    //     var idx =  LevelData.main.placeLevel;
+    //     var infoPlace =  LevelData.main.GetPlaceItemInfo(idx);
+    //     //var filepath = cc.Common.GAME_RES_DIR + "/guanka/item_Bird" + ".json";//+ infoPlace.id 
+    //     var filepath = Common.GAME_RES_DIR + "/guanka/item_" + infoPlace.id;// + ".json";//
    
-        ResManager.LoadJson(
-            {
-                filepath: filepath,
-                success: (p: any, data: any) => {
-                    this.ParseGuanka(data);
-                    // if (obj.success != null) {
-                    //     obj.success(this, data);
-                    // }
-                },
-                fail: () => {
-                    // if (obj.fail != null) {
-                    //     obj.fail(this);
-                    // }
-                },
-            }); 
-    }
+    //     ResManager.LoadJson(
+    //         {
+    //             filepath: filepath,
+    //             success: (p: any, data: any) => {
+    //                 this.ParseGuanka(data);
+    //                 // if (obj.success != null) {
+    //                 //     obj.success(this, data);
+    //                 // }
+    //             },
+    //             fail: () => {
+    //                 // if (obj.fail != null) {
+    //                 //     obj.fail(this);
+    //                 // }
+    //             },
+    //         }); 
+    // }
+
+
+ 
+
 
     ParseGuanka(data:any) { 
     }

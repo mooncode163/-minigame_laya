@@ -9,6 +9,5 @@
         AppSceneUtil.main.rootNode.addChild(image);
 
 
-3,命令行打包 layaair-cmd
-
-    https://ldc.layabox.com/doc/?nav=zh-ts-3-4-2
+3,命令行打包 layaair2-cmd
+ 

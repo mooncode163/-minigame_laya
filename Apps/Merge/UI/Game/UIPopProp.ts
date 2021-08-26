@@ -9,8 +9,8 @@ import UIText from "../../../../Common/UIKit/UIText/UIText";
 import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
-import GameData, { GameStatus } from "../../Data/GameData";
-import GameLevelParse from "../../Data/GameLevelParse";
+import GameLevelParse from "../../../Main/GameLevelParse";
+import GameData, { GameStatus } from "../../Data/GameData"; 
 // import UIGameMerge from "./UIGameMerge";
 
 

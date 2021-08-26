@@ -80,16 +80,13 @@ export default class AppVersionBase {
             else {
                 this.appNeedUpdate = false;
                 // if (ret > 0)
+                if (this.strVersionStore < this.strVersionLocal) 
                 {
                     this.appCheckForAppstore = true;
                 }
 
             }
-
-
-            if (this.isFirstCreat) {
-                this.appCheckForAppstore = true;
-            }
+ 
         } 
 
 

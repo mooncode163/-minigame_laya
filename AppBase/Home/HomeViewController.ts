@@ -125,10 +125,10 @@ export default class HomeViewController extends UIViewController {
         //     return;
         // }
 
-        // if (!Platform.isHuawei) {
-        //     this.ShowAd();
-        //     return;
-        // }
+        if (!Platform.isHuawei) {
+            this.ShowAd();
+            return;
+        }
 
         if (LocalStorage.GetBool(GameManager.KEY_DISABLE_UIPRIVACY)) {
             this.ShowAd();

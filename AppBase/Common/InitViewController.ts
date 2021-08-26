@@ -149,7 +149,7 @@ export default class InitViewController extends NaviViewController {
                 fail: () => {
                     this.ParseLevelFinish();
                 },
-            });
+            }); 
     }
 
 
@@ -184,7 +184,7 @@ export default class InitViewController extends NaviViewController {
     }
 
     ParseLevelFinish() {
-
+        Debug.Log("HomeViewController ParseLevelFinish");
         this.GotoGame();
 
         // ImageRes.main.LoadCloudConfig(

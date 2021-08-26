@@ -12,9 +12,9 @@ import AppVersionHuawei from "./AppVersionHuawei";
 import Config from "../Config/Config";
 
 export default class AppVersion {
-    
 
-    appVersionBase: AppVersionBase=null;
+
+    appVersionBase: AppVersionBase = null;
 
     static _main: AppVersion;
     static PACKAGE_APPSTORE_TAPTAP: any;
@@ -29,10 +29,19 @@ export default class AppVersion {
         }
         return this._main;
     }
- 
+
     public get appCheckHasFinished(): boolean
     //app审核完成
     {
+        if (Platform.isWeiXin) {
+            return true;
+        }
+        if (Platform.isByte) {
+            return true;
+        }
+        if (Platform.isQQ) {
+            return true;
+        }
         var ret = LocalStorage.GetBool(AppVersionBase.KEY_APP_CHECK_FINISHED, false);
 
         if (Platform.isAndroid) {
@@ -48,7 +57,7 @@ export default class AppVersion {
         return ret;
     }
 
-     
+
 
 
     public get appForPad(): boolean
@@ -123,7 +132,7 @@ export default class AppVersion {
         // isFirstCreat = false;
         // appCheckForAppstore = false;
 
-        if (Platform.isHuawei) { 
+        if (Platform.isHuawei) {
             this.appVersionBase = AppVersionHuawei.main;
         }
         else if (Platform.isiOS) {
@@ -307,37 +316,31 @@ export default class AppVersion {
       },
     }
     */
-    StartParseVersion(obj: any) { 
-        if(this.appVersionBase==null)
-        {
-            if(obj.finish!=null)
-            {
+    StartParseVersion(obj: any) {
+        if (this.appVersionBase == null) {
+            if (obj.finish != null) {
                 obj.finish(this);
             }
             return;
         }
- 
-       
+
+
         this.appVersionBase.StartParseVersion({
             success: (p: any, version: string) => {
-                if(obj.success!=null)
-                {
+                if (obj.success != null) {
                     obj.success(this);
                 }
 
-                if(obj.finish!=null)
-                {
+                if (obj.finish != null) {
                     obj.finish(this);
                 }
             },
             fail: (p: any) => {
-                if(obj.fail!=null)
-                {
+                if (obj.fail != null) {
                     obj.fail(this);
                 }
 
-                if(obj.finish!=null)
-                {
+                if (obj.finish != null) {
                     obj.finish(this);
                 }
             },

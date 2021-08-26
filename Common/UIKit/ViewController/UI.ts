@@ -190,6 +190,10 @@ export default class UI {
         return node;
     }
 
+    static SetParent(child: Laya.Node,parent:Laya.Node) {
+        parent.addChild(child);
+    }
+
 
     // 是否隐藏
     static SetActive(node: Laya.Node, active: boolean) {

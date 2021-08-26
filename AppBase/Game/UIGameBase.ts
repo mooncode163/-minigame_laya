@@ -1,4 +1,4 @@
-import AppRes from "../../Apps/Main/AppRes";
+ 
 import AdKitCommon from "../../Common/AdKit/AdKitCommon";
 import MusicBgPlay from "../../Common/Audio/MusicBgPlay";
 import PrefabCache from "../../Common/Cache/PrefabCache";

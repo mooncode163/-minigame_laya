@@ -1,17 +1,15 @@
-import LevelData from "../../../AppBase/Game/LevelData";
-import LevelParseBase from "../../../AppBase/Game/LevelParseBase";
-import CloudRes from "../../../Common/CloundRes/CloudRes";
-import Common from "../../../Common/Common";
-import Debug from "../../../Common/Debug";
-import FileUtil from "../../../Common/File/FileUtil";
-import ItemInfo from "../../../Common/ItemInfo";
-import ResManager from "../../../Common/Res/ResManager";
-import GameData from "./GameData";
+import LevelData from "../../AppBase/Game/LevelData";
+import LevelParseBase from "../../AppBase/Game/LevelParseBase";
+import CloudRes from "../../Common/CloundRes/CloudRes";
+import Common from "../../Common/Common";
+import Debug from "../../Common/Debug";
+import FileUtil from "../../Common/File/FileUtil";
+import ItemInfo from "../../Common/ItemInfo";
+import ResManager from "../../Common/Res/ResManager";
+import GameData from "../Merge/Data/GameData";
 
- 
-
- 
-export default class GameLevelParse extends LevelParseBase {
+  
+export default class GameLevelParse extends LevelParseBase  {
     countLoad = 0;
     loadMax= 0;
 
@@ -157,6 +155,9 @@ export default class GameLevelParse extends LevelParseBase {
         // return;
 
         if ((this.listGameItems != null) && (this.listGameItems.length != 0)) {
+            if (obj.success != null) {
+                obj.success(this);
+            }
             return;
         }
 
@@ -194,6 +195,9 @@ export default class GameLevelParse extends LevelParseBase {
     */
     StartParseGameItemsDefault(obj: any) {
         if ((this.listGameItemDefault != null) && (this.listGameItemDefault.length != 0)) {
+            if (obj.success != null) {
+                obj.success(this);
+            }
             return;
         }
 
@@ -223,6 +227,8 @@ export default class GameLevelParse extends LevelParseBase {
 
     OnFinish(obj: any,isFail:boolean) {
         this.countLoad++;
+
+        Debug.Log("GameLevelParse OnFinish this.countLoad="+this.countLoad);
         if (this.countLoad >= this.loadMax) {
           
             if(isFail)
@@ -247,10 +253,10 @@ export default class GameLevelParse extends LevelParseBase {
    },
    }
    */
-    StartParseGuanka(obj: any) {
+   StartParseGuanka(obj: any) {
         this.loadMax = 2;
         this.countLoad = 0;
-
+        Debug.Log("GameLevelParse StartParseGuanka ");
         this.StartParseGameItems({
             success: (p: any) => {
                 this.OnFinish(obj,false);
@@ -269,7 +275,7 @@ export default class GameLevelParse extends LevelParseBase {
         });
     }
 
-
+ 
 }
 
 

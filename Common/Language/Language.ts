@@ -47,7 +47,7 @@ export default class Language extends ConfigBase {
         }
 
         {
-            var strDir = Common.RES_AppCommon + "/language"; 
+            var strDir = Common.RES_AppCommon + "/language";
             var fileName = "language.csv";
             {
                 this.languageAppCommon = new LanguageInternal();
@@ -69,6 +69,7 @@ export default class Language extends ConfigBase {
         {
 
             var strDir = Common.GAME_RES_DIR + "/language";
+            // CloudRes.main.rootPath
             var fileName = "language.csv";
             {
                 this.languageGame = new LanguageInternal();
@@ -149,11 +150,9 @@ export default class Language extends ConfigBase {
     }
 
 
-     IsChinese()
-    {
+    IsChinese() {
         var lan = this.GetLanguage();
-        if (lan == SysLanguage.CN)
-        {
+        if (lan == SysLanguage.CN) {
             return true;
         }
         return false;

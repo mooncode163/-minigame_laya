@@ -1,7 +1,10 @@
-import GameLevelParse from "../../Apps/Merge/Data/GameLevelParse";
+ 
+  
+import GameLevelParse from "../../Apps/Main/GameLevelParse";
 import Debug from "../../Common/Debug";
 // import GameViewController from "./GameViewController";
 import LevelData from "./LevelData";
+import LevelParseBase from "./LevelParseBase";
 
  
 
@@ -22,6 +25,7 @@ export default class LevelManager  {
     get maxGuankaNum() {
         var ret = GameLevelParse.main.GetGuankaTotal();
         return ret;
+        return 0;
     } 
     Init() {
         //this.ParseGuanka();
