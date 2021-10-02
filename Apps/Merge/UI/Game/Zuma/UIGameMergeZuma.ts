@@ -1,17 +1,23 @@
 import AppSceneBase from "../../../../../AppBase/Common/AppSceneBase";
+import AppSceneUtil from "../../../../../AppBase/Common/AppSceneUtil";
 import LevelData from "../../../../../AppBase/Game/LevelData";
 import LevelManager from "../../../../../AppBase/Game/LevelManager";
 import UIGameBase from "../../../../../AppBase/Game/UIGameBase";
 import AudioPlay from "../../../../../Common/Audio/AudioPlay";
 import PrefabCache from "../../../../../Common/Cache/PrefabCache";
+import TextureCache from "../../../../../Common/Cache/TextureCache";
+import CameraUtil from "../../../../../Common/Camera/CameraUtil";
 import ConfigPrefab from "../../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../../Common/Debug";
 import Device from "../../../../../Common/Device";
 import ItemInfo from "../../../../../Common/ItemInfo";
 import Language from "../../../../../Common/Language/Language";
+import Platform from "../../../../../Common/Platform";
 import PopUpManager from "../../../../../Common/UIKit/PopUp/PopUpManager";
+import UISprite from "../../../../../Common/UIKit/UIImage/UISprite";
 import UIText from "../../../../../Common/UIKit/UIText/UIText";
 import UI from "../../../../../Common/UIKit/ViewController/UI";
+import UIFind from "../../../../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../../../../Common/UIKit/ViewController/UIView";
 import UIViewController from "../../../../../Common/UIKit/ViewController/UIViewController";
 import GameLevelParse from "../../../../Main/GameLevelParse";
@@ -20,14 +26,14 @@ import UIGameFail from "../GameFinish/UIGameFail";
 import UIGameWin from "../GameFinish/UIGameWin";
 import UIPopProp, { PropType } from "../UIPopProp";
 import UIToolBar from "../UIToolBar";
-import GameMergeZuma from "./GameMergeZuma"; 
+import GameMergeZuma from "./GameMergeZuma";
 import UIScoreNumber from "./UIScoreNumber";
 
 
 export default class UIGameMergeZuma extends UIGameBase {
     autoClickTime = 0.6;//0.2f
 
-    public titleScore: UIText;
+    public textScore: UIText;
     public uiScoreNumber: UIScoreNumber;
     public uiToolBar: UIToolBar;
 
@@ -40,6 +46,9 @@ export default class UIGameMergeZuma extends UIGameBase {
         GameData.main.uiGameZuma = this;
         GameData.main.gameStatus = GameStatus.Play;
         GameData.main.controller = this.controller;// GameZumaViewController.main;
+
+        this.textScore = UIFind.FindUI(this.node, "textScore", UIText);
+
         this.LayOut();
     }
 
@@ -111,8 +120,8 @@ export default class UIGameMergeZuma extends UIGameBase {
 
     UpdateLevel(level) {
         super.UpdateLevel(level);
-
-        // GameLevelParse.main.CleanGuankaList();
+        // return;
+        // GameLevelParrse.main.CleanGuankaList();
         // GameLevelParse.main.ParseGuanka(); 
         PrefabCache.main.LoadByKey(
             {
@@ -134,15 +143,83 @@ export default class UIGameMergeZuma extends UIGameBase {
     CreateGame() {
         var node = UI.Instantiate(this.gamePrefab);
         this.game = node.getComponent(GameMergeZuma);
-        // AppSceneBase.main.AddObjToMainWorld(game.gameObject); 
-        GameData.main.score = 0;
+        AppSceneBase.main.AddObjToMainWorld(node);
+        GameData.main.score = 100;
+
+        var node = new Laya.Node();
+        var uiSprite = node.addComponent(UISprite);
+        uiSprite.keyImage ="GameWinBg";//GameBg GameWinBg
+        AppSceneUtil.mainScene.addChild(node);
+
+
+        // var isCloud = false;
+        // if (Platform.isCloudRes) {
+        //     isCloud = true;
+        // }
+
+        // TextureCache.main.LoadByKey(
+        //     {
+        //         key: "GameWinBg",
+        //         isCloud: isCloud,
+        //         isSprite:true,
+        //         success: (p: any, tex: Laya.Texture2D) => {
+        //             var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        //             var w = tex.width / 100 / 4;
+        //             var h = tex.height / 100 / 4;
+        //             w = size.x;
+        //             h = size.y;
+        //             //添加自定义模型 
+        //             // var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //             // ng
+        //             // var box: Laya.MeshSprite3D = this.node.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //             // var node = new Laya.Node();
+        //             // AppSceneUtil.mainScene.addChild(node);
+        //             var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //             // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+        //             var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
+        //             material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
+        //             // res/layabox.png
+
+        //             box.meshRenderer.material = material;
+        //             material.albedoTexture = tex;
+        //             // box.transform.translate(new Laya.Vector3(0,-1, 0));
+        //         },
+        //         fail: (p: any) => {
+
+        //         },
+        //     });
+
+        // Laya.Texture2D.load("GameWinBg.png", Laya.Handler.create(this, function (tex: Laya.Texture2D) {
+
+        //     var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        //     var w = tex.width / 100 / 4;
+        //     var h = tex.height / 100 / 4;
+        //     w = size.x;
+        //     h = size.y;
+        //     //添加自定义模型 
+        //     // var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //     // ng
+        //     // var box: Laya.MeshSprite3D = this.node.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //     // var node = new Laya.Node();
+        //     // AppSceneUtil.mainScene.addChild(node);
+        //     var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        //     // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+        //     var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
+        //     material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
+        //     // res/layabox.png
+
+        //     box.meshRenderer.material = material;
+        //     material.albedoTexture = tex;
+        //     // box.transform.translate(new Laya.Vector3(0,-1, 0));
+        // }.bind(this)));
+
         this.UpdateScore();
     }
 
 
     UpdateScore() {
-        this.titleScore.text = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
-        this.uiScoreNumber.UpdateScore();
+        this.textScore.text = Language.main.GetString("Score") + ":" + GameData.main.score.toString();
+        // this.uiScoreNumber.UpdateScore();
         this.LayOut();
     }
 

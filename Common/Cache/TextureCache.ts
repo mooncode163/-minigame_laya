@@ -1,8 +1,9 @@
-import Debug from "../Debug"; 
+import ImageRes from "../Config/ImageRes";
+import Debug from "../Debug";
 import Dictionary from "../Dictionary";
 import ResManager from "../Res/ResManager";
- 
-export default class TextureCache  {
+
+export default class TextureCache {
     dicItem: any;
     static _main: TextureCache;
     //静态方法
@@ -18,11 +19,12 @@ export default class TextureCache  {
         this.dicItem = new Dictionary();
     }
 
-   
+
     /*
 { 
      filepath:"", 
      isCloud:false,
+     isSprite:false,
   success: (p:any,tex:Texture2D) => {
       
   }, 
@@ -35,16 +37,51 @@ export default class TextureCache  {
         var key = obj.filepath;
         if (this.dicItem.Contains(key) == true) {
             var tex = this.dicItem.Get(key);
-            Debug.Log("TextureCache  load  from cache key="+key);
+            Debug.Log("TextureCache  load  from cache key=" + key);
             if (obj.success != null) {
                 obj.success(this, tex);
             }
-        } else 
-        {
+        } else {
             this.LoadNotCache(obj);
         }
 
-        
+
+    }
+
+    /*
+{ 
+     key:"", 
+     isCloud:false,
+     isSprite:false,
+  success: (p:any,tex:Texture2D) => {
+      
+  }, 
+  fail: (p:any) => {
+      
+  },
+}
+*/
+    LoadByKey(obj: any) {
+        var key = obj.key;
+        var pic = ImageRes.main.GetImage(key);
+        this.Load(
+            {
+                filepath: pic,
+                isCloud: obj.isCloud,
+                isSprite: obj.isSprite,
+                success: (p: any, tex: Laya.Texture2D) => {
+                    if (obj.success != null) {
+                        obj.success(this, tex);
+                    }
+                },
+                fail: (p: any) => {
+                    if (obj.fail != null) {
+                        obj.fail(this);
+                    }
+                },
+            });
+
+
     }
 
     LoadFrame(obj: any) {
@@ -55,6 +92,7 @@ export default class TextureCache  {
 { 
    filepath:"", 
    isCloud:false,
+     isSprite:false,
 success: (p:any,tex:Texture2D) => {
     
 }, 
@@ -70,12 +108,14 @@ fail: (p:any) => {
         //     return;
         // }
 
+
         ResManager.LoadTexture(
             {
                 filepath: obj.filepath,
+                isSprite:obj.isSprite,
                 success: (p: any, tex: any) => {
                     var key = obj.filepath;
-                     this.dicItem.Add(key, tex);
+                    this.dicItem.Add(key, tex);
                     if (obj.success != null) {
                         obj.success(this, tex);
                     }
@@ -90,6 +130,7 @@ fail: (p:any) => {
                     // }
                 },
             });
+
     }
 
 

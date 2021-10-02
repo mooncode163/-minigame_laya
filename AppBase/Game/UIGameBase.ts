@@ -45,7 +45,7 @@ export default class UIGameBase extends UIView {
         // this.btnBack.SetClick(this, this.OnClickBtnBack.bind(this));
 
         this.LayOut();
-        this.LoadGamePrefab();
+        // this.LoadGamePrefab();
     }
     onStart() {
         super.onStart();
@@ -67,9 +67,10 @@ export default class UIGameBase extends UIView {
     }
 
     LoadGamePrefab() {
+        var key = "Game"+Config.main.appType;
         PrefabCache.main.LoadByKey(
             {
-                key:"GameMerge",
+                key:key,
                 // filepath: "Resources/AppCommon/Prefab/Game/GameMerge.prefab",
                 success: (p: any, data: any) => {
                     this.gamePrefab = data;

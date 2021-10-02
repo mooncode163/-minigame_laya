@@ -199,6 +199,7 @@ export default class UIImage extends UIView {
             {
                 filepath: pic,
                 isCloud: isCloud,
+                isSprite:false,
                 success: (p: any, tex: Laya.Texture) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, false, board);
                     if (this.isSizeFitTexture) {
@@ -258,6 +259,7 @@ export default class UIImage extends UIView {
             {
                 filepath: pic,
                 isCloud: isCloud,
+                isSprite:false,
                 success: (p: any, tex: Laya.Texture) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, false, board);
                     if (this.isSizeFitTexture) {

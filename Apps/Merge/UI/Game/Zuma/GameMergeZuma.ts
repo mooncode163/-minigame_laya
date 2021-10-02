@@ -1,3 +1,5 @@
+import AppScene from "../../../../../AppBase/AppScene";
+import AppSceneUtil from "../../../../../AppBase/Common/AppSceneUtil";
 import GameBase from "../../../../../AppBase/Game/GameBase";
 import LevelManager from "../../../../../AppBase/Game/LevelManager";
 import AudioPlay from "../../../../../Common/Audio/AudioPlay";
@@ -67,6 +69,9 @@ export default class GameMergeZuma extends GameBase {
         this.isStartCheckCollision = false;
         GameData.main.gameId = GameData.GAMAE_ID_ZUMA;
 
+
+
+        return;
         LevelManager.main.placeLevel = 0;
         // LevelManager.main.ParseGuanka();
         this.LoadPrefab();
@@ -80,6 +85,7 @@ export default class GameMergeZuma extends GameBase {
     onStart() {
         super.onStart();
 
+        /*
         var size = CameraUtil.main.GetWorldSize(this.mainCam);
         this.radiusCenter = Math.min(size.x, size.y) * 0.5 * 0.5;
         var box = this.node.getComponent(Laya.BoxCollider);
@@ -92,11 +98,12 @@ export default class GameMergeZuma extends GameBase {
         Debug.Log("radiusCenter =" + this.radiusCenter);
         this.Clear();
         this.LayOut();
+        */
 
     }
 
     onUpdate() {
-
+        return;
         //用作延迟生成物体
         if (this.time < 0.2) {
             this.time += Timer.deltaSecond;
@@ -272,7 +279,7 @@ export default class GameMergeZuma extends GameBase {
         TextureCache.main.Load(
             {
                 filepath: pic,
-                success: (p: any, tex: Laya.Texture) => {
+                success: (p: any, tex: Laya.Texture2D) => {
 
                     var ratio = GameData.IMAGE_ITEM_WIDHT * 1.0 / tex.width;
 
@@ -747,6 +754,7 @@ export default class GameMergeZuma extends GameBase {
 
     LayOut() {
         super.LayOut();
+        return;
 
         var size = CameraUtil.main.GetWorldSize(this.mainCam);
         this.radiusCenter = Math.min(size.x, size.y) * 0.5 * 0.5;

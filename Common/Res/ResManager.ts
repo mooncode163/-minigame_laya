@@ -89,26 +89,26 @@ export default class ResManager {
     }
 
 
-     /*
-        {
-            filepath:"", 
-            success: function (p,tex:Texture2D) {
-            },
-            fail: function (p) {
-            }, 
-        }
-        */
-        public static LoadParticle(obj: any) {
-            console.log("ResManager LoadParticle obj.filepath=" + obj.filepath);  
-            Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
-                var setting = Laya.loader.getRes(obj.filepath);
-                var particle:Laya.Particle2D = new Laya.Particle2D(setting); 
-                if (obj.success != null) {
-                    obj.success(this, particle);
-                }
-    
-            }));
-        }
+    /*
+       {
+           filepath:"", 
+           success: function (p,tex:Texture2D) {
+           },
+           fail: function (p) {
+           }, 
+       }
+       */
+    public static LoadParticle(obj: any) {
+        console.log("ResManager LoadParticle obj.filepath=" + obj.filepath);
+        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
+            var setting = Laya.loader.getRes(obj.filepath);
+            var particle: Laya.Particle2D = new Laya.Particle2D(setting);
+            if (obj.success != null) {
+                obj.success(this, particle);
+            }
+
+        }));
+    }
 
     /*
       {
@@ -126,29 +126,52 @@ export default class ResManager {
 
     //  laya editor  f9 设置图片的最大 2048x2048 默认512x512
     // filepath 可以是本地图片 也可以是网络图片
+
+    // ui 使用 Laya.loader.load  sprite 使用 Laya.Texture2D.load 不然显示会有问题 laya bug
     public static LoadTexture(obj: any) {
         // texture spriteFrame
         console.log("ResManager LoadTexture obj.filepath=" + obj.filepath);
         //加载纹理
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
-            console.log("ResManager texture is not null");
-            var tex = Laya.loader.getRes(obj.filepath);
-            if (tex == null) {
-                if (obj.fail != null) {
-                    obj.fail(this);
-                }
-            } else {
 
-                if (obj.success != null) {
-                    Debug.Log("LoadTexture tex w="+tex.width+" h="+tex.height);
-                    obj.success(this, tex);
-                }
-            }
+        if (obj.isSprite) {
+            Laya.Texture2D.load(obj.filepath, Laya.Handler.create(this, function (tex: Laya.Texture2D) {
+                console.log("ResManager texture is not null");
+                if (tex == null) {
+                    if (obj.fail != null) {
+                        obj.fail(this);
+                    }
+                } else {
 
-        }));
+                    if (obj.success != null) {
+                        Debug.Log("LoadTexture tex w=" + tex.width + " h=" + tex.height);
+                        obj.success(this, tex);
+                    }
+                }
+
+            }.bind(this)));
+        } else {
+            Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
+                console.log("ResManager texture is not null");
+                var tex = Laya.loader.getRes(obj.filepath);
+                if (tex == null) {
+                    if (obj.fail != null) {
+                        obj.fail(this);
+                    }
+                } else {
+
+                    if (obj.success != null) {
+                        Debug.Log("LoadTexture tex w=" + tex.width + " h=" + tex.height);
+                        obj.success(this, tex);
+                    }
+                }
+
+            }));
+        }
+
 
 
     }
+
 
     /*
   {

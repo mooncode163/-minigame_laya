@@ -110,26 +110,7 @@ export default class UIHomeMerge extends UIHomeBase {
         //     }
         // );
 
-    Laya.Texture2D.load("GameWinBg.png", Laya.Handler.create(this, function (tex: Laya.Texture2D) {
-        this.imageBg.visible = false;
-        
-            var size = CameraUtil.main.GetWorldSize(this.mainCam);
-           var w = tex.width / 100 / 4;
-           var h = tex.height / 100 / 4;
-           w = size.x;
-           h = size.y;
-            //添加自定义模型
-            // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
-            var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
-            // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
-            var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-            material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
-            // res/layabox.png
 
-            box.meshRenderer.material = material;
-            material.albedoTexture = tex;
-            // box.transform.translate(new Laya.Vector3(0,-1, 0));
-        }.bind(this)));
 
     }
 
@@ -219,24 +200,7 @@ export default class UIHomeMerge extends UIHomeBase {
         }
     }
 
-
-
-    onMouseDown(e) {
-        console.log("UIHomeMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
-    }
-    onMouseMove(e) {
-        console.log("UIHomeMerge onMouseMove");
-    }
-    onMouseUp(e) {
-        // console.log("抬起");
-        console.log("UIHomeMerge onMouseUp " + this.owner.name);
-    }
-    onMouseOut(e) {
-        console.log("UIHomeMerge onMouseOut 移出");
-    }
-    onMouseOver(e) {
-        console.log("UIHomeMerge onMouseOver 进入");
-    }
+ 
 
 }
 
