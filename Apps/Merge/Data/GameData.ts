@@ -1,36 +1,68 @@
 import LevelData from "../../../AppBase/Game/LevelData";
 import Common from "../../../Common/Common";
- 
- 
+import UIViewController from "../../../Common/UIKit/ViewController/UIViewController";
+
+
 export enum GameStatus {
     //区分大小写
-    Play = 0,
+    None = 0,
+    Play,
     Prop,
 
 }
- 
- 
-export default class GameData  {
- 
+
+
+
+
+export default class GameData {
+
+    public static IMAGE_ITEM_WIDHT = 512;
+    public static Place_Custom: string = "Custom";
+    public static Place_Learn = "Learn";
+    public static Place_Zuma = "Zuma";
+
+    public static GAMAE_ID_FREE = "Free";
+    public static GAMAE_ID_ZUMA = "Zuma";
+
+    public static DURATION_MOVE = 0.3;
+
+
     public static NameDeadLine: string = "DeadLine";
     public static NameBoardLine: string = "BoardLine";
-    public static Place_Custom: string = "Custom";
 
     public static MaxSpeed = 10.0;
     public static MaxBounce = 1.0;
     public static MaxRotation = 360.0;
-    public static ShaderCircle:string = "Moonma/ImageCircle";
-    
+    public static ShaderCircle: string = "Moonma/ImageCircle";
+
     public isGameFail = false;
 
     status = GameStatus.Play;
-    radiusCustom = 0.4;
-    score = 0;
+    gameStatus = GameStatus.Play;
+    radiusCustom = 0.4; 
+    isFail: boolean = false;
+    gameId: string = "";
+    autoClickCount = 200;
+
+    // 当前游戏的controller
+    public controller: UIViewController;
+
+
+    // 自定义 
+    public score = 0;
+    public addScore = 0;
+    public fromPosScoreWorld = new Laya.Vector3(0, 0, 0);
 
     // GameMerge
-    game:any;
+    game: any;
     // UIGameMerge
-    uiGame:any;
+    uiGame: any;
+ 
+    // GameMergeZuma
+    gameZuma: any;
+    // UIGameMergeZuma
+    uiGameZuma: any;
+
 
     static _main: GameData;
     //静态方法
@@ -113,9 +145,14 @@ export default class GameData  {
         return false;
     }
 
-
-
-
+    IsLearn() {
+        var idx = LevelData.main.placeLevel;
+        var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
+        if (infoPlace.id == GameData.Place_Learn) {
+            return true;
+        }
+        return false;
+    } 
 
 }
 

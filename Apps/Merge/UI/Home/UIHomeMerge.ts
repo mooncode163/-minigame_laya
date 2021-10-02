@@ -1,10 +1,12 @@
 
+import AppSceneUtil from "../../../../AppBase/Common/AppSceneUtil";
 import GameViewController from "../../../../AppBase/Game/GameViewController";
 import UIHomeBase from "../../../../AppBase/Home/UIHomeBase";
 import AdKitCommon from "../../../../Common/AdKit/AdKitCommon";
 import AppVersion from "../../../../Common/AppVersion/AppVersion";
 import HuaweiAppGalleryApi from "../../../../Common/AppVersion/HuaweiAppGalleryApi";
 import PrefabCache from "../../../../Common/Cache/PrefabCache";
+import CameraUtil from "../../../../Common/Camera/CameraUtil";
 import Common from "../../../../Common/Common";
 import ConfigPrefab from "../../../../Common/Config/ConfigPrefab";
 import Debug from "../../../../Common/Debug";
@@ -13,9 +15,10 @@ import Language from "../../../../Common/Language/Language";
 import PopUpManager from "../../../../Common/UIKit/PopUp/PopUpManager";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import UIFind from "../../../../Common/UIKit/ViewController/UIFind"; 
+import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameLevelParse from "../../../Main/GameLevelParse";
 import GameLearnViewController from "../Game/Learn/GameLearnViewController";
+import GameZumaViewController from "../Game/Zuma/GameZumaViewController";
 
 
 
@@ -23,16 +26,16 @@ import GameLearnViewController from "../Game/Learn/GameLearnViewController";
 export default class UIHomeMerge extends UIHomeBase {
 
 
-    /** @prop {name:nodeImageLogo,type:Node}*/
-    nodeImageLogo: Laya.Node;
+ 
 
     /** @prop {name:nodeTextTitle,type:Node}*/
 
     imageLogo: UIImage;
-
+    imageBg: UIImage;
     btnMerge: UIButton;
 
     btnLearn: UIButton;
+    btnZuma: UIButton;
 
 
     onAwake() {
@@ -52,10 +55,13 @@ export default class UIHomeMerge extends UIHomeBase {
             this.btnLearn = UIFind.FindUI(this.node, "btnLearn", UIButton);
             this.btnLearn.SetClick(this, this.OnBtnClickLearn.bind(this));
         }
-
-
-        this.imageLogo = this.nodeImageLogo.getComponent(UIImage);
-
+        {
+            this.btnZuma = UIFind.FindUI(this.node, "btnZuma", UIButton);
+            this.btnZuma.SetClick(this, this.OnBtnClickZuma.bind(this));
+        }
+ 
+        this.imageBg = UIFind.FindUI(this.node, "imageBg", UIImage);
+        this.imageLogo = UIFind.FindUI(this.node, "imageLogo", UIImage);
 
         var info = GameLevelParse.main.GetLastItemInfo();
         var pic = GameLevelParse.main.GetImagePath(info.id);
@@ -104,15 +110,34 @@ export default class UIHomeMerge extends UIHomeBase {
         //     }
         // );
 
+    Laya.Texture2D.load("GameWinBg.png", Laya.Handler.create(this, function (tex: Laya.Texture2D) {
+        this.imageBg.visible = false;
+        
+            var size = CameraUtil.main.GetWorldSize(this.mainCam);
+           var w = tex.width / 100 / 4;
+           var h = tex.height / 100 / 4;
+           w = size.x;
+           h = size.y;
+            //添加自定义模型
+            // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
+            var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+            // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+            var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
+            material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
+            // res/layabox.png
 
+            box.meshRenderer.material = material;
+            material.albedoTexture = tex;
+            // box.transform.translate(new Laya.Vector3(0,-1, 0));
+        }.bind(this)));
 
     }
 
 
 
     onStart() {
-        super.onStart(); 
-
+        super.onStart();
+     
         // var key = "UIPopProp";
         // var strPrefab = ConfigPrefab.main.GetPrefab(key);
 
@@ -124,27 +149,26 @@ export default class UIHomeMerge extends UIHomeBase {
         //         close: (ui: any) => {
         //         },
         //     });
- 
+
 
         this.btnLearn.keyText = "HomeBtnLearn";
         this.btnMerge.keyText = "HomeBtnMerge";
 
         this.btnLearn.visible = true;
         // this.btnMerge.visible = false;
-        
+
         if (AppVersion.main.appCheckHasFinished) {
             this.btnLearn.visible = false;
 
             this.btnMerge.visible = true;
             this.btnMerge.keyText = "BtnStartGame";
         }
-
-
+ 
         this.LayOut();
     }
 
     // onUpdate() {
-    //     this.LayOut(); 
+    //     // this.LayOut();  
     // }
 
     OnBtnClickHome() {
@@ -178,7 +202,12 @@ export default class UIHomeMerge extends UIHomeBase {
         } else {
         }
     }
-
+    OnBtnClickZuma() {
+        if (this.controller != null) {
+            var navi = this.controller.naviController;
+            navi.Push(GameZumaViewController.main);
+        }
+    }
 
     GotoGame() {
         if (this.controller != null) {

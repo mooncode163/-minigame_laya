@@ -12,9 +12,7 @@ import UIViewController from '../../Common/UIKit/ViewController/UIViewController
 import UI from '../../Common/UIKit/ViewController/UI';
 import AppSceneUtil from './AppSceneUtil';
 import InitViewController from './InitViewController';
-import PopUpData from '../../Common/UIKit/PopUp/PopUpData';
-import GameConfig from '../../../GameConfig';
-
+import PopUpData from '../../Common/UIKit/PopUp/PopUpData'; 
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
 // https://blog.csdn.net/iamlujingtao/article/details/110573421
@@ -121,7 +119,12 @@ export default class AppSceneBase extends Laya.Script {
         var size = new Laya.Size(Laya.stage.width, Laya.stage.height);
         if (size != null) {
             this.sizeCanvas = size;
-            if (GameConfig.width == size.width && GameConfig.height == size.height) {
+
+            //     static width:number=1536;
+    // static height:number=2048;
+            var designWidth = 1536;
+            var designHeigt = 2048;
+            if (designWidth == size.width && designHeigt == size.height) {
                 // ios 微信小程序 第一次安装 sizeCanvas和设计分辨率相同 需要重新计算
                 w = size.width;
                 h = Laya.Browser.height*w/Laya.Browser.width; 

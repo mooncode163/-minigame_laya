@@ -1,5 +1,4 @@
-import UIHomeCenterBar from "../../Apps/Merge/UI/Home/UIHomeCenterBar";
-import UIHomeSideBar from "../../Apps/Merge/UI/Home/UIHomeSideBar";
+ 
 import PrefabCache from "../../Common/Cache/PrefabCache";
 import Common from "../../Common/Common";
 import CommonRes from "../../Common/CommonRes";
@@ -8,6 +7,7 @@ import Debug from "../../Common/Debug";
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
+import UIFind from "../../Common/UIKit/ViewController/UIFind";
 import UIView from "../../Common/UIKit/ViewController/UIView";
 import UIHomeAppCenter from "./UIHomeAppCenter";
 
@@ -24,8 +24,12 @@ export default class UIHomeBase extends UIView {
 
 
     uiAppCenter: UIHomeAppCenter;
-    uiCenterBar: UIHomeCenterBar;
-    uiSideBar: UIHomeSideBar;
+
+    // UIHomeCenterBar
+    uiCenterBar: any;
+
+    // UIHomeSideBar
+    uiSideBar: any;
 
     onAwake() {
         super.onAwake();
@@ -41,6 +45,9 @@ export default class UIHomeBase extends UIView {
         } else {
             Debug.Log("UIHomeBase nodeTextTitle is null");
         }
+
+        this.imageBg = UIFind.FindUI(this.node, "imageBg", UIImage);
+        // this.imageBg.image.renderingOrder = -1;
     }
 
     LoadCenterBar() {

@@ -1,11 +1,11 @@
-import { ui } from "../../../../ui/layaMaxUI";
+ 
 import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
 import ItemInfo from "../../ItemInfo";
 import Language from "../../Language/Language";
+import UITouchEvent from "../Event/UITouchEvent";
 import AnimateButton from "../UIButton/AnimateButton";
-import UIImage from "../UIImage/UIImage";
-import UITouchEvent from "../UITouchEvent";
+import UIImage from "../UIImage/UIImage"; 
 import UI from "../ViewController/UI";
 import UIView from "../ViewController/UIView"; 
 import IUIScrollView from "./IUIScrollView";

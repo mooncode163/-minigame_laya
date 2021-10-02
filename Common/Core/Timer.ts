@@ -1,5 +1,5 @@
  
-
+//https://www.it610.com/article/1279195075712139264.htm
 export default class Timer {
  
 
@@ -14,11 +14,13 @@ export default class Timer {
       }
   
 
+      // GetCurrentTimeMs
     // * 当前帧开始的时间戳 tick  单位ms。
     static get curTime() {
         return Laya.systemTimer.currTimer;
       }
    
+      // GetCurrentTime
       // * 当前帧开始的时间戳 tick  单位s。
       static get curTimeSecond() {
         return Laya.systemTimer.currTimer/1000;

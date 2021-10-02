@@ -127,7 +127,7 @@ export default class InitViewController extends NaviViewController {
     }
 
     StartParsePlace() {
-        Debug.Log("HomeViewController StartParsePlace");
+        Debug.Log("InitViewController StartParsePlace");
         LevelManager.main.StartParsePlace(
             {
                 success: (p: any) => {
@@ -140,7 +140,7 @@ export default class InitViewController extends NaviViewController {
     }
 
     StartParseGuanka() {
-        Debug.Log("HomeViewController StartParseGuanka");
+        Debug.Log("InitViewController StartParseGuanka");
         LevelManager.main.StartParseGuanka(
             {
                 success: (p: any) => {
@@ -184,7 +184,7 @@ export default class InitViewController extends NaviViewController {
     }
 
     ParseLevelFinish() {
-        Debug.Log("HomeViewController ParseLevelFinish");
+        Debug.Log("InitViewController ParseLevelFinish");
         this.GotoGame();
 
         // ImageRes.main.LoadCloudConfig(

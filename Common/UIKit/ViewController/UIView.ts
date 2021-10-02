@@ -21,9 +21,10 @@ import Debug from "../../Debug";
 import Language from "../../Language/Language";
 import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
-import UI from "./UI"; 
+import UI from "./UI";
 import UIFind from "./UIFind";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
+import UITransform from "../UITransform";
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
@@ -64,10 +65,22 @@ export default class UIView extends Laya.Script {
     keyId: string;
     tag: string;
     title: string;
-    name: string;
-    mainCam: Laya.Camera | null = null;
+    name: string; 
     isPivotCenter: boolean = true;
+    texture: Laya.Texture2D;
 
+    _transform: UITransform;
+    public get transform(): UITransform {
+        if(this._transform==null)
+        {
+            this._transform = new UITransform(this);
+        }
+        return this._transform;
+    }
+
+    public get mainCam(): Laya.Camera {
+        return AppSceneUtil.mainCamera;
+    }
     public get x(): number {
         return UI.GetPosition(this.node).x;
     }
@@ -90,41 +103,41 @@ export default class UIView extends Laya.Script {
     }
 
     public get visible(): boolean {
-        var sp = this.owner as Laya.Sprite; 
+        var sp = this.owner as Laya.Sprite;
         var z = 0;
         if (sp != null) {
-           return sp.visible;
+            return sp.visible;
         }
         return false
     }
     public set visible(value: boolean) {
-        var sp = this.owner as Laya.Sprite; 
+        var sp = this.owner as Laya.Sprite;
         var z = 0;
         if (sp != null) {
-             sp.visible = value;
-             AppSceneUtil.isNeedLayout = true;
-        } 
+            sp.visible = value;
+            AppSceneUtil.isNeedLayout = true;
+        }
     }
     public get zOrder(): number {
-        var sp = this.owner as Laya.Sprite; 
+        var sp = this.owner as Laya.Sprite;
         var z = 0;
         if (sp != null) {
-           return sp.zOrder;
+            return sp.zOrder;
         }
         return 0;
     }
     public set zOrder(value: number) {
-        var sp = this.owner as Laya.Sprite; 
+        var sp = this.owner as Laya.Sprite;
         var z = 0;
         if (sp != null) {
-             sp.zOrder = value;
-        } 
+            sp.zOrder = value;
+        }
     }
-    
+
     private _controller: UIViewController | null = null;
     // @type(UIViewController)
     //get 的用法
-    get controller(): UIViewController {           // 函数后(): string 这个的意思是 要求函数返回的类型必须是 string
+    get controller(): UIViewController {
         if (this._controller == null) {
             var max = 100;
             var i = 0;
@@ -148,8 +161,7 @@ export default class UIView extends Laya.Script {
                     if (this._controller != null) {
                         Debug.Log("UIView find _controller");
                         break;
-                    }else
-                    {
+                    } else {
                         nodefind = view.node;
                     }
                 } else {
@@ -234,8 +246,7 @@ export default class UIView extends Laya.Script {
     LayOutInternalChild() {
         //child
         // var children = this.owner.children;
-        if(this.owner==null)
-        {
+        if (this.owner == null) {
             return;
         }
         for (var i = 0; i < this.owner.numChildren; i++) {
@@ -246,8 +257,8 @@ export default class UIView extends Laya.Script {
 
     LayOutDidFinish() {
 
-    } 
- 
+    }
+
     //统一按钮状态图片
     UnifyButtonSprite(btn) {
         if (btn != null) {
@@ -257,15 +268,13 @@ export default class UIView extends Laya.Script {
     }
 
     SetContentSize(w, h) {
-        var w_real =w;
-        var h_real =h;
+        var w_real = w;
+        var h_real = h;
         // laya w,h 为0时 会自动显示成图片大小
-        if(w<=0)
-        {
+        if (w <= 0) {
             w_real = 0.0001;
         }
-        if(h<=0)
-        {
+        if (h <= 0) {
             h_real = 0.0001;
         }
         UIView.SetNodeContentSize(this.owner, w_real, h_real);
@@ -290,6 +299,15 @@ export default class UIView extends Laya.Script {
         return UI.GetNodeBoundingBox(this.owner);
     }
 
+    // return Laya.Size
+    GetBoundSizeOfGameObject(nd: Laya.Node) {
+        return UI.GetNodeBoundingBox(nd);
+    }
+ 
+    GetBoundSize() {
+        return UI.GetNodeBoundingBox(this.owner);
+    }
+
     // UIView parent
     SetParent(parent: UIView) {
         parent.owner.addChild(this.owner);
@@ -300,7 +318,7 @@ export default class UIView extends Laya.Script {
         return this.owner.parent.getComponent(UIView);
     }
 
-   
+
 
     OnUIDidFinish() {
 

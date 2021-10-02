@@ -2,6 +2,10 @@ import Debug from "./Debug";
 
 
 export default class Device {
+
+     isScreenShot = false;
+      isRecordVideo = false;
+
     static _main: Device;
     //静态方法
     static get main() {

@@ -1,5 +1,4 @@
-import Timer from "../Core/Timer";
-
+ 
 
 
 
@@ -14,6 +13,8 @@ this.on(Laya.Event.CLICK, this, (e: Laya.Event)=>{
   
 }
 */
+
+import Timer from "../../Core/Timer";
 
 export default class UITouchEvent extends Laya.Script {
     public static TOUCH_DOWN = 0;

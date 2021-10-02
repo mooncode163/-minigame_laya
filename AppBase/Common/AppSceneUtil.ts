@@ -14,5 +14,9 @@ export default class AppSceneUtil
     static main: any;
     // public static rootNode: Laya.Node;
     static isNeedLayout=false;
+ 
+    static mainScene: Laya.Scene3D;
+    static mainCamera: Laya.Camera;
+    static is3D:boolean = false;
 }
 

@@ -3,6 +3,7 @@
 // https://blog.csdn.net/u011004567/article/details/78507236
 // VS Code的插件-TypeScript Importer
 
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import TextureCache from "../../Cache/TextureCache";
 import Common from "../../Common";
 import ImageRes from "../../Config/ImageRes";
@@ -14,12 +15,12 @@ import Platform from "../../Platform";
 import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
 
- 
+
 export default class UISprite extends UIView {
- 
-    /** @prop {name:image,type:Node}*/
-    public image: Laya.Sprite; 
- 
+
+    /** @prop {name:sprite,type:Node}*/
+    sprite: Laya.MeshSprite3D;
+
 
     isCache: boolean = true;
 
@@ -32,7 +33,7 @@ export default class UISprite extends UIView {
     keyImageH: string = "";//only for landscap 横屏
     /** @prop {name:keyImageH2,type:string}*/
     keyImageH2: string = "";
- 
+
 
     isSizeFitTexture: boolean = false;
 
@@ -42,12 +43,7 @@ export default class UISprite extends UIView {
         var keyPic = this.keyImage;
         // this.image = this.owner.getChildByName("Image") as Laya.Image;
 
-        if (this.image == null) {
-            Debug.Log("UIImage image==null");
-        } else {
-            Debug.Log("UIImage image!=null");
-        }
- 
+
         if (Device.main.isLandscape) {
             if (!Common.BlankString(this.keyImageH)) {
                 keyPic = this.keyImageH;
@@ -80,7 +76,7 @@ export default class UISprite extends UIView {
 
         var filepath = "Resources/App/UI/Bg/HomeBg.png";
         // this.image.skin = pic;
-        var imageload = this.image;
+        // var imageload = this.image;
         // Laya.Texture2D.load(filepath, Laya.Handler.create(null, function (tex): void {
         //     // imageload.skin = pic;
         //     var data = Laya.loader.getRes(filepath);
@@ -98,11 +94,11 @@ export default class UISprite extends UIView {
         // this.image2.loadImage(filepath);  
         var url = "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-2d2b7463-734d-482e-9539-28c66239be5d/356d43ca-241a-4e50-af69-17b80a0888c3.png";
         // filepath = url;
-        Laya.loader.load(filepath, Laya.Handler.create(this, function (data): void { 
+        Laya.loader.load(filepath, Laya.Handler.create(this, function (data): void {
             var tex = Laya.loader.getRes(filepath);
             // var tex = data;
             this.image.texture = tex;
-            Debug.Log("tex w="+tex.width+" h="+tex.height);
+            Debug.Log("tex w=" + tex.width + " h=" + tex.height);
 
         }));
 
@@ -117,7 +113,7 @@ export default class UISprite extends UIView {
         // this.image.source = texture;
         var filepath = "Resources/App/UI/Bg/HomeBg.png";
         var texture = Laya.loader.getRes(filepath);
-        this.image.texture = texture;
+        // this.texture = texture;
     }
 
     GetKeyImage() {
@@ -143,13 +139,39 @@ export default class UISprite extends UIView {
         }
     }
 
-    UpdateImageTexture(tex: Laya.Texture) {
+  
 
-        TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
+    UpdateImageTexture(tex: Laya.Texture2D) {
+
+        // TextureUtil.UpdateImageTexture(this.image, tex, true, Laya.Vector4.ZERO);
         if (this.isSizeFitTexture) {
             this.SetContentSize(tex.width, tex.height);
             this.LayOut();
         }
+        var w = tex.width / 100;
+        var h = tex.height / 100;
+        //添加自定义模型
+        // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
+        var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
+        // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+        var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
+        material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
+        // res/layabox.png
+
+        box.meshRenderer.material = material;
+        material.albedoTexture = tex;
+        // box.transform.translate(new Laya.Vector3(0,-1, 0));
+
+          /*
+            Laya.Texture2D.load("GameWinBg.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
+
+  
+        }));
+        */
+
+
+ 
+
     }
 
     // 绝对路径
@@ -183,7 +205,8 @@ export default class UISprite extends UIView {
                 filepath: pic,
                 isCloud: isCloud,
                 success: (p: any, tex: Laya.Texture) => {
-                    TextureUtil.UpdateImageTexture(this.image, tex, true, board);
+                    // TextureUtil.UpdateImageTexture(this.image, tex, true, board);
+                    this.UpdateImageTexture(tex);   
                     if (this.isSizeFitTexture) {
                         this.SetContentSize(tex.width, tex.height);
                         this.LayOut();

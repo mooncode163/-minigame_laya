@@ -6,7 +6,7 @@ import UIViewPop from "../../../../Common/UIKit/PopUp/UIViewPop";
 import UIButton from "../../../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../../../Common/UIKit/UIText/UIText";
-import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
+import UITouchEvent from "../../../../Common/UIKit/Event/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameLevelParse from "../../../Main/GameLevelParse";

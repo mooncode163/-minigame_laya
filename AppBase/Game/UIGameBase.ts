@@ -182,7 +182,7 @@ export default class UIGameBase extends UIView {
 
     }
 
-    ShowAdInsert(step) {
+    ShowAdInsert(step,   isAlwasy= true) {
         var _step = step;
         if (_step <= 0) {
             _step = 1;

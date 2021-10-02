@@ -140,6 +140,7 @@ export default class UI {
             sp.scaleY = scale;
         }
     }
+   
     static GetScaleX(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         if (sp != null) {

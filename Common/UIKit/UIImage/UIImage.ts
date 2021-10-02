@@ -66,6 +66,7 @@ export default class UIImage extends UIView {
         super.onAwake();
    
         this.LayOut();
+        // this.image.render = -1;
     }
 
     onStart() {

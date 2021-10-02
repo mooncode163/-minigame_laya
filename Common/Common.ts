@@ -1,6 +1,6 @@
 import Debug from "./Debug";
 import Device from "./Device";
- 
+
 
 export default class Common {
     public static GAME_DATA_DIR = "Resources/GameData";//streamingAssetsPath下的游戏配置等数据
@@ -18,8 +18,8 @@ export default class Common {
     static isAndroid: any;
     static isiOS: any;
     static isWinUWP: any;
- 
-    
+
+
     static get noad() {
         var key = "APP_NO_AD";
         var ret = Common.GetBoolOfKey(key, false);
@@ -37,6 +37,28 @@ export default class Common {
         // }
         // PlayerPrefs.SetInt(key, ret);
     }
+
+    static GetListIndexOfItem(list: any, item: any) {
+        for (var i = 0; i < list.length; i++) {
+            var ui = list[i];
+            if (ui == item) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static ListRemoveItem(list: any, item: any) {
+        var idx = Common.GetListIndexOfItem(list,item);
+        if(idx>=0)
+        {
+            list.splice(idx,1);
+        }
+    }
+    static ListClear(list: any) {  
+            list.splice(0,list.length); 
+    }
+ 
 
     static CanvasToScreenWidth(canvasSize, w) {
         let screenSize = Device.main.screenSize;
@@ -109,10 +131,10 @@ export default class Common {
 
     //字符串显示大小
     static GetTextSize(text: string, fontsize: number) {
-        var labelTmp = new Laya.Label(); 
+        var labelTmp = new Laya.Label();
         labelTmp.fontSize = fontsize;
-        labelTmp.text = text; 
-        var size = new Laya.Size(labelTmp.width,labelTmp.height);
+        labelTmp.text = text;
+        var size = new Laya.Size(labelTmp.width, labelTmp.height);
         labelTmp.destroy();
         return size;
     }
@@ -173,11 +195,10 @@ export default class Common {
         return v_int;
     }
 
-    
+
 
     static GetAppPackage() {
         return "com.moonma.app";
     }
-    
+
 }
- 

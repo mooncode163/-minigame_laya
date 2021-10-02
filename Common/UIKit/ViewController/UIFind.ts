@@ -8,21 +8,20 @@ import UI from "./UI";
 
 export default class UIFind {
 
-   // isAll = false 只查找当前子节点  true 嵌套查找所以子节点
-    static Find(parent: Laya.Node, name: string,isAll:boolean=true): Laya.Node {
+    // isAll = false 只查找当前子节点  true 嵌套查找所以子节点
+    static Find(parent: Laya.Node, name: string, isAll: boolean = true): Laya.Node {
         // var node = parent.getChildByName(name);
-        if(isAll)
-        {
+        if (isAll) {
             return UIFind.FindAll(parent, name);
-        }else{
-        return UIFind.FindChild(parent, name);
+        } else {
+            return UIFind.FindChild(parent, name);
         }
     }
 
     // 按名字查找子对象
     static FindChild(parent: Laya.Node, name: string): Laya.Node {
         // return parent.getChildByName(name);
-        return UIFind.FindByName(parent,name);
+        return UIFind.FindByName(parent, name);
     }
 
     // 嵌套查询所有的子节点
@@ -100,7 +99,7 @@ export default class UIFind {
 
 
     // 按名字查找子对象中的uibutton
-  
+
     static FindImage(parent: Laya.Node, name: string): UIImage {
         var node = UIFind.Find(parent, name);
         if (node != null) {
@@ -116,11 +115,17 @@ export default class UIFind {
         return null;
     }
 
- 
 
-    // isAll = false 只查找当前子节点  true 嵌套查找所以子节点
-    static FindUI(parent: Laya.Node, name: string, componentType: typeof Laya.Component ,isAll:boolean=true): any {
-        var node = UIFind.Find(parent, name,isAll);
+
+    // isAll = false 只查找当前子节点  true 嵌套查找所以子节点 当isAll = false时如果字节点没有找到 自动切换成true再查找
+    static FindUI(parent: Laya.Node, name: string, componentType: typeof Laya.Component, isAll: boolean = false): any {
+        var node = UIFind.Find(parent, name, isAll);
+        if (isAll == false) {
+            if (node == null) {
+                // 自动切换成true再查找
+                node = UIFind.Find(parent, name, true);
+            }
+        }
         if (node != null) {
             return node.getComponent(componentType);
         }

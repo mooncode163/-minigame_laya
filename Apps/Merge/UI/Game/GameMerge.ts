@@ -6,7 +6,7 @@ import Timer from "../../../../Common/Core/Timer";
 import Debug from "../../../../Common/Debug";
 import ResManager from "../../../../Common/Res/ResManager";
 import UIImage from "../../../../Common/UIKit/UIImage/UIImage";
-import UITouchEvent from "../../../../Common/UIKit/UITouchEvent";
+import UITouchEvent from "../../../../Common/UIKit/Event/UITouchEvent";
 import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameLevelParse from "../../../Main/GameLevelParse";

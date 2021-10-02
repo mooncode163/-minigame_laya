@@ -3,7 +3,7 @@ import Common from "../../Common";
 import CommonRes from "../../CommonRes";
 import Debug from "../../Debug";
 import LayOutSize from "../LayOut/LayOutSize";
-import UITouchEvent from "../UITouchEvent";
+import UITouchEvent from "../Event/UITouchEvent";
 import UIView from "../ViewController/UIView";
 
 

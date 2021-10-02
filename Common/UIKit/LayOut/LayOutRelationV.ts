@@ -1,5 +1,4 @@
-
-import { ui } from "../../../../ui/layaMaxUI";
+ 
 import AdKitCommon from "../../AdKit/AdKitCommon";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
