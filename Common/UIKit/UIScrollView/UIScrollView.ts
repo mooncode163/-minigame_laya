@@ -3,6 +3,7 @@ import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
 import ItemInfo from "../../ItemInfo";
 import Language from "../../Language/Language";
+import DataTouch from "../Event/DataTouch";
 import UITouchEvent from "../Event/UITouchEvent";
 import AnimateButton from "../UIButton/AnimateButton";
 import UIImage from "../UIImage/UIImage"; 
@@ -214,7 +215,7 @@ export default class UIScrollView extends UIView {
     OnUITouchEvent(ui: UITouchEvent, status: number) {
         switch (status) {
 
-            case UITouchEvent.TOUCH_DOWN:
+            case DataTouch.TOUCH_DOWN:
                 {
                     var uiview = ui.owner.getComponent(UIView);
                     // Debug.Log("UIScrollView OnUITouchEvent TOUCH_DOWN name=" + ui.owner.name);
@@ -223,7 +224,7 @@ export default class UIScrollView extends UIView {
                     }
                 }
                 break;
-            case UITouchEvent.TOUCH_MOVE:
+            case DataTouch.TOUCH_MOVE:
                 {
                     var uiview = ui.owner.getComponent(UIView);
                     if (uiview!=null) {
@@ -232,7 +233,7 @@ export default class UIScrollView extends UIView {
                 }
 
                 break;
-            case UITouchEvent.TOUCH_UP:
+            case DataTouch.TOUCH_UP:
                 {
                     var uiview = ui.owner.getComponent(UIView);
                     if (uiview!=null) {

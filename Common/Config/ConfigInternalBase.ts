@@ -23,7 +23,7 @@ export default class ConfigInternalBase  {
         if (this.isCloud) {
             ResManager.LoadJson(
                 {
-                    filepath: this.fileJson,
+                    filepath:  this.fileJson,
                     success: (p: any, data: any) => {
                         this.rootJson = data;
                         this.ParseData();
@@ -44,7 +44,7 @@ export default class ConfigInternalBase  {
             // var key = FileUtil.GetFileBeforeExtWithOutDot(this.fileJson);
             ResManager.LoadJson(
                 {
-                    filepath: this.fileJson,
+                    filepath:   this.fileJson,
                     success: (p: any, data: any) => {
                         Debug.Log("ConfigInternalBase success this.fileJson=" + this.fileJson);
                         // this.OnFinish(obj);

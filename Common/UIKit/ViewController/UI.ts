@@ -27,7 +27,7 @@ export default class UI {
     public static PhysicBodyTypeDynamic = "dynamic";
     public static PhysicBodyTypeStatic = "static";
     public static PhysicBodyTypeKinematic = "kinematic";
-
+ 
     static SetPosition(node: Laya.Node, pt: Laya.Vector3) {
         UI.SetNodePosition(node, pt.x, pt.y);
     }
@@ -140,7 +140,7 @@ export default class UI {
             sp.scaleY = scale;
         }
     }
-   
+
     static GetScaleX(node: Laya.Node) {
         var sp = node as Laya.Sprite;
         if (sp != null) {
@@ -191,7 +191,7 @@ export default class UI {
         return node;
     }
 
-    static SetParent(child: Laya.Node,parent:Laya.Node) {
+    static SetParent(child: Laya.Node, parent: Laya.Node) {
         parent.addChild(child);
     }
 
@@ -227,7 +227,20 @@ export default class UI {
 
         return null;
     }
-
+    // uiParent:UIView
+    static CreateUI3D(componentType: typeof Laya.Component,uiParent:any,keyImage:string="",keyText:string="") {
+        // var node = new Laya.Node();
+        var node = new Laya.Sprite3D();
+        var ui = node.addComponent(componentType);
+        ui.keyImage = keyImage;//Circle  GameWinBg
+        if(uiParent!=null)
+        {
+            uiParent.AddNodeToMainWorld(node);
+        }else{
+            AppSceneUtil.mainScene.addChild(node);
+        }
+        return ui;
+    }
 }
 
 

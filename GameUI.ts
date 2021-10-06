@@ -7,7 +7,7 @@ import { ui } from "./../ui/layaMaxUI";
 export default class GameUI extends ui.test.TestSceneUI {
     constructor() {
         super();
-
+		
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;
 
@@ -15,60 +15,19 @@ export default class GameUI extends ui.test.TestSceneUI {
         var camera: Laya.Camera = (scene.addChild(new Laya.Camera(0, 0.1, 100))) as Laya.Camera;
         camera.transform.translate(new Laya.Vector3(0, 3, 3));
         camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
-        // camera.orthographic = true;
 
         //添加方向光
         var directionLight: Laya.DirectionLight = scene.addChild(new Laya.DirectionLight()) as Laya.DirectionLight;
         directionLight.color = new Laya.Vector3(0.6, 0.6, 0.6);
         directionLight.transform.worldMatrix.setForward(new Laya.Vector3(1, -1, 0));
 
-        // 添加自定义模型
-        // {
-        //     var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
-        //     box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
-        //     var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-        //     Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
-        //         material.albedoTexture = tex;
-        //     }));
-        //     box.meshRenderer.material = material;
-        // }
-
-
-        {
-            //添加自定义模型
-            // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
-            var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(1, 1))) as Laya.MeshSprite3D;
-            // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
-            var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-            Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
-                material.albedoTexture = tex;
-            }));
-            box.meshRenderer.material = material;
-        }
-
-        //加载3D预设（3D精灵）
-        // Laya.Sprite3D.load("LayaScene_Laya/Conventional/Laya.lh", Laya.Handler.create(this, function (sp) {
-        // 	scene.addChild(sp);
-        // 	// let pangzi: Laya.Sprite3D = scene.addChild(sp) as Laya.Sprite3D;
-        // }));
-
-        Laya.Texture2D.load("GameWinBg.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
-
-            var w = tex.width / 100 / 4;
-            var h = tex.height / 100 / 4;
-            //添加自定义模型
-            // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
-            var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
-            // box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
-            var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-            material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT;
-            // res/layabox.png
-
-            box.meshRenderer.material = material;
-            material.albedoTexture = tex;
-            // box.transform.translate(new Laya.Vector3(0,-1, 0));
-        }));
-
-
+        //添加自定义模型
+        var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
+        box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
+        var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
+		Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function(tex:Laya.Texture2D) {
+				material.albedoTexture = tex;
+		}));
+        box.meshRenderer.material = material;
     }
 }

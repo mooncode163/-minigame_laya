@@ -15,6 +15,7 @@ import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
 import AnimateButton from "./AnimateButton";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
+import UIFind from "../ViewController/UIFind";
 
 enum ButtonType {
     IMAGE = "IMAGE",//一张背景  
@@ -138,9 +139,11 @@ export default class UIButton extends UIView {
 
 
 
-        this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
-        this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
-        this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
+        this.imageBg = UIFind.FindUI(this.node, "ImageBg", UIImage);
+        this.imageIcon = UIFind.FindUI(this.node, "ImageIcon", UIImage);
+        this.textTitle = UIFind.FindUI(this.node, "TextTitle", UIText);
+        // this.imageIcon = this.owner.getChildByName("ImageIcon").getComponent(UIImage);
+        // this.textTitle = this.owner.getChildByName("TextTitle").getComponent(UIText);
 
         // this.type = this._type;
         // this.btnBg.on(Laya.Event.CLICK, this, this.OnBtnClick);
@@ -161,6 +164,14 @@ export default class UIButton extends UIView {
     onStart() {
         // [3]
         super.onStart();
+
+        //   this.imageBg = this.owner.getChildByName("ImageBg").getComponent(UIImage);
+        // this.imageBg = UIFind.Find()
+
+        this.imageBg = UIFind.FindUI(this.node, "ImageBg", UIImage);
+        this.imageIcon = UIFind.FindUI(this.node, "ImageIcon", UIImage);
+        this.textTitle = UIFind.FindUI(this.node, "TextTitle", UIText);
+
         this.LayOut();
     }
 
@@ -241,6 +252,9 @@ export default class UIButton extends UIView {
         this.UpdateType(this.type);
         UI.SetNodePivotCenter(this.owner);
 
+        if (this.textTitle == null) {
+            return;
+        }
         this.enableFitTextSize = this.textTitle.enableFitTextSize;
         if (this.enableFitTextSize) {
             // var w = Common.GetTextSize(this.text, this.fontSize).width + this.fontSize;
@@ -315,6 +329,9 @@ export default class UIButton extends UIView {
     // }
 
     UpdateSwitch(isSel: boolean) {
+        if (this.imageBg == null) {
+            return;
+        }
         this.isSwicthSelect = isSel;
         if (this.isSwicthSelect) {
             this.imageBg.UpdateImageByKey(this.imageBg.keyImage);

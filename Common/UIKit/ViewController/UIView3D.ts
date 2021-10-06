@@ -47,7 +47,7 @@ import UITransform from "../UITransform";
 
 // laya ui 坐标原点在屏幕左上角  和android ios 的系统UI一致
 // laya 的舞台stage 类似于 cocos unity 的canvas
-export default class UIView extends Laya.Script {
+export default class UIView3D extends Laya.Script3D {
 
 
 
@@ -156,7 +156,7 @@ export default class UIView extends Laya.Script {
                 } else {
                     Debug.Log("UIView controller par");
                 }
-                var view = par.getComponent(UIView);
+                var view = par.getComponent(UIView3D);
                 //view = par.view;
                 if (view != null) {
                     var type = typeof view;
@@ -203,7 +203,7 @@ export default class UIView extends Laya.Script {
     SetController(con: UIViewController) {
         this.controller = con;
         con.objController.addChild(this.owner);
-        con.view = this;
+        // con.view = this;
 
         con.ViewDidAppear();
 
@@ -281,7 +281,7 @@ export default class UIView extends Laya.Script {
         if (h <= 0) {
             h_real = 0.0001;
         }
-        UIView.SetNodeContentSize(this.owner, w_real, h_real);
+        UIView3D.SetNodeContentSize(this.owner, w_real, h_real);
         // this.owner?.getComponent(UITransform)?.setContentSize(new Size(w, h));
         this.LayOutInternalChild();
     }
@@ -313,13 +313,13 @@ export default class UIView extends Laya.Script {
     }
 
     // UIView parent
-    SetParent(parent: UIView) {
+    SetParent(parent: UIView3D) {
         parent.owner.addChild(this.owner);
         this.LayOut();
     }
 
     GetParent() {
-        return this.owner.parent.getComponent(UIView);
+        return this.owner.parent.getComponent(UIView3D);
     }
 
 
@@ -354,7 +354,7 @@ export default class UIView extends Laya.Script {
 
         for (var i = 0; i < this.owner.numChildren; i++) {
             var child = this.owner.getChildAt(i);
-            var ui = child.getComponent(UIView);
+            var ui = child.getComponent(UIView3D);
             if (ui != null) {
                 if (this.owner != ui.owner) {
                     ui.UpdateLanguage();
@@ -364,7 +364,7 @@ export default class UIView extends Laya.Script {
     }
 
 
-    AddChild(child: UIView) {
+    AddChild(child: UIView3D) {
         this.owner.addChild(child.owner);
         this.LayOut();
     }
@@ -375,7 +375,7 @@ export default class UIView extends Laya.Script {
         // AppSceneUtil.mainScene.addChild(node);
         this.node.addChild(node);
     }
-    AddVideToMainWorld(ui: UIView) {
+    AddVideToMainWorld(ui: UIView3D) {
         this.AddNodeToMainWorld(ui.node);
     }
 }

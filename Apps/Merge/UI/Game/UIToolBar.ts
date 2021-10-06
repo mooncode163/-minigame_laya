@@ -119,7 +119,8 @@ export default class UIToolBar extends UIView {
     // 锤子 摧毁指定球兵获得积分
     OnClickBtnHammer() {
         Debug.Log("PopUpManager OnClickBtnHammer");
-        this.ShowPop(PropType.Hammer);
+        // this.ShowPop(PropType.Hammer);
+        GameData.main.uiGameZuma.OnTest();
     }
 
 

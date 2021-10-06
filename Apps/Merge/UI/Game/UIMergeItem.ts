@@ -10,29 +10,60 @@ import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameData, { GameStatus } from "../../Data/GameData";
 import { PropType } from "./UIPopProp";
 import ItemInfo from "../../../../Common/ItemInfo";
+import UISprite from "../../../../Common/UIKit/UIImage/UISprite";
+import UITouchEvent3D from "../../../../Common/UIKit/Event/UITouchEvent3D";
+import UIView3D from "../../../../Common/UIKit/ViewController/UIView3D";
+import GameLevelParse from "../../../Main/GameLevelParse";
+import Action3D, { ActionType } from "../../../../Common/Action/Action3D";
 
 
+export interface IUIMergeItem {
 
-export default class UIMergeItem extends UIView {
+    OnUIMergeItemMergeCloudAnimateDidFinish(ui: any);
+
+}
+
+export default class UIMergeItem extends UIView3D {
 
 
     public static DURATION_MERGE_CLOUD = 1.0;
 
-    imageItem: UIImage = null;
+    delegate: IUIMergeItem;
+    uiCloud: UISprite;
+    uiRing: UISprite;
+    sprite: UISprite = null;
     keyAudio = "";
     isNew = false;
     type = 0;
     t = 0;
     hasGoDownDeadLine = false;
     isAnimating = false;
-    angle= 0;
+    angle: number = 0;
 
     onAwake() {
         super.onAwake();
         this.t = 0;
+        this.sprite = UI.CreateUI3D(UISprite, this, "");
+        this.sprite.callbackRenderFinish = this.OnRenderFinish.bind(this);
+
+        this.uiCloud = UI.CreateUI3D(UISprite, this, "");//MergeCloud_0 GameWinBg MergeCloud_0
+        this.uiRing = UI.CreateUI3D(UISprite, this, "");
+
+        // this.uiCloud.localScale = new Laya.Vector3(0.25, 0.25, 1);
+        // this.uiCloud.color = new Laya.Color(255, 255, 255, 255);
+
+        // var p = new Action3D();
+        // p.Run(
+        //     {
+        //         sp: this.uiCloud,
+        //         type: ActionType.Fade,
+        //         to: 0,
+        //         time: UIMergeItem.DURATION_MERGE_CLOUD,
+        //         success: function (p: any) {
 
 
-        this.imageItem = UIFind.FindImage(this.node, "ImgeItem");
+        //         }.bind(this),
+        //     });
         // this.image = this.Find("Image") as Laya.Image;
 
         // this.node.zIndex = 100;
@@ -45,13 +76,17 @@ export default class UIMergeItem extends UIView {
 
         this.node.addComponent(CollisionDetection);
 
+
+
     }
     onStart() {
         super.onStart();
     }
 
     onDestroy() {
-
+        this.sprite.destroy();
+        this.uiCloud.destroy();
+        this.uiRing.destroy();
     }
 
     onUpdate() {
@@ -107,8 +142,9 @@ export default class UIMergeItem extends UIView {
     }
 
     UpdateImage(pic) {
-        if (this.imageItem != null) {
-            this.imageItem.UpdateImage(pic, "");
+        if (this.sprite != null) {
+            this.sprite.UpdateImage(pic, "");
+
         }
 
         var isCloud = false;
@@ -131,13 +167,8 @@ export default class UIMergeItem extends UIView {
         bd.type = isEnable ? UI.PhysicBodyTypeDynamic : UI.PhysicBodyTypeStatic;
     }
 
-    onMouseDown(e) {
-        // console.log("按下"); 
-    }
-    onMouseMove(e) {
 
-    }
-    onMouseUp(e) {
+    onMouseUp() {
         var imageProp = GameData.main.game.imageProp;
         var duration = 0.5;
         var toPos = UI.GetNodePosition(this.node);
@@ -168,7 +199,7 @@ export default class UIMergeItem extends UIView {
         }
     }
 
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
+    OnUITouchEvent(ui: UITouchEvent3D, status: number, event?: any) {
 
         // var pos = ui.GetPosition(event);
         // var posnodeAR = ui.GetPositionOnNode(this.node,event);//坐标原点在node的锚点
@@ -180,15 +211,15 @@ export default class UIMergeItem extends UIView {
         // // var toPos = uiTrans.convertToNodeSpaceAR(new Vec3(posui.x, posui.y, 0)); 
         // var toPos =ui.GetPositionOnNode(GameMerge.main.node,event);
         // switch (status) {
-        //     case UITouchEvent.TOUCH_DOWN:
+        //     case DataTouch.TOUCH_DOWN:
         //         this.OnTouchDown(posnodeAR);
         //         break;
 
-        //     case UITouchEvent.TOUCH_MOVE:
+        //     case DataTouch.TOUCH_MOVE:
         //         this.OnTouchMove(posnodeAR);
         //         break;
 
-        //     case UITouchEvent.TOUCH_UP:
+        //     case DataTouch.TOUCH_UP:
         //         this.OnTouchUp(posnodeAR);
         //         {
         //             if (GameData.main.status == GameStatus.Prop) {
@@ -220,77 +251,146 @@ export default class UIMergeItem extends UIView {
 
 
     OnMergeAnimateDidFinish() {
-        // uiCloud.visible = false;
-        // uiRing.visible = false;
+        this.uiCloud.visible = false;
+        this.uiRing.visible = false;
 
-        // float time = 0.01f;
+        var time = 0.01;
         // uiCloud.objSp.GetComponent<Renderer>().material.DOFade(1, time);
         // uiRing.objSp.GetComponent<Renderer>().material.DOFade(1, time);
 
-        // if (iDelegate != null)
-        // {
-        //     iDelegate.OnUIMergeItemMergeCloudAnimateDidFinish(this);
-        // }
+        if (this.delegate != null) {
+            this.delegate.OnUIMergeItemMergeCloudAnimateDidFinish(this);
+        }
     }
 
+
+    // delay:second
     RunMergeCloudAnimate(delay = 0) {
-        // if (delay == 0)
-        // {
-        //     RunMergeCloudAnimateInternal();
-        // }
-        // else
-        // {
-        //     Invoke("RunMergeCloudAnimateInternal", delay);
-        // }
+        // return ;
+        if (delay == 0) {
+            this.RunMergeCloudAnimateInternal();
+        }
+        else {
+            Laya.timer.once(delay * 1000, this, function (): void {
+                this.RunMergeCloudAnimateInternal();
+            });
+        }
     }
     RunMergeCloudAnimateInternal() {
 
-        // uiCloud.visible = true;
-        // uiRing.visible = true;
-        // {
-        //     string key = "MergeCloud" + "_" + GameLevelParse.main.GetIndexById(keyId).ToString();
-        //     uiCloud.UpdateImageByKey(key);
-        //     float w = uiCloud.GetContentSize().x;
-        //     if (w != 0)
-        //     {
-        //         float scale = (spriteItem.GetContentSize().x / w) * 2f;
-        //         Debug.Log("uiCloud scale=" + scale + " w=" + w + " dispw=" + spriteItem.GetBoundSize().x);
-        //         uiCloud.transform.localScale = new Vector3(scale, scale, 1);
-        //     }
-        //     uiCloud.objSp.GetComponent<Renderer>().material.DOFade(0, DURATION_MERGE_CLOUD);
-        // }
-        // {
-        //     string key = "Ring" + "_" + GameLevelParse.main.GetIndexById(keyId).ToString();
-        //     uiRing.UpdateImageByKey(key);
-        //     float w = uiRing.GetContentSize().x;
-        //     float scaleStart = 1f;
-        //     float scaleEnd = 1f;
-        //     if (w != 0)
-        //     {
-        //         float scale = (spriteItem.GetContentSize().x / w) * 1.5f;
-        //         scaleStart = scale;
-        //         scaleEnd = scaleStart * 2;
-        //         uiRing.transform.localScale = new Vector3(scale, scale, 1);
-        //     }
+        this.uiCloud.visible = true;
+        this.uiRing.visible = true;
+        this.uiCloud.position = new Laya.Vector3(this.sprite.position.x, this.sprite.position.y, this.sprite.position.z);
+        this.uiRing.position = this.sprite.position;
+
+        Debug.Log("UIMergeItem position.x=" + this.sprite.position.x + " position.y=" + this.sprite.position.y);
+        {
+            var key = "MergeCloud" + "_" + GameLevelParse.main.GetIndexById(this.keyId).toString();
+            this.uiCloud.UpdateImageByKey(key);
+            var w = this.uiCloud.GetContentSize().width;
+            // Debug.Log("uiCloud scale=" + scale + " w=" + w + " dispw=" + this.sprite.GetBoundSize().width);
+            if (w != 0) {
+
+                var w_sp = this.sprite.GetContentSize().width;
+                var scale = (this.sprite.GetBoundSize().width / w) * 2;
+                Debug.Log("uiCloud scale 2=" + scale + " w=" + w + " dispw=" + this.sprite.GetBoundSize().width + " w_sp=" + w_sp + " sp_scale=" + this.sprite.localScale.x);
+                this.uiCloud.localScale = new Laya.Vector3(scale, scale, 1);
+            }
+
+            var p = new Action3D();
+            p.Run(
+                {
+                    sp: this.uiCloud,
+                    type: ActionType.Fade,
+                    to: 0,
+                    time: UIMergeItem.DURATION_MERGE_CLOUD,
+                    success: function (p: any) {
 
 
-        //     uiRing.objSp.GetComponent<Renderer>().material.DOFade(0, DURATION_MERGE_CLOUD);
-        //     Tweener tw = uiRing.transform.DOScale(scaleEnd, DURATION_MERGE_CLOUD).OnComplete(() =>
-        //          {
-        //              OnMergeAnimateDidFinish();
-        //          }
-        //     );
-        // }
+                    }.bind(this),
+                });
+
+        }
+
+
+
+        {
+            var key = "Ring" + "_" + GameLevelParse.main.GetIndexById(this.keyId).toString();
+            this.uiRing.UpdateImageByKey(key);
+            var w = this.uiRing.GetContentSize().width;
+            var scaleStart = 1;
+            var scaleEnd = 1;
+            if (w != 0) {
+                var scale = (this.sprite.GetBoundSize().width / w) * 1.5;
+                scaleStart = scale;
+                scaleEnd = scaleStart * 2;
+                Debug.Log("uiRing scale=" + scale + " w=" + w + " dispw=" + this.sprite.GetBoundSize().width + " key=" + key);
+                this.uiRing.localScale = new Laya.Vector3(scale, scale, 1);
+            }
+
+            // Fade
+            {
+                var p = new Action3D();
+                p.Run(
+                    {
+                        sp: this.uiRing,
+                        type: ActionType.Fade,
+                        to: 0,
+                        time: UIMergeItem.DURATION_MERGE_CLOUD,
+                        success: function (p: any) {
+
+
+                        }.bind(this),
+                    });
+
+            }
+
+            // scale
+            {
+                var p = new Action3D();
+                p.Run(
+                    {
+                        sp: this.uiRing,
+                        type: ActionType.Scale,
+                        to: new Laya.Vector3(scaleEnd, scaleEnd, 1),
+                        time: UIMergeItem.DURATION_MERGE_CLOUD,
+                        success: function (p: any) {
+                            this.OnMergeAnimateDidFinish();
+
+                        }.bind(this),
+                    });
+            }
+
+        }
 
         // AudioPlay.main.PlayByKey(keyAudio);
     }
 
     UpdateItem(info: ItemInfo) {
         // Init();
-        // string pic = GameLevelParse.main.GetImagePath(info.id);
-        // UpdateImage2(pic);
+        // var pic = GameLevelParse.main.GetImagePath(info.id);
+        this.sprite.UpdateImageByKey(info.id);
+
+
+        //平面添加物理碰撞体组件
+        var phycol: Laya.PhysicsCollider = this.sprite.sprite3D.addComponent(Laya.PhysicsCollider);
+        //创建盒子形状碰撞器
+
+        // 
+        var box: Laya.BoxColliderShape = new Laya.BoxColliderShape(5.12, 5.12, 1);
+        //物理碰撞体设置形状
+        phycol.colliderShape = box;
+        var ev = this.sprite.sprite3D.addComponent(UITouchEvent3D);
+        ev.callBackTouch = this.OnUITouchEvent.bind(this);
+
     }
 
+    OnRenderFinish() {
+        Debug.Log("callbackRenderFinish OnRenderFinish");
+        if (this.callbackRenderFinish != null) {
+            this.callbackRenderFinish();
+        }
+    }
 
 }
 

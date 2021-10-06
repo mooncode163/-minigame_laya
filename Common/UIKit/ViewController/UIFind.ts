@@ -83,6 +83,7 @@ export default class UIFind {
         // return parent.getChildByName(name);
         // Debug.Log("FindByName  parent.numChildren="+parent.numChildren);
         for (var i = 0; i < parent.numChildren; i++) {
+            Debug.Log("FindByName i=" + i+" name="+name);
             var child = parent.getChildAt(i) as Laya.Node;
             if (child == undefined) {
                 continue;
@@ -138,6 +139,8 @@ export default class UIFind {
         }
         return null;
     }
+
+   
 }
 
 

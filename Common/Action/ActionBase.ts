@@ -19,6 +19,11 @@ export default class ActionBase extends Laya.Script {
     isPaused = false;
     _isRunning = false;
     callbackComplete = null;
+
+
+    public get node(): Laya.Node {
+        return this.owner;
+    }
     // public OnActionCompleteDelegate callbackComplete { get; set; }
     get isRunning() {
         return this._isRunning;

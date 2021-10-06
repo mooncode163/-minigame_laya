@@ -37,8 +37,8 @@ export default class ActionRotationAngle extends ActionBase {
 
         var angle = 0;
         angle = this.angleFrom + (this.angleTo - this.angleFrom) * this.percentage;
-        if (this.iDelegate != null) {
-            this.iDelegate.OnUpdateActionRotationAngle(this, angle);
+        if (this.iDelegate != null) { 
+                this.iDelegate.OnUpdateActionRotationAngle(this, angle);
         }
     }
 }

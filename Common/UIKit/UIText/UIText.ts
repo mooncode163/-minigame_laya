@@ -114,6 +114,7 @@ export default class UIText extends UIView {
     onStart() {
         // [3]
         super.onStart();
+        return;
         Debug.Log("UIText this.keyColor =" + this.keyColor);
         if (!Common.BlankString(this.keyColor)) {
             Debug.Log("UIText this.color");

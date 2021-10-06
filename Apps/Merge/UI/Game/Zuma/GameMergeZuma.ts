@@ -2,28 +2,33 @@ import AppScene from "../../../../../AppBase/AppScene";
 import AppSceneUtil from "../../../../../AppBase/Common/AppSceneUtil";
 import GameBase from "../../../../../AppBase/Game/GameBase";
 import LevelManager from "../../../../../AppBase/Game/LevelManager";
+import Action3D, { ActionType } from "../../../../../Common/Action/Action3D";
 import AudioPlay from "../../../../../Common/Audio/AudioPlay";
 import PrefabCache from "../../../../../Common/Cache/PrefabCache";
 import TextureCache from "../../../../../Common/Cache/TextureCache";
 import CameraUtil from "../../../../../Common/Camera/CameraUtil";
+import CloudRes from "../../../../../Common/CloundRes/CloudRes";
 import Common from "../../../../../Common/Common";
+import ImageRes from "../../../../../Common/Config/ImageRes";
 import Timer from "../../../../../Common/Core/Timer";
 import Debug from "../../../../../Common/Debug";
 import Device from "../../../../../Common/Device";
 import ItemInfo from "../../../../../Common/ItemInfo";
+import MathUtil from "../../../../../Common/Math/MathUtil";
+import DataTouch from "../../../../../Common/UIKit/Event/DataTouch";
 import UITouchEvent from "../../../../../Common/UIKit/Event/UITouchEvent";
+import UITouchEvent3D from "../../../../../Common/UIKit/Event/UITouchEvent3D";
 import UISprite from "../../../../../Common/UIKit/UIImage/UISprite";
 import UI from "../../../../../Common/UIKit/ViewController/UI";
 import UIView from "../../../../../Common/UIKit/ViewController/UIView";
 import GameLevelParse from "../../../../Main/GameLevelParse";
 import GameData, { GameStatus } from "../../../Data/GameData";
-import UIMergeItem from "../UIMergeItem";
+import UIMergeItem, { IUIMergeItem } from "../UIMergeItem";
 import ActionRotationAngle from "./ActionRotationAngle";
-import UIGameMergeZuma from "./UIGameMergeZuma";
 import UIItemTrail from "./UIItemTrail";
 
 
-export default class GameMergeZuma extends GameBase {
+export default class GameMergeZuma extends GameBase implements IUIMergeItem {
     public static DURATION_ROTATION_ANGLE = 0.3;
     public listItem: UIMergeItem[] = [];
     public radiusCenter = 1.0;
@@ -38,19 +43,26 @@ export default class GameMergeZuma extends GameBase {
     public isAutoClick = false;
 
     itemPosZ = -1.0;
-    posCenter = Laya.Vector2.ZERO;
+
+    // Laya.Vectro
+    posCenter = new Laya.Vector2(0, 0);
     time = 1;//计时
+    timeMerge = 0;
     angleStart = 0;
     isStartCheckCollision = false;
     isCheckCollisionIng = false;
 
     isAnimating = false;
     countMerge = 0;
+    isInitGame = false;
 
+    public uiBg: UISprite;
     public uiCircle: UISprite;
     public uiCenterItemBg: UISprite;
     public uiItemTrail: UIItemTrail;
     public uiProp: UISprite;
+    public uiTest: UISprite;
+    public uiParticle: Laya.ShuriKenParticle3D;
 
     uiPrefabTrail: Laya.Prefab;
     uiPrefabItem: Laya.Prefab;
@@ -58,52 +70,188 @@ export default class GameMergeZuma extends GameBase {
 
     onAwake() {
         super.onAwake();
-
         GameData.main.gameZuma = this;
 
-        var ev = this.node.addComponent(UITouchEvent);
-        ev.callBackTouch = this.OnUITouchEvent.bind(this);
-        ev.timeTouchMin = 1.0;
+        var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        this.InitTouch();
 
         this.angleStart = 270;
         this.isStartCheckCollision = false;
         GameData.main.gameId = GameData.GAMAE_ID_ZUMA;
+        this.isInitGame = false;
 
 
 
-        return;
+
         LevelManager.main.placeLevel = 0;
         // LevelManager.main.ParseGuanka();
-        this.LoadPrefab();
+        // this.LoadPrefab();
 
 
         GameData.main.gameStatus = GameStatus.None;
 
-        this.LayOut();
+        // this.LayOut();
     }
 
+    InitTouch() {
+        var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        //平面添加物理碰撞体组件
+        var phycol: Laya.PhysicsCollider = this.node.addComponent(Laya.PhysicsCollider);
+        //创建盒子形状碰撞器 
+        var box: Laya.BoxColliderShape = new Laya.BoxColliderShape(size.x, size.y, 1);
+        //物理碰撞体设置形状
+        phycol.colliderShape = box;
+        var ev = this.node.addComponent(UITouchEvent3D);
+        ev.callBackTouch = this.OnUITouchEvent.bind(this);
+        // ev.timeTouchMin = 1.0;
+    }
     onStart() {
         super.onStart();
 
-        /*
-        var size = CameraUtil.main.GetWorldSize(this.mainCam);
-        this.radiusCenter = Math.min(size.x, size.y) * 0.5 * 0.5;
-        var box = this.node.getComponent(Laya.BoxCollider);
-        box.size = size;
-        this.radiusCenter = this.GetBoundSizeOfGameObject(this.uiCircle.node).width / 2;
-        // 圆环度占比 40/1024
-        var width_ring = 20;
-        this.radiusCenter = this.radiusCenter * (1 - width_ring / this.uiCircle.texture.width);
 
-        Debug.Log("radiusCenter =" + this.radiusCenter);
-        this.Clear();
-        this.LayOut();
-        */
+        // 提前加载纹理
+        var listItemKey = [];
+        listItemKey.push("Circle");
+        listItemKey.push("CenterItemBg");
+        for (var i = 0; i < this.GetTotalItems(); i++) {
+            var key = this.GetItemId(i);
+            Debug.Log("LoadListByKey   key=" + key);
+            listItemKey.push(key);
+
+            key = "MergeCloud" + "_" + i.toString();
+            listItemKey.push(key);
+
+            key = "Ring" + "_" + i.toString();
+            listItemKey.push(key);
+
+        }
+
+        for (var i = 0; i < 5; i++) {
+            var key = "TrailCirle" + "_" + i.toString();
+            listItemKey.push(key);
+
+        }
+
+        TextureCache.main.LoadListByKey(
+            {
+                listKey: listItemKey,
+                success: (p: any, listData: any) => {
+                    var tex = listData[3];
+                    Debug.Log("LoadListByKey   tex.width=" + tex.width);
+                    this.InitGame();
+                },
+                fail: (p: any) => {
+
+                },
+            });
 
     }
 
+    onDestroy() {
+
+        Debug.Log("GameMergeZuma onDestroy");
+        this.Clear();
+        // AppSceneUtil.main.ClearMainWorld();
+
+        var parent = this.node;
+        for (var i = 0; i < parent.numChildren; i++) {
+            var child = parent.getChildAt(i);
+            Debug.Log("GameMergeZuma onDestroy i=" + i + " child.name=" + child.name);
+            if (child == AppSceneUtil.mainScene) {
+                continue;
+            }
+            child.destroy();
+
+        }
+    }
+
+    InitGame() {
+        Debug.Log("InitGame enter");
+        this.uiBg = UI.CreateUI3D(UISprite, this, "GameBg"); //GameBg
+        this.uiBg.position = new Laya.Vector3(0, 0, this.itemPosZ - 5);
+        var sp = this.uiBg.node as Laya.Sprite3D;
+        // sp.transform.position = new Laya.Vector3(0, 0, this.itemPosZ - 5);
+        // this.uiBg.transform.position = new Laya.Vector3(0, 0, this.itemPosZ - 5);
+        // this.uiBg.visible = false;
+
+        this.uiCircle = UI.CreateUI3D(UISprite, this, "Circle"); //GameWinBg Circle
+        this.uiCircle.position = new Laya.Vector3(0, 0, this.itemPosZ - 2);
+        // this.uiCircle.zOrder = 10;
+        this.uiCenterItemBg = UI.CreateUI3D(UISprite, this, "CenterItemBg");
+        this.uiCenterItemBg.position = new Laya.Vector3(0, 0, this.itemPosZ - 1);
+        // this.uiCenterItemBg.visible = false;
+
+        this.uiItemTrail = UI.CreateUI3D(UIItemTrail, this, ""); //GameBg
+
+        var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        this.radiusCenter = Math.min(size.x, size.y) * 0.5 * 0.5;
+        // var box = this.node.addComponent(Laya.BoxCollider);
+        // box.width = size.x;
+        // box.height = size.y;
+        /*
+       
+     
+        this.LayOut();
+        */
+
+
+        Laya.timer.once(100, this, function (): void {
+            this.uiBg.position = new Laya.Vector3(0, 0, this.itemPosZ - 5);
+            this.uiCircle.position = new Laya.Vector3(0, 0, this.itemPosZ - 2);
+            this.uiCenterItemBg.position = new Laya.Vector3(0, 0, this.itemPosZ - 1);
+
+            // this.uiBg.visible = false;
+            this.Clear();
+            this.isInitGame = true;
+
+
+            // this.ShowParticle(new Laya.Vector3(0, 0, this.itemPosZ), "yintao");
+        });
+
+    }
+
+    ShowParticle(position: Laya.Vector3, key: string) {
+
+        if (this.uiParticle != null) {
+            // bug 第二次显示先销毁之前的对象 不然不显示 @moon
+            this.uiParticle.destroy();
+        }
+        // 加载3D预设（3D精灵）LayaLizi
+        Laya.Sprite3D.load(CloudRes.main.rootPath + "/LayaScene_Laya/Conventional/ParticleMergeForLaya.lh", Laya.Handler.create(this, function (sp) {
+
+            this.uiParticle = this.node.addChild(sp) as Laya.ShuriKenParticle3D;
+            Debug.Log("ShowParticle enter key=" + key);
+            console.log(this.uiParticle);
+            var fragmentParticles: Laya.ShuriKenParticle3D = this.uiParticle.getChildByName("FragmentParticles") as Laya.ShuriKenParticle3D;
+
+            if (fragmentParticles == null) {
+                console.log("fragmentParticles is null");
+            }
+            var material: Laya.ShurikenParticleMaterial = new Laya.ShurikenParticleMaterial();
+            // material.renderMode = Laya.BlinnPhongMaterial.RENDERMODE_TRANSPARENT; 
+
+            if (fragmentParticles.particleRenderer == null) {
+                console.log("UIMergeItem fragmentParticles.particleRenderer is null");
+            }
+            fragmentParticles.particleRenderer.material = material;
+            var filepath = ImageRes.main.GetImage(key);
+            Laya.Texture2D.load(filepath, Laya.Handler.create(this, function (tex: Laya.Texture2D) {
+                material.texture = tex;
+                // this.uiParticle.
+                this.uiParticle.transform.position = position;
+                Debug.Log("UIMergeItem ShowParticle position.x=" + position.x + " position.y=" + position.y + " z=" + position.z);
+                // this.uiBg.visible = false;
+            }));
+
+        }));
+    }
     onUpdate() {
-        return;
+        // return;
+        if (!this.isInitGame) {
+            return;
+        }
+
+        // this.uiBg.position = new Laya.Vector3(0, 0, this.itemPosZ - 5);
         //用作延迟生成物体
         if (this.time < 0.2) {
             this.time += Timer.deltaSecond;
@@ -136,8 +284,21 @@ export default class GameMergeZuma extends GameBase {
 
         if (this.isStartCheckCollision && !GameData.main.isFail) {
             // Invoke("CheckCollision", 1f);
-            this.CheckCollisionInternal();
+            // this.CheckCollision();
             // StartCoroutine(CheckCollision());//调用携程函数
+        }
+
+        if (this.timeMerge < 0.1) {
+            this.timeMerge += Timer.deltaSecond;
+        }
+        else {
+            if (this.IsHaveMergeItem() && (!this.isAnimating)) {
+                // 
+                this.CheckCollision();
+            } else {
+                Debug.Log("CheckCollision this.isAnimating=" + this.isAnimating);
+            }
+            this.timeMerge = 0;
         }
 
     }
@@ -153,7 +314,7 @@ export default class GameMergeZuma extends GameBase {
 
                     var node = UI.Instantiate(this.uiPrefabTrail);
                     this.uiItemTrail = node.getComponent(UIItemTrail);
-                    this.AddChild(this.uiItemTrail);
+                    // this.AddChild(this.uiItemTrail);
                 },
                 fail: (p: any) => {
 
@@ -177,7 +338,7 @@ export default class GameMergeZuma extends GameBase {
             this.isFirstRun = false;
             rdm = 0;
         }
-
+        rdm = 0;
         return this.GetItemId(rdm);
     }
     UpdateItem() {
@@ -189,6 +350,11 @@ export default class GameMergeZuma extends GameBase {
         }
 
         this.LayOut();
+
+        // Laya.timer.once(1000, this, function (): void {
+        //     this.LayOut();
+        // });
+
     }
 
     Clear() {
@@ -196,6 +362,7 @@ export default class GameMergeZuma extends GameBase {
         GameData.main.score = 0;
         GameData.main.isFail = false;
         this.isAnimating = false;
+        this.timeMerge = 0;
         GameData.main.uiGameZuma.UpdateScore();
         for (var i = 0; i < this.listItem.length; i++) {
             var ui = this.listItem[i];
@@ -252,7 +419,13 @@ export default class GameMergeZuma extends GameBase {
     // 左右的偏移角度
     GetItemOffsetAngle(item, radius) {
         var angle = 0;
-        var w = this.GetBoundSizeOfGameObject(item.node).width;
+        // var w = this.GetBoundSizeOfGameObject(item.sprite.node).width;
+        if (item.sprite == null) {
+            Debug.Log("GetItemOffsetAngle sprite is null");
+            return angle;
+        }
+        var w = item.sprite.GetBoundingBox().width;
+        // w = 0.2*w;
         angle = (w / radius) / 2;
         angle = angle * 360 / (Math.PI * 2);
         return angle;
@@ -275,40 +448,29 @@ export default class GameMergeZuma extends GameBase {
     }
     GetItemScale(key) {
         var pic = GameLevelParse.main.GetImagePath(key);
-
-        TextureCache.main.Load(
-            {
-                filepath: pic,
-                success: (p: any, tex: Laya.Texture2D) => {
-
-                    var ratio = GameData.IMAGE_ITEM_WIDHT * 1.0 / tex.width;
-
-                    var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.6;
-                    // scale = 0.1f;
-                    if (Device.main.isLandscape) {
-                        // scale = scale * 2f;
-                    }
-                    return scale * ratio;
-                },
-                fail: (p: any) => {
-
-                },
-            });
-        return 1;
+        var tex = TextureCache.main.GetTextureFromCache(pic);
+        var ret = 1;
+        var ratio = GameData.IMAGE_ITEM_WIDHT * 1.0 / tex.width;
+        var scale = (this.ScaleStart + 0.05 * this.GetIndexOfItem(key)) * 0.6;
+        // scale = 0.1f;
+        if (Device.main.isLandscape) {
+            // scale = scale * 2f;
+        }
+        ret = scale * ratio;
+        return ret;
 
     }
     // // angle 0-360度
-    CreateItem(key, isCenter) {
-        var uiPrefab = this.uiPrefabItem;
-        var node = UI.Instantiate(uiPrefab);
-        var ui = node.getComponent(UIMergeItem);
-        this.AddChild(ui);
-
-
-        ui.iDelegate = this;
+    CreateItem(key, isCenter: boolean, callbackFinish: Function = null) {
+        // var uiPrefab = this.uiPrefabItem;
+        // var node = UI.Instantiate(uiPrefab);
+        // var ui = node.getComponent(UIMergeItem);
+        var ui = UI.CreateUI3D(UIMergeItem, this);
+        // ui.callbackRenderFinish = function ()
+        //  {
+        ui.delegate = this;
         ui.isZuma = true;
         ui.isNew = true;
-        ui.id = key;
         ui.keyId = key;
         ui.isAnimating = false;
         // ui.index = indexItem++; 
@@ -322,15 +484,13 @@ export default class GameMergeZuma extends GameBase {
         ui.UpdateItem(info);
         // ui.EnablePhysic(false);
 
-        ui.EnableGravity(false);
         var scale = this.GetItemScale(key);
-        ui.transform.localScale = new Laya.Vector3(scale, scale, 1);
-        // ui.transform.localPosition = this.GetItemPositon(radiusCenter, angle);
-        ui.transform.localPosition = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.itemPosZ);
+        ui.sprite.localScale = new Laya.Vector3(scale, scale, 1);
+        ui.sprite.position = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.itemPosZ);
 
 
         // 
-        var ac = ui.node.addComponent(ActionRotationAngle);
+        var ac = ui.sprite.node.addComponent(ActionRotationAngle);
         ac.duration = GameMergeZuma.DURATION_ROTATION_ANGLE;
         ac.isLoop = false;
         ac.iDelegate = this;
@@ -341,6 +501,13 @@ export default class GameMergeZuma extends GameBase {
             ui.index = this.listItem.length;
             this.listItem.push(ui);
         }
+
+        if (callbackFinish != null) {
+            callbackFinish();
+        }
+        // }.bind(this);
+
+
         return ui;
 
     }
@@ -350,7 +517,8 @@ export default class GameMergeZuma extends GameBase {
         var totalLength = 0;
         for (var i = 0; i < count; i++) {
             var ui = this.listItem[i];
-            totalLength += this.GetBoundSizeOfGameObject(ui.node).width;
+            // totalLength += this.GetBoundSizeOfGameObject(ui.node).width;
+            totalLength += ui.sprite.GetBoundSize().width;
         }
         if (totalLength >= Math.PI * 2 * this.radiusCenter) {
             ret = true;
@@ -386,13 +554,6 @@ export default class GameMergeZuma extends GameBase {
     }
 
 
-
-    CheckCollision() {
-        this.CheckCollisionInternal();
-
-    }
-
-
     // 延迟一段时间再检测用来显示UI
     MergeUIDidFinish() {
         this.isStartCheckCollision = true;
@@ -417,7 +578,7 @@ export default class GameMergeZuma extends GameBase {
 
         return ret;
     }
-    CheckCollisionInternal() {
+    CheckCollision() {
         var count = this.listItem.length;
         var isHasMerge = false;
         var uiDel1 = null;
@@ -432,17 +593,27 @@ export default class GameMergeZuma extends GameBase {
                     Debug.Log("del_index =" + del_index);
                     uiDel1 = ui;
                     uiDel2 = uiNext;
+                    Debug.Log("GameMergeZuma  ListRemoveItem this.listItem.length =" + this.listItem.length);
+                    Common.ListRemoveItem(this.listItem, uiDel1);
+                    Debug.Log("GameMergeZuma  ListRemoveItem this.listItem.length =" + this.listItem.length);
+                    Common.ListRemoveItem(this.listItem, uiDel2);
+                    Debug.Log("GameMergeZuma  ListRemoveItem this.listItem.length =" + this.listItem.length);
                     break;
                 }
             }
         }
 
         if ((uiDel1 != null) && (uiDel2 != null)) {
+            var keyIdDel = uiDel1.keyId;
             this.DeleteMergeItem(uiDel1);
             // next
             this.DeleteMergeItem(uiDel2);
+
             // 合并
-            var uiMerge = this.CreateItem(this.GetNextItem(uiDel1.keyId), true);
+            var uiMerge = this.CreateItem(this.GetNextItem(keyIdDel), true, function () {
+
+            }.bind(this));
+
             uiMerge.name = uiMerge.keyId;
             this.InsertMergeItem(del_index, uiMerge);
             isHasMerge = true;
@@ -451,8 +622,20 @@ export default class GameMergeZuma extends GameBase {
             uiMerge.keyAudio = "MergeTwoItem";
             // uiMerge.isAnimating = true;
             this.isAnimating = true;
-            uiMerge.RunMergeCloudAnimate();
+
+
+
+            // 等待sprite显示完成
+
+            Debug.Log("GameMergeZuma  uiMerge this.listItem.length =" + this.listItem.length);
             this.LayOut();
+
+
+            // uiMerge 位置更新后再显示动画
+            uiMerge.RunMergeCloudAnimate();
+            // Laya.timer.once(200, this, function (): void {
+            //     this.LayOut();
+            // }.bind(this));
 
             var indexnext = this.GetIndexOfItem(uiDel2.keyId);
             if (indexnext == 0) {
@@ -469,9 +652,9 @@ export default class GameMergeZuma extends GameBase {
             GameData.main.addScore = addScore;
 
             // 
-            var posWorld = uiMerge.transform.position;
-            GameData.main.fromPosScoreWorld = posWorld;
-            GameData.main.uiGameZuma.UpdateScore();
+            // var posWorld = uiMerge.transform.position;
+            // GameData.main.fromPosScoreWorld = posWorld;
+            // GameData.main.uiGameZuma.UpdateScore();
 
             // StartCoroutine(this.MergeUIDidFinish());
         }
@@ -480,8 +663,8 @@ export default class GameMergeZuma extends GameBase {
         Debug.Log("GameMergeZuma CheckCollisionInternal isHasMerge =" + isHasMerge);
         if (!isHasMerge) {
             //没有合并项
-            this.isStartCheckCollision = false;
-            this.isCheckCollisionIng = false;
+            // this.isStartCheckCollision = false;
+            // this.isCheckCollisionIng = false;
         }
     }
     // 发射之后插入目标 0-360
@@ -505,7 +688,11 @@ export default class GameMergeZuma extends GameBase {
             x = ptOnRing.x - pt.x;
             y = ptOnRing.y - pt.y;
             var distance = Math.sqrt(x * x + y * y);
-            var rItem = this.GetBoundSizeOfGameObject(ui.node).width / 2;
+            if (ui.sprite == null) {
+                Debug.Log("GetItemInsertTo item sprite==null ");
+                continue;
+            }
+            var rItem = ui.sprite.GetBoundingBox().width / 2;//this.GetBoundSizeOfGameObject(ui.node).width / 2;
             if (distance <= rItem) {
                 return ui;
             }
@@ -562,7 +749,7 @@ export default class GameMergeZuma extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var uilist = this.listItem[i];
             if (uilist == ui) {
-                this.ShowDeleteParticle(ui.transform.position, ui.keyId);
+                this.ShowDeleteParticle(ui.sprite.position, ui.keyId);
                 uilist.destroy();
                 this.listItem.splice(i, 1);
                 break;
@@ -578,7 +765,7 @@ export default class GameMergeZuma extends GameBase {
         for (var i = 0; i < this.listItem.length; i++) {
             var ui = this.listItem[i];
             if (ui.keyId == id) {
-                this.ShowDeleteParticle(ui.transform.position, ui.keyId);
+                this.ShowDeleteParticle(ui.sprite.position, ui.keyId);
                 ui.destroy();
             }
         }
@@ -600,8 +787,8 @@ export default class GameMergeZuma extends GameBase {
         //     return;
         // }
 
-        this.ShowDeleteParticle(uiDelete.transform.position, uiDelete.keyId);
-        Common.ListRemoveItem(this.listItem, uiDelete);
+        this.ShowDeleteParticle(uiDelete.sprite.position, uiDelete.keyId);
+        // Common.ListRemoveItem(this.listItem, uiDelete);
         // DestroyImmediate(uiDelete.gameObject);
         uiDelete.destroy();
         uiDelete = null;
@@ -635,27 +822,26 @@ export default class GameMergeZuma extends GameBase {
             var uitmp = this.listItem[i];
             uitmp.index++;
         }
-        this.listItem.push(idx, ui);
+        // this.listItem.push(idx, ui);
+        Common.ListInsert(this.listItem, idx, ui);
         ui.index = idx;
     }
 
 
     OnUIMergeItemMergeCloudAnimateDidFinish(ui: UIMergeItem) {
-        if (this.uiItemCenter != null) {
-            this.uiItemCenter.isAnimating = false;
-        }
+        // if (this.uiItemCenter != null) {
+        //     this.uiItemCenter.isAnimating = false;
+        // }
 
         this.isAnimating = false;
+    }
+    OnTest() {
+        this.ShowParticle(new Laya.Vector3(0, 0, this.itemPosZ + 10), "putao");
     }
 
     // 删除粒子特效
     ShowDeleteParticle(positon, strid) {
-        // var uiPrefab = PrefabCache.main.LoadByKey<ParticleMerge>("ParticleMerge");
-        // var ui = (ParticleMerge)GameObject.Instantiate(uiPrefab);
-        // ui.SetParent(this);
-        // ui.transform.position = positon;
-        // ui.UpdateItem(id);
-
+        this.ShowParticle(positon, strid);
     }
 
     UpdateProp(keypic: string) {
@@ -707,17 +893,23 @@ export default class GameMergeZuma extends GameBase {
         return false;
     }
     OnUpdateActionRotationAngle(action, angle) {
-        // var ui = action.node.AddComponent<UIMergeItem>();
-        // ui.transform.localPosition = this.GetItemPositon(this.radiusCenter, angle);
+        var ui = action.node.getComponent(UISprite);
+        if (ui == null) {
+            return;
+        }
+        ui.position = this.GetItemPositon(this.radiusCenter, angle);
 
     }
 
     OnActionRotationAngleFinish(obj) {
+        this.isAnimating = false;
         // 更新开始角度
         this.angleStart = this.listItem[0].angle;
         this.LayOut();
         this.StartCheckCollision();
+        this.CheckCollision();
         this.CheckGameOver();
+        Debug.Log("OnActionRotationAngleFinish");
     }
 
 
@@ -746,25 +938,35 @@ export default class GameMergeZuma extends GameBase {
                 scale = (w_item / (tex.width / 100.0)) * 1.5;
             }
             Debug.Log("uiCenterItemBg scale = " + scale + " tex.width=" + tex.width + " w_item=" + w_item);
-            this.uiCenterItemBg.transform.localScale = new Laya.Vector3(scale, scale, 1);
-            this.uiCenterItemBg.transform.localPosition = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.uiCenterItemBg.transform.localPosition.z);
-            this.uiCircle.transform.localPosition = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.uiCircle.transform.localPosition.z);
+            // this.uiCenterItemBg.localScale = new Laya.Vector3(scale, scale, 1);
+            // this.uiCenterItemBg.position = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.uiCenterItemBg.position.z);
+            // this.uiCircle.position = new Laya.Vector3(this.posCenter.x, this.posCenter.y, this.uiCircle.position.z);
         }
     }
 
     LayOut() {
         super.LayOut();
-        return;
 
+        if (this.uiCircle == null) {
+            return;
+        }
+        var texCircle = TextureCache.main.GetTextureFromCacheByKey("Circle");
+        if (texCircle == null) {
+            return;
+        }
         var size = CameraUtil.main.GetWorldSize(this.mainCam);
+        this.radiusCenter = size.x / 4;
         this.radiusCenter = Math.min(size.x, size.y) * 0.5 * 0.5;
-        var box = this.node.getComponent(Laya.BoxCollider);
-        box.size = size;
-        this.radiusCenter = this.GetBoundSizeOfGameObject(this.uiCircle.node).width / 2;
-        // 圆环度占比 40/1024
+        // var box = this.node.getComponent(Laya.BoxCollider);
+        // box.size = size; GetContentSize
+
+
+        // GetBoundSize
+        this.radiusCenter = this.uiCircle.GetContentSize().width / 2;// this.GetBoundSizeOfGameObject(this.uiCircle.node).width / 2;
+        // 圆环度占比 40/1024 
         var width_ring = 20;
-        this.radiusCenter = this.radiusCenter * (1 - width_ring / this.uiCircle.texture.width);
-        this.LayOutItmes();
+        this.radiusCenter = this.radiusCenter * (1 - width_ring / texCircle.width);
+        // this.LayOutItmes();
 
         var count = this.listItem.length;
         for (var i = 0; i < count; i++) {
@@ -773,26 +975,34 @@ export default class GameMergeZuma extends GameBase {
                 continue;
             }
             var angle = this.GetItemAngle(i);
+            // var angle = 60*i;
             ui.angle = angle;
-            ui.transform.localPosition = this.GetItemPositon(this.radiusCenter, angle);
+            if (ui.sprite != null) {
+                ui.sprite.position = this.GetItemPositon(this.radiusCenter, angle);
+            }
         }
 
     }
-    OnUITouchEvent(ui: UITouchEvent, status: number, event?: any) {
+    OnUITouchEvent(ui: UITouchEvent3D, status: number, event?: any) {
         // var pos = eventData.pointerCurrentRaycast.worldPosition;
-        var pos = Laya.Vector2.ZERO;
+        var pos = DataTouch.main.touchPosWorld;
         switch (status) {
-            case UITouchEvent.TOUCH_DOWN:
+            case DataTouch.TOUCH_DOWN:
                 {
 
                 }
                 break;
-            case UITouchEvent.TOUCH_UP:
+            case DataTouch.TOUCH_UP:
                 {
                     Debug.Log("GameMergeZuma up keyId=" + this.keyId);
+                    // this.uiBg.visible = false;
+
+
+                    // this.uiTest = UI.CreateUI3D(UISprite, this, "GameWinBg"); //GameWinBg Circle
+                    // this.uiTest.position = new Laya.Vector3(0, 0, this.itemPosZ - 2);
                 }
                 break;
-            case UITouchEvent.STATUS_Click:
+            case DataTouch.Click:
                 {
 
                 }
@@ -816,6 +1026,7 @@ export default class GameMergeZuma extends GameBase {
 
         if (this.IsHaveMergeItem()) {
             // 
+            // this.StartCheckCollision();
             Debug.Log("GameMergeZuma UpdateEvent return IsHaveMergeItem");
             return;
         }
@@ -830,127 +1041,193 @@ export default class GameMergeZuma extends GameBase {
             Debug.Log("GameMergeZuma UpdateEvent return isAnimating");
         }
 
+        //判断是否点击
+        // if (Input.GetMouseButton(0))
+        if (DataTouch.TOUCH_DOWN == status) {
+            this.isMouseDown = true;
+            GameData.main.gameStatus = GameStatus.Play;
+            return;
+        }
+
+
         // 动画中
         if (this.uiItemCenter != null) {
-            if (this.uiItemCenter.isAnimating) {
-                // Debug.Log("GameMergeZuma UpdateEvent return isAnimating");
-                // return;
+            if (this.uiItemCenter.sprite && this.uiItemCenter.sprite.node) {
+                var ac = this.uiItemCenter.sprite.node.getComponent(ActionRotationAngle);
+                if (ac != null && ac.isRunning) {
+                    Debug.Log("GameMergeZuma UpdateEvent return ac.isRunning");
+                    return;
+                }
             }
-            var ac = this.uiItemCenter.node.getComponent(ActionRotationAngle);
-            if (ac.isRunning) {
-                Debug.Log("GameMergeZuma UpdateEvent return ac.isRunning");
-                return;
-            }
+
         }
 
 
         {
 
 
-            //判断是否点击
-            // if (Input.GetMouseButton(0))
-            if (UITouchEvent.TOUCH_DOWN == status) {
-                this.isMouseDown = true;
-                GameData.main.gameStatus = GameStatus.Play;
-            }
 
 
 
             if (this.isMouseDown && (GameData.main.gameStatus == GameStatus.Play)) {
                 this.isMouseDown = false;
-
-
             }
 
-            if ((UITouchEvent.TOUCH_MOVE == status) && (!this.isAutoClick)) {
+            if ((DataTouch.TOUCH_MOVE == status) && (!this.isAutoClick)) {
 
             }
             //判断是否完成点击
             // if (Input.GetMouseButtonUp(0))
-            if (UITouchEvent.TOUCH_UP == status) {
+            if (DataTouch.TOUCH_UP == status) {
                 this.isMouseUp = true;
             }
-
-            if (this.isMouseUp && (GameData.main.gameStatus == GameStatus.Play)) {
+            var angle = MathUtil.GetAngleOfPoint(pos);//pos
+            Debug.Log("GameMergeZuma UpdateEvent angle =" + angle);
+            Debug.Log("GameMergeZuma UpdateEvent isMouseUp 1 this.isMouseUp=" + this.isMouseUp + " status=" + status);
+            if (this.isMouseUp && (DataTouch.TOUCH_UP == status) && (GameData.main.gameStatus == GameStatus.Play)) {
                 this.isMouseUp = false;
                 this.time = 0;
-                /*
+                Debug.Log("GameMergeZuma UpdateEvent isMouseUp 2");
                 //让水果向圆运动
                 if (this.uiItemCenter != null) {
                     // this.uiItemCenter.EnableGravity(true);
 
                     // ui.transform.localPosition = this.GetItemPositon(radiusCenter, angle);
-                    var ptTouch = Common.GetInputPositionWorld(mainCam);
+                    var ptTouch = pos;
                     var angle = MathUtil.GetAngleOfPoint(ptTouch);//pos
                     var duration = GameData.DURATION_MOVE;
                     // this.uiItemCenter.angle = angle;
                     var uiItemCenterInsertTo = this.GetItemInsertTo(angle);
-                    AudioPlay.main.PlayByKey("Merge_Click");
-                    var toPos = this.GetItemPositon(radiusCenter, angle);
-                    this.RunTrailMoveAnimate(toPos, this.uiItemCenter);
-                    this.uiItemCenter.isAnimating = true;
+                    // AudioPlay.main.PlayByKey("Merge_Click");
+                    // angle = 90;
+                    var toPos = this.GetItemPositon(this.radiusCenter, angle);
+                    // this.RunTrailMoveAnimate(toPos, this.uiItemCenter);
+                    // this.uiItemCenter.isAnimating = true;
                     this.isAnimating = true;
+
+                    // https://www.it610.com/article/1298108420397801472.htm
+                    // Laya.Tween.to(this.uiItemCenter.sprite.sprite3D, { x: toPos.x, y: toPos.y }, duration, Laya.Ease.sineInOut, Laya.Handler.create(this, function () {
+
+                    // }));
+                    Debug.Log("GameMergeZuma UpdateEvent toPos x=" + toPos.x + " y=" + toPos.y + " this.radiusCenter=" + this.radiusCenter + " angle=" + angle + " posCenter.x=" + this.posCenter.x + " posCenter.y=" + this.posCenter.y);
+                    // this.uiItemCenter.sprite.position = toPos;
+                    // var p = new Sprite3DMoveContorller();
+                    // duration = 2000;
+                    Debug.Log("GameMergeZuma start Sprite3DMoveContorller");
+                    //   {
+                    //     sp: UISprite,
+                    //     type:ActionType,
+                    //     to:any,
+                    //     time:number,
+                    //     easeFun: Function,
+                    //     objCallback:any
+                    //     callbackFinish: Function,
+                    //     success: (p:any) => {
+
+                    //     }, 
+                    //     fail: (p:any) => {
+
+                    //     },
+                    //   } 
+                    var p = new Action3D();
+                    p.Run(
+                        {
+                            sp: this.uiItemCenter.sprite,
+                            type: ActionType.Move,
+                            to: toPos,
+                            easeFun: Laya.Ease.sineInOut,
+                            time: duration,
+                            success: function (p: any) {
+                                Debug.Log("GameMergeZuma onPositionMoveTo end");
+                                // this.uiItemCenter.isAnimating = false;
+                                // this.isAnimating = false;
+                                //  GameMerge.main.DeleteItem(this);
+                                //  CheckGameOver();
+
+                                if (!uiItemCenterInsertTo) {
+                                    var ac = null;
+                                    if (this.uiItemCenter.sprite && this.uiItemCenter.sprite.node) {
+                                        ac = this.uiItemCenter.sprite.node.getComponent(ActionRotationAngle);
+                                    }
+
+                                    if (ac == null) {
+                                        Debug.Log("GameMergeZuma UpdateEvent uiItemCenterInsertTo ac is null");
+                                        return;
+                                    }
+                                    var uiTo = this.GetItemAngleToActionRotation(angle);
+                                    ac.angleFrom = angle;
+                                    this.uiItemCenter.name = this.uiItemCenter.keyId;
+                                    if (this.IsAddHeadOrEnd(angle)) {
+
+                                        //运动至第一个  逆时针运动 
+                                        ac.angleTo = uiTo.angle - this.GetItemOffsetAngle(uiTo, this.radiusCenter) - this.GetItemOffsetAngle(this.uiItemCenter, this.radiusCenter);
+                                        for (var i = 0; i < this.listItem.length; i++) {
+                                            var ui = this.listItem[i];
+                                            ui.index++;
+                                        }
+                                        // this.listItem.Insert(0, this.uiItemCenter);
+                                        Common.ListInsert(this.listItem, 0, this.uiItemCenter);
+                                        Debug.Log("GameMergeZuma ListInsert this.listItem.length=" + this.listItem.length);
+                                        this.uiItemCenter.angle = ac.angleTo;
+                                        this.uiItemCenter.index = 0;
+                                    }
+                                    else {
+                                        //运动至最后一个  顺时针运动 
+                                        ac.angleTo = uiTo.angle + this.GetItemOffsetAngle(uiTo, this.radiusCenter) + this.GetItemOffsetAngle(this.uiItemCenter, this.radiusCenter);
+                                        if (ac.angleFrom < ac.angleTo) {
+                                            ac.angleFrom += 360;
+                                        }
+
+                                        this.listItem.push(this.uiItemCenter);
+                                        Debug.Log("GameMergeZuma uiItemCenter this.listItem.length=" + this.listItem.length);
+                                        this.uiItemCenter.angle = ac.angleTo;
+                                        this.uiItemCenter.index = this.listItem.length;
+                                    }
+                                    ac.Run();
+
+                                }
+                                else {
+                                    // insert
+                                    var indexInsert: number = uiItemCenterInsertTo.index;
+                                    for (var i = indexInsert; i < this.listItem.length; i++) {
+                                        var ui = this.listItem[i];
+                                        ui.index++;
+                                    }
+                                    // this.listItem.Insert(indexInsert, this.uiItemCenter);
+                                    Common.ListInsert(this.listItem, indexInsert, this.uiItemCenter);
+                                    this.LayOut();
+                                    this.StartCheckCollision();
+                                    this.CheckGameOver();
+                                }
+
+                                this.ReadyGeneratedItem();
+
+                            }.bind(this),
+                        });
+
+
+                    //     p.onPositionMoveTo(this.uiItemCenter.sprite.sprite3D, toPos, duration, Laya.Ease.sineInOut, this, function () 
+
+
+
+
+
+                    //    .bind(this));
+
+                    /*
                     this.uiItemCenter.transform.DOMove(toPos, duration).OnComplete(() => {
-                        this.uiItemCenter.isAnimating = false;
-                        this.isAnimating = false;
-                        //  GameMerge.main.DeleteItem(this);
-                        //  CheckGameOver();
-
-                        if (!uiItemCenterInsertTo) {
-                            var ac = this.uiItemCenter.gameObject.GetComponent<ActionRotationAngle>();
-
-                            var uiTo = GetItemAngleToActionRotation(angle);
-                            ac.angleFrom = angle;
-                            this.uiItemCenter.name = this.uiItemCenter.keyId;
-                            if (IsAddHeadOrEnd(angle)) {
-
-                                //运动至第一个  逆时针运动 
-                                ac.angleTo = uiTo.angle - GetItemOffsetAngle(uiTo, radiusCenter) - GetItemOffsetAngle(this.uiItemCenter, radiusCenter);
-                                for (int i = 0; i < this.listItem.length; i++)
-                    {
-                        var ui = this.listItem[i];
-                        ui.index++;
-                    }
-                    this.listItem.Insert(0, this.uiItemCenter);
-                    this.uiItemCenter.angle = ac.angleTo;
-                    this.uiItemCenter.index = 0;
-                }
-                else {
-                    //运动至最后一个  顺时针运动 
-                    ac.angleTo = uiTo.angle + GetItemOffsetAngle(uiTo, radiusCenter) + GetItemOffsetAngle(this.uiItemCenter, radiusCenter);
-                    if (ac.angleFrom < ac.angleTo) {
-                        ac.angleFrom += 360;
-                    }
-
-                    this.listItem.Add(this.uiItemCenter);
-                    this.uiItemCenter.angle = ac.angleTo;
-                    this.uiItemCenter.index = this.listItem.length;
-                }
-                ac.Run();
-
-            }
-            else {
-                // insert
-                var indexInsert = uiItemCenterInsertTo.index;
-                for (var i = indexInsert; i < this.listItem.length; i++) {
-                    var ui = this.listItem[i];
-                    ui.index++;
-                }
-                this.listItem.Insert(indexInsert, this.uiItemCenter);
-                this.LayOut();
-                this.StartCheckCollision();
-                this.CheckGameOver();
-            }
-
-                this.ReadyGeneratedItem();
-
+                   
+            
             });
+            
             */
 
-                this.uiItemCenter.isNew = false;
+
+                    this.uiItemCenter.isNew = false;
+                }
+
+
             }
-
-
         }
     }
 

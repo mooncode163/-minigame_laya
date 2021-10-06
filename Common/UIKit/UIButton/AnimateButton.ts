@@ -5,6 +5,7 @@ import Debug from "../../Debug";
 import LayOutSize from "../LayOut/LayOutSize";
 import UITouchEvent from "../Event/UITouchEvent";
 import UIView from "../ViewController/UIView";
+import DataTouch from "../Event/DataTouch";
 
 
 
@@ -59,21 +60,21 @@ export default class AnimateButton extends Laya.Script {
     OnUITouchEvent(ui: UITouchEvent, status: number) {
         switch (status) {
 
-            case UITouchEvent.TOUCH_DOWN:
+            case DataTouch.TOUCH_DOWN:
                 {
                 }
                 break;
-            case UITouchEvent.TOUCH_MOVE:
+            case DataTouch.TOUCH_MOVE:
                 {
                 }
 
                 break;
-            case UITouchEvent.TOUCH_UP:
+            case DataTouch.TOUCH_UP:
                 {
 
                 }
                 break;
-            case UITouchEvent.STATUS_Click:
+            case DataTouch.Click:
                 {
                     this.OnBtnClick();
                 }

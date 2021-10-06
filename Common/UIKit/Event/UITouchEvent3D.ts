@@ -19,8 +19,19 @@ import CameraUtil from "../../Camera/CameraUtil";
 import Common from "../../Common";
 import Timer from "../../Core/Timer";
 import DataTouch from "./DataTouch";
+import UITouchEvent from "./UITouchEvent";
 
-export default class UITouchEvent extends Laya.Script {
+/*
+
+  需要添加物理碰撞体组件,例如:
+        var phycol: Laya.PhysicsCollider = this.node.addComponent(Laya.PhysicsCollider);
+        //创建盒子形状碰撞器 
+        var box: Laya.BoxColliderShape = new Laya.BoxColliderShape(5, 5, 1);
+        //物理碰撞体设置形状
+        phycol.colliderShape = box;
+*/
+
+export default class UITouchEvent3D extends Laya.Script3D {
  
     public Time_LongPress = 2;//s
 
@@ -38,7 +49,9 @@ export default class UITouchEvent extends Laya.Script {
     // 不让子节点的鼠标事件穿透到父节点
     /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
     isStopTouchOther: boolean = false;
- 
+
+
+
     onAwake() {
         this.Init();
     }
@@ -60,10 +73,12 @@ export default class UITouchEvent extends Laya.Script {
     }
 
 
-    onMouseDown(e) {
-        // console.log("按下");
-        console.log("UITouchEvent onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
-        DataTouch.main.isTouchUI = true;
+    onMouseDown() {
+        if (DataTouch.main.isTouchUI) {
+            // DataTouch.main.isTouchUI = false;
+            return;
+        }
+        console.log("UITouchEvent3D onMouseDown " + this.owner.name);
         // var pos = event.getLocation();//canvas坐标原点在屏幕左下角 
         // var posnode = this.node.convertToNodeSpace(pos);//坐标原点在node左下角
         // var posnodeAR = this.node.getComponent(UITransform).convertToNodeSpaceAR(pos);//坐标原点在node的锚点
@@ -73,24 +88,26 @@ export default class UITouchEvent extends Laya.Script {
             this.callBackTouch(this, DataTouch.TOUCH_DOWN);
         }
 
-        if (this.isStopTouchOther) {
-            e.stopPropagation();
-        }
 
     }
-    onMouseMove(e) {
+    onMouseDrag() {
         // console.log("移动");
+        if (DataTouch.main.isTouchUI) {
+            // DataTouch.main.isTouchUI = false;
+            return;
+        }
         if (this.callBackTouch != null) {
             this.callBackTouch(this, DataTouch.TOUCH_MOVE);
         }
-        if (this.isStopTouchOther) {
-            e.stopPropagation();
-        }
+
     }
-    onMouseUp(e) {
+    onMouseUp() {
         // console.log("抬起");
-        DataTouch.main.isTouchUI = true;
-        console.log("UITouchEvent onMouseUp " + this.owner.name);
+        if (DataTouch.main.isTouchUI) {
+            // DataTouch.main.isTouchUI = false;
+            return;
+        }
+        console.log("UITouchEvent3D onMouseUp " + this.owner.name);
         if (this.callBackTouch != null) {
             this.callBackTouch(this, DataTouch.TOUCH_UP);
         }
@@ -114,68 +131,9 @@ export default class UITouchEvent extends Laya.Script {
 
         this.isTouchDown = false;
 
-        if (this.isStopTouchOther) {
-            e.stopPropagation();
-        }
 
-
-        Laya.timer.once(100, this, function (): void {
-            DataTouch.main.isTouchUI = false;
-        });
     }
-    // onClick(e) {
-    //     //e.stopPropagation();//阻止事件冒泡/上报
-    //     console.log("点击" + this.owner.name);
-    // }
 
-    // onMouseOut(e) {
-    //     console.log("移出");
-    // }
-    // onMouseOver(e) {
-    //     console.log("进入");
-    // }
-
-    // onStageMouseDown(e){
-    //     console.log("舞台中按下");
-    // }
-    // onStageMouseUp(e){
-    //     console.log("舞台中抬起");
-    // }
-    // onStageMouseMove(e){
-    //     // console.log("舞台中移动");
-    // }
-    // onStageClick(e){
-    //     console.log("舞台中点击");
-    // } 
-
-    // //屏幕坐标,原点在屏幕左下角 
-    // GetPosition(event?: EventTouch) {
-    //     return event.getLocation();
-    // }
-
-    // //Canvas UI 坐标,原点在Canvas左下角 
-    // GetUIPosition(event?: EventTouch) {
-    //     return event.getUILocation();
-    // }
-    // //坐标原点在node的锚点
-    // GetPositionOnNode(node: Node, event?: EventTouch) {
-    //     var uiTrans = node.getComponent(UITransform);
-    //     // var pos = this.GetPosition(event);
-    //     var posui = this.GetUIPosition(event);
-    //     // pos = event.wo  convertToNodeSpaceAR convertToWorldSpaceAR
-    //     const localTouchPos = uiTrans.convertToNodeSpaceAR(new Vec3(posui.x, posui.y, 0));
-    //     return localTouchPos;
-    //     // return uiTrans.convertToWorldSpaceAR(new Vec3(pos.x, pos.y, 0));//坐标原点在node的锚点
-    // }
-
-
-
-
-
-
-    // protected _onTouchCancel(event?: EventTouch) {
-
-    // }
 
 }
 

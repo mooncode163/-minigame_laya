@@ -14,6 +14,7 @@ import GameData, { GameStatus } from "../../Data/GameData";
 // import UIGameMerge from "./UIGameMerge";
 import UIMergeItem from "./UIMergeItem";
 import { PropType } from "./UIPopProp";
+import DataTouch from "../../../../Common/UIKit/Event/DataTouch";
 
 
 
@@ -387,23 +388,23 @@ export default class GameMerge extends GameBase {
     }
 
 
-    onMouseDown(e) {
+    onMouseDown() {
         // Debug.Log("GameMerge down id=" + this.id); 
 
         // console.log("按下");
-        console.log("GameMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
-        this.UpdateEvent(UITouchEvent.TOUCH_DOWN, new Laya.Vector2(e.stageX, e.stageY));
+        // console.log("GameMerge onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
+        // this.UpdateEvent(DataTouch.TOUCH_DOWN, new Laya.Vector2(e.stageX, e.stageY));
     }
-    onMouseMove(e) {
+    onMouseDrag() {
         // console.log("GameMerge onMouseMove");
-        this.UpdateEvent(UITouchEvent.TOUCH_MOVE, new Laya.Vector2(e.stageX, e.stageY));
+        // this.UpdateEvent(DataTouch.TOUCH_MOVE, new Laya.Vector2(e.stageX, e.stageY));
     }
-    onMouseUp(e) {
+    onMouseUp() {
         // console.log("抬起");
         console.log("GameMerge onMouseUp " + this.owner.name);
-        this.UpdateEvent(UITouchEvent.TOUCH_UP, new Laya.Vector2(e.stageX, e.stageY));
+        // this.UpdateEvent(DataTouch.TOUCH_UP, new Laya.Vector2(e.stageX, e.stageY));
     }
-    onClick(e) {
+    onClick() {
         //e.stopPropagation();//阻止事件冒泡/上报
         console.log("点击" + this.owner.name);
     }
@@ -422,7 +423,7 @@ export default class GameMerge extends GameBase {
 
             //判断是否点击
             // if (Input.GetMouseButton(0))
-            if (UITouchEvent.TOUCH_DOWN == status) {
+            if (DataTouch.TOUCH_DOWN == status) {
                 this.isMouseDown = true;
             }
 
@@ -468,7 +469,7 @@ export default class GameMerge extends GameBase {
 
             }
 
-            if ((UITouchEvent.TOUCH_MOVE == status) && (!this.isAutoClick)) {
+            if ((DataTouch.TOUCH_MOVE == status) && (!this.isAutoClick)) {
                 var mousePosition = point;
                 // Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);//获取点击位置
                 if (this.uiItem != null) {
@@ -483,7 +484,7 @@ export default class GameMerge extends GameBase {
             }
             //判断是否完成点击
             // if (Input.GetMouseButtonUp(0))
-            if (UITouchEvent.TOUCH_UP == status) {
+            if (DataTouch.TOUCH_UP == status) {
                 this.isMouseUp = true;
                 this.isMouseDown = false;
             }

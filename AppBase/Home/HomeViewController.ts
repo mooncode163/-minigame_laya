@@ -88,7 +88,7 @@ export default class HomeViewController extends UIViewController {
 
     CreateUI() {
         Debug.Log("HomeViewController CreateUI");
-
+// return;
         var node = UI.Instantiate(this.uiPrefab);
         this.ui = node.getComponent(UIHomeBase);
         this.ui.SetController(this);

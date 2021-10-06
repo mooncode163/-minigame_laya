@@ -16,7 +16,7 @@ export default class UITransform {
     public set localPosition(value: Laya.Vector3) {  
         UI.SetPosition(this._ui.node,value);  
     }
-    
+  
 }
 
 

@@ -24,7 +24,7 @@ export default class GameData {
     public static GAMAE_ID_FREE = "Free";
     public static GAMAE_ID_ZUMA = "Zuma";
 
-    public static DURATION_MOVE = 0.3;
+    public static DURATION_MOVE = 0.3;//second
 
 
     public static NameDeadLine: string = "DeadLine";

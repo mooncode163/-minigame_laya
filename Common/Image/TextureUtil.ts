@@ -5,6 +5,10 @@ import UI from "../UIKit/ViewController/UI";
 
 export default class TextureUtil {
     static UpdateImageTexture(image: Laya.Image, tex: Laya.Texture, isUpdateSize: boolean, border: Laya.Vector4) {
+        if(image==null)
+        {
+            return;
+        }
         image.source = tex;
         if (border != Laya.Vector4.ZERO) 
         {

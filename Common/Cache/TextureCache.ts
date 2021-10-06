@@ -18,8 +18,22 @@ export default class TextureCache {
     Init() {
         this.dicItem = new Dictionary();
     }
-
-
+    GetTextureFromCache(filepath:string) {
+        var key = filepath;
+        if (this.dicItem.Contains(key) == true) {
+            var tex = this.dicItem.Get(key);
+            return tex;
+        }  
+        return null;
+    }
+    GetTextureFromCacheByKey(key:string) { 
+        var pic = ImageRes.main.GetImage(key);
+        if (this.dicItem.Contains(pic) == true) {
+            var tex = this.dicItem.Get(pic);
+            return tex;
+        }  
+        return null;
+    }
     /*
 { 
      filepath:"", 
@@ -84,6 +98,54 @@ export default class TextureCache {
 
     }
 
+
+
+    /*
+   { 
+    listKey:["",""], 
+
+    //listData: [Texture2D]
+   success: (p:any,listData:any) => {
+       
+   },   
+  fail: (p:any) => {
+      
+  },
+   }
+   */
+    LoadListByKey(obj: any) {
+        var countLoad = 0;
+        var listData: any[] = [];
+
+        obj.listKey.forEach((key) => {
+            this.LoadByKey(
+                {
+                    key: key,  
+                    success: (p: any, tex: Laya.Texture2D) => { 
+                        listData.push(tex);
+                        countLoad++;
+                        if ((countLoad >= obj.listKey.length) && (listData.length == obj.listKey.length)) {
+                            if (obj.success != null) {
+                                obj.success(this, listData);
+                            }
+                        }
+
+                    },
+                    fail: (p:any) => {
+                        countLoad++;
+                        if (countLoad >= obj.listKey.length) {
+                            if (obj.fail != null) {
+                                obj.fail(this);
+                            }
+                        }
+
+                    },
+                });
+        });
+
+
+    }
+
     LoadFrame(obj: any) {
 
     }
@@ -112,7 +174,7 @@ fail: (p:any) => {
         ResManager.LoadTexture(
             {
                 filepath: obj.filepath,
-                isSprite:obj.isSprite,
+                isSprite: obj.isSprite,
                 success: (p: any, tex: any) => {
                     var key = obj.filepath;
                     this.dicItem.Add(key, tex);

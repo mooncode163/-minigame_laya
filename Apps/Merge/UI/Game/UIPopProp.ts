@@ -11,6 +11,7 @@ import UI from "../../../../Common/UIKit/ViewController/UI";
 import UIFind from "../../../../Common/UIKit/ViewController/UIFind";
 import GameLevelParse from "../../../Main/GameLevelParse";
 import GameData, { GameStatus } from "../../Data/GameData"; 
+import DataTouch from "../../../../Common/UIKit/Event/DataTouch";
 // import UIGameMerge from "./UIGameMerge";
 
 
@@ -200,7 +201,7 @@ export default class UIPopProp extends UIViewPop {
     OnUITouchEvent(ui: UITouchEvent, status: number) {
         switch (status) {
 
-            case UITouchEvent.STATUS_Click:
+            case DataTouch.Click:
                 {
                     var image = ui.owner.getComponent(UIImage);
                     this.SetSelectImage(image);

@@ -52,7 +52,7 @@ export default class AppSceneBase extends Laya.Script {
 
     constructor() {
         super();
-
+        
 
         AppSceneBase._main = this;
         AppSceneUtil.main = this;
@@ -215,6 +215,24 @@ export default class AppSceneBase extends Laya.Script {
     AddObjToMainWorld(obj: Laya.Node) {
         AppSceneUtil.mainScene.addChild(obj);
     }
+
+
+      ClearMainWorld()
+    {
+       
+        var parent = AppSceneUtil.mainScene;
+        for (var i = 0; i < parent.numChildren; i++) {
+            var child = parent.getChildAt(i);
+            if(child==AppSceneUtil.mainScene)
+            {
+                continue;
+            }
+            child.destroy();
+         
+        }
+    }
+
+
     UpdateLanguage() {
         if (this.rootViewController != null) {
             this.rootViewController.UpdateLanguage();

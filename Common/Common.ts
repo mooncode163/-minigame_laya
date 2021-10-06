@@ -49,16 +49,24 @@ export default class Common {
     }
 
     static ListRemoveItem(list: any, item: any) {
-        var idx = Common.GetListIndexOfItem(list,item);
-        if(idx>=0)
-        {
-            list.splice(idx,1);
+        var idx = Common.GetListIndexOfItem(list, item);
+        Debug.Log("GameMergeZuma  ListRemoveItem GetListIndexOfItem idx=" + idx);
+        if (idx >= 0) {
+            list.splice(idx, 1);
         }
     }
-    static ListClear(list: any) {  
-            list.splice(0,list.length); 
+    static ListClear(list: any) {
+        list.splice(0, list.length);
     }
- 
+    static ListInsert(list: any, idx: number, item: any) {
+        // splice-向数组指定位置添加插入元素 https://blog.csdn.net/cxu123321/article/details/106471206
+        //插入 
+        // var insert = lang.splice(0,0,"asp"); //从第0个位置开始插入 
+
+        list.splice(idx, 0, item);
+    }
+
+
 
     static CanvasToScreenWidth(canvasSize, w) {
         let screenSize = Device.main.screenSize;
