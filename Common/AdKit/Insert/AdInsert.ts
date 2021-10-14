@@ -29,7 +29,7 @@ export default class AdInsert  {
             // p = new AdInsertMooSnow();
         }
 		if (Platform.isQQ) {
-            p = new AdInsertMooSnow();
+            // p = new AdInsertMooSnow();
         } 
         return p;
     }

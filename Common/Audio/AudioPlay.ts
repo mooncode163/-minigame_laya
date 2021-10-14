@@ -93,6 +93,11 @@ export default class AudioPlay extends Laya.Script {
         //     // 在resoureces目录
         //     dir = Common.CLOUD_RES_DIR;
         // }
+        if(Common.BlankString(key))
+        {
+            return;
+        }
+
         var filepath = ConfigAudio.main.GetAudio(key);
         if(Common.BlankString(filepath))
         {

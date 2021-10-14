@@ -31,6 +31,7 @@ export default class AppVersionHuawei extends AppVersionBase {
    }
    */
     StartParseVersion(obj: any) {
+        this.objApp = obj;
         // return await StartParseVersionOld();
         // StartParseVersionOld();
         // return; 

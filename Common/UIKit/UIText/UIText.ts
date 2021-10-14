@@ -26,6 +26,11 @@ export default class UIText extends UIView {
 
     /** @prop {name:enableFitTextSize,type:Bool}*/
     enableFitTextSize: boolean = false;
+    /** @prop {name:offsetx,type:number}*/
+    offsetx: number = 0;
+    /** @prop {name:offsety,type:number}*/
+    offsety: number = 0;
+
     //get 的用法
     get text() {
         this.Init();
@@ -39,7 +44,7 @@ export default class UIText extends UIView {
         this.Init();
         Debug.Log("UIText set text value=" + value);
         if (this.label == null) {
-            return ;
+            return;
         }
         this.label.text = value;
         this.LayOut();
@@ -57,8 +62,7 @@ export default class UIText extends UIView {
     /** @prop {name:keyText,type:string}*/
     set keyText(value) {
         this._keyText = value;
-        if(this.text==null)
-        {
+        if (this.text == null) {
             return;
         }
         if (!Common.BlankString(this._keyText)) {
@@ -88,15 +92,23 @@ export default class UIText extends UIView {
 
     }
 
+    // rgb 0-255
+    private _color: Laya.Color = new Laya.Color(255, 255, 255, 255);
     //get 的用法
-    get color() {
+    get color(): Laya.Color {
         this.Init();
-        return this.label.color;
+        // return ColorConfig.main.HexString2Color(this.label.color);
+        return this._color;
     }
     // set 的用法
-    set color(value) {
+    set color(value: Laya.Color) {
         this.Init();
-        this.label.color = value;
+        this._color = value;
+        if(this.label==null)
+        {
+            return;
+        }
+        this.label.color = ColorConfig.main.Color2HexString(value);
         this.LayOut();
 
     }
@@ -104,17 +116,9 @@ export default class UIText extends UIView {
         super.onAwake();
         UI.SetNodePivotCenter(this.owner);
         this.Init();
-        if(this.label!=null)
-        {
+        if (this.label != null) {
             this.label.fontSize = this.fontSize;
         }
-
-    }
-
-    onStart() {
-        // [3]
-        super.onStart();
-        return;
         Debug.Log("UIText this.keyColor =" + this.keyColor);
         if (!Common.BlankString(this.keyColor)) {
             Debug.Log("UIText this.color");
@@ -122,6 +126,18 @@ export default class UIText extends UIView {
             Debug.Log("UIText this.color =" + ret);
             this.color = ret;
         }
+        var ly:LayOutSize = this.getComponent(LayOutSize);
+        if(ly&&this.enableFitTextSize)
+        {
+            ly.enableLayout = false;
+        }
+    }
+
+    onStart() {
+        // [3]
+        super.onStart();
+        // return;
+
 
         Debug.Log("UIText this.keyText =" + this.keyText);
         if (!Common.BlankString(this.keyText)) {
@@ -143,7 +159,27 @@ export default class UIText extends UIView {
         }
 
         this.label = this.owner.getChildByName("Label") as Laya.Label;
+        if (this.label == null) {
 
+            var parent = this.node;
+            for (var i = 0; i < parent.numChildren; i++) {
+                var child = parent.getChildAt(i) as Laya.Node;
+                if (child == undefined) {
+                    continue;
+                }
+
+                var strtype = typeof child
+                if (strtype != "undefined") {
+
+                }
+                //@moon laya bug,prefab 有时候copy的时候名字会丢失 直接获取子元素
+                this.label = child as Laya.Label;
+                break;
+
+
+
+            }
+        }
     }
 
     LayOut() {
@@ -165,7 +201,10 @@ export default class UIText extends UIView {
             if (!this.enableFitTextSize) {
                 // UI.SetNodeContentSize(this.label, size.width, size.height);
             } else {
-                UI.SetNodeContentSize(this.node, this.label.width, this.label.height);
+                var w = this.label.width+this.offsetx;
+                var h = this.label.height+this.offsety;
+                Debug.Log("enableFitTextSize this.label.width="+this.label.width+" w=" + w + " h=" + h);
+                UI.SetNodeContentSize(this.node, w, h);
             }
 
         }
@@ -183,7 +222,7 @@ export default class UIText extends UIView {
     }
 
     //js 默认参数方法： https://www.cnblogs.com/luotingliang/p/7250990.html
-    GetKeyColor(def: string = "0, 0, 0, 255") {
+    GetKeyColor(def: string = "0, 0, 0, 255"): Laya.Color {
         var ret = "0, 0, 0, 255";
         if (def) {
             ret = def;
@@ -195,7 +234,8 @@ export default class UIText extends UIView {
         } else {
             Debug.Log("UIView this.keyColor null");
         }
-        return ret;
+
+        return ColorConfig.main.RgbString2Color(ret);
     }
     GetKeyText() {
         var ret = "";
@@ -210,7 +250,8 @@ export default class UIText extends UIView {
         if (this.label == null) {
             return null;
         }
-        var size = new Laya.Size(this.label.width, this.label.height);
+        // var size = new Laya.Size(this.label.width, this.label.height);
+        var size = this.contentSize;
         return size;
     }
 

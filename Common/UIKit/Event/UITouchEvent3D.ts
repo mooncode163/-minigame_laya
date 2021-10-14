@@ -1,25 +1,12 @@
 
 
 
-
-/*
-// LayaBox 不让子节点的鼠标事件穿透到父节点
-A是父节点，B是子节点
-A和B都添加了鼠标监听
-当点击子节点B的时候，不让鼠标事件穿透到A，那么在B的监听回调函数参数调用stopPropagation函数
  
-this.on(Laya.Event.CLICK, this, (e: Laya.Event)=>{
-    e.stopPropagation();
-  
-}
-*/
-
-import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
-import CameraUtil from "../../Camera/CameraUtil";
-import Common from "../../Common";
+ 
 import Timer from "../../Core/Timer";
+import Debug from "../../Debug";
 import DataTouch from "./DataTouch";
-import UITouchEvent from "./UITouchEvent";
+import TimeFilter from "./TimeFilter"; 
 
 /*
 
@@ -29,6 +16,11 @@ import UITouchEvent from "./UITouchEvent";
         var box: Laya.BoxColliderShape = new Laya.BoxColliderShape(5, 5, 1);
         //物理碰撞体设置形状
         phycol.colliderShape = box;
+
+
+//@moon: bug 
+当父对象parent有PhysicsCollider等碰撞体的时候 子对象上的touch事件会不响应
+//@moon
 */
 
 export default class UITouchEvent3D extends Laya.Script3D {
@@ -41,16 +33,13 @@ export default class UITouchEvent3D extends Laya.Script3D {
     isTouchDown = false;
 
     touchPoint: Laya.Vector2;
-
+    
 
     enableLongPress = false;
-
-
-    // 不让子节点的鼠标事件穿透到父节点
-    /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
-    isStopTouchOther: boolean = false;
-
-
+ 
+    timeFilterDown: TimeFilter = new TimeFilter();
+    timeFilterUp: TimeFilter = new TimeFilter();
+    timeTouchMin = -1;
 
     onAwake() {
         this.Init();
@@ -72,10 +61,18 @@ export default class UITouchEvent3D extends Laya.Script3D {
 
     }
 
-
+       
     onMouseDown() {
         if (DataTouch.main.isTouchUI) {
             // DataTouch.main.isTouchUI = false;
+            return;
+        }
+        this.timeFilterDown.timeMin = this.timeTouchMin;
+        this.timeFilterUp.timeMin = this.timeTouchMin;
+      
+        if (this.timeFilterDown.IsFilter())
+        {
+            Debug.Log("onMouseDown Filter name="+this.owner.name)
             return;
         }
         console.log("UITouchEvent3D onMouseDown " + this.owner.name);
@@ -107,6 +104,13 @@ export default class UITouchEvent3D extends Laya.Script3D {
             // DataTouch.main.isTouchUI = false;
             return;
         }
+
+        if (this.timeFilterUp.IsFilter())
+        {
+            Debug.Log("onMouseUp Filter name="+this.owner.name)
+            return;
+        }
+
         console.log("UITouchEvent3D onMouseUp " + this.owner.name);
         if (this.callBackTouch != null) {
             this.callBackTouch(this, DataTouch.TOUCH_UP);

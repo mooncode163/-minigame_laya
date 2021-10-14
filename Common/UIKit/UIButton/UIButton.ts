@@ -16,6 +16,7 @@ import UI from "../ViewController/UI";
 import AnimateButton from "./AnimateButton";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import UIFind from "../ViewController/UIFind";
+import LayOutSize from "../LayOut/LayOutSize";
 
 enum ButtonType {
     IMAGE = "IMAGE",//一张背景  
@@ -156,7 +157,11 @@ export default class UIButton extends UIView {
         //     Debug.Log("UIButton _clickHandler on click");
 
         // },null,false);
-
+        var ly:LayOutSize = this.getComponent(LayOutSize);
+        if(ly&&this.textTitle.enableFitTextSize)
+        {
+            ly.enableLayout = false;
+        }
         this.LayOut();
 
     }
@@ -258,11 +263,12 @@ export default class UIButton extends UIView {
         this.enableFitTextSize = this.textTitle.enableFitTextSize;
         if (this.enableFitTextSize) {
             // var w = Common.GetTextSize(this.text, this.fontSize).width + this.fontSize;
+            // Debug.Log("enableFitTextSize UIButton w="+w+" h="+h);
             var sizeText = this.textTitle.GetTextSize();
             if (sizeText != null) {
                 var size = UI.GetNodeContentSize(this.node);
                 var h = size.height;
-                var w = sizeText.width + this.fontSize * 2;
+                var w = sizeText.width;// + this.fontSize * 2;
 
                 Debug.Log("uibutton enableFitTextSize w=" + w + " h=" + h);
                 UI.SetNodeContentSize(this.node, w, h);

@@ -1,10 +1,11 @@
 ﻿import Debug from "../Debug";
-import UISprite from "../UIKit/UIImage/UISprite";
 
 export enum ActionType {
     Move = "Move",// 
     Scale = "Scale",
     Fade = "Fade",
+    UI_Fade = "UI_Fade",
+
 }
 
 // https://www.it610.com/article/1298108420397801472.htm
@@ -13,15 +14,15 @@ export default class Action3D {
     from: any;
     to: any;
     distance: any;
-    sprite: UISprite;
+    uiAction: any;
     duration: number = 0;
     actionValue: number = 0;
     isFinish: boolean = false;
     objAction: any;
- 
+
 
     /**
-     * Sprite3D移动方法
+     * uiAction3D移动方法
      * @param gameObject 需要移动的3D对象
      * @param toPos 移动目标点
      * @param playTime 移动总耗时
@@ -33,7 +34,7 @@ export default class Action3D {
 
     /*
   {
-    sp: UISprite,
+    ui: UIView3D,
     type:ActionType,
     to:any,
     time:number,//second
@@ -51,20 +52,20 @@ export default class Action3D {
     public Run(obj: any) {
         this.objAction = obj;
         this.to = obj.to;
-        this.sprite = obj.sp;
-        this.type =obj.type;
+        this.uiAction = obj.ui;
+        this.type = obj.type;
 
         if (this.type == ActionType.Move) {
-            this.distance = new Laya.Vector3(this.to.x - this.sprite.position.x, this.to.y - this.sprite.position.y, this.to.z - this.sprite.position.z);
-            this.from = new Laya.Vector3(this.sprite.position.x, this.sprite.position.y, this.sprite.position.z);
+            this.distance = new Laya.Vector3(this.to.x - this.uiAction.transform.position.x, this.to.y - this.uiAction.transform.position.y, this.to.z - this.uiAction.transform.position.z);
+            this.from = new Laya.Vector3(this.uiAction.transform.position.x, this.uiAction.transform.position.y, this.uiAction.transform.position.z);
         }
         if (this.type == ActionType.Scale) {
-            this.distance = new Laya.Vector3(this.to.x - this.sprite.localScale.x, this.to.y - this.sprite.localScale.y, this.to.z - this.sprite.localScale.z);
-            this.from = new Laya.Vector3(this.sprite.localScale.x, this.sprite.localScale.y, this.sprite.localScale.z);
+            this.distance = new Laya.Vector3(this.to.x - this.uiAction.transform.localScale.x, this.to.y - this.uiAction.transform.localScale.y, this.to.z - this.uiAction.transform.localScale.z);
+            this.from = new Laya.Vector3(this.uiAction.transform.localScale.x, this.uiAction.transform.localScale.y, this.uiAction.transform.localScale.z);
         }
 
         if (this.type == ActionType.Fade) {
-            this.from = this.sprite.color.a;
+            this.from = this.uiAction.color.a;
             this.distance = this.to - this.from;
         }
 
@@ -105,23 +106,30 @@ export default class Action3D {
 
     private OnActionFinish(handler: Laya.Handler) {
         if (this.isFinish) {
-            Debug.Log("Sprite3DMoveContorller isFinish");
+            Debug.Log("uiAction3DMoveContorller isFinish");
             return;
         }
-        Debug.Log("Sprite3DMoveContorller endMove");
-        Laya.timer.clear(this, this.ActionUpdate) 
-        if (this.type == ActionType.Move) {
-            this.sprite.position = this.to
-        }
-        if (this.type == ActionType.Scale) {
-            this.sprite.localScale = this.to
+        Debug.Log("uiAction3DMoveContorller endMove");
+        Laya.timer.clear(this, this.ActionUpdate)
+
+        if (this.uiAction != null) {
+            if (this.uiAction.transform != null) {
+
+                if (this.type == ActionType.Move) {
+                    this.uiAction.transform.localPosition = this.to
+                }
+                if (this.type == ActionType.Scale) {
+                    this.uiAction.transform.localScale = this.to
+                }
+
+                if (this.type == ActionType.Fade) {
+                    var color = this.uiAction.color;
+                    color.a = this.to;
+                    this.uiAction.color = color;
+                }
+            }
         }
 
-        if (this.type == ActionType.Fade) {
-            var color = this.sprite.color;
-            color.a = this.to;
-            this.sprite.color = color;
-        }
 
         // handler.method();
         this.isFinish = true;
@@ -138,10 +146,11 @@ export default class Action3D {
             this.from.y + (this.distance.y * this.actionValue),
             this.from.z + (this.distance.z * this.actionValue)
         )
-        // Debug.Log("Sprite3DMoveContorller moveUpdate x=" + pt.x + " y=" + pt.y + " this.actionValue=" + this.actionValue + " this.frompostion.x=" + this.frompostion.x + " this.moveDistance.x=" + this.moveDistance.x);
-        if(this.sprite!=null)
-        {
-            this.sprite.position = pt;
+        // Debug.Log("uiAction3DMoveContorller moveUpdate x=" + pt.x + " y=" + pt.y + " this.actionValue=" + this.actionValue + " this.frompostion.x=" + this.frompostion.x + " this.moveDistance.x=" + this.moveDistance.x);
+        if (this.uiAction != null) {
+            if (this.uiAction.transform != null) {
+                this.uiAction.transform.localPosition = pt;
+            }
         }
     }
 
@@ -154,22 +163,34 @@ export default class Action3D {
         )
         pt.z = 1;
         // Debug.Log("OnActionUpdateScale x=" + pt.x + " y=" + pt.y + " this.actionValue=" + this.actionValue+" this.from.x="+this.from.x+" this.distance.x="+this.distance.x);
-        if(this.sprite!=null)
-        {
-            this.sprite.localScale = pt;
+        if (this.uiAction != null) {
+            if (this.uiAction.transform != null) {
+                this.uiAction.transform.localScale = pt;
+            }
         }
 
     }
 
+    /*
+      Laya.Tween.to(label, { y: y, alpha: 0 }, 1 * 1000, Laya.Ease.linearNone, Laya.Handler.create(this, () => {
+            label.visible = false; 
+        })); 
+
+         
+        */
+
+
     private OnActionUpdateFade() {
         var a = this.from + (this.distance * this.actionValue)
-        var color = this.sprite.color;
+        var color = this.uiAction.color;
         // color.a = a*255;
-        color.a =a;
-        Debug.Log("OnActionUpdateFade a=" + a +" this.actionValue=" + this.actionValue+" this.from="+this.from+" this.distance="+this.distance);
-        if(this.sprite!=null)
-        {
-            this.sprite.color = color;
+        color.a = a;
+        // if(this.uiAction.issprite)
+        Debug.Log("OnActionUpdateFade a=" + a + " this.actionValue=" + this.actionValue + " this.from=" + this.from + " this.distance=" + this.distance);
+        if (this.uiAction != null) {
+            if (this.uiAction.transform != null) {
+                this.uiAction.color = color;
+            }
         }
     }
 }

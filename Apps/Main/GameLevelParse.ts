@@ -6,12 +6,15 @@ import Debug from "../../Common/Debug";
 import FileUtil from "../../Common/File/FileUtil";
 import ItemInfo from "../../Common/ItemInfo";
 import ResManager from "../../Common/Res/ResManager";
-import GameData from "../Merge/Data/GameData";
+import GameData from "../Ladder/Data/GameData";
 
+ 
+ 
 
+ 
 export default class GameLevelParse extends LevelParseBase {
     countLoad = 0;
-    loadMax = 0;
+    loadMax= 0;
 
     listGameItems: ItemInfo[] = [];
     listGameItemDefault: ItemInfo[] = [];
@@ -33,7 +36,7 @@ export default class GameLevelParse extends LevelParseBase {
 
     }
 
-    GetLevelItemInfo(idx) {
+    GetLevelItemInfo (idx) {
         if (this.listGameItems == null) {
             return null;
         }
@@ -44,16 +47,7 @@ export default class GameLevelParse extends LevelParseBase {
         // Debug.Log("UIGameCaiCaiLe GetLevelItemInfo idx=" + idx + " info=" + info);
         return info;
     }
-    // 从0开始
-    GetIndexById(strid) {
-        for (var i = 0; i < this.listGameItems.length; i++) {
-            var info = this.listGameItems[i] as ItemInfo;
-            if (strid == info.id) {
-                return i;
-            }
-        }
-        return 0;
-    }
+    
     GetLastItemInfo() {
         Debug.Log("GameItems:GetLastItemInfo this.listGameItems=" + this.listGameItems.length);
         return this.listGameItems[this.listGameItems.length - 1];
@@ -117,7 +111,7 @@ export default class GameLevelParse extends LevelParseBase {
             info.id = item["id"];
             info.pic = this.GetImagePath(info.id);
             this.listGameItems.push(info);
-        }
+        } 
     }
 
 
@@ -131,7 +125,7 @@ export default class GameLevelParse extends LevelParseBase {
             this.listGameItems.push(info);
         }
         Debug.Log("GameItems:this.listGameItems=" + this.listGameItems.length);
-
+        
     }
 
     ParseGameItemsDefault(json) {
@@ -164,15 +158,12 @@ export default class GameLevelParse extends LevelParseBase {
         // return;
 
         if ((this.listGameItems != null) && (this.listGameItems.length != 0)) {
-            if (obj.success != null) {
-                obj.success(this);
-            }
             return;
         }
 
         var idx = LevelData.main.placeLevel;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = CloudRes.main.rootPath + "/Level/" + infoPlace.id + ".json";
+        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json"; 
         ResManager.LoadJson(
             {
                 filepath: filepath,
@@ -204,15 +195,12 @@ export default class GameLevelParse extends LevelParseBase {
     */
     StartParseGameItemsDefault(obj: any) {
         if ((this.listGameItemDefault != null) && (this.listGameItemDefault.length != 0)) {
-            if (obj.success != null) {
-                obj.success(this);
-            }
             return;
         }
 
         var idx = 0;
         var infoPlace = LevelData.main.GetPlaceItemInfo(idx);
-        var filepath = CloudRes.main.rootPath + "/Level/" + infoPlace.id + ".json";
+        var filepath = Common.GAME_RES_DIR + "/Level/" + infoPlace.id + ".json";
 
         ResManager.LoadJson(
             {
@@ -234,17 +222,16 @@ export default class GameLevelParse extends LevelParseBase {
 
     }
 
-    OnFinish(obj: any, isFail: boolean) {
+    OnFinish(obj: any,isFail:boolean) {
         this.countLoad++;
-
-        Debug.Log("GameLevelParse OnFinish this.countLoad=" + this.countLoad);
         if (this.countLoad >= this.loadMax) {
-
-            if (isFail) {
+          
+            if(isFail)
+            {
                 if (obj.fail != null) {
                     obj.fail(this);
                 }
-            } else {
+            }else{
                 if (obj.success != null) {
                     obj.success(this);
                 }
@@ -264,23 +251,18 @@ export default class GameLevelParse extends LevelParseBase {
     StartParseGuanka(obj: any) {
         this.loadMax = 2;
         this.countLoad = 0;
-        Debug.Log("GameLevelParse StartParseGuanka ");
-        this.StartParseGameItems({
-            success: (p: any) => {
-                this.OnFinish(obj, false);
-            },
-            fail: (p: any) => {
-                this.OnFinish(obj, true);
-            },
-        });
-        this.StartParseGameItemsDefault({
-            success: (p: any) => {
-                this.OnFinish(obj, false);
-            },
-            fail: (p: any) => {
-                this.OnFinish(obj, true);
-            },
-        });
+        if (obj.success != null) {
+            obj.success(this);
+        } 
+        // this.StartParseGameItems({
+        //     success: (p: any) => {
+        //         this.OnFinish(obj,false);
+        //     },
+        //     fail: (p: any) => {
+        //         this.OnFinish(obj,true);
+        //     },
+        // });
+     
     }
 
 

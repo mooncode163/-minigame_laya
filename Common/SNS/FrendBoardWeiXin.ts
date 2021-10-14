@@ -1,9 +1,12 @@
 
  
-export default class FrendBoardWeiXin  {
- 
-    //https://www.jianshu.com/p/abf753ded43b
-    //https://segmentfault.com/a/1190000015034592?utm_source=tag-newest
+ /*
+
+Laya微信小游戏的开放域教程:https://www.cnblogs.com/gamedaybyday/p/11545411.html 
+                      https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7
+                      */
+
+export default class FrendBoardWeiXin  { 
     SaveData (score) {
         //let score = '' + 50;
         // wx.setUserCloudStorage({

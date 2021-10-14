@@ -1,4 +1,5 @@
-import Timer from "../Core/Timer";
+import Timer from "../../Core/Timer";
+import Debug from "../../Debug"; 
 
  
 
@@ -10,28 +11,28 @@ export default class TimeFilter {
        IsFilter():boolean
       {
           var ret = false;
-          if ((tickPre == 0) && (tickCur == 0))
+          if ((this.tickPre == 0) && (this.tickCur == 0))
           {
               // 初始化
-              tickCur = Timer.curTime;
-              tickPre = tickCur;
+              this.tickCur = Timer.curTime;
+              this.tickPre = this.tickCur;
               return false;
           }
-          tickCur = Timer.curTime;
-          if (timeMin > 0)
+          this.tickCur = Timer.curTime;
+          if (this.timeMin > 0)
           {
-              var step = Math.abs(tickCur - tickPre);
-              if (step < timeMin * 1000)
+              var step = Math.abs(this.tickCur - this.tickPre);
+              if (step < this.timeMin * 1000)
               {
                   ret = true;
-                  Debug.Log("TimeFilter Filter this step=" + step + " timeMin=" + timeMin);
+                  Debug.Log("TimeFilter Filter this step=" + step + "ms timeMin=" + this.timeMin+" second");
               }
               else
               {
   
               }
           }
-          tickPre = tickCur;
+          this.tickPre = this.tickCur;
           return ret;
       }
   

@@ -8,7 +8,7 @@ import { Direction, Align } from "./LayOutUtil";
 
 export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
 
-
+    align: Align = Align.CENTER;
     //是否控制大小
     childControlHeight = false;
     childControlWidth = false;
@@ -47,7 +47,7 @@ export default class HorizontalOrVerticalLayoutBase extends LayOutBase {
                 continue;
             }
 
-            if (!this.enableHide) { 
+            if (!this.enableHide) {
                 var sp = child as Laya.Sprite;
                 if (sp != null) {
                     if (!sp.visible) {

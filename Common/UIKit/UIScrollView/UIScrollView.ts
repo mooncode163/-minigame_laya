@@ -20,6 +20,9 @@ export default class UIScrollView extends UIView {
  
     content: Laya.View;
 
+
+    /** @prop {name:isPivotCenter,type:Bool}*/
+
     /** @prop {name:direction,type:Option,option:"Horizontal,Vertical", default:"Vertical"}*/
     direction = ScrollViewDirection.Vertical;
 
@@ -75,7 +78,7 @@ export default class UIScrollView extends UIView {
 
     onAwake() {
         super.onAwake();
-
+        this.node.name = "UIScrollView"
         this.Init();
 
         var size = UI.GetNodeContentSize(this.owner);
@@ -142,7 +145,7 @@ export default class UIScrollView extends UIView {
         this.mask.pos(0, 0);
 
         if (this.isPivotCenter) {
-            UI.SetNodePivotCenter(this.owner);
+            // UI.SetNodePivotCenter(this.owner);
         }
 
 
@@ -169,6 +172,8 @@ export default class UIScrollView extends UIView {
             } else {
                 x = this.GetChildItemX(i);
             }
+            var sizechild = UI.GetNodeContentSize(child);
+            Debug.Log("UIScrollView child x = "+x+" y="+y+ " w="+size.width+" h="+size.height);
             UI.SetNodePosition(child, x, y);
         }
         
@@ -323,7 +328,7 @@ export default class UIScrollView extends UIView {
         var height =Math.min(this.content.height,size.height);  
         var width =Math.min(this.content.width,size.width);  
 
-        Debug.Log("UIScrollView this.content.height="+this.content.height+" size.height="+size.height);
+        Debug.Log("UIScrollView size.width="+size.width+" size.height="+size.height+ " this.content.width="+this.content.width+" this.content.height="+this.content.height);
 
         if (this.direction == ScrollViewDirection.Horizontal) {
             var posX: number = this.content.x;

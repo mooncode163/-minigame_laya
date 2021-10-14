@@ -38,11 +38,17 @@ export default class AppVersionBase {
 
     StartParseVersion(obj: any) {
         this.isNetWorkOk = true;
+        this.objApp = obj;
         // if (this.callbackFinished != null)
         // {
         //     Debug.Log("Appversion ParseFinished callbackFinished");
         //     this.callbackFinished(this);
         // }
+        Debug.Log("AppVersionBase StartParseVersion 1");
+        if (obj.finish != null) {
+            obj.finish(this);
+            Debug.Log("AppVersionBase StartParseVersion 2");
+        }
     }
 
     ParseData(data) {
@@ -80,23 +86,24 @@ export default class AppVersionBase {
             else {
                 this.appNeedUpdate = false;
                 // if (ret > 0)
-                if (this.strVersionStore < this.strVersionLocal) 
-                {
+                if (this.strVersionStore < this.strVersionLocal) {
                     this.appCheckForAppstore = true;
                 }
 
             }
- 
-        } 
+
+        }
 
 
-        Debug.Log("Appversion:appCheckForAppstore= 1" + this.appCheckForAppstore + " isNetWorkOk=" + this.isNetWorkOk); 
+        Debug.Log("Appversion:appCheckForAppstore= 1" + this.appCheckForAppstore + " isNetWorkOk=" + this.isNetWorkOk);
         if (!this.appCheckForAppstore) {
-            Debug.Log("Appversion:appCheckForAppstore SetBool KEY_APP_CHECK_FINISHED true"); 
+            Debug.Log("Appversion:appCheckForAppstore SetBool KEY_APP_CHECK_FINISHED true");
             LocalStorage.SetBool(AppVersionBase.KEY_APP_CHECK_FINISHED, true);
         }
- 
 
+        if (this.objApp.finish != null) {
+            this.objApp.finish(this);
+        }
     }
 
 }

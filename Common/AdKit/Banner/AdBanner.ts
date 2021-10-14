@@ -29,7 +29,7 @@ export default class AdBanner  {
             // p = new AdBannerMooSnow();
         }
         if (Platform.isQQ) {
-            p = new AdBannerMooSnow();
+            // p = new AdBannerMooSnow();
         } 
         
         return p;

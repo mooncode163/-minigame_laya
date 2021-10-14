@@ -14,6 +14,8 @@ export default class FileSystemWeixin extends FileSystemPlatformWrapper {
 
     GetRootDirPath() {
         var wx = Laya.Browser.window.wx;
+
+        // wxfile://user/moonma/CloudRes/UI/Setting/SettingCellBgOringe.png
         var ret = `${wx.env.USER_DATA_PATH}/` + FileSystemPlatformWrapper.FILE_ROOT_DIR;
         return ret;
         return "";

@@ -5,6 +5,7 @@
 
 import AppSceneBase from "../../AppBase/Common/AppSceneBase"; 
 import AppSceneUtil from "../../AppBase/Common/AppSceneUtil";
+import CameraUtil from "../Camera/CameraUtil";
 import Common from "../Common";
 import Debug from "../Debug";
 import Source from "../Source";
@@ -36,7 +37,8 @@ export default class AdKitCommon  {
     heightAdBanner=0; //screen
 
     // qq 380
-    heightCanvasAdBanner=380; //canvas 160
+    heightCanvasAdBanner=200; //canvas 160 380
+    heightWorldAdBanner = 0.2;
 
     static _main: AdKitCommon;
     //静态方法
@@ -94,6 +96,7 @@ export default class AdKitCommon  {
                                 this.heightAdBanner = h; 
                             }
                             this.heightCanvasAdBanner = Common.ScreenToCanvasHeigt(Common.sizeCanvas,h);
+                            this.heightWorldAdBanner = CameraUtil.main.CanvasToWorldHeight(AppSceneUtil.mainCamera,this.heightCanvasAdBanner);
                             Debug.Log("this.heightCanvasAdBanner="+this.heightCanvasAdBanner+ " h="+h);
                             AppSceneUtil.main.LayOut();
                         },

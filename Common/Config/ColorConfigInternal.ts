@@ -69,7 +69,8 @@ export default class ColorConfigInternal extends ConfigInternalBase {
 
     // laya.display.Text#color 如 #8d2d2c
     GetColor(key: string, def: string = "0, 0, 0, 255") {
-        var cr = this.RGBString2ColorHexString(def);;
+        // var cr = this.RGBString2ColorHexString(def);;
+        var cr = def;
         // key = "PlaceItemTitle";
         // key = "APP_TYPE";
         /*
@@ -79,7 +80,8 @@ export default class ColorConfigInternal extends ConfigInternalBase {
             if (this.rootJson[key] != null) {
                 var str = this.rootJson[key];
                 Debug.Log("ColorConfig key =" + key + " str=" + str);
-                cr = this.RGBString2ColorHexString(str);
+                // cr = this.RGBString2ColorHexString(str);
+                cr = str;
             }
             else {
                 Debug.Log("ColorConfig ContainsKey no key =" + key);
@@ -87,7 +89,7 @@ export default class ColorConfigInternal extends ConfigInternalBase {
         } else {
             Debug.Log("ColorConfig rootJson null key =" + key + " str=" + str);
         }
-        cr = "#" + cr;
+        // cr = "#" + cr;
         return cr;
     }
 

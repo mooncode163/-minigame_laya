@@ -7,7 +7,7 @@ import { ui } from "./../ui/layaMaxUI";
 export default class GameUI extends ui.test.TestSceneUI {
     constructor() {
         super();
-		
+
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;
 
@@ -25,9 +25,51 @@ export default class GameUI extends ui.test.TestSceneUI {
         var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
         box.transform.rotate(new Laya.Vector3(0, 45, 0), false, false);
         var material: Laya.BlinnPhongMaterial = new Laya.BlinnPhongMaterial();
-		Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function(tex:Laya.Texture2D) {
-				material.albedoTexture = tex;
-		}));
+        // Laya.Texture2D.load("res/layabox.png", Laya.Handler.create(null, function (tex: Laya.Texture2D) {
+        //     material.albedoTexture = tex;
+        // }));
         box.meshRenderer.material = material;
+
+
+        {
+            var filepath = "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-850e2487-bb16-4d29-b798-c3f14a71a618/40720046-b0b1-41e2-9edd-09aca079a150.png";
+            // console.log("ResManager Laya.loader.load before obj.filepath=" + filepath);
+            Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
+                // console.log("ResManager Laya.loader.load obj.filepath=" + filepath);
+                var tex = Laya.loader.getRes(filepath);
+                
+                if (tex == null) {
+                    // console.log("ResManager Laya.loader.load texture is null fail");
+
+                } else {
+                    // console.log("ResManager Laya.loader.load texture is not null");
+
+                }
+                // material.albedoTexture = tex;
+
+            }));
+        }
+
+
+
+        {
+            var filepath = "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-850e2487-bb16-4d29-b798-c3f14a71a618/40720046-b0b1-41e2-9edd-09aca079a150.png";
+            console.log("ResManager Laya.loader.load before obj.filepath=" + filepath);
+            Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
+                console.log("ResManager Laya.loader.load obj.filepath=" + filepath);
+                var tex = Laya.loader.getRes(filepath);
+                
+                if (tex == null) {
+                    console.log("ResManager Laya.loader.load texture is null fail");
+
+                } else {
+                    console.log("ResManager Laya.loader.load texture is not null");
+
+                }
+                material.albedoTexture = tex;
+
+            }));
+        }
+
     }
 }

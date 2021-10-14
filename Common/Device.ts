@@ -44,6 +44,8 @@ GameConfig{
     static scaleMode:string="fixedwidth";
     
 */
+
+// Laya.Browser.pixelRatio  缩放因子
     get screenSize():Laya.Size { 
         var w = Laya.Browser.width;
         var h = Laya.Browser.height;

@@ -24,7 +24,7 @@ import UIViewController from "./UIViewController";
 import UI from "./UI";
 import UIFind from "./UIFind";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
-import UITransform from "../UITransform"; 
+import UITransform from "../UITransform";
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
@@ -65,17 +65,16 @@ export default class UIView extends Laya.Script {
     keyId: string;
     tag: string;
     title: string;
-    name: string; 
+    name: string;
     isPivotCenter: boolean = true;
     texture: Laya.Texture2D;
 
     callbackRenderFinish: Function = null
-    
-    public isSprite: boolean = false; 
+
+    public isSprite: boolean = false;
     private _transform: UITransform;
     public get transform(): UITransform {
-        if(this._transform==null)
-        {
+        if (this._transform == null) {
             this._transform = new UITransform(this);
         }
         return this._transform;
@@ -83,6 +82,38 @@ export default class UIView extends Laya.Script {
 
     public get mainCam(): Laya.Camera {
         return AppSceneUtil.mainCamera;
+    }
+
+    addComponent(componentType: typeof Laya.Component): any {
+        return this.node.addComponent(componentType);
+    }
+
+    getComponent(componentType: typeof Laya.Component): any {
+        return this.node.getComponent(componentType);
+    }
+
+    public get contentSize(): Laya.Size {
+        return this.GetContentSize();
+    }
+    public set contentSize(value: Laya.Size) {
+        this.SetContentSize(value.width,value.height);
+    }
+
+    public get boundSize(): Laya.Size {
+        return this.GetBoundSize();
+    }
+    public set boundSize(value: Laya.Size) {
+        var scalex =  value.width/this.contentSize.width;
+        var scaley =  value.height/this.contentSize.height;
+        UI.SetScaleX(this.node,scalex); 
+        UI.SetScaleY(this.node,scaley); 
+    }
+
+    public get pivotX() {
+        return UI.GetPivotX(this.node);
+    }
+    public get pivotY() {
+        return UI.GetPivotY(this.node);
     }
     public get x(): number {
         return UI.GetPosition(this.node).x;
@@ -121,7 +152,7 @@ export default class UIView extends Laya.Script {
             AppSceneUtil.isNeedLayout = true;
         }
     }
- 
+
     public get zOrder(): number {
         var sp = this.owner as Laya.Sprite;
         var z = 0;
@@ -137,6 +168,9 @@ export default class UIView extends Laya.Script {
             sp.zOrder = value;
         }
     }
+
+
+
 
     private _controller: UIViewController | null = null;
     // @type(UIViewController)
@@ -216,7 +250,21 @@ export default class UIView extends Laya.Script {
     }
 
     LayOut() {
-        this.LayOutInternal();
+             //获取所有子对象(第一层)
+             var parent = this.node;
+             for (var i = 0; i < parent.numChildren; i++) {
+                 var child = parent.getChildAt(i);
+                 var uiChild = child.getComponent(UIView);
+                 if(uiChild!=null)
+                 {
+                    uiChild.LayOut();
+                    Debug.Log("UIView uiChild LayOut child");
+                 }
+     
+             }
+      
+             //all LayOutBaseInternal
+             this.LayOutInternal(); 
     }
 
     LayOutNode(node: Laya.Node) {
@@ -261,15 +309,7 @@ export default class UIView extends Laya.Script {
 
     LayOutDidFinish() {
 
-    }
-
-    //统一按钮状态图片
-    UnifyButtonSprite(btn) {
-        if (btn != null) {
-            btn.pressedSprite = btn.normalSprite;
-            btn.hoverSprite = btn.normalSprite;
-        }
-    }
+    } 
 
     SetContentSize(w, h) {
         var w_real = w;
@@ -307,7 +347,7 @@ export default class UIView extends Laya.Script {
     GetBoundSizeOfGameObject(nd: Laya.Node) {
         return UI.GetNodeBoundingBox(nd);
     }
- 
+
     GetBoundSize() {
         return UI.GetNodeBoundingBox(this.owner);
     }
@@ -368,7 +408,7 @@ export default class UIView extends Laya.Script {
         this.owner.addChild(child.owner);
         this.LayOut();
     }
- 
+
 
     // 加入世界坐标
     AddNodeToMainWorld(node: Laya.Node) {

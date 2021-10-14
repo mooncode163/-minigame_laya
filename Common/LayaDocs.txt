@@ -32,3 +32,61 @@
     如果是小版本的差别，例如2018.4.x的其他系列版本，理论上是没有问题的，但是建议采用2018.4.7。因为2018.4.7版本是经过我们每次的插件发版测试的版本。但是，采用例如2019等其他版本，则有可能美术会使用到一些2018不支持的功能，导致报错或者在导出后LayaAir引擎运行效果与unity编辑效果不一致。所以尽可能采用我们推荐的Unity版本。
 
 5.图集图片设置等有更改后需要删除bin/res/atlas 目录 然后重启laya编辑器才能生效,Sprite3D等还不支持图集 其他资源有改动的时候 最好也重启编辑器重新编译打包
+
+
+6, 物理引擎3D:
+  1, Laya.PhysicsCollider 相当于 unity 的静态刚体. Laya.Rigidbody3D 相当于unity的动态刚体,且需要设置了colliderShape 才能受重力运动
+   两个物体的position.z 必须一样才会发生碰撞(bug?)
+      //@moon:laya bug: 物体销毁之后 碰撞体还残留,this.body.destroy(),会crash, colliderShape设置为null 也会出问题
+  var ball:Laya.SphereColliderShape = new Laya.SphereColliderShape(0);//1 
+  this.body.colliderShape = ball;
+
+  2,laya bug : 在qq和字节小程序会导致ray区域判断错位,有时候需要手动判断 可能导致物体收不到鼠标事件
+              transform.localScale 也可能导致物体区域错乱而无法点击 是因为Laya.MouseManager.instance.mouseX,mouseY没有计算缩放因子Laya.Browser.pixelRatio导致的
+
+
+7, Laya.timer.once 连续执行多次时候变量名会冲突(解决方法:单独封装一个函数 放一个 Laya.timer.once在里面,然后多次调用这个函数): 
+
+          {
+            var i = 0; 
+            Laya.timer.once(delayedTimer * i, this, function (): void {
+              
+            });
+        }
+        {
+            var i = 1; 
+            Laya.timer.once(delayedTimer * i, this, function (): void {
+              
+            });
+        }
+
+        这样的话 两个i可能会冲突错乱,
+
+
+        下面的写法运行正常 :
+
+          {
+            var i1 = 0; 
+            Laya.timer.once(delayedTimer * i1, this, function (): void {
+              
+            });
+        }
+        {
+            var i2 = 1; 
+            Laya.timer.once(delayedTimer * i2, this, function (): void {
+              
+            });
+        }
+
+8,设计分辨率: width = 1536  height= 2048 
+    默认640x1136 
+
+9,Laya微信小游戏的开放域 :https://www.cnblogs.com/gamedaybyday/p/11545411.html 
+                      https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7
+
+
+10,字节小程序模拟器缓存uicloudres图片 无法加载问题:
+    Laya.loader.load bug: 字节小程序模拟器 从缓存读取图片应该是http://开头 但是实际是ttfile:// 导致从缓存Laya.loader.load加载失败 所以在真机测试字节小程序
+
+      
+

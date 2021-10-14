@@ -15,6 +15,7 @@ import { RelationType } from "../LayOut/LayOutUtil";
 import UIView from "../ViewController/UIView";
 import UI from "../ViewController/UI";
 import ImageResCloudRes from "../../CloundRes/ImageResCloudRes";
+import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 
 
 enum ENUM_Effect {
@@ -58,13 +59,13 @@ export default class UIImage extends UIView {
 
 
     /** @prop {name:isPivotCenter,type:Bool}*/
-    
+
 
     onAwake() {
         Debug.Log("UIImage onAwake");
         // this.Init();
         super.onAwake();
-   
+
         this.LayOut();
         // this.image.render = -1;
     }
@@ -132,6 +133,27 @@ export default class UIImage extends UIView {
         // if((this.image==null)||(this.image==undefined))
         {
             this.image = this.owner.getChildByName("Image") as Laya.Image;
+            if (this.image == null) {
+
+                var parent = this.node;
+                for (var i = 0; i < parent.numChildren; i++) {
+                    var child = parent.getChildAt(i) as Laya.Node;
+                    if (child == undefined) {
+                        continue;
+                    }
+
+                    var strtype = typeof child
+                    if (strtype != "undefined") {
+
+                    }
+                    //@moon laya bug,prefab 有时候copy的时候名字会丢失 直接获取子元素
+                    this.image = child as Laya.Image;
+                    break;
+
+
+
+                }
+            }
         }
 
     }
@@ -194,17 +216,18 @@ export default class UIImage extends UIView {
         if (Platform.isCloudRes) {
             isCloud = true;
         }
-        Debug.Log("UpdateImage .board="+board);
+        Debug.Log("UpdateImage .board=" + board);
         TextureCache.main.Load(
             {
                 filepath: pic,
                 isCloud: isCloud,
-                isSprite:false,
+                isSprite: false,
                 success: (p: any, tex: Laya.Texture) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, false, board);
                     if (this.isSizeFitTexture) {
-                        this.SetContentSize(tex.width, tex.height); 
+                        this.SetContentSize(tex.width, tex.height);
                     }
+                    // AppSceneUtil.isNeedLayout = true;
                     this.LayOut();
                 },
                 fail: (p: any) => {
@@ -227,8 +250,8 @@ export default class UIImage extends UIView {
     }
 
 
-      // 绝对路径
-      UpdateImageUICloudRes(pic: string, key: string = "") {
+    // 绝对路径
+    UpdateImageUICloudRes(pic: string, key: string = "") {
         var strKey = key;
         this.Init();
         if (Common.BlankString(key)) {
@@ -254,16 +277,17 @@ export default class UIImage extends UIView {
         if (Platform.isCloudRes) {
             isCloud = true;
         }
-        Debug.Log("UpdateImageUICloudRes board.x="+board.x);
+        Debug.Log("UpdateImageUICloudRes board.x=" + board.x);
         TextureCache.main.Load(
             {
                 filepath: pic,
                 isCloud: isCloud,
-                isSprite:false,
+                isSprite: false,
                 success: (p: any, tex: Laya.Texture) => {
                     TextureUtil.UpdateImageTexture(this.image, tex, false, board);
                     if (this.isSizeFitTexture) {
-                        this.SetContentSize(tex.width, tex.height); 
+                        this.SetContentSize(tex.width, tex.height);
+                        AppSceneUtil.isNeedLayout = true;
                     }
                     this.LayOut();
                 },
@@ -292,12 +316,11 @@ export default class UIImage extends UIView {
 
         // image 和uiimage同步大小
         var size = UI.GetNodeContentSize(this.owner);
-        UI.SetNodeContentSize(this.image,size.width,size.height);
+        UI.SetNodeContentSize(this.image, size.width, size.height);
         // this.image.x = 0;
         // this.image.y = 0;
-        Debug.Log("UIImage  w=" + size.width + " h=" + size.height+" name="+this.owner.name); 
-        if(this.isPivotCenter)
-        {
+        Debug.Log("UIImage  w=" + size.width + " h=" + size.height + " name=" + this.owner.name);
+        if (this.isPivotCenter) {
             UI.SetNodePivotCenter(this.owner);
         }
         super.LayOut();

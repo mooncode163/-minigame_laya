@@ -3,9 +3,9 @@ import Common from "../../Common/Common";
 import ImageRes from "../../Common/Config/ImageRes";
 import Debug from "../../Common/Debug";
 import ItemInfo from "../../Common/ItemInfo";
- 
+
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
-import UIImage from "../../Common/UIKit/UIImage/UIImage";  
+import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import IUIScrollView from "../../Common/UIKit/UIScrollView/IUIScrollView";
 import UIScrollView from "../../Common/UIKit/UIScrollView/UIScrollView";
 import UITableView from "../../Common/UIKit/UITableView/UITableView";
@@ -19,8 +19,8 @@ import UISettingCellItem from "./UISettingCellItem";
 
 
 
- 
- 
+
+
 export default class UISetting extends UIView implements IUIScrollView {
     oneCellNum = 1;
     heightCell = 160;
@@ -43,7 +43,7 @@ export default class UISetting extends UIView implements IUIScrollView {
 
         this.uiScrollView = UIFind.FindUI(this.node, "UIScrollView", UIScrollView);
         this.uiScrollView.delegate = this;
- 
+
         this.LoadPrefab();
     }
 
@@ -52,9 +52,16 @@ export default class UISetting extends UIView implements IUIScrollView {
         // [3]
         super.onStart();
 
- 
+
         // this.uiScrollView.Reload();
         this.LayOut();
+    }
+
+    onUpdate() {
+        // var pos = this.uiScrollView.transform.localPosition;
+        // var size = this.uiScrollView.GetContentSize();
+        // Debug.Log("this.uiScrollView pos.x=" + pos.x + " pos.y=" + pos.y + " size.w=" + size.width + " size.h=" + size.height + " pivotX=" + this.uiScrollView.pivotX + " pivoty=" + this.uiScrollView.pivotY);
+
     }
     LoadPrefab() {
         var key = "UISettingCellItem";
@@ -76,18 +83,17 @@ export default class UISetting extends UIView implements IUIScrollView {
                 },
             });
     }
- 
+
 
 
     LayOut() {
         super.LayOut();
     }
-    OnScrollViewDidClickItem(uiScroll:any,uiItem:any) {
-        Debug.Log("UISetting OnScrollViewDidClickItem name=" + uiItem.owner.name  + " index=" + uiItem.index);
+    OnScrollViewDidClickItem(uiScroll: any, uiItem: any) {
+        Debug.Log("UISetting OnScrollViewDidClickItem name=" + uiItem.owner.name + " index=" + uiItem.index);
 
         var uiCell = uiItem as UISettingCellItem;
-        if(uiCell!=null)
-        {
+        if (uiCell != null) {
             uiCell.OnClickItem();
         }
     }
@@ -101,7 +107,7 @@ export default class UISetting extends UIView implements IUIScrollView {
             }
         }
     }
- 
+
 
 
 }

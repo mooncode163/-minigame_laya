@@ -13,6 +13,8 @@ import UI from '../../Common/UIKit/ViewController/UI';
 import AppSceneUtil from './AppSceneUtil';
 import InitViewController from './InitViewController';
 import PopUpData from '../../Common/UIKit/PopUp/PopUpData';
+import UIView3D from '../../Common/UIKit/ViewController/UIView3D';
+import CameraUtil from '../../Common/Camera/CameraUtil';
 
 // typescript 提示 Object is possibly ‘null‘ 的N种解决方法
 // https://blog.csdn.net/iamlujingtao/article/details/110573421
@@ -73,6 +75,7 @@ export default class AppSceneBase extends Laya.Script {
         //component
         this.owner.addComponent(AudioPlay);
         this.owner.addComponent(MusicBgPlay);
+
 
         CloudResPreLoad.main.Load(
             {
@@ -196,6 +199,19 @@ export default class AppSceneBase extends Laya.Script {
         size = UI.GetNodeContentSize(this.rootNode);
         Debug.Log("this.rootNode size=" + size);
         Debug.Log("this.rootNode  width=" + size.width + ",height=" + size.height);
+
+
+        var sizeCam = CameraUtil.main.GetWorldSize(AppSceneUtil.mainCamera);
+ 
+        var node = new Laya.Sprite3D();
+        var ui = node.addComponent(UIView3D); 
+        ui.width = sizeCam.x;
+        ui.height = sizeCam.y;
+        AppSceneUtil.objMainWorld = node;
+        AppSceneUtil.mainScene.addChild(node);
+
+        
+
     }
 
 
@@ -213,17 +229,18 @@ export default class AppSceneBase extends Laya.Script {
 
 
     AddObjToMainWorld(obj: Laya.Node) {
-        AppSceneUtil.mainScene.addChild(obj);
+        // AppSceneUtil.mainScene.addChild(obj);
+        AppSceneUtil.objMainWorld.addChild(obj);
     }
 
 
       ClearMainWorld()
     {
        
-        var parent = AppSceneUtil.mainScene;
+        var parent = AppSceneUtil.objMainWorld;
         for (var i = 0; i < parent.numChildren; i++) {
             var child = parent.getChildAt(i);
-            if(child==AppSceneUtil.mainScene)
+            if(child==AppSceneUtil.objMainWorld)
             {
                 continue;
             }
@@ -273,7 +290,13 @@ export default class AppSceneBase extends Laya.Script {
             }
         }
 
+        // world
 
+        var sizeCam = CameraUtil.main.GetWorldSize(AppSceneUtil.mainCamera);
+        var uimainworld = AppSceneUtil.objMainWorld.getComponent(UIView3D); 
+        uimainworld.width = sizeCam.x;
+        uimainworld.height = sizeCam.y;
+        uimainworld.LayOut();
     }
 
 }

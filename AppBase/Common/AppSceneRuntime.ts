@@ -59,7 +59,7 @@ export default class AppSceneRuntime extends Laya.Scene {
         // default 3d sample 
         //添加3D场景
         var scene: Laya.Scene3D = Laya.stage.addChild(new Laya.Scene3D()) as Laya.Scene3D;
-        // 设置环境光试试
+        // 设置环境光
         scene.ambientColor = new Laya.Vector3(255 / 255, 255 / 255, 255 / 255);
 
         //添加照相机
@@ -78,9 +78,9 @@ export default class AppSceneRuntime extends Laya.Scene {
 
         } else {
             camera.orthographic = true;
-            camera.transform.translate(new Laya.Vector3(0, 0, 3));
+            camera.transform.translate(new Laya.Vector3(0, 0, 10));//3
         }
-        // camera.orthographic = true;
+        // camera.orthographic = false;
         // orthographicVerticalSize 默认为10 为屏幕顶部到底部的世界坐标距离
         // camera.orthographicVerticalSize = 7;
 

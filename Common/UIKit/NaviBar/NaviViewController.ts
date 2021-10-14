@@ -92,8 +92,10 @@ export default class NaviViewController extends UIViewController {
         // }
     }
     DestroyController() {
-        // 延迟销毁:留上一个ui 不然ui切换时候可能会看到场景的背景
-        // AppSceneBase.main.scheduleOnce(this.DestroyControllerInternal.bind(this), 1);
+        // 延迟销毁:留上一个ui 不然ui切换时候可能会看到场景的背景 
+        // Laya.timer.once(100, this, function (): void {
+        //     this.DestroyControllerInternal();
+        // });
     }
 
     DestroyControllerInternal() {

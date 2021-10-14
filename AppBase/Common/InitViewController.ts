@@ -99,9 +99,10 @@ export default class InitViewController extends NaviViewController {
                 
             }
         );
-        this.OnStartApp();
+        // this.OnStartApp();
     }
     OnStartApp() {
+        Debug.Log("OnStartApp enter")
         var isFirstRun = !Common.GetBoolOfKey(CommonRes.STR_KEY_NOT_FIRST_RUN, false);
         if (isFirstRun) {
             // Common.gold = AppRes.GOLD_INIT_VALUE;

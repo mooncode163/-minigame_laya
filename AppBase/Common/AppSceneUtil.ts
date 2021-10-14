@@ -18,5 +18,6 @@ export default class AppSceneUtil
     static mainScene: Laya.Scene3D;
     static mainCamera: Laya.Camera;
     static is3D:boolean = false;
+    static objMainWorld:Laya.Sprite3D;
 }
 

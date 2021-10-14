@@ -24,7 +24,7 @@ export default class UIViewPop extends UIView {
 
         // ms
         Laya.timer.once(100, this, this.ShowInitAnimate);
- 
+        // this.OnAnimateFinish();
     }
 
   

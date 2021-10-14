@@ -188,7 +188,8 @@ export default class LayOutUtil {
                     v1 = sizeCanvas.height;
                     if (enableAdBanner) {
                         // AdKitCommon.main.heightCanvasAdBanner = 256;
-                        v1 -= AdKitCommon.main.heightCanvasAdBanner;
+                        // v1 -= AdKitCommon.main.heightCanvasAdBanner;
+                        // Debug.Log("LayOutUtil AdKitCommon.main.heightCanvasAdBanner="+AdKitCommon.main.heightCanvasAdBanner);
                     }
                     v2 = node.y + node.height - pivotY;
                 }

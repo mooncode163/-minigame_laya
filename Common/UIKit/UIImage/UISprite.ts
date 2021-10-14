@@ -9,15 +9,12 @@ import Common from "../../Common";
 import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
 import Device from "../../Device";
-import FileUtil from "../../File/FileUtil";
-import TextureUtil from "../../Image/TextureUtil";
-import Platform from "../../Platform";
-import { RelationType } from "../LayOut/LayOutUtil";
-import UI from "../ViewController/UI";
-import UIView from "../ViewController/UIView";
+import FileUtil from "../../File/FileUtil"; 
+import Platform from "../../Platform"; 
+import UIView3D from "../ViewController/UIView3D";
 
 
-export default class UISprite extends UIView {
+export default class UISprite extends UIView3D {
 
     /** @prop {name:sprite,type:Node}*/
     sprite3D: Laya.MeshSprite3D;
@@ -38,9 +35,6 @@ export default class UISprite extends UIView {
 
 
 
-    // 世界坐标大小 tex/100
-    width = 0;
-    height = 0;
 
     isSizeFitTexture: boolean = false;
     _isVisible: boolean = true;
@@ -84,35 +78,36 @@ export default class UISprite extends UIView {
         }
     }
 
-    _position: Laya.Vector3 = new Laya.Vector3(0, 0, 0);
-    public set position(value: Laya.Vector3) {
-        // UI.SetPosition(this.sprite,value);  
-        // this.sprite.x = value.x; 
-        this._position = new Laya.Vector3(value.x, value.y, value.z);
-        if (this.sprite3D != null) {
-            this.sprite3D.transform.localPosition = new Laya.Vector3(value.x, value.y, value.z);
-        }
+    // _position: Laya.Vector3 = new Laya.Vector3(0, 0, 0);
+    // public set position(value: Laya.Vector3) {
+    //     // UI.SetPosition(this.sprite,value);  
+    //     // this.sprite.x = value.x; 
+    //     this._position = new Laya.Vector3(value.x, value.y, value.z);
+    //     if (this.sprite3D != null) {
+    //         this.sprite3D.transform.localPosition = new Laya.Vector3(value.x, value.y, value.z);
+    //     }
 
-    }
+    // }
 
-    public get position(): Laya.Vector3 {
-        return this._position;
-    }
+    // public get position(): Laya.Vector3 {
+    //     return this._position;
+    // }
 
-    _localScale: Laya.Vector3 = new Laya.Vector3(1, 1, 1);
-    public set localScale(value: Laya.Vector3) {
-        ;
-        // this.sprite.x = value.x; 
-        this._localScale = new Laya.Vector3(value.x, value.y, value.z);
-        if (this.sprite3D != null) {
-            this.sprite3D.transform.localScale = new Laya.Vector3(value.x, value.y, value.z);
-        }
+    // _localScale: Laya.Vector3 = new Laya.Vector3(1, 1, 1);
+    // public set localScale(value: Laya.Vector3) {
+    //     ;
+    //     // this.sprite.x = value.x; 
+    //     this._localScale = new Laya.Vector3(value.x, value.y, value.z);
+    //     if (this.sprite3D != null) {
+    //         this.sprite3D.transform.localScale = new Laya.Vector3(value.x, value.y, value.z);
+    //     }
 
-    }
+    // }
 
-    public get localScale() {
-        return this._localScale;
-    }
+    // public get localScale() {
+    //     return this._localScale;
+    // }
+
     public get visible(): boolean {
         var sp = this.sprite3D;
         var z = 0;
@@ -132,24 +127,10 @@ export default class UISprite extends UIView {
     }
 
     onAwake() {
-        Debug.Log("UISprite onAwake");
+        Debug.Log("UISprite onAwake"+" name="+this.name);
         super.onAwake();
         this.isSprite = true;
-
-
-        this.LayOut();
-    }
-
-    onDestroy() {
-        if (this.sprite3D != null) {
-            this.sprite3D.destroy();
-        }
-    }
-
-    onStart() {
-        // [3]
-        super.onStart();
-
+        
         var w = 1.28;
         var h = 1.28;
 
@@ -182,20 +163,24 @@ export default class UISprite extends UIView {
 
         this.LayOut();
     }
-    GetBoundingBox() {
-        var w = this.width * this.localScale.x;
-        var h = this.height * this.localScale.y;
-        return new Laya.Size(w, h);
-    }
-    GetContentSize() {
-        var w = this.width;
-        var h = this.height;
-        return new Laya.Size(w, h);
-    }
-    GetBoundSize() {
-        return this.GetBoundingBox();
+
+    onDestroy() {
+        super.onDestroy();
+        if (this.sprite3D != null) {
+            this.sprite3D.destroy();
+        }
     }
 
+    onStart() {
+        // [3]
+        super.onStart();
+        Debug.Log("UISprite onStart"+" name="+this.name);
+     
+
+        this.LayOut();
+    }
+ 
+  
     GetKeyImage() {
         var ret = "";
         if (!Common.BlankString(this.keyImage)) {
@@ -229,24 +214,36 @@ export default class UISprite extends UIView {
             this.LayOut();
         }
         this.texture = tex;
-        var w = tex.width / 100;
-        var h = tex.height / 100;
-        this.width = w;
-        this.height = h;
+        var w = this.width;
+        if(this.width==0)
+        {
+            // 根据纹理设置
+            w = tex.width / 100;
+            this.width = w;
+        }
+        var h = this.height;
+        if(this.height==0)
+        {
+            // 根据纹理设置
+            h = tex.height / 100;
+            this.height = h;
+        } 
         //   w = 1.28;
         //   h = 1.28;
-        Debug.Log("UISprite tex.width=" + tex.width + " w=" + w);
+        Debug.Log("UISprite UpdateImageTexture tex.width=" + tex.width + " w=" + w+" name="+this.name);
         //添加自定义模型
         // var box: Laya.MeshSprite3D = scene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createBox(1, 1, 1))) as Laya.MeshSprite3D;
         // var box: Laya.MeshSprite3D = AppSceneUtil.mainScene.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
         this.sprite3D = this.node.addChild(new Laya.MeshSprite3D(Laya.PrimitiveMesh.createQuad(w, h))) as Laya.MeshSprite3D;
-        if (this._position != null) {
+        // if (this._position != null) 
+        {
 
             // this.sprite3D.transform.position = this._position;
-            this.sprite3D.transform.position = new Laya.Vector3(this._position.x, this._position.y, this._position.z);
+            //   this.sprite3D.transform.localPosition = new Laya.Vector3(this._position.x, this._position.y, this._position.z);
         }
-        if (this._localScale != null) {
-            this.sprite3D.transform.localScale = this._localScale;
+        // if (this._localScale != null)
+         {
+            // this.sprite3D.transform.localScale = this._localScale;
             // this.sprite3D.transform.position = new Laya.Vector3(this._position.x,this._position.y,this._position.z);
         }
 
@@ -272,7 +269,7 @@ export default class UISprite extends UIView {
       }));
       */
 
-
+      AppSceneUtil.isNeedLayout = true;
 
 
     }

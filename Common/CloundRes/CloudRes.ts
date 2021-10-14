@@ -2,11 +2,11 @@ import Common from "../Common";
 import FileSystem from "../File/FileSystem";
 import Platform from "../Platform";
 
- 
- 
-export default class CloudRes  {
 
-    source ="";
+
+export default class CloudRes {
+
+    source = "";
     tmp_filepath = "";
     objDownload = null;
     static _main: CloudRes;
@@ -18,12 +18,17 @@ export default class CloudRes  {
         return this._main;
     }
 
+    /*
+        字节小程序模拟器缓存uicloudres图片 无法加载问题:
+        Laya.loader.load bug: 字节小程序模拟器 从缓存读取图片应该是http://开头 但是实际是ttfile:// 导致从缓存Laya.loader.load加载失败 所以在真机测试字节小程序
+        */
+
     get rootPath() {
-        var ret =  Common.CLOUD_RES_DIR;
-        if (Platform.isWeiXin||Platform.isByte||Platform.isQQ)  {
+        var ret = Common.CLOUD_RES_DIR;
+        if (Platform.isWeiXin || Platform.isByte || Platform.isQQ) {
             ret = FileSystem.main.GetRootDirPath() + "/" + Common.CLOUD_RES_DIR_NAME;
         }
- 
+
         return ret;
     }
 
@@ -35,7 +40,7 @@ export default class CloudRes  {
     get audioRootPath() {
         var ret = this.rootPath + "/audio";
         return ret;
-    } 
+    }
 
     /*
         {
@@ -51,10 +56,10 @@ export default class CloudRes  {
         }
         */
 
-    StartDownload (obj:any) {
+    StartDownload(obj: any) {
         this.objDownload = obj;
         console.log("CloudRes StartDownload url=" + obj.url);
-          FileSystem.main.DownloadFile(
+        FileSystem.main.DownloadFile(
             {
                 url: obj.url,
                 success: (res: any) => {
@@ -72,7 +77,7 @@ export default class CloudRes  {
                         obj.fail(res);
                     }
                 },
-                progress: (res: any) => { 
+                progress: (res: any) => {
                     console.log('CloudRes  下载进度=  ', res.progress)
                     console.log('CloudRes已经下载的数据长度=', res.totalBytesWritten)
                     console.log('CloudRes预期需要下载的数据总长度=', res.totalBytesExpectedToWrite)
@@ -80,14 +85,14 @@ export default class CloudRes  {
                         obj.progress(res);
                     }
                 },
-               
+
             });
 
     }
 
-    UnzipFile (filePath:string) {
+    UnzipFile(filePath: string) {
         var dir = FileSystem.main.GetRootDirPath();
-        this.tmp_filepath = filePath; 
+        this.tmp_filepath = filePath;
         FileSystem.main.UnzipFile(
             {
                 zipFilePath: filePath,
@@ -105,9 +110,9 @@ export default class CloudRes  {
 
                 fail: (res: any) => {
                     console.log("CloudRes unzip fail");
-                }, 
-               
+                },
+
             });
 
     }
-} 
+}

@@ -30,7 +30,7 @@ export default class AdVideo  {
             // p = new AdVideoMooSnow();
         }
         if (Platform.isQQ) {
-            p = new AdVideoMooSnow();
+            // p = new AdVideoMooSnow();
         } 
         return p;
     }

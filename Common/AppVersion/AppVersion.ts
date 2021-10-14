@@ -143,9 +143,9 @@ export default class AppVersion {
             // this.appVersionBase = new AppVersionWin();
         }
         else {
-            // this.appVersionBase = new this.appVersionBase();
+            this.appVersionBase = new AppVersionBase();
         }
-        this.appVersionBase = AppVersionHuawei.main;
+        // this.appVersionBase = AppVersionHuawei.main;
     }
 
     GetUrlOfComment(source) {
@@ -329,17 +329,14 @@ export default class AppVersion {
             success: (p: any, version: string) => {
                 if (obj.success != null) {
                     obj.success(this);
-                }
-
-                if (obj.finish != null) {
-                    obj.finish(this);
-                }
+                } 
             },
             fail: (p: any) => {
                 if (obj.fail != null) {
                     obj.fail(this);
-                }
-
+                } 
+            },
+            finish: (p: any) => { 
                 if (obj.finish != null) {
                     obj.finish(this);
                 }

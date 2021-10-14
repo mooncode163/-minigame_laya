@@ -51,7 +51,7 @@ export default class UI {
             x = sp.x;
             y = sp.y;
         }
-        return new Laya.Vector2(x, y);
+        return new Laya.Vector3(x, y);
     }
 
     static SetNodePosition(node: Laya.Node, x: any, y: any) {
@@ -232,12 +232,20 @@ export default class UI {
         // var node = new Laya.Node();
         var node = new Laya.Sprite3D();
         var ui = node.addComponent(componentType);
-        ui.keyImage = keyImage;//Circle  GameWinBg
+        ui.name = componentType.name;
+        node.name = ui.name;
+        ui.keyImage = keyImage;//Circle  GameWinBg 
         if(uiParent!=null)
         {
             uiParent.AddNodeToMainWorld(node);
         }else{
-            AppSceneUtil.mainScene.addChild(node);
+            // AppSceneUtil.mainScene.addChild(node);
+            AppSceneUtil.objMainWorld.addChild(node);
+        }
+
+        if(node.transform==null)
+        {
+            Debug.Log("CreateUI3D transform Laya.Sprite3D is null ");
         }
         return ui;
     }

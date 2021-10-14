@@ -1,4 +1,11 @@
  
+//  qq: https://q.qq.com/
+// weixin:https://mp.weixin.qq.com/
+// https://microapp.bytedance.com/
+
+// https://unicloud.dcloud.net.cn/login   chyfemail163@163.com  Qianlizhiwai1
+// vkceyugu.cdn.bspapp.com
+
 export default class Platform  {
 
     public static get isAndroid(): boolean {
@@ -25,6 +32,7 @@ export default class Platform  {
     }
 
     public static get isByte(): boolean {
+        // return false;
         return Laya.Browser.onTTMiniGame ;
     }
     public static get isHuawei(): boolean {
@@ -40,6 +48,12 @@ export default class Platform  {
         }
         return false;
     }
+
+    public static get isEmulator(): boolean {
+        // return false; 
+        return false;
+    }
+    
 
 }
 

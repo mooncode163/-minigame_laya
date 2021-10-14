@@ -15,7 +15,7 @@ export default class ResManager {
       */
     public static Load(obj: any) {
         var filepath = obj.filepath;
-        Laya.loader.load( filepath, Laya.Handler.create(this, function (data: any): void {
+        Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
             var ret = Laya.loader.getRes(filepath);
             if (obj.success != null) {
                 obj.success(this, ret);
@@ -40,7 +40,7 @@ export default class ResManager {
         // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
         var filepath = obj.filepath;
         // filepath =  obj.filepath;
-        Debug.Log("LoadText filepath="+filepath);
+        Debug.Log("LoadText filepath=" + filepath);
         Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
             var str: string = Laya.loader.getRes(filepath);
             if (obj.success != null) {
@@ -55,7 +55,7 @@ export default class ResManager {
     public static LoadJson(obj: any) {
         var filepath = obj.filepath;
         // Laya.loader.load("laya.json", Laya.Handler.create(this, this.onLoaded), null, Laya.Loader.JSON);
-        Laya.loader.load( filepath, Laya.Handler.create(this, function (data: any): void {
+        Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
             var json: JSON = Laya.loader.getRes(filepath);
             //  console.log(json["name"]);
             if (obj.success != null) {
@@ -81,7 +81,7 @@ export default class ResManager {
         console.log("ResManager LoadPrefab obj.filepath=" + obj.filepath);
         var pic = obj.filepath;
         var filepath = obj.filepath;
-        Laya.loader.load( filepath, Laya.Handler.create(this, function (pref: Laya.Prefab): void {
+        Laya.loader.load(filepath, Laya.Handler.create(this, function (pref: Laya.Prefab): void {
             if (obj.success != null) {
                 obj.success(this, pref);
             }
@@ -159,21 +159,49 @@ export default class ResManager {
 
         //     }.bind(this)));
         // }
-        
+
         // else 
-        
+
+
+        // Laya.Texture2D.load(filepath, Laya.Handler.create(this, function (tex: Laya.Texture2D) { 
+        //     console.log("ResManager Laya.Texture2D.load obj.filepath=" + obj.filepath);
+        //     if (tex == null) {
+        //         console.log("ResManager Laya.Texture2D texture is null fail");
+        //         if (obj.fail != null) {
+        //             obj.fail(this);
+        //         }
+        //     } else { 
+        //         console.log("ResManager Laya.Texture2D.load  success before");
+        //         if (obj.success != null)  
+        //         {
+        //             Debug.Log("LoadTexture  Laya.Texture2D.load tex w=" + tex.width + " h=" + tex.height);
+        //             obj.success(this, tex);
+        //         }else{
+        //             console.log("ResManager Laya.Texture2D.load  success null");
+        //         }
+        //     }
+
+        // }.bind(this)));
+
+        // return;
+        // ttfile://
+        // filepath = filepath.replace("ttfile://","http://");
+        // filepath = "https://vkceyugu.cdn.bspapp.com/VKCEYUGU-850e2487-bb16-4d29-b798-c3f14a71a618/40720046-b0b1-41e2-9edd-09aca079a150.png";
+        // Laya.loader.load bug: 字节小程序模拟器 从缓存读取图片应该是http://开头 但是实际是ttfile:// 导致从缓存Laya.loader.load加载失败 所以在真机测试字节小程序
         {
+            console.log("ResManager Laya.loader.load before filepath=" + filepath);
             Laya.loader.load(filepath, Laya.Handler.create(this, function (data: any): void {
-                console.log("ResManager texture is not null");
+                console.log("ResManager Laya.loader.load filepath=" + filepath);
                 var tex = Laya.loader.getRes(filepath);
                 if (tex == null) {
+                    console.log("ResManager Laya.loader.load texture is null fail filepath=" + filepath);
                     if (obj.fail != null) {
                         obj.fail(this);
                     }
                 } else {
-
+                    console.log("ResManager Laya.loader.load texture is not null");
                     if (obj.success != null) {
-                        Debug.Log("LoadTexture tex w=" + tex.width + " h=" + tex.height);
+                        Debug.Log("LoadTexture Laya.loader.load tex w=" + tex.width + " h=" + tex.height);
                         obj.success(this, tex);
                     }
                 }

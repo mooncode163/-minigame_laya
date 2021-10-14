@@ -1,15 +1,16 @@
- 
+
 import Common from "../../Common";
 import Debug from "../../Debug";
 import UI from "../ViewController/UI";
+import UIView3D from "../ViewController/UIView3D";
 import LayOutBase from "./LayOutBase";
- 
+
 import { ScaleType } from "./LayOutUtil";
 
- 
+
 export default class LayOutScale extends LayOutBase {
 
-   
+
     // @prop 在基类定义
     /** @prop {name:enableLayout,type:Bool}*/
     /** @prop {name:enableHide,type:Bool}*/
@@ -17,7 +18,7 @@ export default class LayOutScale extends LayOutBase {
     /** @prop {name:enableOffsetAdBanner,type:Bool}*/
     /** @prop {name:isOnlyForPortrait,type:Bool}*/
     /** @prop {name:isOnlyForLandscape,type:Bool}*/
-   
+
     /** @prop {name:align,type:Option,option:"UP,DOWN,LEFT,RIGHT,CENTER,UPLEFT,UPRIGHT,DOWNLEFT,DOWNRIGHT,Horizontal,Vertical,SAMEPOSTION", default:"LEFT"}*/
     /** @prop {name:target,type:Node}*/
     /** @prop {name:target2,type:Node}*/
@@ -28,10 +29,10 @@ export default class LayOutScale extends LayOutBase {
     /** @prop {name:offsetYDown,type:Number}*/
 
     // @prop 在基类定义
-    
-     /** @prop {name:ratio,type:number}*/
+
+    /** @prop {name:ratio,type:number}*/
     ratio = 1.0;
- 
+
     private _type = ScaleType.MIN;
     /** @prop {name:type,type:Option,option:"MIN,MAX",default:"MIN"}*/
     // @prop 在基类定义
@@ -48,7 +49,7 @@ export default class LayOutScale extends LayOutBase {
 
 
     onAwake() {
-        super.onAwake(); 
+        super.onAwake();
         // this.type = this._type;
         this.LayOut();
     }
@@ -71,12 +72,12 @@ export default class LayOutScale extends LayOutBase {
         switch (this.type) {
             case ScaleType.MIN:
                 {
-                   this.ScaleNode(this.owner, false);
+                    this.ScaleNode(this.node, false);
                 }
                 break;
             case ScaleType.MAX:
                 {
-                   this.ScaleNode(this.owner, true);
+                    this.ScaleNode(this.node, true);
                 }
                 break;
 
@@ -84,46 +85,57 @@ export default class LayOutScale extends LayOutBase {
     }
 
     ScaleNode(node: Laya.Node, isMaxFit: boolean) {
-        var x, y, w, h; 
-        if(node==null)
-        {
+        var x, y, w, h;
+        if (node == null) {
             return;
-        } 
-        var size = UI.GetNodeContentSize(node);
-        var sizeParent = UI.GetNodeContentSize(node.parent); 
-
+        }
+        var scale = 0;
+        var size = this.GetSize();
+        var sizeParent = this.GetSizeParent();
         var w_parent = sizeParent.width;
         var h_parent = sizeParent.height;
         w_parent = sizeParent.width;
         h_parent = sizeParent.height;
-        
+        Debug.Log("LayOutScale1  scale=" + scale + " name=" + this.owner.name + " w_parent=" + w_parent );
+        if ((w_parent == 0)||(h_parent==0)) {
+            Debug.Log("LayOutScale return parent=0"+" name=" + this.owner.name)
+            return;
+        }
         var sizeCanvas = Common.sizeCanvas;
-        if (w_parent == 0) {
-            w_parent = sizeCanvas.width;
-        }
-        if (h_parent == 0) {
-            h_parent = sizeCanvas.height;
-        }
+        // if (w_parent == 0) {
+        //     w_parent = sizeCanvas.width;
+        // }
+        // if (h_parent == 0) {
+        //     h_parent = sizeCanvas.height;
+        // } 
         w_parent -= (this.offsetXLeft + this.offsetXRight);
         h_parent -= (this.offsetYUp + this.offsetYDown);
         w = size.width;
         h = size.height;
-
-        var scale = 0;
+        if ((w == 0)||(h==0)) {
+            Debug.Log("LayOutScale return size=0"+" name=" + this.owner.name)
+            return;
+        }
+       
         if (isMaxFit == true) {
             scale = Common.GetMaxFitScale(w, h, w_parent, h_parent);
         } else {
             scale = Common.GetBestFitScale(w, h, w_parent, h_parent);
         }
-        scale = scale * this.ratio; 
-        Debug.Log("LayOutScale  scale=" + scale+" name="+this.owner.name+" w_parent="+w_parent+" h_parent="+h_parent+" w="+w+" h="+h+ " isMaxFit="+isMaxFit); 
-        var sp = node as Laya.Sprite;
-        if(sp!=null)
-        {
-            sp.scaleX = scale;
-            sp.scaleY = scale;
-        } 
+        scale = scale * this.ratio;
+        Debug.Log("LayOutScale  scale=" + scale + " name=" + this.owner.name + " w_parent=" + w_parent + " h_parent=" + h_parent + " w=" + w + " h=" + h + " isMaxFit=" + isMaxFit + " this.issprite=" + this.isSprite);
+
+        if (this.isSprite) {
+
+            var ui: UIView3D = this.node.getComponent(UIView3D);
+            if (ui != null) {
+
+                ui.transform.localScale = new Laya.Vector3(scale, scale, 1);
+            }
+        } else {
+            UI.SetScaleX(this.node, scale);
+            UI.SetScaleY(this.node, scale);
+        }
     }
- 
+
 }
- 

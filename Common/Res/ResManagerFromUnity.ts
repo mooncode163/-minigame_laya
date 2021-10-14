@@ -140,23 +140,41 @@ export default class ResManagerFromUnity {
         // texture spriteFrame
         console.log("ResManager LoadTexture obj.filepath=" + obj.filepath);
         //加载纹理
-        Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
-            console.log("ResManager texture is not null");
-            var tex = Laya.loader.getRes(obj.filepath);
+        // Laya.loader.load(obj.filepath, Laya.Handler.create(this, function (data: any): void {
+        //     console.log("ResManager texture is not null");
+        //     var tex = Laya.loader.getRes(obj.filepath);
+        //     if (tex == null) {
+        //         if (obj.fail != null) {
+        //             obj.fail(this);
+        //         }
+        //     } else {
+
+        //         if (obj.success != null) {
+        //             Debug.Log("LoadTexture tex w=" + tex.width + " h=" + tex.height);
+        //             obj.success(this, tex);
+        //         }
+        //     }
+
+        // }));
+      Laya.Texture2D.load(obj.filepath, Laya.Handler.create(this, function (tex: Laya.Texture2D) { 
+            console.log("ResManager Laya.Texture2D.load obj.filepath=" + obj.filepath);
             if (tex == null) {
+                console.log("ResManager Laya.Texture2D texture is null fail");
                 if (obj.fail != null) {
                     obj.fail(this);
                 }
-            } else {
-
-                if (obj.success != null) {
-                    Debug.Log("LoadTexture tex w=" + tex.width + " h=" + tex.height);
+            } else { 
+                console.log("ResManager Laya.Texture2D.load  success before");
+                if (obj.success != null)  
+                {
+                    Debug.Log("LoadTexture  Laya.Texture2D.load tex w=" + tex.width + " h=" + tex.height);
                     obj.success(this, tex);
+                }else{
+                    console.log("ResManager Laya.Texture2D.load  success null");
                 }
             }
 
-        }));
-
+        }.bind(this)));
 
     }
 

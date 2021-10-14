@@ -1,4 +1,4 @@
-import Platform from "../Platform";
+import Platform from "../Platform"; 
 import FileSystemWeixin from "../Platform/weixin/File/FileSystemWeixin";
 import FileSystemPlatformWrapper from "./FileSystemPlatformWrapper";
 

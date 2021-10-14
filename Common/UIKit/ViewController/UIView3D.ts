@@ -15,16 +15,11 @@ strict设置false状态
     */
 
 import Common from "../../Common";
-import ColorConfig from "../../Config/ColorConfig";
 import ImageRes from "../../Config/ImageRes";
 import Debug from "../../Debug";
-import Language from "../../Language/Language";
-import LayOutBase from "../LayOut/LayOutBase";
 import UIViewController from "./UIViewController";
-import UI from "./UI";
-import UIFind from "./UIFind";
 import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
-import UITransform from "../UITransform"; 
+import LayOutBaseInternal from "../LayOut/LayOutBaseInternal";
 
 // 编辑器绑定脚本变量 @prop 如果放在基类 编辑器识别不了  如果是派生类:变量在基类定义 派生类里声明@prop
 // type	类型：Int,Number,sNumber,String,Bool,Option,editOption,Check,Color,ColorArray,Node,Nodes,Prefab,SizeGrid,Vec,Vector,Ease
@@ -65,40 +60,57 @@ export default class UIView3D extends Laya.Script3D {
     keyId: string;
     tag: string;
     title: string;
-    name: string; 
     isPivotCenter: boolean = true;
     texture: Laya.Texture2D;
 
+    // 世界坐标大小 tex/100
+    width = 0;
+    height = 0;
+
+
     callbackRenderFinish: Function = null
-    
-    public isSprite: boolean = false; 
-    private _transform: UITransform;
-    public get transform(): UITransform {
-        if(this._transform==null)
-        {
-            this._transform = new UITransform(this);
+
+    public isSprite: boolean = false;
+    public get transform(): Laya.Transform3D {
+        var sp: Laya.Sprite3D = this.node as Laya.Sprite3D;
+        if (sp) {
+            return sp.transform;
         }
-        return this._transform;
+        Debug.Log("transform Laya.Sprite3D is null ");
+        return null;
+    }
+
+    addComponent(componentType: typeof Laya.Component): any {
+        return this.node.addComponent(componentType);
+    }
+
+    getComponent(componentType: typeof Laya.Component): any {
+        return this.node.getComponent(componentType);
+    }
+
+    public get name(): string {
+        return this.node.name;
+    }
+    public set name(value: string) {
+        this.node.name = value;
     }
 
     public get mainCam(): Laya.Camera {
         return AppSceneUtil.mainCamera;
     }
     public get x(): number {
-        return UI.GetPosition(this.node).x;
+        return this.transform.localPosition.x;
     }
     public set x(value: number) {
-        var pt = UI.GetPosition(this.node);
-        UI.SetNodePosition(this.node, value, pt.y);
+
     }
 
 
     public get y(): number {
-        return UI.GetPosition(this.node).y;
+        return this.transform.localPosition.y;
     }
     public set y(value: number) {
-        var pt = UI.GetPosition(this.node);
-        UI.SetNodePosition(this.node, pt.x, value);
+
     }
 
     public get node(): Laya.Node {
@@ -106,38 +118,53 @@ export default class UIView3D extends Laya.Script3D {
     }
 
     public get visible(): boolean {
-        var sp = this.owner as Laya.Sprite;
+        var sp = this.owner as Laya.Sprite3D;
         var z = 0;
         if (sp != null) {
-            return sp.visible;
+            return sp.active;
         }
         return false
     }
     public set visible(value: boolean) {
-        var sp = this.owner as Laya.Sprite;
+        var sp = this.owner as Laya.Sprite3D;
         var z = 0;
         if (sp != null) {
-            sp.visible = value;
+            sp.active = value;
             AppSceneUtil.isNeedLayout = true;
         }
     }
- 
+
     public get zOrder(): number {
-        var sp = this.owner as Laya.Sprite;
+        var sp = this.owner as Laya.Sprite3D;
         var z = 0;
         if (sp != null) {
-            return sp.zOrder;
+            // return sp.zOrder;
         }
         return 0;
     }
     public set zOrder(value: number) {
-        var sp = this.owner as Laya.Sprite;
+        var sp = this.owner as Laya.Sprite3D;
         var z = 0;
         if (sp != null) {
-            sp.zOrder = value;
+            // sp.zOrder = value;
         }
     }
 
+
+    public get contentSize(): Laya.Size {
+        return this.GetContentSize();
+    }
+    public set contentSize(value: Laya.Size) {
+        this.SetContentSize(value.width,value.height);
+    }
+
+    public get boundSize(): Laya.Size {
+        return this.GetBoundSize();
+    }
+    public set boundSize(value: Laya.Size) { 
+        this.transform.localScale = new Laya.Vector3(value.width/this.contentSize.width,value.height/this.contentSize.height,this.transform.localScale.z);
+    }
+    
     private _controller: UIViewController | null = null;
     // @type(UIViewController)
     //get 的用法
@@ -183,20 +210,30 @@ export default class UIView3D extends Laya.Script3D {
     }
 
 
-    static SetNodeContentSize(node: Laya.Node, w, h) {
-        // var sp = node.getComponent(Laya.Sprite);
-        var sp = node as Laya.Sprite;
-        if (sp != null) {
-            sp.width = w;
-            sp.height = h;
-        }
-    }
 
     onAwake() {
+        super.onAwake();
     }
 
     onStart() {
         // [3]
+        super.onStart();
+    }
+
+    onDestroy() {
+        super.onDestroy();
+
+        var parent = this.node;
+        for (var i = 0; i < parent.numChildren; i++) {
+            var child = parent.getChildAt(i);
+            Debug.Log("UIView3D onDestroy i=" + i + " child.name=" + child.name);
+            if (child == AppSceneUtil.mainScene) {
+                continue;
+            }
+            child.destroy();
+
+        }
+
     }
 
     //UIViewController
@@ -212,10 +249,24 @@ export default class UIView3D extends Laya.Script3D {
 
     SetViewParent(node) {
         // this.owner.parent = node;
-        node.addChild(this.owner);
+        node.addChild(this.node);
     }
 
     LayOut() {
+
+        //获取所有子对象(第一层)
+        var parent = this.node;
+        for (var i = 0; i < parent.numChildren; i++) {
+            var child = parent.getChildAt(i);
+            var uiChild = child.getComponent(UIView3D); 
+            if(uiChild!=null)
+            {
+               uiChild.LayOut();
+               Debug.Log("UIView3D uiChild LayOut child");
+            }
+        }
+ 
+        //all LayOutBaseInternal
         this.LayOutInternal();
     }
 
@@ -224,7 +275,7 @@ export default class UIView3D extends Laya.Script3D {
             if (node == null) {
                 return;
             }
-            var list = node.getComponents(LayOutBase);
+            var list = node.getComponents(LayOutBaseInternal);
             if (list == null) {
                 return;
             }
@@ -262,54 +313,50 @@ export default class UIView3D extends Laya.Script3D {
     LayOutDidFinish() {
 
     }
-
-    //统一按钮状态图片
-    UnifyButtonSprite(btn) {
-        if (btn != null) {
-            btn.pressedSprite = btn.normalSprite;
-            btn.hoverSprite = btn.normalSprite;
-        }
-    }
+ 
+ 
 
     SetContentSize(w, h) {
         var w_real = w;
         var h_real = h;
         // laya w,h 为0时 会自动显示成图片大小
-        if (w <= 0) {
-            w_real = 0.0001;
-        }
-        if (h <= 0) {
-            h_real = 0.0001;
-        }
-        UIView3D.SetNodeContentSize(this.owner, w_real, h_real);
-        // this.owner?.getComponent(UITransform)?.setContentSize(new Size(w, h));
+        // if (w <= 0) {
+        //     w_real = 0.0001;
+        // }
+        // if (h <= 0) {
+        //     h_real = 0.0001;
+        // }
+        this.width = w_real;
+        this.height = h_real;
+        // UIView3D.SetNodeContentSize(this.owner, w_real, h_real); 
         this.LayOutInternalChild();
     }
 
     // Laya.Size
     GetContentSize() {
-        var sp = this.owner as Laya.Sprite;
-        var w = 0;
-        var h = 0;
-        if (sp != null) {
-            w = sp.width;
-            h = sp.height;
-        }
-
+        var w = this.width;
+        var h = this.height;
         return new Laya.Size(w, h);
     }
 
     GetBoundingBox() {
-        return UI.GetNodeBoundingBox(this.owner);
+        return this.GetBoundSize();
     }
 
-    // return Laya.Size
     GetBoundSizeOfGameObject(nd: Laya.Node) {
-        return UI.GetNodeBoundingBox(nd);
+
     }
- 
+
     GetBoundSize() {
-        return UI.GetNodeBoundingBox(this.owner);
+        if(this.transform==null)
+        {
+            // maybe bug
+            Debug.Log("GetBoundSize this.transform==null");
+            return this.contentSize;
+        }
+        var w = this.width * this.transform.localScale.x;
+        var h = this.height * this.transform.localScale.y;
+        return new Laya.Size(w, h);
     }
 
     // UIView parent
@@ -368,7 +415,7 @@ export default class UIView3D extends Laya.Script3D {
         this.owner.addChild(child.owner);
         this.LayOut();
     }
- 
+
 
     // 加入世界坐标
     AddNodeToMainWorld(node: Laya.Node) {

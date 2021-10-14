@@ -18,10 +18,12 @@ import AppSceneUtil from "../../../AppBase/Common/AppSceneUtil";
 import CameraUtil from "../../Camera/CameraUtil";
 import Common from "../../Common";
 import Timer from "../../Core/Timer";
+import Debug from "../../Debug";
 import DataTouch from "./DataTouch";
+import TimeFilter from "./TimeFilter";
 
 export default class UITouchEvent extends Laya.Script {
- 
+
     public Time_LongPress = 2;//s
 
     tickPress = 0;
@@ -38,9 +40,12 @@ export default class UITouchEvent extends Laya.Script {
     // 不让子节点的鼠标事件穿透到父节点
     /** @prop {name:isStopTouchOther,type:Bool,tips:"不让子节点的鼠标事件穿透到父节点"}*/
     isStopTouchOther: boolean = false;
- 
+    timeFilterDown: TimeFilter = new TimeFilter();
+    timeFilterUp: TimeFilter = new TimeFilter();
+    timeTouchMin = -1;
     onAwake() {
         this.Init();
+
     }
 
     Init() {
@@ -58,12 +63,21 @@ export default class UITouchEvent extends Laya.Script {
 
 
     }
-
-
+ 
     onMouseDown(e) {
         // console.log("按下");
         console.log("UITouchEvent onMouseDown " + this.owner.name + " mouseX=" + e.mouseX + " stageX=" + e.stageX + " stageY=" + e.stageY);
         DataTouch.main.isTouchUI = true;
+
+
+        this.timeFilterDown.timeMin = this.timeTouchMin;
+        this.timeFilterUp.timeMin = this.timeTouchMin;
+      
+        if (this.timeFilterDown.IsFilter())
+        {
+            Debug.Log("onMouseDown Filter name="+this.owner.name)
+            return;
+        }
         // var pos = event.getLocation();//canvas坐标原点在屏幕左下角 
         // var posnode = this.node.convertToNodeSpace(pos);//坐标原点在node左下角
         // var posnodeAR = this.node.getComponent(UITransform).convertToNodeSpaceAR(pos);//坐标原点在node的锚点
@@ -91,6 +105,13 @@ export default class UITouchEvent extends Laya.Script {
         // console.log("抬起");
         DataTouch.main.isTouchUI = true;
         console.log("UITouchEvent onMouseUp " + this.owner.name);
+
+        if (this.timeFilterUp.IsFilter())
+        {
+            Debug.Log("onMouseUp Filter name="+this.owner.name)
+            return;
+        }
+
         if (this.callBackTouch != null) {
             this.callBackTouch(this, DataTouch.TOUCH_UP);
         }
