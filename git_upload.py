@@ -12,14 +12,14 @@ import socket
  
  
 # github 2021.8.13 开始命令行不能用密码登录,需要用个人令牌 个人访问令牌 https://docs.github.com/cn/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
-# 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
+# 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
 def upload():
 
     
     os.system("git config --global credential.helper store")
     os.system("git config --global user.email \"chyfemail163@163.com\"")
     os.system("git config --global user.name \"mooncode163\"")
-    os.system("git config --global user.password \"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\"")
+    os.system("git config --global user.password \"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\"")
     
     os.system("git branch -al") 
 
