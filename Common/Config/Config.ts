@@ -34,6 +34,9 @@ export default class Config extends ConfigBase {
         return this.configCommon.GetString("APP_TYPE", "");
     }
 
+    get is3D() {
+        return this.configCommon.GetBoll("3D", false);
+    } 
 
     get shareUrl() {
         return this.configCommon.GetShareUrl();

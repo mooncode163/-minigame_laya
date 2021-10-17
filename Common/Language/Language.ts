@@ -1,5 +1,7 @@
 import Common from "../Common";
 import ConfigBase from "../Config/ConfigBase";
+import Device from "../Device";
+import Platform from "../Platform";
 import LanguageInternal from "./LanguageInternal";
 import { SysLanguage } from "./LanguageUtil";
 
@@ -156,6 +158,22 @@ export default class Language extends ConfigBase {
             return true;
         }
         return false;
+    }
+
+    GetAppName() {
+        var key = "APP_NAME";
+        if (Device.main.isLandscape) {
+            key = "APP_NAME_HD";
+        }
+        if(Platform.isQQ)
+        {
+            key = "APP_NAME_qq";
+            if (Device.main.isLandscape) {
+                key = "APP_NAME_HD_qq";
+            }
+        }
+        var name = this.GetString(key); 
+        return name;
     }
 
 }

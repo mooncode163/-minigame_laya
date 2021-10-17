@@ -4,6 +4,9 @@ import Common from "../../Common/Common";
 import CommonRes from "../../Common/CommonRes";
 import ImageRes from "../../Common/Config/ImageRes";
 import Debug from "../../Common/Debug";
+import Device from "../../Common/Device";
+import Language from "../../Common/Language/Language";
+import Platform from "../../Common/Platform";
 import UIButton from "../../Common/UIKit/UIButton/UIButton";
 import UIImage from "../../Common/UIKit/UIImage/UIImage";
 import UIText from "../../Common/UIKit/UIText/UIText";
@@ -48,8 +51,7 @@ export default class UIHomeBase extends UIView {
 
         this.imageBg = UIFind.FindUI(this.node, "imageBg", UIImage);
         // this.imageBg.image.renderingOrder = -1;
-    }
-
+    } 
     LoadCenterBar() {
         // var strPrefab = "App/Prefab/Home/UIHome" + cc.Config.main().appType;
         var key = "UIHomeCenterBar";

@@ -66,6 +66,7 @@ export default class AppSceneRuntime extends Laya.Scene {
         var camera: Laya.Camera = (scene.addChild(new Laya.Camera(0, 0.1, 100))) as Laya.Camera;
         camera.clearFlag = Laya.CameraClearFlags.DepthOnly;
 
+        /*
         if (AppSceneUtil.is3D) {
             camera.transform.translate(new Laya.Vector3(0, 3, 3));
             camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
@@ -83,6 +84,8 @@ export default class AppSceneRuntime extends Laya.Scene {
         // camera.orthographic = false;
         // orthographicVerticalSize 默认为10 为屏幕顶部到底部的世界坐标距离
         // camera.orthographicVerticalSize = 7;
+
+        */
 
         AppSceneUtil.mainCamera = camera;
 

@@ -19,7 +19,9 @@ export default class ConfigInternal extends ConfigInternalBase {
     GetString (key, def) { 
         return JsonUtil.GetItem(this.rootJson, key, def); 
     }
-
+    GetBoll (key, def) { 
+        return JsonUtil.GetItem(this.rootJson, key, def); 
+    }
     GetCloudResUrl () { 
         var key = "url";
         if(Device.main.isLandscape)

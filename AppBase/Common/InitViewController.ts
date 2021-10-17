@@ -14,7 +14,7 @@ import NaviViewController from "../../Common/UIKit/NaviBar/NaviViewController";
 import LevelManager from "../Game/LevelManager";
 import AppSceneBase from "./AppSceneBase";
 import AppSceneUtil from "./AppSceneUtil";
-
+import Config from "../../Common/Config/Config";
 
 
 export default class InitViewController extends NaviViewController {
@@ -85,6 +85,23 @@ export default class InitViewController extends NaviViewController {
     }
 
     OnAppPreLoadFinish() {
+        var camera = AppSceneUtil.mainCamera;
+        if (Config.main.is3D) {
+            camera.transform.translate(new Laya.Vector3(0, 3, 3));
+            camera.transform.rotate(new Laya.Vector3(-30, 0, 0), true, false);
+
+            //添加方向光
+            var directionLight: Laya.DirectionLight = AppSceneUtil.mainScene.addChild(new Laya.DirectionLight()) as Laya.DirectionLight;
+            directionLight.color = new Laya.Vector3(0.6, 0.6, 0.6);
+            // directionLight.color = new Laya.Vector3(1, 1, 1);
+            directionLight.transform.worldMatrix.setForward(new Laya.Vector3(1, -1, 0));
+
+        } else {
+            camera.orthographic = true;
+            camera.transform.translate(new Laya.Vector3(0, 0, 10));//3
+        }
+
+
         AppVersion.main.StartParseVersion(
             { 
                 success: (p: any) => {

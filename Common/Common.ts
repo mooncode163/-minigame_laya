@@ -1,5 +1,5 @@
 import Debug from "./Debug";
-import Device from "./Device";
+import Device from "./Device";  
 
 
 export default class Common {
@@ -208,5 +208,7 @@ export default class Common {
     static GetAppPackage() {
         return "com.moonma.app";
     }
+ 
+
 
 }
